@@ -1,0 +1,897 @@
+/*** Imports (Fonts) ***/
+/* Cairo */
+@import "https://fonts.googleapis.com/css2?family=Cairo&display=swap";
+
+
+/*** CUSTOM SHARED ***/
+*{
+    /* ToDo :: All Fonts*/
+}
+
+header{
+    margin-bottom: 5rem;
+}
+
+body{
+    /*ToDo:: Body Fonts*/
+    /*min-height: 400px;*/
+    /*margin-bottom: 360px;*/
+    /*clear: both;*/
+}
+
+.title-1-0{
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.title-1-5{
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.2;
+    
+}
+
+.title-2-0{
+    font-size: 1.8rem;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.title-2-5{
+    font-size: 2.3rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.text-0-6, .text-0-6 input::-webkit-input-placeholder, .text-0-6 select{
+    font-size: 0.6rem!important;
+}
+
+.text-0-7, .text-0-7 input::-webkit-input-placeholder, .text-0-7 select{
+    font-size: 0.7rem!important;
+}
+
+.text-0-8, .text-0-8 input::-webkit-input-placeholder, .text-0-8 select{
+    font-size: 0.8rem!important;
+}
+
+
+.text-0-9, .text-0-9 input::-webkit-input-placeholder, .text-0-9 select{
+    font-size: 0.9rem;
+}
+
+.text-red{
+    color: red!important;
+}
+
+.font-cairo{
+    font-family: 'Cairo', sans-serif;
+}
+
+.light{
+    font-weight: 300!important;
+}
+
+.code-color{
+    color: #e83e8c;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
+
+.full-width{
+    width: 100%;
+}
+
+.btn{
+    font-size: 0.8rem;
+}
+
+/*ToDo:: Title Font*/
+/*ToDo:: Custom Font 1, 2, 3*/
+
+.matterix-color{
+    color: var(--Matterix);
+}
+
+.matterix-background{
+    background-color: var(--Matterix);
+}
+
+.smoke-background{
+    background-color: whitesmoke;
+}
+
+.un-select{
+    user-select: none;
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+}
+
+.force-select{
+    user-select: text!important;
+    -khtml-user-select: text!important;
+    -o-user-select: text!important;
+    -moz-user-select: text!important;
+    -webkit-user-select: text!important;
+}
+
+.part-update-btn{
+    color: var(--Matterix);
+    cursor: pointer;
+}
+
+.part-update-btn:active{
+    color: var(--secondary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.part-update-contain{
+    margin-bottom: 1rem;
+}
+
+.open-profile{
+    cursor: pointer;
+}
+.open-profile:active{
+    border-radius: 50%;
+    
+    box-shadow: 1px 0px 4px 0px gray;
+}
+
+/*** END OF CUSTOM SHARED ***/
+
+
+/*** Footer Style ***/
+
+footer{
+    background-color: rgb(78, 84, 164)!important;
+    color: white;
+    font-family: 'Cairo', sans-serif;
+    height: max-content!important;
+    line-height: 2rem!important;
+    padding: 20px;
+    clear: both;
+    min-height: 300px;
+    /*display: none !important;*/
+;
+    
+    
+}
+footer p{
+    color: white;
+    border-bottom: 0.01rem white solid;
+    width: max-content;
+    padding: 0 0.2rem;
+    /*text-shadow: -2px 10px 8px white;*/
+}
+
+
+
+footer a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+footer a:hover{
+    color: lightgray;
+    text-decoration: none;
+}
+
+footer a:active{
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.normal{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+/*** END OF Footer Style ***/
+
+
+
+/*Top Nav Style*/
+nav.bg-white{
+    background-color: rgba(255,255,255,0.95) !important;
+    width: 100%;
+    padding-left: 1rem;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    white-space: nowrap;
+    font-family: 'Cairo', sans-serif;
+}
+
+nav.bg-white a, .nav-link{
+    color: #4e54a4 !important;
+    border-bottom: 0 red solid;
+    /*font-weight: 400;*/
+}
+
+.navbar-nav{
+    padding-left: 0;
+    padding-right:0;
+    font-size: 0.85rem;
+}
+
+/* Nav animation */
+.nav-link:after {
+    display: block;
+    content: '';
+    border-bottom: solid 0.07rem var(--Matterix);
+    transform: scaleX(0) translateY(3px);
+    transition: transform 250ms ease-in-out;
+}
+.nav-link:hover:after { transform: scaleX(1) translateY(3px);}
+.nav-link.fromRight:after{ transform-origin:100% 50%; }
+.nav-link.fromLeft:after{  transform-origin:  0 50%; }
+
+nav.bg-white a:hover, .nav-link:hover{
+    color: rgba(45, 45, 45, 0.8) !important;
+    /*transition: border-bottom-width 0.8s linear;*/
+    /*border-bottom: 0.01rem var(--Matterix) solid;*/
+}
+
+#home-logo{
+    display: block;
+    margin: auto;
+    width: 25%;
+    height: auto;
+
+}
+
+#nav-logo{
+    height: 1.5rem;
+    width: auto;
+    /*margin: 0 0 0 1rem;*/
+    padding: 0;
+}
+
+
+
+/*Flags*/
+#flags{
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+#flags button{
+    background: none;
+    border: none;
+    outline: none;
+}
+
+
+img.flag{
+    width: 1.5rem;
+    height: auto;
+}
+img.flag:active:not(.lang){
+    box-shadow: #4e555b 1px 1px 10px 1px;
+    /*border-style: outset;*/
+    border-radius: 20px;
+}
+
+@media (max-width: 1199px) {
+    .top-nav-vertical-bar{
+        display: none !important;
+        /*background-color: yellow;*/
+    }
+    
+    /*body{*/
+        /*margin-bottom: 550px;*/
+    /*}*/
+}
+
+
+/*** END OF TOP NAV STYLE ***/
+
+
+
+/*** Side Nav Menu Style ***/
+
+#open-nav{
+    font-size:0.8rem;
+    cursor: pointer;
+    /*margin-right: 0.5rem;*/
+    color: #4e54a4 !important;
+}
+
+
+#side-nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 3;
+    /*left: 0;*/
+    background-color: rgba(255,255,255,0.97);
+
+    overflow: hidden;
+    transition: 0.8s;
+    padding-top: 2%;
+    white-space: nowrap;
+    border-left: 0.01rem solid rgba(45, 45, 45, 0.1);
+    border-right: 0.01rem solid rgba(45, 45, 45, 0.1);
+    box-shadow: 0 20px 10px 1px rgba(45, 45, 45, 0.4);;
+}
+
+#side-nav a {
+    padding: 8px 32px 8px 32px;
+    text-decoration: none;
+    color: #4e54a4;
+    display: flex;
+    align-items: center;
+    transition: 0.1s;
+    font-size: 0.8rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+.side-nav-icon{
+    align-self: center;
+    font-size: 1.3rem!important;
+}
+
+.side-nav-text {
+    align-self: center;
+    line-height: 1.2;
+}
+
+#side-nav a:hover {
+    background-color: rgba(45, 45, 45, 0.51);
+    color: white;
+    /*background-color: gray;*/
+}
+
+a#close-nav:hover{
+    color: #818181;
+    background: none;
+}
+
+a#close-nav {
+    position: absolute;
+    top: 0;
+    display: inline-flex;
+    float: right;
+    font-size: 1rem;
+}
+
+
+/*** END of Side Nav Menu Style ***/
+
+
+
+
+
+
+/*** WAIT MODAL ***/
+
+#wait-modal {
+    display:    none;
+    position:   fixed;
+    top:        0;
+    left:       0;
+    z-index: 5000;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, 0.9 ) 50% 50%
+    no-repeat;
+    /*url('http://i.stack.imgur.com/FhHRx.gif')*/
+    /*url("/wwwroot/Images/Spinner.svg")*/
+    /*no-repeat;*/
+}
+#wait-modal div{
+    margin-top: 15%;
+}
+
+#language-modal {
+    display:    none;
+    position:   fixed;
+    top:        0;
+    left:       0;
+    z-index: 5005;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, 0.98) 50% 50%
+    no-repeat;
+}
+#language-modal-body{
+    margin-top: 250px;
+}
+
+
+/* Modal */
+#modal-content{
+    padding: 1rem;
+    overflow-x: auto;
+    white-space: normal;
+}
+
+.close-modal{
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--Matterix);
+}
+
+.modal-header{
+    display: block;
+    text-align: left;
+}
+
+.modal-footer{
+    text-align: center;
+    display: block;
+}
+
+.close-modal:active, .close-modal:focus{
+    outline: 0;
+    transform: scale(1.5);
+    
+}
+.modal-content th{
+    font-family: 'Cairo', sans-serif;
+}
+
+.modal-content th, .modal-content td{
+    align-self: center;
+    vertical-align: middle;
+    align-content: center;
+}
+
+
+.buttons-in-modal-container{
+    margin: auto;
+    width: max-content;
+    padding: 0!important;
+    /*border: 0.06rem rgba(78, 84, 164, 0.5) solid;*/
+    display: flex;
+    min-height: 30px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.buttons-in-modal-container a{
+    display: inline-block;
+    background-color: rgba(214, 216, 219, 0.3);
+    color: var(--Matterix)!important;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    min-height: 30px;
+    align-self: center;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-out;
+    font-family: 'Cairo', sans-serif;
+    border: 0.05rem solid rgba(78, 84, 164, 0.5);
+
+}
+
+.buttons-in-modal-container[dir=rtl] a:first-child{
+    /*border-right: 0.01rem solid rgba(78, 84, 164, 0.5);*/
+    /*border: 0.05rem solid rgba(78, 84, 164, 0.5);*/
+}
+
+.buttons-in-modal-container[dir=ltr] a:first-child{
+    /*border: 0.05rem solid rgba(78, 84, 164, 0.5);*/
+    /*border-left: 0.01rem solid rgba(78, 84, 164, 0.5);*/
+}
+
+.buttons-in-modal-container a:hover{
+    text-decoration: none;
+    background-color: rgba(45, 45, 45, 0.2) !important;
+    transition: background-color 0.3s ease-out;
+}
+
+.buttons-in-modal-container a:active{
+    background-color: rgba(45, 45, 45, 0.3) !important;
+    transition: background-color 0.2s ease-out;
+}
+
+/* End of Modal */
+
+
+
+/*** SCROLL ***/
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 5px;
+    /*height: 50% !important;*/
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /*background: #f1f1f1;*/
+    /*height: 50% !important;*/
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /*background: #888;*/
+    background: var(--primary);
+    border-radius: 0.3rem;
+    /*height: 10% !important;*/
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+    color: var(--secondary);
+}
+
+
+/*** END SCROLL ***/
+
+
+
+
+
+/*** Dashed List ***/
+ul {
+    margin: 0;
+}
+ul.dashed-list {
+    list-style-type: none;
+}
+ul.dashed-list > li {
+    text-indent: -5px;
+}
+ul.dashed-list > li:before {
+    content: "- ";
+    text-indent: -5px;
+}
+/*** END OF Dashed List ***/
+
+
+/*** CUSTOM MATTERIX INPUTS ***/
+
+.matterix-input-container{
+    position: relative;
+    height:50px;
+    margin-bottom: 1rem!important;
+    font-size: 0.7rem;
+    overflow: hidden;
+    font-family: 'Cairo', sans-serif;
+}
+.matterix-input{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    height:50%;
+    border:0;
+    outline: 0;
+    caret-color: rgba(128, 128, 128, 0.52);
+    /*background-color: dodgerblue;*/
+}
+
+.matterix-input::selection{
+    background-color: rgba(45, 45, 45, 0.53);
+    color:white;
+}
+
+
+.matterix-input-label{
+    position: absolute;
+    bottom:0;
+    right: 0;
+    width: 100%;
+    height:100%;
+    /*background-color: yellow;*/
+    margin:0;
+    padding: 0;
+    pointer-events: none;
+    border-bottom: 0.1rem solid gray;
+}
+
+.matterix-input::placeholder{
+    padding:5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 14px;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.matterix-input:focus::placeholder{
+    font-size: 0.7rem;
+    color: lightgray;
+    transition: all 0.5s ease;
+}
+
+
+.matterix-input-label::after{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    height: 100%!important;
+    width: 100%!important;
+    border-bottom: 2px solid var(--Matterix);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.matterix-input-label.invalid::after{
+    border-bottom: 2px solid red;
+}
+
+.matterix-input-content{
+    color: gray;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.matterix-input:focus + .matterix-input-label .matterix-input-content, .matterix-input:valid + .matterix-input-label .matterix-input-content, .matterix-input:-webkit-autofill + .matterix-input-label .matterix-input-content, .matterix-input:disabled + .matterix-input-label .matterix-input-content{
+    transform: translateY(-100%);
+    font-size: 0.8rem;
+    color: var(--Matterix);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.matterix-input:focus + .matterix-input-label::after, .matterix-input:valid + .matterix-input-label::after{
+    transform: translateX(0%);
+}
+
+.matterix-input:hover > .matterix-input::placeholder{ /*May be not used */
+    color: black;
+}
+
+.matterix-input[disabled=disabled]{
+    opacity: 0.4;
+    background: none;
+    cursor: not-allowed;
+}
+
+.matterix-input:disabled + .matterix-input-label .matterix-input-content{
+    opacity: 0.65;
+}
+
+/* fire fox */
+
+.matterix-input:focus + .matterix-input-label .matterix-input-content, .matterix-input:-moz-focusring + .matterix-input-label .matterix-input-content, .matterix-input:valid + .matterix-input-label .matterix-input-content, .matterix-input:disabled + .matterix-input-label .matterix-input-content{
+    transform: translateY(-100%);
+    font-size: 0.8rem;
+    color: var(--Matterix);
+}
+
+
+/* end of fire fox */
+
+
+.matterix-input-container[dir=ltr] .matterix-input, .matterix-input-container[dir=ltr] .matterix-input-label, .matterix-input-container[dir=ltr] .matterix-input-content{
+    left: 0!important;
+    right: unset;
+}
+
+
+
+/*** MATTERIX SELECT ***/
+.matterix-select{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: dimgray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 0.7rem;
+    width: 100%;
+    height:50%;
+    border:0;
+    outline: 0;
+}
+
+
+.matterix-select:focus + .matterix-input-label::after, .matterix-select:valid + .matterix-input-label::after{
+    transform: translateX(0%);
+}
+
+.matterix-select:focus + .matterix-input-label .matterix-input-content, .matterix-select:valid + .matterix-input-label .matterix-input-content{
+    transform: translateY(-100%);
+    font-size: 0.9rem;
+    color: var(--Matterix);
+}
+
+.matterix-select:focus, .matterix-select:valid{
+    height: 100%;
+    padding-bottom:0;
+}
+
+.matterix-select:valid{
+    color: black;
+}
+
+/*** END OF CUSTOM MATTERIX SELECT ***/
+
+
+/*** CUSTOM MATTERIX BUTTON TODO :: MOVE PREVIOUS HERE AND MAKE IT GENERAL ***/
+.m-button {
+    padding: 0.2rem 0.5rem;
+    background-color: white;
+    border-radius: 0.1rem;
+    cursor: pointer;
+    outline: 0;
+    transition: background-color 0.5s ease;
+    font-size: 0.8rem;
+    display: inline-block;
+    text-align: center;
+
+}
+
+.m-button:not(.normal){
+    font-family: 'Cairo', sans-serif;
+}
+
+.m-button-primary{
+    color: var(--Matterix)!important;
+    border: 0.05rem solid var(--Matterix);
+}
+
+.m-button-secondary{
+    color: gray!important;
+    border: 0.05rem solid gray;
+}
+
+.m-button-danger{
+    color: red!important;
+    border: 0.05rem solid red
+}
+
+.m-button-success{ 
+    /*COLOR DEGREE SHOULD BE EDITED*/
+    color: seagreen!important;
+    border: 0.05rem solid seagreen
+}
+
+.m-button:not([disabled=disabled]):hover{
+    background-color: rgba(245, 245, 245, 0.8);
+    text-decoration: none!important;
+    /*background-color: snow;*/
+}
+
+.m-button:not([disabled=disabled]):active{
+    outline: none;
+    background-color: rgba(45, 45, 45, 0.3);
+
+}
+
+.m-button:focus{
+    outline: none;
+}
+
+.m-button[disabled=disabled]{
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+.m[disabled=disabled]:active{
+    pointer-events: none!important;
+}
+
+/*** END OF CUSTOM MATTERIX BUTTONS ***/
+
+/*** MATTERIX SWITCH ***/
+.custom-control-input:checked~.custom-control-label::before{
+    background-color: var(--Matterix);
+    border-color: var(--Matterix);
+    
+}
+
+.custom-control-input~.custom-control-label::before{
+    background-color: rgba(245, 245, 245, 0.8);
+    border-color: lightgray;
+    
+}
+
+
+/** circle in middle **/
+.custom-switch .custom-control-label::after{
+    
+    
+}
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after{
+    background-color: whitesmoke;
+}
+
+/** end of circle in middle **/
+
+.matterix-switch{}
+.matterix-switch-label{
+    font-size: 0.8rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+/*** END OF MATTERIX SWITCH ***/
+
+/*** MATTERIX LINK ***/
+.matterix-link{
+    color: var(--Matterix)!important;
+    cursor: pointer;
+}
+
+.matterix-link:hover{
+    text-decoration: none;
+    color: lightgray!important;
+}
+
+.matterix-link:active{
+    color: dimgray!important;
+}
+
+
+
+/*** END OF MATTERIX LINK ***/
+
+
+/*** MATTERIX ICONS ***/
+.icon-direction[dir=ltr]{
+    transform: rotateY(180deg)!important;
+}
+
+.icon-direction-reserve[dir=rtl]{
+    transform: rotateY(180deg)!important;
+}
+
+/*** END OF MATTERIX ICONS ***/
+
+/*** MATTERIX TEXT AREA ***/
+
+.matterix-text-area{
+    width: 100%;
+    resize: none;
+    height: 10rem;
+    overflow-y: auto;
+    border: 0.06rem solid gray;
+    border-radius: 0.1rem;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    outline: 0!important;
+    box-shadow: none!important;
+}
+.matterix-text-area:valid, .matterix-text-area:focus{
+    border-color: var(--Matterix);
+}
+
+.matterix-text-area.invalid{
+    border-color: red!important;
+}
+
+
+/*** END OF MATTERIX TEXT AREA ***/
+
+/*** Task Card Clickable ***/
+.task-card-clickable{
+    transition: background-color 0.3s ease-in, transform 0.1s ease-out;
+}
+.task-card-clickable:hover {
+    background-color: #afafaf;
+    color: white;
+}
+
+/*** End of Task Card Clickable ***/

@@ -1,0 +1,48 @@
+@using Matterix.Services
+@model List<InitiatedOrder>
+
+<div class="collapse task-box" id="upcoming-todo-events-task-box">
+    <hr class="mt-0"/>
+    
+    @foreach (var order in Model)
+    {
+        <div class="card task-card direction" important-todo style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            <div class="font-cairo mb-2 text-red" style="font-weight: 600">{{$t('message.important')}}</div>
+            <div class="mb-1">{{$t('message.youHaveDoneVippsStoppedProcess')}}</div>
+            <div class="mb-3">{{$t('message.amount')}}: @Format.NumberFormat(order.Amount) | {{$t('message.date')}}: @Format.DateFormat(order.Created)</div>
+            <div class="mb-3">{{$t('message.clickContinueToCompleteProcess')}}</div>
+            <a asp-action="CompletePayment" asp-controller="Payment" asp-route-orderId="@order.Id" class="text-center"><button class="m-button m-button-success text-0-6">{{$t('message.continue')}}</button></a>
+        </div>
+    }
+    
+    
+    @if (!ViewBag.PhoneVerified){
+        <div class="card task-card direction" todo style="padding: 0.4rem 0.7rem; border: 0" type="button">
+            <div class="font-cairo mb-2" style="font-weight: 600">{{$t('message.phoneVerification')}}</div>
+            <div class="mb-1">{{$t('message.pleaseVerifyYourPhoneByClicking')}}</div>
+            <div class="mb-3">{{$t('message.soonTheImportantMessages')}}</div>
+            <a asp-action="Index" asp-controller="Verification" class="text-center"><button class="m-button m-button-success text-0-6">{{$t('message.phoneVerification')}}</button></a>
+        </div>
+    }
+    
+    
+    @if (!ViewBag.EmailVerified){
+        <div class="card task-card direction" todo style="padding: 0.4rem 0.7rem; border: 0" type="button">
+            <div class="font-cairo mb-2" style="font-weight: 600">{{$t('message.emailConfirmation')}}</div>
+            <div class="mb-1" >{{$t('message.soonTheImportantEmails')}}</div>
+            <div class="mb-1" >{{$t('message.afterClickingWeWillSend')}}</div>
+            <div class="small mb-3" style="color: gray">{{$t('message.ifDidNotReceiveCheckSpam')}}</div>
+        
+            <form method="post" class="text-center"><a class="text-center"><button type="submit" asp-area="Identity" asp-page="/Account/Manage/Index" asp-page-handler="SendVerificationEmailFromOutSide" class="m-button m-button-success text-0-6">{{$t('message.sendVerificationEmail')}}</button></a></form>
+        </div>
+    }
+    
+    @if (!ViewBag.StudentAgreementSigned){
+        <div class="card task-card direction" todo style="padding: 0.4rem 0.7rem; border: 0" type="button">
+            <div class="font-cairo mb-2" style="font-weight: 600">{{$t('message.studentAgreement')}}</div>
+            <div class="mb-3 text-center" >{{$t('message.toCouldRegisterYouHaveToSign')}}</div>
+        
+            <div class="text-center"><a asp-controller="Instructions" asp-action="StudentAgreement" class="m-button m-button-success text-0-6">{{$t('message.signingAgreement')}}</a></div>
+        </div>
+    }
+</div>

@@ -1,0 +1,38 @@
+@using Matterix.Data
+@using Matterix.Services
+@model Matterix.Models.ViewModel.CourseAreaViewModel
+@inject ApplicationDbContext Con
+
+@{
+    var admin = Con.Users.Where(x => x.Role == EnumList.Role.Admin).Where(x=>!x.LastName.Contains("Backup")).ToList();
+    var teacher = Con.Users.SingleOrDefault(x => x.Id == Model.Course.TeacherId);
+    var students = Model.People;
+}
+<br/>
+<div class="direction un-select text-center">
+    <div>{{$t('message.teachersAndAdmins')}}</div>
+    @foreach (var person in admin)
+    {
+        <partial name="CoursePartial/_CoursePerson" model="@person"/>
+    }
+    
+    @if (teacher != null)
+    {
+        teacher.Role = EnumList.Role.Teacher;
+        <partial name="CoursePartial/_CoursePerson" model="@teacher"/>
+        
+    }
+    
+    @if (students.Any())
+    {
+        
+        <hr/>
+        <div>{{$t('message.courseStudents')}}</div>
+        foreach (var person in students)
+         {
+             <partial name="CoursePartial/_CoursePerson" model="@person"/>
+         }
+    }
+</div>
+
+@* @Format.Translate(Model.User.Gender.ToString()){{$t('message.,')}} &nbsp;&nbsp; {{$tc('message.yearOld', '@old')}}{{$t('message.,')}}&nbsp;&nbsp;&nbsp; *@

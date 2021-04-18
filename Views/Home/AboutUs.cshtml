@@ -1,0 +1,134 @@
+@using Matterix.Data
+@inject ApplicationDbContext Con
+@{
+    ViewBag.Title = "About us";
+    Layout = "_Layout";
+
+
+    var std2018 = 42;
+    var reg2018 = 47;
+    
+    var std2019 = 291;
+    var reg2019 = 423;
+
+    var std = Con.Users.ToList();
+    var reg = Con.Registrations.Where(x=>!x.Canceled).ToList();
+
+    var std2020 = std.Count(x => x.SignUpDate.Year < 2021);
+    var reg2020 = reg.Count(x => x.RegisterDate.Year < 2021);
+
+    var std2021 = std.Count(x => x.SignUpDate.Year >= 2021 && x.SignUpDate.Year < 2022);
+    var reg2021 = reg.Count(x => x.RegisterDate.Year >= 2021 && x.RegisterDate.Year < 2022);
+
+    var stdTot = std2018 + std2019 + std2020 + std2021;
+    var regTot = reg2018 + reg2019 + reg2020 + reg2021;
+    
+    
+    
+    
+            
+     
+}
+
+
+
+<link rel="stylesheet" href="~/css/Home/SlideShow.css" asp-append-version="true"/>
+
+
+@* <div class="text-center un-select"> *@
+@*     <div class="display-4 title-2-5 matterix-color">@StaticInformation.FirstName.ToUpper()</div> *@
+@*     <div>@StaticInformation.SecondName</div> *@
+@*     <hr style="width: 90%"/> *@
+@* </div> *@
+
+
+<partial name="HomePartial/_IconsOnMainPage"/>
+
+
+<div class="text-center direction un-select">
+    @* <div><img src="~/Images/LogoHomePage.png" width="50%" height="auto"/></div> *@
+    <br/>
+    <br/>
+    <div class="container-fluid">
+        <p>{{$t('message.theOrganizationStarted')}}</p>
+        <p>{{$t('message.thanksToAGroupOfQualifiedTeachers')}}</p>
+        <p>{{$t('message.todayBecameMatterix')}}</p>
+        <p>{{$t('message.byBuildingThisWebsite')}}</p>
+        <p>{{$t('message.matterixAspires')}}</p>
+    </div>
+    <br/>
+    <table class="table table-striped w-50 text-center m-auto font-cairo">
+        
+        
+        <tr>
+            <th></th>
+            <th>{{$t('message.registeredStudentsCount')}}</th>
+            <th>{{$t('message.totalEnrollmentsCount')}}</th>
+        </tr>
+        
+        <tr>
+            <th>2018</th>
+            <td><code>@std2018</code></td>
+            <td><code>@reg2018</code></td>
+        </tr>
+        
+        <tr>
+            <th>2019</th>
+            <td><code>@std2019</code></td>
+            <td><code>@reg2019</code></td>
+        </tr>
+        <tr>
+            <th>2020</th>
+            <td><code>@std2020</code></td>
+            <td><code>@reg2020</code></td>
+        </tr>
+        <tr>
+            <th>2021</th>
+            <td><code>@std2021</code></td>
+            <td><code>@reg2021</code></td>
+        </tr>
+
+
+        <tfoot>
+        <tr>
+            <th>{{$t('message.total')}}</th>
+            <td><code>@stdTot</code></td>
+            <td><code>@regTot</code></td>
+        </tr>
+        </tfoot>
+
+    </table>
+    <hr class="mb-4"/>
+    
+    <div class="row mb-4 mt-5">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <iframe style="min-height: 250px;" width="100%" height="auto" src="https://www.youtube.com/embed/ZVu-l5rQTrw?controls=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="font-cairo">{{$tc('message.successForTheYear', '2019 - 2020')}}</div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <iframe style="min-height: 250px;" width="100%" height="auto" src="https://www.youtube.com/embed/c9wk7MeBwoE?controls=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="font-cairo">{{$t('message.successProjectAutumn2019')}}</div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    
+    
+    
+    
+    
+    
+</div>
+
+
+@section Scripts
+{
+    <script src="~/js/Home/SlideShow.js" asp-append-version="true"></script>
+    @* <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script> *@
+}
+

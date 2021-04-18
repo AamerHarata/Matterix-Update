@@ -1,0 +1,78 @@
+@using Matterix.Data
+@using Matterix.Services
+@using Microsoft.AspNetCore.Identity
+@inject ApplicationDbContext Context
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var newMessagesCount = Context.ContactMessages.Count(x => !x.Processed);
+    var user = UserManager.GetUserAsync(User).Result?? new ApplicationUser();
+}
+
+
+<div id="side-nav" class="un-select direction">
+    <a href="javascript:void(0)" id="close-nav">&times;</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+
+        <div class="mt-4 mb-5">
+            <a asp-action="Index" asp-controller="Course"><i class="fas  fa-stream side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.myCourses')}}</span></a>
+            <a asp-action="CourseChatHelp" asp-controller="Instructions"><i class="fas fa-comment-dots side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.courseChat')}}</span></a>
+            @* <a asp-action="Search" asp-controller="Course"><i class="fas  fa-stream side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.searchCourse')}}</span></a> *@
+            @* <a target="_blank" href="https://norgepaarabisk.com/">{{$t('message.news')}}</a> *@
+            <a asp-action="History" asp-controller="Invoice">&nbsp;<i class="fas fa-file-invoice-dollar side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.invoicesAndReceipts')}}</span></a>
+            <a asp-action="Index" asp-controller="Instructions"><i class="fas fa-life-ring side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.help')}}</span></a>
+            <a asp-action="Index" asp-controller="MatterixPlus"><i class="fas fa-school side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.regThroughNavIntro')}}</span></a>
+            <hr/>
+            <a asp-action="JobApplication" asp-controller="Home"><i class="fas fa-briefcase side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.jobApplication')}}</span></a>
+            <a asp-action="ContactUs" asp-controller="Home"><i class="fas fa-bomb side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.errorReport')}}</span></a>
+            <hr/>
+            
+            @if (User.HasClaim("Role", "Admin"))
+            {
+                <a asp-action="ContactSection" asp-controller="Admin">{{$t('message.contactUs')}} - @if(newMessagesCount>0){<span class="text-danger">@newMessagesCount</span>}else{<span class="text-success">@newMessagesCount</span>} - {{$t('message.admin')}}</a>
+                <a asp-action="Create" asp-controller="Course">Create Course</a>
+                <a asp-action="CoursesOverView" asp-controller="Admin">Courses Overview</a>
+                <a asp-action="ActivitiesOverview" asp-controller="Admin">Activities Overview</a>
+                <a asp-action="InvoicesOverview" asp-controller="Admin">Invoices Overview</a>
+@*                 <a asp-action="AddLinks" asp-controller="Admin">Add Discord</a> *@
+                <hr/>
+            }
+            
+            
+            
+            <a asp-action="UserProfile" asp-controller="Home" asp-route-username="@user.ProfileUserName" ><i class="far fa-user-circle side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.profile')}}</span></a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fas fa-cog side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.settings')}}</span></a>
+            <a class="pointer logout"><i class="fas fa-sign-out-alt side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.logout')}}</span></a>
+
+            
+        </div>
+        <div class="text-center">
+            <img src="~/Images/LogoHomePage.png" width="140rem;"/>
+            <br/>
+            <br/>
+            <div class="small">@StaticInformation.SecondName</div>
+            <div class="small" dir="ltr">&copy;@DateTime.Now.Year</div>
+        </div>
+
+
+    }
+    else
+    {
+        <div class="text-center mt-5 mb-5">
+            <a asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-door-open side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.login')}}</span></a>
+            <a asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-heartbeat side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.createNewAccount')}}</span></a>
+            <hr/>
+            <a asp-action="Index" asp-controller="MatterixPlus"><i class="fas fa-school side-nav-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span class="side-nav-text">{{$t('message.regThroughNavIntro')}}</span></a>
+
+        </div>
+        <div class="text-center">
+            <img src="~/Images/LogoHomePage.png" width="140rem;"/>
+            <br/>
+            <br/>
+            <div class="small">@StaticInformation.SecondName</div>
+            <div class="small" dir="ltr">&copy;@DateTime.Now.Year</div>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,28 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+
+<div class="text-center un-select">
+@switch (Model.Reason)
+{
+    
+    case EnumList.PaymentReason.Register:
+        
+        <div class="font-cairo matterix-color title-1-5 mb-2">{{$t('message.youAreRegisteringInThisCourse')}}</div>
+        <div><span class="display-4 title-1-0"><a class="matterix-link" target="_blank" href="@Url.Content("/Course/Area/"+Model.Course.Id)">@Model.Course.Subject / @Model.Course.Code</a></span></div>
+        
+        break;
+    case EnumList.PaymentReason.Invoice:
+        <div class="display-4 title-2-0">{{$t('message.youAreNowPayingThisInvoice')}}</div>
+        <br/>
+        //ToDo :: Redirect on click to view the invoice page
+        <div><span class="display-4 title-1-5">{{$t('message.invoiceNumber')}}: <a target="_blank" asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@Model.InvoiceToPay.Number">@Model.InvoiceToPay.Number</a></span></div>
+    
+        break;
+    case EnumList.PaymentReason.Empty:
+    case EnumList.PaymentReason.Donate:
+    case EnumList.PaymentReason.Other:
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+
+</div>

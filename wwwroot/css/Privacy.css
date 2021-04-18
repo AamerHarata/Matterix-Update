@@ -1,0 +1,35 @@
+.privacy-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: #4e54a4;
+}
+
+
+.privacy-div{
+    display: none;
+    padding: 1rem;
+}
+
+
+.privacy-title{
+    
+    font-size: 1.3rem;
+    /*font-weight: normal;*/
+    cursor: pointer;
+}
+
+.privacy-title:before {
+    content: '\002B';
+    margin: auto 1rem;
+    color: var(--Matterix);
+}
+
+.active-privacy-title:before{
+    content: '\2212';
+    margin: auto 1rem;
+    color: var(--Matterix);
+}
+
+.active-privacy-title{
+    color: darkgray;
+}

@@ -1,0 +1,161 @@
+@model string[]
+
+@{
+    ViewBag.Title = "Check Code";
+    Layout = "_Layout";
+    var phoneNumber = @Model[1];
+    phoneNumber = Model[1].Length >= 8 ? $"{Model[0]} - {phoneNumber.Substring(0,3)} {@phoneNumber.Substring(3, 2)} {@phoneNumber.Substring(5, phoneNumber.Length-5)}" : $"{@Model[0]} - {@Model[1]}";
+}
+
+
+
+
+<div class="un-select direction">
+    <div class="text-center matterix-color">
+        <div class="font-cairo title-2-0 mb-3">{{$t('message.phoneVerification')}}</div>
+        <div class="title-2-5"><i class="fa fa-mobile"></i></div>
+        <hr class="w-75"/>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+
+@if (ViewBag.CodeSent)
+{
+    
+    <div id="verification-container" class="col-md-4 text-center">
+        <p class="text-success font-cairo mt-4">{{$t('message.phoneVerificationCodeSent')}}: <span dir="ltr">@phoneNumber</span></p>
+        <p class="small text-muted mb-4">({{$t('message.thatCouldTakeMinutes')}})</p>
+        <p>{{$t('message.pleaseEnter4Digits')}}</p>
+        <p class="not-direction text-center w-50" style="margin: 1rem auto;" dir="ltr">
+            
+            <div class="matterix-input-container set-my-direction">
+                <input id="code-input" autofocus="true" class="matterix-input" maxlength="4" placeholder="1234" autocomplete="off" required title=""/>
+                <label class="matterix-input-label">
+                    <span class="matterix-input-content"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;{{$t('message.code')}}</span>
+                </label>
+            </div>
+            
+        </p>
+        <p><a class="m-button m-button-success" disabled="disabled" id="check-code">{{$t('message.check')}}</a></p>
+        <div style="display: none" id="failure-container" class="text-0-8 text-red font-cairo">{{$t('message.wrongCode')}}</div>
+        <div style="display: none" id="critical-error-container" class="text-0-8 text-red font-cairo">{{$t('message.criticalError')}}</div>
+        <div style="display: none" id="critical-refresh-container" class="text-0-8 text-red font-cairo">{{$t('message.errorRefresh')}}</div>
+    </div>
+    
+    <div style="display: none" id="success-container" class="col-md-4 text-center mt-4">
+        <div>
+            <img src="~/Images/done.png" width="90rem"/>
+        </div>
+        <br/>
+        <div class="font-cairo title-1-5"><strong>{{$t('message.theProcessIsDone')}}</strong></div>
+        @if (!string.IsNullOrEmpty(ViewBag.CourseId))
+        {
+            <div class="m-4"><a class="m-button m-button-primary" asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@ViewBag.CourseId">{{$t('message.continueEnrolling')}}</a></div>
+        }
+        else
+        {
+            <div class="m-4"><a class="m-button m-button-primary" asp-controller="Home" asp-action="Index">{{$t('message.backHomePage')}}</a></div>
+        }
+    </div>
+    
+        
+
+}
+else
+{
+    <div class="col-md-4 text-center">
+        <p class="text-danger font-cairo mt-4">{{$t('message.errorRefresh')}}</p>
+        <p><a class="m-button m-button-success mb-4" asp-action="Index">{{$t('message.tryAgain')}}</a></p>
+        <p class="text-muted small">{{$t('message.ifProblemKept')}} <a class="matterix-link" asp-controller="Home" asp-action="ContactUs">{{$t('message.contactUs')}}</a></p>
+    </div>
+    
+    
+}
+
+
+
+    
+    
+    
+        
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            const allowedNumber = [8, 37, 38, 39, 40, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+            const codeInput = $('#code-input');
+            const checkBtn = $("#check-code");
+            
+            $(codeInput).keydown(function(e) {
+                const key = e.keyCode;
+                if(!allowedNumber.includes(e.keyCode))
+                    e.preventDefault();
+
+                if (key === 13)
+                    $(checkBtn.click());
+
+
+            });
+
+            $(codeInput).keyup(function() {
+                if($(codeInput).val().length === 4)
+                    $(checkBtn).attr('disabled', false);
+                else
+                    $(checkBtn).attr('disabled', 'disabled');
+                
+                $("#failure-container").fadeOut(300);
+
+            });
+            
+            
+            $(checkBtn).unbind().bind('click',
+                function() {
+                    if ($(codeInput).val().length !== 4)
+                        return false;
+                    $(checkBtn).attr('disabled', 'disabled');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Verification/VerifyNumber",
+                        data: {code: $(codeInput).val()},
+                        success: function() {
+                            $("#verification-container")
+                                .fadeOut(300, function() { $("#success-container").fadeIn(500) });
+                        },
+                        error: function(response) {
+                            const error = response.responseText;
+                            $(checkBtn).attr('disabled', false);
+                            
+                            if (error === 'wrongCode') {
+                                $("#failure-container").fadeIn(300);
+                            } else if (error === 'refresh') {
+                                $(checkBtn).fadeOut(5);
+                                $(codeInput).fadeOut(5);
+                                $("#refresh-container").fadeIn(300);
+                            } else {
+                                $(checkBtn).fadeOut(5);
+                                $(codeInput).fadeOut(5);
+                                $("#critical-error-container").fadeIn(50);
+                            }
+                            
+                        }
+                    });
+
+                });
+        })
+    </script>
+}

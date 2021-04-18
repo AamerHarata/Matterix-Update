@@ -1,0 +1,20 @@
+@model CourseFeedback
+@using Matterix.Services
+@inject InformationService Info
+@inject AccessService Access
+
+<div class="feedback-div un-select">
+    <div class="feedback-pic un-select open-profile" style="max-height: 120px"><a asp-controller="Home" asp-action="UserProfile" asp-route-username="@Model.User.ProfileUserName"><img src="@Url.Content(Info.ProfilePicture(@Model.User))" width="120" height="120" style="border-radius: 50%; object-fit: cover; box-shadow: 1px 0 7px 0 gray; cursor: pointer"/></a></div>
+    <div class="feedback-body">
+        @if (Access.CourseEditAccess(User, Model.CourseId) || string.Equals(Access.GetUserId(User), Model.UserId))
+        {
+            @* <span class="small feedback-delete un-select" style="cursor: pointer" feedback-id="@Model.Id">&times;</span> *@
+            <span ><i class="feedback-delete fal fa fa-times-circle matterix-color" feedback-id="@Model.Id"></i></span>
+        }
+        <span class="un-select"><strong>@Info.FullName(Model.User)</strong>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span class="small feedback-date un-select">@Format.DateFormat(Model.DateTime) - @Format.TimeFormat(Model.DateTime)</span>
+        <div class="direction-paragraph feedback-text">@Model.Text</div>
+        
+    </div>
+</div>
+

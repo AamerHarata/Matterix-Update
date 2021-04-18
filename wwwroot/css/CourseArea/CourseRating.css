@@ -1,0 +1,98 @@
+#rating-response, #rating-value {
+    color: white;
+    background-color: rgba(46, 139, 87, 0.8);
+    width: max-content;
+    padding: 0.4rem;
+    margin: 0.4rem auto;
+    border-radius: 6px 6px 6px 6px;
+    font-family: monospace;
+
+}
+#rating-response{
+    display: none;
+}
+
+#send-feedback {
+    display: inline;
+    vertical-align: middle
+}
+
+#feedback-input {
+    width: 75%;
+    margin: auto;
+    display: inline;
+    vertical-align: middle
+    
+}
+
+.feedback-div {
+    width: 90%;
+    margin: 0.5rem auto;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+    
+}
+
+
+.feedback-date{
+    color: gray;
+}
+
+.feedback-text{
+    margin-top: 1rem;
+    text-align: justify-all;
+    /*margin-left: 2rem;*/
+}
+
+.feedback-body {
+    margin-left: 1rem;
+    width: 92%;
+}
+
+.feedback-delete {
+    border-radius: 50%;
+    background-color: whitesmoke;
+    float: right;
+    cursor: pointer
+}
+
+.feedback-delete:hover{
+    box-shadow: 0 3px 5px rgba(41, 37, 37, 0.1);
+    transform: translateY(-0.5px);
+}
+.feedback-delete:active{
+    box-shadow: 0 3px 5px rgba(41, 37, 37, 0.2);
+    transform: translateY(0px);
+}
+
+.rating-stars ul {
+list-style-type:none;
+padding:0;
+margin: 0;
+
+}
+.rating-stars ul > li.star {
+    display:inline-block;
+}
+
+.star-pointer ul > li.star {
+    cursor: pointer;
+}
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+font-size:1.7em; /* Change the size of the stars */
+color:#ccc; /* Color on idle state */
+}
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > i.fa {
+color:#FFCC36;
+}
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > i.fa {
+color:#FF912C;
+}

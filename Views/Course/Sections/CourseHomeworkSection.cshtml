@@ -1,0 +1,234 @@
+@model Matterix.Models.ViewModel.HomeworkViewModel
+@using Matterix.Services
+@inject CourseService CourseService
+@inject AccessService Access
+@inject LectureService LectureService
+
+@{
+    var userId = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        userId = Access.GetUserId(User);
+    }
+}
+
+<link rel="stylesheet" href="~/css/CourseArea/Homework.css"/>
+
+
+@if (!Model.CourseHomework.Any())
+{
+    <div class="text-center direction font-cairo">{{$t('message.noHomeworkInCourseYet')}}</div>
+}
+else
+{
+    var courseId = Model.CourseHomework[0].Lecture.CourseId;
+    <input id="courseId" type="hidden" value="@courseId"/>
+    <input id="studentId" type="hidden" value="@userId"/>
+    
+    
+    <div class="un-select direction">
+        
+        @foreach (var homework in Model.CourseHomework)
+        {
+            var homeworkDeliveredFile = LectureService.HomeworkDeliveredFile(homework.LectureId, homework.Name, userId);
+            bool previousDelivery = homeworkDeliveredFile == null;
+            var mark = 0;
+            if (homeworkDeliveredFile!= null)
+            {
+                mark = homeworkDeliveredFile.Mark;
+            }
+            
+            
+            <div class="card file-card">
+                <a class="text-center matterix-link font-cairo" href="@Url.Content(homework.Path)" target="_blank">{{$t('message.homeworkFile')}}: @homework.Name</a>
+                <div class="text-muted text-0-6 text-center">{{$t('message.addedIn')}}: @Format.DateFormat(homework.UploadDate)</div>
+                <div class="">{{$tc('message.lecture', '@homework.Lecture.Number')}} - @homework.Lecture.Title</div>
+                <div class="">{{$t('message.deadline')}}: @Format.DateFormat(homework.DeadLine)</div>
+                <div class="">
+                    {{$t('message.deliveryFile')}}:
+                    
+                    @if (previousDelivery)
+                    {
+                        if (Format.NorwayDateTimeNow() > homework.DeadLine.Date)
+                        {
+                            <span class="text-danger">{{$t('message.notDelivered')}}</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                        
+                    }
+                    else
+                    {
+                        <div class="d-inline"><a class="text-center matterix-link font-cairo" href="@Url.Content(homeworkDeliveredFile.Path)" target="_blank">@homeworkDeliveredFile.Name</a>&nbsp;&nbsp;<a class="matterix-link" asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@homeworkDeliveredFile.RootPath" asp-route-name="@homeworkDeliveredFile.Name">({{$t('message.download')}})</a></div>
+@*                         <a asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@homeworkDeliveredFile.RootPath" asp-route-name="@homeworkDeliveredFile.Name"><button class="btn btn-info">@homeworkDeliveredFile.Name</button></a>  *@
+
+                        if (!string.IsNullOrEmpty(homeworkDeliveredFile.TeacherComment))
+                        {
+                            <div class="">
+                                <div class="mt-2">{{$t('message.notes')}}:</div>
+
+                                <ul class="dashed-list mb-3">
+                                    @foreach (var line in homeworkDeliveredFile.TeacherComment.Split("\n"))
+                                    {
+                                        <li>@line</li>
+                                    }
+                                </ul>
+
+                            </div>
+                            
+                        }
+                        if (homeworkDeliveredFile.Mark != 0)
+                        {
+                            <div class="matterix-color font-cairo">{{$t('message.mark')}}: @homeworkDeliveredFile.Mark</div>
+                        }
+                    }
+                    
+                    
+                </div>
+                
+                
+                
+                
+                <div class="text-center">
+                    <button old-delivery="@previousDelivery.ToString()" deadline="@homework.DeadLine.ToLocalTime()" lecture-id="@homework.LectureId" related-homework-file="@homework.Name" class="m-button m-button-primary open-deliver-modal">
+                        
+                        @if (homework.DeadLine.Date.AddDays(1) < Format.NorwayDateTimeNow())
+                        {
+                            <span class="deadline-passed text-danger">{{$t('message.deliveryDeadlineOver')}}</span>
+                        }
+                        else
+                        {
+                            if (previousDelivery)
+                             {
+                                 <span>{{$t('message.uploadFile')}}</span>
+                             }
+                             else
+                             {
+                                 <span>{{$t('message.changeFile')}}</span>
+                             }
+                        }
+                    </button>
+                </div>
+                
+                
+                
+                
+            </div>
+        }
+        
+        
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+@*     <table style="width: 100%; margin: auto" id="homework-table" class="table table-hover un-select direction"> *@
+@*         <thead> *@
+@*         <tr class="text-center"> *@
+@*             <th>{{$t('message.lectureNumber')}}</th> *@
+@*             <th>{{$t('message.homeworkFile')}}</th> *@
+@*             <th>{{$t('message.deadline')}}</th> *@
+@*             <th>{{$t('message.uploadFile')}}</th> *@
+@*             <th>{{$t('message.deliveryFile')}}</th> *@
+@*             <th>{{$t('message.notes')}}</th> *@
+@*             <th>{{$t('message.mark')}}</th> *@
+@*          *@
+@*         </tr> *@
+@*         </thead> *@
+@*         @foreach (var homework in Model.CourseHomework) *@
+@*         { *@
+@*             var homeworkDeliveredFile = LectureService.HomeworkDeliveredFile(homework.LectureId, homework.Name, userId); *@
+@*             bool previousDelivery = homeworkDeliveredFile == null; *@
+@*             var mark = 0; *@
+@*             if (homeworkDeliveredFile!= null) *@
+@*             { *@
+@*                 mark = homeworkDeliveredFile.Mark; *@
+@*             } *@
+@*              *@
+@*             <tr class="text-center"> *@
+@*                 <td class="lecture-number">@homework.Lecture.Number</td> *@
+@*                 <td><a asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@homework.RootPath" asp-route-name="@homework.Name"><button style="width:100%" class="btn btn-light">@homework.Name</button></a></td> *@
+@*                 <td>@Format.DateFormat(homework.DeadLine)</td> *@
+@*                 <td> *@
+@*                      *@
+@*                     <button old-delivery="@previousDelivery.ToString()" deadline="@homework.DeadLine.ToLocalTime()" lecture-id="@homework.LectureId" related-homework-file="@homework.Name" class="btn btn-light open-deliver-modal"> *@
+@*                         @if (previousDelivery) *@
+@*                         { *@
+@*                             <span>{{$t('message.uploadFile')}}</span> *@
+@*                         } *@
+@*                         else *@
+@*                         { *@
+@*                             <span>{{$t('message.changeFile')}}</span> *@
+@*                         } *@
+@*                         @if (homework.DeadLine.Date.AddDays(1) < Format.NorwayDateTimeNow()) *@
+@*                         { *@
+@*                             <span class="deadline-passed"></span> *@
+@*                         } *@
+@*                     </button> *@
+@*                 </td> *@
+@*                  *@
+@*                 $1$ ToDo :: Change this #1# *@
+@*                 <td class="current-delivery"> *@
+@*                     @if (previousDelivery) *@
+@*                     { *@
+@*                         if (Format.NorwayDateTimeNow() > homework.DeadLine.Date) *@
+@*                         { *@
+@*                             <span class="text-danger">{{$t('message.notDelivered')}}</span> *@
+@*                         } *@
+@*                         else *@
+@*                         { *@
+@*                             <span>-</span> *@
+@*                         } *@
+@*                          *@
+@*                     } *@
+@*                     else *@
+@*                     { *@
+@*                         <a asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@homeworkDeliveredFile.RootPath" asp-route-name="@homeworkDeliveredFile.Name"><button class="btn btn-info">@homeworkDeliveredFile.Name</button></a>  *@
+@*                     } *@
+@*                 </td> *@
+@*                  *@
+@*                 <td class="homework-comment"> *@
+@*                     @if (homeworkDeliveredFile == null || string.IsNullOrEmpty(homeworkDeliveredFile.TeacherComment)) *@
+@*                     { *@
+@*                         <span>-</span> *@
+@*                     } *@
+@*                     else *@
+@*                     { *@
+@*                         <span style="cursor: pointer">&#128172;<input hidden class="homework-comment-text" value="@homeworkDeliveredFile.TeacherComment"/></span> *@
+@*                     } *@
+@*                 </td> *@
+@*                  *@
+@*                  *@
+@*                 <td class="homework-mark" value="@mark">@if(mark==0){<span>-</span>}else{<span>@mark</span>}</td> *@
+@*             </tr> *@
+@* *@
+@*         } *@
+@*          *@
+@*         <thead> *@
+@*         <tr class="text-center"> *@
+@*             <th>{{$t('message.average')}}</th> *@
+@*             <td colspan="5"></td> *@
+@*             <th class="marks-average"></th> *@
+@*         </tr> *@
+@*         </thead> *@
+@*     </table> *@
+    
+    
+    //Check if the user is teacher for this course
+    
+        //Here is the Normal Student View
+        
+
+}
+
+

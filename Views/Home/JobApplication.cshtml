@@ -1,0 +1,215 @@
+@using Matterix.Services
+@using Microsoft.AspNetCore.Http
+@model Matterix.Models.ViewModel.JobApplicationViewModel
+@{
+    ViewBag.Title = "Job Application";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/Home/CourseBox.css"/>
+<div class="text-center un-select mb-5">
+    <div class="font-cairo matterix-color title-1-5">طلبات التقدم إلى عمل</div>
+    <hr class="w-50"/>
+    
+    <div class="font-cairo text-0-9">نحن في رحلة بحث عن أشخاص موهوبين يحبون مهنة التعليم ويرغبون في مساعدة زملائهم الطلاب لتخطي الصعوبات في المواد النرويجية</div>
+    <div class="text-secondary text-0-7 p-3">تقبل الطلبات حتى تاريخ 10.01.2021</div>
+    
+    
+    <div class="text-right p-4" dir="rtl">
+        
+        <p class="font-cairo matterix-color">الشروط والمؤهلات</p>
+        <ul class="dashed-list text-0-8">
+            <li>يمكن للمتقدمين اختيار المادة التي يريدون تدريسها، ويمكن التقدم لعدة مواد في وقت واحد</li>
+            <li>يجب على المتقدم أن يكون على الأقل في السنة الجامعية الأولى في إحدى جامعات النرويج</li>
+            <li>يمكن استثناء الشرط السابق في حال كان المتقدم متخرج سابقاً (خارج النرويج) من الاختصاص الذي ينوي تدريسه</li>
+            <li>يجب على المتقدم أن يكون قد تقدم سابقاً لامتحان المادة الذي يريد تدريسها في النرويج، كطالب منتظم أو خاص Privatist</li>
+            <li>يجب أن يكون قد حصل على علامة عالية (5 أو 6) في تلك المادة</li>
+            <li>الخبرة في مجال التدريس غير مطلوبة، ولكن الموهبة مطلوبة في حال عدم وجود خبرة، بالإضافة للعلامة التي تم ذكرها</li>
+            <li>معرفة مقبولة باللغة النرويجية بشكل عام، ومعرفة جيدة بمصطلحات تلك المادة باللغة النرويجية</li>
+            <li>معرفة جيدة باستخدام الحاسب وخدمات الانترنت الأساسية</li>
+            
+        </ul>
+    </div>
+    
+    
+    <div class="text-right p-4" dir="rtl">
+        
+        <p class="font-cairo matterix-color">بيئة العمل والمهمات المطلوبة</p>
+        <ul class="dashed-list text-0-8">
+            <li>تتم عملية التدريس عبر الانترنت بأوقات مسائية تتجاوز الساعة 06:00 مساءً</li>
+            <li>يتم استخدام أدوات وبرامج تقوم المؤسسة بتأمينها للمدرس</li>
+            <li>ساعات العمل تكون وسطياً 4 ساعات اسبوعياً (لكل مادة)، بالإضافة للوقت اللازم لتحضير الدروس حيث نقوم بحساب ساعة تحضير لكل ساعة تدريس</li>
+            <li>لدى المدرس حرية تقسيم المنهاج على الساعات المقررة، وحرية اختيار الخطة الدراسية، بشرط إتمام منهاج المادة خلال الوقت المحدد للدورة</li>
+            <li>يمكن للمدرس اختيار الكتاب الذي يرغب باعتماده للدورة (بالتعاون مع الإدارة) بشرط أن يكون الكتاب معتمد لامتحان المادة ومستخدم من قبل المدارس النرويجية</li>
+            <li>يجب على المدرس إضافة وظائف خلال الدورة، ولا يكون ملزماً بتصحيح جميع الوظائف إذا لم يرغب، بل يكون ملزماً بإضافة الحلول الصحيحة</li>
+            <li>يعد المدرس المسؤول الوحيد عن تسجيل المحاضرات (بواسطة برامج يتم تقديمها من الإدارة) ويجب عليه تحميل فيديوهات المحاضرات بعد الانتهاء منها</li>
+            <li>يقوم المدرس بالتعاون مع مدرسين آخرين والإدارة بتقديم محاضرة تعريفية قبل بدء الدورة لشرح منهاج الدورة والخطة الدراسية خلال الفصل</li>
+            <li>يخضع المدرس لدورة تدريبية قصيرة قبل بدء الفصل الدراسي، لكيفية استخدام أدوات العمل وبعض مهارات التواصل مع الطلاب</li>
+        </ul>
+    </div>
+    
+    <div class="text-right p-4" dir="rtl">
+        
+        <p class="font-cairo matterix-color">تقديم الطلب</p>
+        
+        <ul class="dashed-list text-0-8">
+            <li>يجب تسجيل فيديو قصير (15 دقيقة حد أدنى) تقوم فيه بشرح فكرة أو درس معين من المادة التي تنوي تدريسها باستخدام عرض تقديمي (Powerpoint Presentation) أو بالرسم أو الكتابة على الشاشة إذا كان هذا ممكناً</li>
+            <li>قم بتسجيل الفيديو خلال الشرح باستخدام إحدى برامج تسجيل الشاشة على الكمبيوتر</li>
+            <li>إذا لم تكن تعرف كيفية تسجيل الشاشة، <a href="https://youtu.be/zmo6u_dfMME" target="_blank">يمكنك الاستعانة بهذا الفيديو التعليمي</a> أو البحث عن فيديوهات تعليمية مشابهة</li>
+            <li>بعد الانتهاء من إعداد الفيديو، يمكنك رفعه على يوتيوب أو إحدى الخدمات المشابهة (برابط غير مدرج أي غير متاح للعامة) ثم إرفاق الرابط في الأسفل</li>
+            <li>يجب أيضاً إرفاق ملف السيرة الذاتية CV كملف بصيغة PDF</li>
+            <li>لا نطلب سيرة ذاتية احترافية ولكن يجب أن تحوي على المعلومات الأساسية والتي تعتقد أنها قد تساعد على قبول طلبك، تقبل السيرة الذاتية باللغات العربية، الانكليزية أو النرويجية</li>
+            <li class="font-weight-bold mb-4">سيتم معالجة الطلب قريباً، في حال تم قبول طلبك سنقوم بالتواصل معك لتحديد موعد مقابلة خلال أسابيع قليلة</li>
+        </ul>
+        
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            
+            <div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto auto 5rem auto;">
+                <div class="row">
+                    <div class="col-sm-7 p-5">
+                    
+                        
+                    
+                        <div id="application-section">
+                            
+                            @if (Model.PreviousApplications.Any())
+                            {
+                                <a id="has-previous" class="matterix-link font-cairo text-0-8">تم تقديم @Model.PreviousApplications.Count من الطلبات سابقاً</a>
+                            }
+                            
+                            @{IFormFile file = null;}
+                            <form id="job-application-form" asp-action="JobApplication" method="post" enctype="multipart/form-data">
+                                <input asp-for="@file" hidden="hidden" type="file" accept=".pdf"/>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="matterix-input-container set-my-direction">
+                                            <input class="matterix-input" type="text" asp-for="Application.CourseName" required title="" placeholder="افصل اسماء المواد بعلامة فاصلة"/>
+                                            <label class="matterix-input-label">
+                                                <span class="matterix-input-content"><i class="fas fa-book"></i>&nbsp;&nbsp;المادة (أو المواد) التي ترغب بتدريسها</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="matterix-input-container set-my-direction">
+                                            <input class="matterix-input" type="text" asp-for="Application.VideoLink" required title="" placeholder="يمكن إرفاق أكثر من رابط ويجب الفصل بينهم بعلامة فاصلة"/>
+                                            <label class="matterix-input-label">
+                                                <span class="matterix-input-content"><i class="fab fa-youtube"></i>&nbsp;&nbsp;رابط فيديو الشرح</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <textarea class="matterix-text-area col-md-10 mt-4 mb-3" type="text" asp-for="Application.ExtraMessage" required title="" placeholder="المزيد من المعلومات (اختياري)&#010; أمثلة:&#010; - مالذي تعتقد أنه قد يميزك كمدرس&#010; - في حال تقدم عدة مدرسين لنفس المادة، لماذا يجب علينا اختيارك؟&#010; - مالذي قد تستطيع إضافته للمؤسسة التعليمية؟"></textarea>
+                                </div>
+
+                                @* BUTTONS *@
+                                <div id="file-name" class="mb-2 text-0-6" dir="ltr"></div>
+                                <div class="mb-4 text-right"><a id="choose-file" class="m-button m-button-secondary">{{$t('message.chooseFile')}} CV</a><span style="display: none" id="delete-file">&nbsp;&nbsp;<a class="m-button m-button-danger">{{$t('message.delete')}}</a></span></div>
+
+                                @*VALIDATION AREA*@
+                                <div style="color: red" id="job-application-validation" class="text-center text-0-7 font-cairo mt-2 mb-3"></div>
+
+                                <div class="mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                                    <a id="submit-job-application-form" class="m-button m-button-primary text-center m-auto">تقديم الطلب</a>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        
+                        <div id="application-completed-section" style="display: none">
+                            <div class=" direction text-center mb-4">
+                                <div><img src="~/Images/done.png" width="50"/></div>
+                                <div class="display-4 title-1-5 matterix-color font-cairo mt-4 mb-4">{{$t('message.weReceivedYourRequest')}}</div>
+                                <div class="text-secondary small col-md-11 m-auto">في حال تم قبول طلبك سنقوم بالتواصل معك لتحديد موعد مقابلة خلال أسابيع قليلة</div>
+                            </div>
+                            <div class="mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                                <a asp-action="Index" id="submit-contact-form" class="m-button m-button-primary text-center m-auto">{{$t('message.backHomePage')}}</a>
+                            </div>
+                        </div>
+                        
+                        <div id="previous-applications-section" style="display: none; max-height: 600px; overflow: auto">
+                            <div class="matterix-color font-cairo mb-4">الطلبات السابقة</div>
+                            
+                            @foreach (var application in Model.PreviousApplications)
+                            {
+                                <div class="w-100 text-right p-3 text-0-7 mb-2" style="background-color: whitesmoke">
+                                    <div class="mb-1">تم التقديم: @Format.DateFormat(application.ApplyDate) - @Format.TimeFormat(application.ApplyDate)</div>
+                                    <div class="mb-1">المواد: @application.CourseName</div>
+                                    <div class="mb-1">رابط الفيديو: <a target="_blank" class="matterix-link" href="@application.VideoLink">@application.VideoLink</a></div>
+                                    @if(!string.IsNullOrEmpty(application.ExtraMessage)){<div class="mb-1">مزيد من المعلومات: @application.ExtraMessage</div>}
+                                    @if(application.Processed){<div class="text-left mb-1 text-success">تمت معالجة الطلب</div>}else{<div class="text-left mb-1 text-secondary">الطلب بانتظار المعالجة</div>}
+                                    @if(!string.IsNullOrEmpty(application.Replay)){<div class="text-left mb-1"><strong>رسالة من الإدارة</strong> <br/> @application.Replay</div>}
+                                    @if(application.InterviewDate != DateTime.MinValue){<div class="text-left mb-2">موعد المقابلة: @Format.Translate(application.InterviewDate.DayOfWeek.ToString()) @Format.DateFormat(application.InterviewDate) - الساعة: @Format.TimeFormat(application.InterviewDate)</div>}
+                                    <div class="text-center"><a class="matterix-link" target="_blank" href="@Url.Content(application.CvWebPath)">عرض ملف السيرة الذاتية</a></div>
+                                </div>
+                            }
+                            
+                            <div class="mb-4 d-flex align-items-center mt-4" style="position: relative; bottom: 0">
+                                <a id="new-application" class="m-button m-button-primary text-center m-auto">تقديم طلب جديد</a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                
+                
+                    <div class="col-sm-5">
+                        @* <div class="mask"></div> *@
+                        <img src="~/Images/Covers/JobApplication.jpg" width="100%" height="100%" style="object-fit: cover; min-height: 580px; opacity: 0.8; filter: brightness(0.6)"/>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center font-cairo mt-5">يجب عليك <a class="matterix-link" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("JobApplication", "Home")" >تسجيل الدخول</a> لتستطيع تقديم الطلب</div>
+        }
+        
+        
+    </div>
+    
+    
+    
+    
+</div>
+
+
+@section Scripts
+{
+    <script src="~/js/Validation.js" asp-append-version="true"></script>
+    <script src="~/js/Home/JobApplication.js" asp-append-version="true"></script>
+}
+
+@section MetaTags
+{
+    @{
+        var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/Covers/JobApplication.jpg")}";
+        var url = $"{StaticInformation.FullWebsite}/Home/JobApplication";
+    }
+
+
+    <meta property="og:url" content="@url"/>
+    <meta property="og:type" content="website"/>
+
+    <meta property="og:image" content="@imageUrl"/>
+    <meta property="og:image:url" content="@imageUrl"/>
+    <meta property="og:image:secure_url" content="@imageUrl"/>
+    <meta property="og:image:type" content="image/jpeg"/>
+    <meta property="og:image:width" content="4000"/>
+    <meta property="og:image:height" content="4000"/>
+    <meta property="fb:app_id" content="3431737436868705"/>
+
+
+
+
+    <meta property="og:title" content="Norske Fag på Arabisk - MATTERIX"/>
+    <meta property="og:description" content="طلبات التوظيف"/>
+}

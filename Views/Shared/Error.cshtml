@@ -1,0 +1,37 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+
+
+<div class="title-2-5 display-4 matterix-color text-center direction">
+    <div>{{$t('message.error')}}</div>
+    <hr class="w-75"/>
+</div>
+
+<div class="text-center"><img src="~/Images/failure.png" width="200"/></div>
+
+<div class="un-select text-center direction">
+    <br/>
+    <br/>
+    <div>{{$t('message.errorOrYouAreTrying')}}</div>
+    <br/>
+    
+    <div><a asp-action="ContactUs" asp-controller="Home">{{$t('message.pleaseTellUsWhatHappened')}}</a></div>
+</div>
+
+<br/>
+<br/>
+
+
+
+
+
+
+@if (Model.ShowRequestId)
+{
+    <p class="un-select text-center direction">
+        <strong>{{$t('message.errorId')}}:</strong> <code>@Model.RequestId</code>
+    </p>
+}

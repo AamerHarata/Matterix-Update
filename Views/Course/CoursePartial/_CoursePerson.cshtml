@@ -1,0 +1,65 @@
+@using Matterix.Data
+@using Matterix.Services
+@model ApplicationUser
+@inject InformationService Info
+@inject ApplicationDbContext Con
+
+@{
+    var person = Model;
+    var old = DateTime.Now.Year - person.BirthDate.Year;
+    var coursesCount = Con.Courses.Count(x => !x.Hidden);
+    var teacherCoursesCount = Con.Courses.Count(x => x.TeacherId == Model.Id);
+    var studentCoursesCount = Con.Registrations.Where(x => !x.Canceled).Count(x => x.StudentId == Model.Id);
+}
+
+<a class="person-link" target="_blank" asp-controller="Home" asp-action="UserProfile" asp-route-username="@Model.ProfileUserName">
+        <div class="person-full-div d-inline-block">
+            <div class="person-pic-div float-direction">
+                <img width="60" height="60" src="@Url.Content(Info.ProfilePicture(person))" style="border-radius: 50%; object-fit: cover"/>
+            </div>
+            <div class="person-body-div">
+                <div class="overflow-hidden matterix-color display-4 title-1-0 w-100 direction-reserve">@Info.FullName(person)</div>
+                <div class="w-100 direction">
+                    <span>@Format.Translate(person.Gender.ToString())</span>
+                    <span>{{$t('message.,')}} {{$tc('message.yearOld', '@old')}}{{$t('message.,')}}</span>
+                    
+                    @switch (person.Language)
+                    {
+                        case EnumList.Language.Norwegian:
+                            <span><img width="15"  src="~/Images/flag-nob.png"/></span>
+
+                            break;
+                        case EnumList.Language.English:
+                            <span><img width="15" height="auto" src="~/Images/flag-en.png"/></span>
+
+                            break;
+                        case EnumList.Language.Arabic:
+                            <span><img width="15" height="auto"  src="~/Images/flag-ar.png"/></span>
+
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                </div>
+                
+                <div class="w-100 direction">
+                    @switch (person.Role)
+                    {
+                        case EnumList.Role.Student:
+                            <span>{{$tc('message.student','@((int) person.Gender)')}} {{$tc('message.inNCourses', '@studentCoursesCount')}}</span>;
+                            break;
+                        case EnumList.Role.Teacher:
+                            <span>{{$tc('message.aTeacher','@((int) person.Gender)')}} {{$tc('message.inNCourses', '@teacherCoursesCount')}}</span>;
+                            break;
+                        case EnumList.Role.Admin:
+                            <span>{{$tc('message.anAdmin','@((int) person.Gender)')}} {{$tc('message.inNCourses', '@coursesCount')}}</span>;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                </div>
+
+            </div>
+        </div>
+
+</a>

@@ -1,0 +1,80 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+@{
+    ViewBag.Title = "Payment";
+    Layout = "_Layout";
+}
+
+@{
+    var course = @Model.Course;
+    var reason = Model.Reason;
+
+    var whoPays = reason == EnumList.PaymentReason.Register ? "" : "none";
+    var terms = reason == EnumList.PaymentReason.Register ? "none" : "";
+}
+<partial name="PaymentPartial/_Header"/>
+
+
+
+<div id="payment-form" class="un-select">
+    <div id="who-pays" style="display: @whoPays">
+        <partial name="PaymentSection/WhoPays"/>
+    </div>
+    
+    <div id="terms" style="display: @terms">
+        <partial name="PaymentSection/Terms"/>
+    </div>
+
+    <div id="personal-info" style="display: none">
+        <partial name="PaymentSection/PersonalInfo"/>
+    </div>
+
+    <div id="product-info" style="display: none">
+        <partial name="PaymentSection/ProductInfo"/>
+    </div>
+
+    @if (Model.Course.Price <= 0)
+    {
+        <div id="free-registration" style="display: none">
+            <partial name="PaymentSection/FreeRegistration"/>
+        </div>
+    }
+
+    <div id="payment-info" style="display: none">
+        <partial name="PaymentSection/PaymentInfo"/>
+    </div>
+
+
+    <div id="pay-with-stripe" style="display: none">
+        <partial name="PaymentSection/PayWithStripe"/>
+    </div>
+
+
+</div>
+
+
+
+
+<input hidden="hidden" asp-for="Course.Id"/>
+@* <input hidden="hidden" asp-for="Student.Id"/> *@
+@* <input hidden="hidden" asp-for="Section"/> *@
+<input hidden="hidden" id="pay-all-hidden" value="false"/>
+<input hidden="hidden" asp-for="Reason"/>
+<input hidden="hidden" asp-for="InvoiceToPay.Number"/>
+<input hidden="hidden" asp-for="Student.Id"/>
+<input id="ip" hidden="hidden" asp-for="Device.Ip"/>
+<input id="operatingSystem" hidden="hidden" asp-for="Device.OperatingSystem"/>
+<input id="deviceType" hidden="hidden" asp-for="Device.DeviceType"/>
+<input id="authCookies" hidden="hidden" asp-for="Device.AuthCookies"/>
+
+@section Scripts
+{
+    <script src="~/js/Payment/PaymentMain.js" asp-append-version="true"></script>
+    <script src="~/js/UserDeviceInfo.js" asp-append-version="true"></script>
+    @* <script src="~/js/Payment/PaymentDeviceInfo.js"></script> *@
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="~/js/Payment/Stripe.js" asp-append-version="true"></script>
+    @* <script src="https://www.paypal.com/sdk/js?client-id=AXQOTpqDAP4wK6TTCXlhUzbbKScL1by7fons0zYa_cUzaZGCzpusKHpgQSgWYy8JZIw1l2UcIbtEmXde&disable-funding=credit,card"></script> *@
+    @* <script src="~/js/Payment/PayPal.js"></script> *@
+    
+}

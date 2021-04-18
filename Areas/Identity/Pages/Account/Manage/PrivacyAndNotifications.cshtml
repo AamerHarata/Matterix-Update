@@ -1,0 +1,183 @@
+@page
+@model PrivacyAndNotificationsModel
+@inject UserManager<ApplicationUser> UserManager
+@using Matterix.Services
+@inject InformationService Info
+
+@{
+    ViewData["Title"] = "Privacy";
+    ViewData["ActivePage"] = ManageNavPages.PrivacyAndNotifications;
+    var user = UserManager.GetUserAsync(User).Result;
+    var signed = user?.SignedStudentAgreement ?? false;
+}
+
+<link rel="stylesheet" href="~/css/Identity/IdentityArea.css"/>
+
+<div class="row un-select">
+    <div class="col-md-4 privacy-notifications-col">
+        <div class="display-4 title-2-0 text-center">{{$t('message.privacySettings')}}</div>
+        <hr/>
+        <input hidden id="full-name" value="@Model.Input.FullName"/>
+        <input hidden id="profile-name" value="@Model.Input.ProfileUserName"/>
+        <table class="w-100 privacy-table">
+            <tr>
+                <td>
+                    <span>{{$t('message.showName')}}&nbsp;<i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.ifShowNameDeactivated')" class="fa fa-info-circle matterix-color"></i></span>
+                </td>
+                <td>
+                    <div class="custom-control custom-switch" id="show-name-container">
+                        <input id="show-name-input" type="checkbox" value="true" checked="@Model.Input.ShowName" class="custom-control-input">
+                        <label class="custom-control-label" ></label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">{{$t('message.nameWillShown')}}: 
+                    <span id="name-to-show">
+                        
+                        @if (Model.Input.ShowName)
+                        {
+                            <span>@Model.Input.FullName</span>
+                        }
+                        else
+                        {<span>@Model.Input.ProfileUserName</span>}
+                    </span>
+                </td>
+            </tr>
+            
+            @* Student Agreement *@
+            <tr>
+                <td>
+                    <span>{{$t('message.studentAgreement')}}&nbsp;<i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.toCouldRegisterYouHaveToSign')" class="fa fa-info-circle matterix-color"></i></span>
+                </td>
+            </tr>
+            
+            <tr>
+                @if (!signed)
+                {
+                    <td colspan="2" class="text-center">{{$t('message.youHaveNotSignYet')}} <a asp-controller="Instructions" asp-action="StudentAgreement">{{$t('message.signNow')}}</a></td>
+                }
+                else
+                {
+                    <td colspan="2" class="text-center">
+                        <div>{{$t('message.youHaveSignedAt')}} @Format.DateFormat(user.SignedStudentAgreementAt)</div>
+                        <div class="mt-3 text-0-8">
+                            <div><a asp-controller="Instructions" asp-action="AgreementFile" asp-route-language="Arabic">{{$t('message.downLoadStudentAgreementAr')}} (PDF)</a></div>
+                            <div><a asp-controller="Instructions" asp-action="AgreementFile" asp-route-language="Norwegian">{{$t('message.downLoadStudentAgreementNo')}} (PDF)</a></div>
+                        </div>
+                    </td>
+                }
+            </tr>
+            
+            <tr>
+                <td colspan="2" class="text-center small">{{$t('message.morePrivacyOptions')}}</td>
+            </tr>
+        </table>
+        
+        
+    </div>
+    
+    @* <div class="col-md-1"></div> *@
+    <div class="col-md-6">
+        <div class="text-center"><span class="display-4 title-2-0 ">{{$t('message.notifications')}}&nbsp;</span><span><i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.notificationsViaEmailAndSms')" class="small fa fa-info-circle matterix-color"></i></span></div>
+        <hr/>
+        
+        
+        <table class="w-100 notification-table">
+            <tr>
+                <th>{{$t('message.notification')}}</th>
+                <th>{{$t('message.email')}}</th>
+                <th>{{$t('message.sms')}}</th>
+            </tr>
+            <tr>
+                <td>{{$t('message.beforeLectureStart')}}&nbsp;<span><i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.notificationBeforeStart')" class="small fa fa-info-circle matterix-color"></i></span></td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="before-lecture-container">
+                        <input notify-method="@EnumList.NotifyMethod.Email.ToString()" notify-type="@EnumList.Notifications.LectureStart.ToString()" id="before-lecture-input" type="checkbox" value="true" checked="@Model.Input.MailNotify.BeforeLecture" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="before-lecture-container1">
+                        <input notify-method="@EnumList.NotifyMethod.SMS.ToString()" notify-type="@EnumList.Notifications.LectureStart.ToString()" id="before-lecture-input1" type="checkbox" value="true" checked="@Model.Input.SmsNotify.BeforeLecture" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>{{$t('message.updateAboutYourCourses')}}&nbsp;<span><i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.notificationCourseUpdate')" class="small fa fa-info-circle matterix-color"></i></span></td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="course-update-container">
+                        <input notify-method="@EnumList.NotifyMethod.Email.ToString()" notify-type="@EnumList.Notifications.CourseUpdate.ToString()" id="course-update-input" type="checkbox" value="true" checked="@Model.Input.MailNotify.CourseUpdate" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+                
+                <td>
+                    <div class="custom-control custom-switch" id="course-update-container1">
+                        <input notify-method="@EnumList.NotifyMethod.SMS.ToString()" notify-type="@EnumList.Notifications.CourseUpdate.ToString()" id="course-update-input1" type="checkbox" value="true" checked="@false" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>{{$t('message.importantUpdates')}}</td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="important-update-container">
+                        <input notify-method="@EnumList.NotifyMethod.Email.ToString()" notify-type="@EnumList.Notifications.ImportantUpdate.ToString()" id="important-update-input" type="checkbox" value="true" checked="@Model.Input.MailNotify.ImportantUpdate" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="important-update-container1">
+                        <input notify-method="@EnumList.NotifyMethod.SMS.ToString()" notify-type="@EnumList.Notifications.ImportantUpdate.ToString()" id="important-update-input1" type="checkbox" value="true" checked="@Model.Input.SmsNotify.ImportantUpdate" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>{{$t('message.offersAndOther')}}</td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="email-offer-other-container">
+                        <input notify-method="@EnumList.NotifyMethod.Email.ToString()" notify-type="@EnumList.Notifications.OfferAndOther.ToString()" id="email-offer-other-input" type="checkbox" value="true" checked="@Model.Input.MailNotify.OfferAndOther" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-switch notification-switch" id="offer-other-container1">
+                        <input notify-method="@EnumList.NotifyMethod.SMS.ToString()" notify-type="@EnumList.Notifications.OfferAndOther.ToString()" id="offer-other-input1" type="checkbox" value="true" checked="@Model.Input.SmsNotify.OfferAndOther" class="custom-control-input">
+                        <label class="custom-control-label"></label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3" class="text-center small">{{$t('message.moreNotificationsOptions')}}</td>
+            </tr>
+
+
+
+
+
+
+        </table>
+        
+        
+    </div>
+        
+        
+</div>
+<br/>
+<div class="row un-select">
+    <div class="col-md-10 text-center text-success" style="display: none"  id="success-updating">{{$t('message.dataUpdated')}}</div>
+    <div class="col-md-10 text-center text-danger"  style="display: none" id="error-updating">{{$t('message.errorRefresh')}}</div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/IdentityArea/PrivacyAndNotifications.js" asp-append-version="true"></script>
+    
+}

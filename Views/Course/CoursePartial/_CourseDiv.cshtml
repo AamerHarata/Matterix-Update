@@ -1,0 +1,337 @@
+@model Course
+@using Matterix.Services
+@inject InformationService Info
+@inject CourseService CourseService
+@inject AccessService Access
+
+@{
+    var course = Model;
+    var courseId = Model.Id;
+    var courseRating = CourseService.GetCourseRating(courseId)[1];
+    var edit = Access.CourseEditAccess(User, course.Id);
+    var view = Access.CourseViewAccess(User, course.Id);
+    var ended = Access.CourseEndedAccess(User, course.Id);
+
+    var divClassColor = "";
+    if(edit)
+    {
+        divClassColor = "teach-course";
+    }else if (view)
+    {
+        divClassColor = "own-course";
+    }else if (ended)
+    {
+        divClassColor = "ended-course";
+    }
+}
+
+
+
+<div class="full-course-div direction un-select @divClassColor">
+    <div class="m-auto" style="width: 95%;">
+        
+        @* Picture and Title *@
+        <div class="row">
+            <div class="col-12 align-items-center d-flex">
+                <img src="@Url.Content(Info.CoursePicture(courseId))" width="120" height="120" class="course-div-pic"/>
+                <div class="full-course-body p-4 align-items-center">
+                    <div class="title-2-0 display-4 matterix-color">@course.Subject</div>
+                    <div class="title-1-0">@course.Code</div>
+                </div>
+                
+            </div>
+        </div>
+        <hr/>
+        
+        @* CourseCode Teacher Status StudentCount Feedback*@
+        <div class="row">
+            @* <div class="col-3"><strong>{{$t('message.courseCode')}}:</strong> @course.Code</div> *@
+            <div class="col-3"><strong>{{$tc('message.teacher', '@((int) course.Teacher.Gender)')}}:</strong> <a target="_blank" asp-controller="Home" asp-action="UserProfile" asp-route-username="@course.Teacher.ProfileUserName"> <span>@Info.FullName(course.Teacher)</span></a></div>
+            <div class="col-3"><strong>{{$t('message.status')}}:</strong>
+                @if (@course.Ended)
+                {<span>{{$t('message.completed')}}</span>}
+                else
+                {<span>{{$t('message.live')}}</span>}
+            </div>
+            <div class="col-3"><strong>{{$t('message.studentCount')}}:</strong> @CourseService.GetStudentsCount(courseId)</div>
+            <div class="col-3" style="word-wrap: break-word"><strong>{{$t('message.feedback')}}: </strong> <a target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId" asp-fragment="rating">@CourseService.GetCourseFeedback(courseId).Count</a></div>
+        </div>
+        <hr/>
+        
+        @* Rating Total and Completed Lectures *@
+        <div class="row">
+            <div class="col-6 align-self-center">
+                <span class="d-inline-block"><strong>{{$t('message.rating')}}:</strong></span>
+                <partial name="PartialViews/_StarsRow" model="@courseRating"/>
+            </div>
+            
+            <div class="col-3"><strong>{{$t('message.totalLectures')}}: </strong> @CourseService.GetLecturesCount(courseId)</div>
+            <div class="col-3"><strong>{{$t('message.completedLectures')}}: </strong> @CourseService.GetCompletedLecturesCount(courseId)</div>
+        </div>
+        <hr/>
+        
+       
+        @* Rating Feedback Total and Completed Lectures *@
+        <div class="row">
+            <div class="col-3"><strong>{{$t('message.start')}}:</strong> @Format.DateFormat(course.StartDate)</div>
+            <div class="col-3"><strong>{{$t('message.end')}}:</strong> @Format.DateFormat(course.EndDate)</div>
+            <div class="col-3"><strong>{{$t('message.totalHours')}}: </strong> {{$tc('message.hoursAbout', '@CourseService.ExpectedTotalHours(courseId)')}}</div>
+            <div class="col-3"><strong>{{$t('message.completedHours')}}: </strong> {{$tc('message.hoursAbout', '@CourseService.CompletedHours(courseId)')}}</div>
+        </div>
+        <hr/>
+        
+        @{
+            var schedules = CourseService.GetCourseSchedule(courseId);
+            var registration = Access.GetStudentActiveRegistration(User, courseId) ?? Access.GetStudentExpiredRegistration(User, courseId) ?? new Registration();
+        }
+        
+        
+        
+        
+        @* Price Buttons*@
+        <div class="row">
+            @if (edit)
+            {
+                <div class="col-6 align-self-center">{{$t('message.youAreTeacher')}}</div>
+                <div class="col-3 align-self-center"><a class="m-button m-button-primary" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId">{{$t('message.goToCourse')}}</a></div>
+                <div class="col-3 align-self-center"><a class="m-button m-button-secondary" target="_blank" asp-controller="Course" asp-action="Edit" asp-route-courseId="@courseId">{{$t('message.edit')}}</a></div>
+            }else if (view)
+            {
+                
+                <div class="col-3 align-self-center">{{$t('message.youAreRegistered')}}</div>
+                <div class="col-3 align-self-center"><strong>{{$t('message.registerDate')}}: </strong>@Format.DateFormat(@registration.RegisterDate)</div>
+                <div class="col-3 align-self-center"><strong>{{$t('message.expireDate')}}:</strong> @Format.DateFormat(registration.ExpireDate)</div>
+                <div class="col-3 align-self-center"><a class="m-button m-button-primary" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId">{{$t('message.goToCourse')}}</a></div>
+                
+                
+
+                
+            }else if (ended)
+            {
+                
+                <div class="col-3 align-self-center">{{$t('message.registrationExpired')}}</div>
+                <div class="col-3 align-self-center"><strong>{{$t('message.registerDate')}}: </strong>@Format.DateFormat(@registration.RegisterDate)</div>
+                <div class="col-3 align-self-center"><strong>{{$t('message.expireDate')}}:</strong> @Format.DateFormat(registration.ExpireDate)</div>
+                <div class="col-3 align-self-center">
+                    <a class="m-button m-button-secondary" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId">{{$t('message.view')}}</a>&nbsp;&nbsp;
+                    @if (course.IsAvailable())
+                    {
+                        <a class="m-button m-button-danger" asp-controller="Payment" asp-action="Index" asp-route-courseId="@courseId" asp-route-reason="Register">{{$t('message.renew')}}</a>
+                    }
+                </div>
+@*                 <div class="col-2 align-self-center"></div> *@
+                
+                
+                
+            }
+            else
+            {
+                <div class="col-3">
+                    <strong>{{$t('message.monthPrice')}}: </strong>
+                    @if (course.InstallmentAvailable)
+                    {
+                        <span>{{$tc('message.currency', '@Format.NumberFormat(course.Price / 3)')}}</span>
+                    }
+                    else
+                    {
+                        <span>{{$t('message.installmentNotAvailable')}}</span>
+                    }
+                </div>
+                <div class="col-3"><strong>{{$t('message.discountedPriceStudent')}}:</strong> {{$tc('message.currency', '@Format.NumberFormat(course.Price)')}}</div>
+                <div class="col-3 align-self-center"><a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId"><button class="m-btn m-btn-secondary">{{$t('message.view')}}</button></a></div>
+                if (course.IsAvailable())
+                 {
+                     <div class="col-3 align-self-center"><a asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@courseId"><button class="m-btn m-btn-danger">{{$tc('message.registerFree','@course.Price')}}</button></a></div>
+                 }
+            }
+            
+            
+
+        </div>
+        <hr/>
+        
+        
+        
+        @* Schedule *@
+        <div class="row text-center">
+            
+            @* <div class="col-2"></div> *@
+            <div class="col-12" style="white-space: nowrap">
+                @if (!course.Ended)
+                {
+@*                     <div class="d-inline-block"><strong>{{$t('message.schedule')}} --- </strong></div> *@
+                    var i = 0;
+                    foreach (var schedule in schedules)
+                    {
+                        <div class="d-inline-block">@Format.Translate(schedule.Day.ToString()): @Format.TimeFormat(schedule.From) - @Format.TimeFormat(schedule.To)</div>
+                        i++;
+                        if (i != schedules.Count)
+                        {
+                            <span>&nbsp;&#9200;&nbsp;</span>
+                        }
+                    }
+                }
+                else
+                {
+                    if (edit)
+                    {
+                        <div class="col-12 text-wrap">{{$t('message.courseIsEnded')}}</div>
+                    }
+                    else
+                    {
+                        if (course.IsAvailable())
+                        {
+                            <div class="col-12 text-wrap">{{$t('message.ownSchedule')}}</div>
+                        }
+                        else
+                        {
+                            <div class="col-12 text-wrap">{{$t('message.courseIsNotAvailable')}}</div>
+                        }
+                    }
+                    
+                }
+                
+                @* Facebook Button *@
+                <div class="fb-share-button d-inline-block p-1 float-direction-reserve" 
+                     data-href="@StaticInformation.FullWebsite/Course/Area/@course.Id" 
+                     data-layout="button_count">
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+@* OLD *@
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="full-course-div direction un-select teach-course"> *@
+@*          *@
+@*          *@
+@*         <div style=" margin: auto"><img src="@Url.Content(Info.CoursePicture(courseId))" width="120" height="120" class="course-div-pic"/> *@
+@*          *@
+@*              *@
+@*          *@
+@*             </div> *@
+@*          *@
+@*         <div class="full-course-body"> *@
+@*              *@
+@*             <table class="table full-course-body-table"> *@
+@*                 <tr><th colspan="4" class="title-2-0 display-4 matterix-color" style="border-top: none">@course.Subject</th></tr> *@
+@*                 <tr> *@
+@*                     <td><strong>{{$t('message.courseCode')}}:</strong> @course.Code</td> *@
+@*                     <td><strong>{{$tc('message.teacher', '@((int)course.Teacher.Gender)')}}:</strong> <a target="_blank" asp-controller="Home" asp-action="UserProfile" asp-route-username="@course.Teacher.ProfileUserName"><span>@Info.FullName(course.Teacher)</span></a></td> *@
+@*                     <td><strong>{{$t('message.status')}}:</strong> @if(@course.Ended){<span>{{$t('message.completed')}}</span>}else{<span>{{$t('message.live')}}</span>}</td> *@
+@*                     <td><strong>{{$t('message.studentCount')}}:</strong> @CourseService.GetStudentsCount(courseId)</td>  *@
+@*                 </tr> *@
+@*                  *@
+@*                 <tr> *@
+@*                     <td><strong>{{$t('message.rating')}}:</strong> *@
+@*                         @for (var i = 0; i < courseRating; i++) *@
+@*                         { *@
+@*                             <span style="display: inline"><i class="fa fa-star fa-fw" style="color: #FF912C; font-size: 1.2rem "></i></span> *@
+@*                              *@
+@*                         } *@
+@*                          *@
+@*                         @for (var i = 0; i < 5 - courseRating; i++) *@
+@*                         { *@
+@*                             <span style="display: inline"><i class="fa fa-star fa-fw" style="color: #ccc; font-size: 1.2rem "></i></span> *@
+@*                         } *@
+@*                          *@
+@*                     </td> *@
+@*                     <td><strong>{{$t('message.feedback')}}: </strong> <a target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId" asp-fragment="rating">@CourseService.GetCourseFeedback(courseId).Count</a></td>  *@
+@*                      *@
+@*                     <td><strong>{{$t('message.totalLectures')}}: </strong> @CourseService.GetLecturesCount(courseId)</td> *@
+@*                     <td><strong>{{$t('message.completedLectures')}}: </strong> @CourseService.GetCompletedLecturesCount(courseId)</td> *@
+@*                 </tr> *@
+@*                  *@
+@*                  *@
+@*                 $1$ @{ #1# *@
+@* $1$ //                    var schedules = CourseService.GetCourseSchedule(courseId); #1# *@
+@* $1$ //                    var registration = Access.GetStudentActiveRegistration(User, courseId); #1# *@
+@*                 $1$ } #1# *@
+@*                  *@
+@*                  *@
+@*                  *@
+@*                 <tr> *@
+@*                     <td><strong>{{$t('message.start')}}:</strong> @Format.DateFormat(course.StartDate)</td> *@
+@*                     <td><strong>{{$t('message.end')}}:</strong> @Format.DateFormat(course.EndDate)</td> *@
+@*                     <td><strong>{{$t('message.totalHours')}}: </strong> {{$tc('message.hoursAbout', '@CourseService.ExpectedTotalHours(courseId)')}}</td> *@
+@*                     <td><strong>{{$t('message.completedHours')}}: </strong> {{$tc('message.hoursAbout', '@CourseService.CompletedHours(courseId)')}}</td> *@
+@*                      *@
+@*                 </tr> *@
+@*                  *@
+@*                  *@
+@*                 <tr> *@
+@*                     <th>{{$t('message.schedule')}}:</th> *@
+@*                     @if (!course.Ended) *@
+@*                     { *@
+@*                         var i = 0; *@
+@*                         <td colspan="3"> *@
+@*                             @foreach (var schedule in schedules) *@
+@*                             { *@
+@*                                 <span><strong>@Format.Translate(schedule.Day.ToString()):</strong> @Format.TimeFormat(schedule.From) - @Format.TimeFormat(schedule.To)</span> *@
+@*                                 i++; *@
+@*                                 if (i != schedules.Count) *@
+@*                                 { *@
+@*                                     <span>&nbsp;&#9200;&nbsp;</span> *@
+@*                                 } *@
+@*                             } *@
+@*                          *@
+@*                         </td> *@
+@*                     } *@
+@*                     else *@
+@*                     { *@
+@*                         <td colspan="3">{{$t('message.courseIsEnded')}}</td> *@
+@*                     } *@
+@*                      *@
+@*                      *@
+@*                      *@
+@*                 </tr> *@
+@*                  *@
+@*                 <tr> *@
+@*                     <td colspan="2">{{$t('message.youAreTeacher')}}</td> *@
+@*                     <td colspan="2"></td> *@
+@*                 </tr> *@
+@*                  *@
+@*                 <tfoot> *@
+@*                 <tr class="text-center"> *@
+@*                     <td></td> *@
+@*                     <td><a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId"><button class="m-btn m-btn-primary">{{$t('message.goToCourse')}}</button></a></td> *@
+@*                     <td><a target="_blank" asp-controller="Course" asp-action="Edit" asp-route-courseId="@courseId"><button class="m-btn m-btn-secondary">{{$t('message.edit')}}</button></a></td> *@
+@*                     <td> *@
+@*                         <div class="fb-share-button"  *@
+@*                              data-href="@StaticInformation.FullWebsite/Course/Area/@course.Id"  *@
+@*                              data-layout="button_count"> *@
+@*                         </div> *@
+@*                     </td> *@
+@*                 </tr> *@
+@*                 </tfoot> *@
+@* *@
+@*             </table> *@
+@*              *@
+@*         </div> *@
+@*     </div> *@

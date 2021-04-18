@@ -1,0 +1,24 @@
+@* Search Area *@
+    
+        
+<div style="height: 120px;" class="un-select">
+    <div class="d-flex justify-content-center" style="height: 80px;">
+        <div class="search-bar">
+            <input class="search-input" type="text" name="" v-bind:placeholder="$t('message.search')+'...'">
+            <a class="search-icon float-direction set-my-direction"><i class="fa fa-search"></i></a>
+        </div>
+        <div style="display: none" class="align-self-center matterix-color pointer close-search"><i class="fa fa-times" style="font-size: 1.2rem; margin-left: 1rem; margin-right: 1rem;"></i></div>
+    </div>
+    <div class="title-1-0 search-statement text-secondary">{{$t('message.searchWithCourseName')}}</div>
+    <div class="title-1-0 search-statement-before font-cairo text-muted pointer">{{$t('message.searchCourse')}}</div>
+</div>
+<div class="course-type-bar title-2-0 un-select" id="results-bar" style="display: none">{{$t('message.searchResults')}}</div>
+<div class="text-center" id="results-container">
+            
+</div>
+<div class="small text-center direction end-of-search-results un-select" style="color: gray; display: none">{{$t('message.endOfSearchResults')}}</div>
+<div class="small text-center direction no-search-results un-select" style="color: gray; display: none">{{$t('message.noResultsForThisSearch')}}</div>
+
+        
+@* End of Search Area *@
+

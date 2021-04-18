@@ -1,0 +1,22 @@
+@inject AccessService Access
+@using Matterix.Services
+@model LectureFile
+
+<div class="file-div d-flex align-items-center justify-content-between justify-content-around" fileName="@Model.Name" path="@Url.Content(Model.Path)" root="@Model.RootPath">
+    <button class="m-button m-button-primary file-btn normal">@Model.Name</button>
+    <button class="m-button m-button-primary file-get-btn"><a asp-controller="Lecture" asp-action="DownloadFile" asp-route-name="@Model.Name" asp-route-path="@Model.RootPath" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.download')">&#128229;</a></button>
+    @if (Access.CourseEditAccess(User, Model.Lecture.CourseId))
+    {
+        <button class="m-button m-button-secondary file-homework-btn" alt="hop"><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.makeFileAsHomework')">&#9997;</a></button>
+        <button data-toggle="tooltip" data-placement="bottom" v-bind:title="$t('message.delete')" class="m-button m-button-danger file-delete-btn" alt="hop"><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.delete')">&#10060;</a></button>
+    }
+    else
+    {
+        if (Model.IsHomeWork)
+        {
+            <button disabled="disabled" class="m-button m-button-secondary homework-icon" alt="hop"><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.itIsHomework')">&#9997;</a></button>
+        }
+    }
+
+</div>
+

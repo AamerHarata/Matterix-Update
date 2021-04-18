@@ -1,0 +1,20 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<div class="direction matterix-color display-4 title-2-5 text-center un-select">{{$t('message.emailConfirmation')}}</div>
+<hr class="w-75 matterix-background"/>
+<div class="row direction text-center">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="title-1-5 display-4 text-center">{{$t('message.theProcessIsDone')}} </div>
+        <br/>
+        <div><img src="~/Images/done.png" width="200rem"/></div>
+        <br/>
+        <div>{{$t('message.thankYouEmailConfirmation')}}</div>
+        
+    </div>
+    <div class="col-md-4"></div>
+</div>

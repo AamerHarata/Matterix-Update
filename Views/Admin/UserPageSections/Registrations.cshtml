@@ -1,0 +1,65 @@
+@model IEnumerable<Registration>
+@using Matterix.Services
+
+<button class="btn btn-danger" id="new-reg" style="margin-bottom: 1rem;">New</button>
+
+<table class="table table-hover" id="admin-create-reg" hidden="hidden">
+    <tr>
+        
+        <td><select class="form-control" name="courseId" asp-items="ViewBag.Courses"></select></td>
+        <td><input type="number" name="price" class="form-control" placeholder="Price"/></td>
+        <td><input class="form-control" name="adminComment" placeholder="Comment"/></td>
+        <td><input type="date" class="form-control" name="expDate" value="Expire"/></td>
+        <td><button class="btn btn-success" id="admin-create-reg-btn">Create</button></td>
+    </tr>
+    <tr>
+        <td colspan="5" id="add-reg-response"><br/></td>
+        
+    </tr>
+</table>
+
+@if (!Model.Any())
+{
+    <hr/>
+    <div class="text-center">No registration yet!</div>
+}
+else
+{
+    <table class="table table-hover">
+        
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Course</th>
+            <th>Price</th>
+            <th>Comment</th>
+            <th>Ip</th>
+            <th>Cookies</th>
+            <th>Expire</th>
+            <th>Expire Date</th>
+            <th>Cancel</th>
+            <th>-</th>
+
+        </tr>
+        </thead>
+    
+        @foreach (var reg in Model)
+        {
+            <tr>
+                <td>@Format.DateFormat(reg.RegisterDate) - @Format.DateFormat(reg.RegisterDate)</td>
+                <td>@reg.Course.Subject<span class="small"> / @reg.Course.Code</span></td>
+                
+                <td><input class="form-control edit-reg" style="width: max-content;" value="@reg.Price" asp-for="@reg.Price"/></td>
+                <td><input class="form-control edit-reg" asp-for="@reg.AdminComment"/></td>
+                <td>@reg.IpAddress</td>
+                <td full-auth="@reg.AuthCookies" class="auth-cookies">@if(!string.IsNullOrEmpty(reg.AuthCookies)){@reg.AuthCookies.Substring(6, 16)}else{<span>-</span>}</td>
+                <td><input type="checkbox" class="edit-reg exp" asp-for="@reg.Expire"/></td>
+                <td class="reg-exp-date"><input class="form-control edit-reg" style="width: max-content" asp-for="@reg.ExpireDate" /></td>
+                <td><input type="checkbox" class="edit-reg cancled" asp-for="@reg.Canceled"/></td>
+                <td><button student-id="@reg.StudentId" course-id="@reg.CourseId" class="btn btn-secondary admin-apply-registration">Apply</button></td>
+            </tr>
+        
+        }
+    </table>
+}
+

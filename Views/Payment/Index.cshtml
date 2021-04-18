@@ -1,0 +1,426 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+@{
+    ViewBag.Title = $"Payment - {Model.Reason.ToString()}";
+    Layout = "_Layout";
+}
+
+
+@{
+    
+    var register = Model.Reason == EnumList.PaymentReason.Register;
+    var invoice = Model.Reason == EnumList.PaymentReason.Invoice;
+    var isFree = register && Model.InvoiceToPay.Amount == 0;
+
+}
+
+
+<link rel="stylesheet" href="~/css/Payment/Index.css" asp-append-version="true"/>
+<link rel="stylesheet" href="~/css/Stripe.css" asp-append-version="true"/>
+
+<input hidden id="facebook-track" course-id="@Model.Course.Id" course-name="@Model.Course.Subject" course-code="@Model.Course.Code" course-price="@Model.Course.Price"/>
+
+<div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto;">
+    
+    
+    
+    <div class="row">
+        
+        <div class="col-sm-7 p-5">
+    
+
+            <div class=" direction text-center">
+
+                @{ var initiatedOrder = new InitiatedOrder {CourseId = Model.Course.Id, InvoiceNumber = Model.InvoiceToPay.Number, Reason = Model.Reason};}
+                <partial name="PaymentPartial/_Header" model="@initiatedOrder"/>
+        
+            </div>
+            <br/>
+
+        @* Steps *@
+        <div class="text-muted m-auto font-cairo row">
+            @if (register && !isFree)
+            {
+                <div class="d-flex m-auto align-content-between align-content-around w-100"><div class="step m-auto" phase="intro">&#9312;</div><div class="step m-auto" phase="who-pays">&#9313;</div><div class="step m-auto" phase="terms">&#9314;</div><div class="step m-auto" phase="personal-info">&#9315;</div><div class="step m-auto" phase="product-info">&#9316;</div><div class="step m-auto" phase="payment-info">&#9317;</div><div class="step m-auto" phase="payment-method">&#9318;</div></div>
+            }
+            else if(invoice)
+            {
+                <div class="d-flex m-auto align-content-between align-content-around w-100"><div class="step m-auto" phase="intro">&#9312;</div><div class="step m-auto" phase="personal-info">&#9313;</div><div class="step m-auto" phase="product-info">&#9314;</div><div class="step m-auto" phase="payment-info">&#9315;</div><div class="step m-auto" phase="payment-method">&#9316;</div></div>
+            }
+            else if(isFree)
+            {
+                <div class="d-flex m-auto align-content-between align-content-around w-100"><div class="step m-auto" phase="intro">&#9312;</div><div class="step m-auto" phase="terms">&#9313;</div><div class="step m-auto" phase="personal-info">&#9314;</div><div class="step m-auto" phase="product-info">&#9315;</div><div class="step m-auto" phase="free-registration">&#9316;</div></div>
+            }
+        </div>
+        <hr/>
+        
+
+
+
+
+        @* MAIN PAYMENT FORM *@
+        
+        @* USER DEVICE SECTION :: TODO:: To be changed later and set as global maybe *@
+        
+        <input hidden="hidden" asp-for="Course.Id"/>
+        <input hidden="hidden" id="pay-all-hidden" value="true"/>
+        <input hidden="hidden" asp-for="Reason"/>
+        <input hidden="hidden" asp-for="InvoiceToPay.Number"/>
+        <input id="ip" hidden="hidden" asp-for="Device.Ip"/>
+        <input id="operatingSystem" hidden="hidden" asp-for="Device.OperatingSystem"/>
+        <input id="deviceType" hidden="hidden" asp-for="Device.DeviceType"/>
+        <input id="authCookies" hidden="hidden" asp-for="Device.AuthCookies"/>
+        
+
+
+
+
+        @* Intro *@
+
+        <div id="intro" class="section">
+            @if (register)
+            {
+                <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="fas fa-heartbeat"></i>&nbsp;&nbsp;{{$t('message.weWillHelpYouEnrollEasily')}}</div>
+            }
+
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <p>{{$t('message.allInformationInProcessCorrect')}}</p>
+                    <p>{{$t('message.thisAccountCannotBeUsedByOthers')}}</p>
+                    <p>{{$t('message.doNotShutUpOrRefresh')}}</p>
+                    @if (register && !string.IsNullOrEmpty(ViewBag.AltCourse))
+                    {
+                        <p class="text-red">{{$t('message.altCourseExists')}} <a class="matterix-link" asp-action="Index" asp-controller="Payment" asp-route-courseId="@ViewBag.AltCourse" asp-route-reason="Register">@Model.Course.Subject</a></p>
+                    }
+                    
+                    @if (invoice && !string.IsNullOrEmpty(ViewBag.AltInvoice))
+                    {
+                        <p class="text-red">{{$t('message.altCourseExists')}} <a class="matterix-link" asp-action="Index" asp-controller="Payment" asp-route-courseId="@ViewBag.AltCourse" asp-route-reason="Register">@Model.Course.Subject</a></p>
+                    }
+                    
+                    
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                @if (register && !isFree)
+                {
+                    <a class="m-button m-button-primary text-center m-auto change-section" target="who-pays">{{$t('message.continue')}}</a>
+                }
+                else if(invoice)
+                {
+                    <a class="m-button m-button-primary text-center m-auto change-section" target="personal-info">{{$t('message.continue')}}</a>
+                }else if (isFree)
+                {
+                    <a class="m-button m-button-primary text-center m-auto change-section" target="terms">{{$t('message.continue')}}</a>
+                }
+                
+            </div>
+
+        </div>
+        
+        
+        
+        
+        @* Who pays *@
+        <div id="who-pays" class="section" style="display: none">
+            
+            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;{{$t('message.whoCoverCosts')}}</div>
+            
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <table class="w-100">
+                        <tr class="payer-option" payer="student">
+                            <td class="p-3">
+                                <input checked="checked" type="radio"/>
+                            </td>
+                            <td>{{$t('message.iCoverCosts')}}</td>
+                        </tr>
+                        
+                        <tr class="payer-option" payer="organization">
+                            <td class="p-3">
+                                <input type="radio"/>
+                            </td>
+                            <td>{{$t('message.organizationCoversForMe')}}</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+
+            </div>
+            
+            
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                <a class="m-button m-button-primary text-center m-auto change-section" target="terms">{{$t('message.continue')}}</a>
+            </div>
+
+        </div>
+
+
+        @*TERMS*@
+
+        <div id="terms" class="section" style="display: none">
+            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="far fa-handshake"></i>&nbsp;&nbsp;{{$t('message.termsConditions')}}</div>
+            
+            
+            <div class="row text-0-8 text-muted text-justify">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <partial name="PaymentSection/Terms"/>
+                </div>
+
+            </div>
+            
+            <div class="row direction text-0-8 text-muted mt-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 p-3" id="terms-row">
+                    <input id="terms-btn" type="radio"/>&nbsp; {{$t('message.iAcceptThe')}} <a class="matterix-link" target="_blank" href="@Url.Action("Privacy", "Home")">{{$t('message.termsConditions')}}</a>
+                </div>
+
+            </div>
+            
+            
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                <a class="m-button m-button-primary text-center m-auto change-section" target="personal-info">{{$t('message.next')}}</a>
+            </div>
+        </div>
+        
+        
+
+        @* PERSONAL INFO *@
+        <div id="personal-info" class="section" style="display: none">
+            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="far fa-id-card"></i>&nbsp;&nbsp;{{$t('message.personalInfo')}}</div>
+            <div class="row text-0-8 text-muted direction">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                   
+                    <table class="table-hover" style="width: max-content">
+
+                        <tr>
+                            <th class="border-0 p-2">{{$t('message.yourName')}}</th><td class="border-0 p-2">@Model.Student.FirstName @Model.Student.LastName</td>
+                        </tr>
+                        
+                        <tr dir="ltr">
+                            <th class="border-0 p-2">{{$t('message.phoneNumber')}}</th><td class="border-0 p-2">@Model.Student.PhoneCode - @Model.Student.PhoneNumber</td>
+                        </tr>
+                        
+                        <tr>
+                            <th class="border-0 p-2">{{$t('message.email')}}</th><td class="border-0 p-2">@Model.Student.Email</td>
+                        </tr>
+                        
+                        <tr>
+                            <th class="border-0 p-2">{{$t('message.address')}}</th><td class="border-0 p-2">@Model.Address.Street, @Model.Address.ZipCode @Model.Address.City</td>
+                        </tr>
+
+                    </table>
+                </div>
+                
+
+            </div>
+
+            
+
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                <a class="m-button m-button-primary text-center m-auto change-section" target="product-info">{{$t('message.correct')}}</a>
+            </div>
+        </div>
+
+
+
+        @* Product INFO*@
+        <div id="product-info" class="section" style="display: none">
+
+            @if (register)
+            {
+                <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-book"></i>&nbsp;&nbsp;{{$t('message.courseInfo')}}</div>
+            }
+            else
+            {
+                
+            }
+            
+            
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <table class="table-hover w-100 mt-3">
+                        
+                        <partial name="PaymentSection/ProductInfo"/>
+                        
+                    </table>
+                    
+                    
+                </div>
+
+            </div>
+
+            
+
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                @if (!isFree)
+                {
+                    <a class="m-button m-button-primary text-center m-auto change-section" target="payment-info">{{$t('message.next')}}</a>
+                }
+                else
+                {
+                    //Free Registration
+                    <a class="m-button m-button-primary text-center m-auto change-section" target="free-registration">{{$t('message.next')}}</a>
+                }
+            </div>
+        </div>
+
+
+
+
+
+        @* PAYMENT INFO *@
+        <div id="payment-info" class="section" style="display: none">
+
+            <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-money-check-alt"></i>&nbsp;&nbsp;{{$t('message.paymentInfo')}}</div>
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    
+                    <partial name="PaymentSection/PaymentInfo"/>
+                    
+
+                </div>
+                
+
+            </div>
+
+            
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                <a class="m-button m-button-primary text-center m-auto change-section" target="payment-method">{{$t('message.confirm')}}</a>
+            </div>
+        </div>
+        
+        
+        @* Free registration *@
+        <div id="free-registration" class="section" style="display: none">
+
+            <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-money-check-alt"></i>&nbsp;&nbsp;{{$t('message.paymentInfo')}}</div>
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    
+                    
+
+                </div>
+                
+
+            </div>
+
+            
+
+            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                <a class="m-button m-button-primary text-center m-auto " id="free-register-btn">{{$tc('message.registerFree', '@Model.InvoiceToPay.Amount')}}</a>
+            </div>
+        </div>
+        
+        
+        
+        
+        @* PAYMENT METHOD *@
+        <div id="payment-method" class="section" style="display: none">
+            <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-credit-card"></i>&nbsp;&nbsp;{{$t('message.paymentMethod')}}</div>
+            <div class="row direction text-0-8 text-muted">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    
+                    @* <div class="mt-4 mb-1 font-cairo direction text-0-9"><i class="fab fa-cc-visa matterix-color" style="font-size: 25px;"></i>&nbsp;&nbsp;{{$t('message.stripe')}}</div> *@
+                    
+                    <div data-parent="#payment-method" data-toggle="collapse"  data-target="#pay-with-stripe-container" class="mt-4 mb-1 font-cairo direction text-0-9 d-flex pointer">
+                        <i class="fab fa-cc-visa matterix-color" style="font-size: 21px;"></i>
+                        <div class="p-2"></div>
+                        <div class="align-self-center">{{$t('message.stripe')}}</div>
+                    </div>
+                    
+                    @* <div class="text-muted direction title-1-5">&nbsp;<i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-mastercard"></i></div> *@
+                    
+                    <div class="collapse show" id="pay-with-stripe-container">
+                        <partial name="PaymentSection/PayWithStripe"/>
+                    </div>
+                    
+                    
+                    @* <img src="~/Images/VippsIcon.png" width="25" height="auto" class="d-inline"/><div class="mt-4 mb-1 font-cairo direction text-0-9 d-inline">{{$t('message.vipps')}}</div> *@
+                    <div data-parent="#payment-method" data-toggle="collapse"  data-target="#pay-with-vipps-container" class="mt-4 mb-1 font-cairo direction text-0-9 d-flex pointer">
+                        <img src="~/Images/VippsIcon.png" width="25" height="25" class="d-inline"/>
+                        <div class="p-2"></div>
+                        <div class="align-self-center">{{$t('message.vipps')}}</div>
+                    </div>
+                    
+                    <div class="collapse mt-4 text-center" id="pay-with-vipps-container">
+                        <div class="col-md-11 pointer m-auto" style="width: max-content">
+                            <img id="pay-with-vipps-button" width="200px" class="m-auto" src="~/Images/betalmedvipps.png"/>
+                            <div class="font-cairo mt-1">{{$t('message.payNow')}} | <span class="to-pay-now"></span> {{$t('message.nok')}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                
+
+            </div>
+
+            
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        
+        
+        @{ var picture = register ? "CourseRegister.jpg" : "Invoice.jpg";}
+        
+        
+        <div class="col-sm-5">
+            <img src="~/Images/Covers/@picture" width="100%" height="100%" style="object-fit: cover; min-height: 580px;"/>
+        </div>
+        
+        
+        
+
+    </div>
+    
+    
+</div>
+
+
+
+@section Scripts
+{
+    <script src="~/js/Payment/Index.js" asp-append-version="true"></script>
+    <script src="~/js/UserDeviceInfo.js" asp-append-version="true"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="~/js/Payment/Stripe.js" asp-append-version="true"></script>
+    <script src="~/js/Payment/Vipps.js" asp-append-version="true"></script>
+    
+}

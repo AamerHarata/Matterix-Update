@@ -1,0 +1,16 @@
+@using Matterix.Services
+<hr/>
+<div class="un-select text-center direction">
+    <span style="padding: 1rem;"><a target="_blank" href="mailto:@StaticInformation.ContactEmail"><img src="~/Images/Contact/ContactEmailIcon.png" class="flag"/></a></span>
+    <span style="padding: 1rem;"><a target="_blank" href="@StaticInformation.FacebookGroup"><img src="~/Images/Contact/ContactGroupIcon.png" class="flag"/></a></span>
+    <span style="padding: 1rem;"><a target="_blank" href="@StaticInformation.FacebookPage"><img src="~/Images/Contact/ContactFacebookIcon.png" class="flag"/></a></span>
+</div>
+<div><code>{{$t('message.followUs')}}</code></div>
+<br/>
+<div>
+    <div class="fb-share-button" 
+         data-href="@StaticInformation.FullWebsite" 
+         data-layout="button_count">
+    </div>
+</div>
+<hr/>

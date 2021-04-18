@@ -1,0 +1,35 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.HomeViewModel
+
+<div class="collapse task-box" id="short-videos-task-box">
+    <hr class="mt-0"/>
+    
+    <div class="card task-card task-card-clickable direction open-instruction-modal" device ="Computer" topic="instructionEnrollCourseStudent" target="@StaticInstructionVideos.EnrollCourseStudent" style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+        <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionEnrollCourseStudent')}}</div></div>
+
+    </div>
+    
+    
+    <div class="card task-card task-card-clickable direction open-instruction-modal" device ="Computer" topic="instructionJoinLectureComputer" target="@StaticInstructionVideos.JoinLectureComputer"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+        <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureComputer')}}</div></div>
+
+    </div>
+    
+    <div class="card task-card task-card-clickable direction open-instruction-modal" device ="Mobile" topic="instructionJoinLectureMobile" target="@StaticInstructionVideos.JoinLectureMobile"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+        <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureMobile')}}</div></div>
+
+    </div>
+    
+    <div class="card task-card task-card-clickable direction open-instruction-modal" device ="Computer" topic="instructionJoinCourseChat" target="@StaticInstructionVideos.JoinCourseChat"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+        <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinCourseChat')}}</div></div>
+
+    </div>
+    
+    
+    
+    
+</div>

@@ -1,0 +1,55 @@
+@using Matterix.Services
+@{
+    ViewBag.Title = "Find Application";
+    Layout = "_Layout";
+    var reference = ViewBag.reference;
+    var passCode = ViewBag.passCode;
+}
+
+<div class="m-auto text-center"><img src="~/Images/LogoPlus.png" width="200" height="auto"/></div>
+<div class="text-center font-cairo direction">{{$t('message.searchPlusApplication')}}</div>
+
+<form method="post" class="un-select">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="matterix-input-container set-my-direction">
+                <input class="matterix-input" asp-for="@reference" autofocus type="text" required title="" maxlength="5" placeholder="12345"/>
+                <label class="matterix-input-label">
+                    <span class="matterix-input-content"><i class="fas fa-pen-square"></i>&nbsp;&nbsp;{{$t('message.applicationNumber')}}</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="matterix-input-container set-my-direction">
+                <input class="matterix-input" asp-for="@passCode" autofocus type="text" required title="" maxlength="4" placeholder="1234"/>
+                <label class="matterix-input-label">
+                    <span class="matterix-input-content"><i class="fas fa-user-secret"></i>&nbsp;&nbsp;{{$t('message.passCode')}}</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <div class="text-center"><a class="m-button m-button-primary" id="submit">{{$t('message.check')}}</a></div>
+</form>
+
+<div style="color: red" class="text-center font-cairo un-select mt-3 mb-3">@Html.ValidationMessage("wrongInformation")</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#submit").unbind().bind('click',
+                function() {
+                    $("form").submit();
+
+                });
+    })
+    </script>
+}

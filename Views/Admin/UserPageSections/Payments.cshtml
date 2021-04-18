@@ -1,0 +1,90 @@
+@using Matterix.Services
+@model IEnumerable<MatterixPayment>
+
+
+<button class="btn btn-danger" id="new-payment" style="margin-bottom: 1rem;">New</button>
+
+<table class="table table-hover" id="admin-create-payment" hidden="hidden">
+    <tr>
+        
+        <td><input type="number" name="invoiceNumber" class="form-control" placeholder="Invoice Number"/></td>
+        <td><input type="number" name="amount" class="form-control" placeholder="Amount"/></td>
+        <td><span> @Html.DropDownList(" " ,
+                       new SelectList(Enum.GetValues(typeof(EnumList.PaymentMethod))), "Pay method",
+                       new {@class = "form-control", @id="create-payment-method"})</span></td>
+        <td><span> @Html.DropDownList(" " ,
+                       new SelectList(Enum.GetValues(typeof(EnumList.PaymentReason))), "Payment reason",
+                       new {@class = "form-control", @id="create-payment-reason"})</span></td>
+        <td><input name="description" class="form-control" placeholder="Description"/></td>
+        <td><input type="date" class="form-control" name="paymentDate"/> </td>
+        <td><button class="btn btn-success" id="admin-create-payment-btn">Create</button></td>
+        
+    </tr>
+    <tr>
+        <td colspan="5" id="add-payment-response"><br/></td>
+        <td colspan="3"></td>
+        
+    </tr>
+</table>
+
+
+
+
+
+
+@if (!Model.Any())
+    {
+        <hr/>
+        <div class="text-center">No payments yet!</div>
+    }
+    else
+    {
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Invoice</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Reason</th>
+                <th>Method</th>
+                <th>Service ID</th>
+                <th>Description</th>
+                <th>Refund</th>
+            </tr>
+            </thead>
+        @{ var i = 1; }
+        @foreach (var payment in Model)
+        {
+            <tr id="@payment.Id" class="payment-row">
+                <td>@i</td>
+                @if (payment.Course != null)
+                {
+                    <td>@payment.Course.Subject / @payment.Course.Code</td>
+                }
+                else
+                {
+                    <td>No course / No code</td>
+                }
+                <td>@payment.InvoiceNumber</td>
+                <td>@Format.NumberFormat(payment.Amount)</td>
+                <td>@Format.DateFormat(payment.DateTime) - @Format.TimeFormat(payment.DateTime)</td>
+                <td>@payment.Reason</td>
+                <td>@payment.Method</td>
+                <td class="payment-service-id">@payment.PaymentServiceRef</td>
+                @* <td>@payment.Description</td> *@
+                <td>@payment.ExtraDescription</td>
+                @if (payment.Refunded)
+                {
+                    <td>@Format.DateFormat(payment.RefundedAt)</td>
+                }
+                else
+                {
+                    <td class="not-this"><button class="btn btn-secondary admin-refund-payment" payment-method="@payment.Method.ToString()" amount="@payment.Amount">Refund</button></td>
+                }
+            </tr>
+            i++;
+        }
+        </table>
+    }

@@ -1,0 +1,60 @@
+.full-course-div {
+    width: 90%;
+    margin: 0.7rem auto;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    font-size: 0.8rem;
+    /*-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)*/
+}
+
+
+.full-course-body {
+    margin-left: 1rem;
+    width: 92%;
+    /*border-left: This changes by Jquery in Language file*/
+}
+
+
+.full-course-body-table{
+    border-collapse: collapse;
+    border: none;
+}
+
+.own-course{
+    background-color: rgba(18, 160, 20, 0.08);
+}
+.teach-course{
+    background-color: rgba(160, 127, 27, 0.08);
+}
+.ended-course{
+    background-color: rgba(160, 32, 23, 0.08);
+    
+}
+
+.course-type-bar{
+    width: 80%;
+    margin: auto;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(164, 164, 160, 0.75));;
+    height: auto;
+    border-radius: 0.75rem;
+}
+
+.course-type-text {
+    font-size: 1.5rem;
+    /*color: #343434;*/
+    color: #666666;
+    /*color:whitesmoke;*/
+    /*text-shadow: #474747 3px 4px 10px;*/
+
+}
+
+.course-div-pic {
+    /*border-right: This changes by Jquery in Language file*/
+    border-top: 1px solid gray;
+    border-radius: 50%;
+    object-fit: cover;
+}

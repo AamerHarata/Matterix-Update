@@ -1,0 +1,22 @@
+body{
+    margin-bottom: 0!important;
+    background-color: rgba(128, 128, 128, 0.07);
+}
+
+footer{
+    display: none !important;
+}
+
+#pay-with-vipps-container:hover{
+    filter: brightness(70%);
+}
+
+#pay-with-vipps-container:active{
+    filter: brightness(90%);
+    transform: scale(0.95);
+}
+
+#pay-with-vipps-container[disabled=disabled]{
+    opacity: 0.6;
+    pointer-events: none;
+}

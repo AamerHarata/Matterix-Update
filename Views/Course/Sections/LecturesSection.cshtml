@@ -1,0 +1,218 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.CourseAreaViewModel
+@inject AccessService Access
+@inject CourseService CourseService
+@inject LectureService LectureService
+
+
+<link rel="stylesheet" href="~/css/CourseArea/LecturesList.css" asp-append-version="true"/>
+<input id="courseId" type="hidden" value="@Model.Course.Id"/>
+<div id="whole-lectures-section">
+    
+    @{
+        var edit = Access.CourseEditAccess(User, Model.Course.Id);
+        var isAdmin = Access.IsAdmin(User);
+    }
+    @foreach (var lec in Model.Lectures)
+    {
+        <div class="lecture-container direction" lecture-number="@lec.Number" id="@lec.Id">
+            <div class="lecture-head direction text-center un-select">
+                <div class="float-direction" style="float: left; display: inline">
+                    @if (lec.Introduction)
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        @lec.Number
+                    }
+                    
+                </div>
+                <div class="title-container">
+                    @if(!lec.Introduction){<span>{{$tc('message.lecture', '@lec.Number')}} - </span>}
+                    @if (string.IsNullOrEmpty(lec.Title))
+                    {
+                        <span>@Model.Course.Subject</span>
+                    }
+                    else if (lec.IsIntro())
+                    {
+                        <span>@Format.Translate("intro")</span>
+                    }else if (lec.IsSample())
+                    {
+                        <span>@Format.Translate("sample")</span>
+                    }
+                    else
+                    {
+                        <span>@lec.Title.Trim()</span>
+                    }
+                    @if (!lec.Completed)
+                    {
+                        <span>- {{$t('message.startsOnDay')}}: </span>
+                        <span>@Format.Translate(lec.Day.ToString()) @Format.DateFormat(lec.Date) - {{$t('message.atClock')}}: @Format.TimeFormat(lec.From)</span>
+                    }
+                    else
+                    {
+                        <span>&nbsp;<i class="fas fa-check-circle small text-success"></i>&nbsp;&nbsp;{{$t('message.completedIn')}}: @Format.DateFormat(lec.Date)</span>
+                    }
+                </div>
+                <div class="edit-title-container" style="display: none;">
+                    <input class="form-control no-move lecture-title" value="@lec.Title" style="margin: 0; width: 20%; display: inline" v-bind:placeholder="$t('message.enterTitle')"/>
+                    
+                    @{
+                        IList<SelectListItem> daysList= Enum.GetValues(typeof(EnumList.Days)).Cast<EnumList.Days>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
+
+                        SelectList daysListData = new SelectList(daysList,"Value","Text");
+                    }
+                    
+                    <span>
+                        @Html.DropDownListFor(x=>lec.Day, daysListData, Format.Translate("selectDay").ToString(), new {@class="form-control no-move lecture-day", @style = "width: 8rem; display: inline-block"})
+                        
+                    </span>
+                    
+@*                     <span> @Html.DropDownList("day",  *@
+@*                                new SelectList(Enum.GetValues(typeof(EnumList.Days)), selectedValue: lec.Day), "Select Day", *@
+@*                                new {@class = "form-control no-move lecture-day", @style = "width: 8rem; display: inline-block"}) *@
+@*                     </span> *@
+                    <input asp-for="@lec.Date" class="form-control no-move lecture-date" style="width: 15%; display: inline-block"/>
+                    <span style="display: inline-block" class="clockpicker">
+                        {{$t('message.from')}}
+                        <input id="lecture_from:@lec.Number" style="width: 8rem; display: inline-block" class="form-control no-move lecture-from" asp-for="@lec.From" type="text" readonly v-bind:placeholder="$t('message.enterTime')">
+                    </span>
+                    <span style="display: inline-block" class="clockpicker">
+                        {{$t('message.to')}}
+                        <input id="lecture_to:@lec.Number" style="width: 8rem; display: inline-block" class="form-control no-move lecture-to" asp-for="@lec.To" type="text" readonly v-bind:placeholder="$t('message.enterTime')">
+                    </span>
+                
+                    <div class="custom-control custom-switch no-move" style="display: inline-block">
+                        <input type="checkbox" value="true" checked="@lec.Completed" class="custom-control-input lecture-completed" id="completed'@lec.Number'" name="example" >
+                        <label class="custom-control-label" for="completed'@lec.Number'">{{$t('message.completed?')}}</label>
+                    </div>
+                
+                    <div class="custom-control custom-switch no-move" style="display: inline-block">
+                        <input type="checkbox" value="true" checked="@lec.Free" class="custom-control-input lecture-free" id="free'@lec.Number'" >
+                        <label class="custom-control-label" for="free'@lec.Number'">{{$t('message.free?')}}</label>
+                    </div>
+                
+                </div>
+            </div>
+            <span class="h-line" style="display: none"><hr style="padding: 0; margin: 0; height: 1px; "/></span>
+            <div class="lecture-body un-select" id="body:@lec.Number">
+                <div style="padding: 1rem" class="row">
+                    <div class="col-xl-3">
+                        <div class="lecture-section-title">{{$t('message.description')}}:</div>
+                        <textarea class="lecture-text lecture-description direction" v-bind:placeholder="$t('message.noDescriptionYet')" readonly>@lec.Description</textarea>
+                    </div>
+        
+                    <div class="col-xl-3" style="width: 100%">
+                        <div class="lecture-section-title">{{$t('message.preparations')}}:</div>
+                        <textarea class="lecture-text lecture-preparation" v-bind:placeholder="$t('message.noPreparationsYet')" readonly>@lec.Preparation</textarea>
+                    </div>
+        
+                    <div class="col-xl-3 lecture-files">
+                        <div class="lecture-section-title">{{$t('message.files')}}:</div>
+                        <div class="files-container">
+                            @{
+                                var files = LectureService.GetLectureFiles(lec.Id);
+                            }
+
+                            @if (files.Count == 0)
+                            {
+                                <div class="text-0-6 font-cairo text-center text-muted no-files">{{$t('message.lectureNoFiles')}}!</div>
+                            }
+                            else
+                            {
+                                foreach (var file in files)
+                                {
+                                    <partial name="CoursePartial/_LectureFile" model="@file"/>
+                                }
+                            }
+
+
+                        </div>
+                    
+                        @if (edit)
+                        {
+                            <form class="theform" enctype="multipart/form-data">
+                                <input type="file" name="file" hidden="true" class="hidden-select-file">
+                                <input type="number" name="number" hidden="true" value="@lec.Number">
+                                <input type="text" name="courseId" hidden="true" value="@Model.Course.Id">
+                                <button type="button" class="m-button m-button-primary select-file-btn">{{$t('message.chooseFile')}}</button>
+                                <button class="upload-btn m-button m-button-success" type="button" disabled="disabled">{{$t('message.submit')}}</button>
+                                <div class="file-name text-0-6 text-muted font-cairo mt-2">{{$t('message.noFileSelected')}}</div>
+                            </form>
+                        }
+                    </div>
+        
+                    <div class="col-xl-3 lecture-files">
+                        <div class="lecture-section-title">{{$t('message.videos')}}:</div>
+                        <div class="videos-container">
+                        @if (!LectureService.GetLectureVideos(lec.Id).Any())
+                        {
+                            <p class="text-0-6 font-cairo text-center text-muted">{{$t('message.lectureNoVideos')}}!</p>
+                        }
+                        else
+                        {
+                            
+                                <partial name="CoursePartial/_LectureVideo", model="@LectureService.GetLectureVideos(lec.Id)"/>
+                        }
+                        </div>
+                        @if (edit)
+                        {
+                            <button type="button" class="m-button m-button-primary add-video-btn">{{$t('message.addVideo')}}</button>
+                        }
+                    
+                    
+                    </div>
+                    
+                    
+                    @if (edit)
+                    {
+                        <div class="edit-lecture-btns mt-3" style="padding-left: 1%; padding-right: 1%;">
+                            <button class="m-button m-button-primary edit-btn">{{$t('message.edit')}}</button>
+                            <button class="m-button m-button-success save-btn"  style="display: none">{{$t('message.save')}}</button>
+                            <button class="m-button m-button-secondary cancel-btn"  style="display: none">{{$t('message.cancel')}}</button>
+                            &nbsp;
+                            <button class="m-button m-button-danger lecture-delete-btn">{{$t('message.delete')}}</button>
+                            
+                            @if (lec.Introduction && lec.Free) //@* ToDo :: Remove this after intro lecture *@
+                            {
+                                <a target="_blank" href="@lec.Course.ClassUrl"><button class="btn btn-danger">الذهاب للمحاضرة التعريفية</button></a>
+                            }
+                            
+                            <div class="success-edit"><span class="text-message"></span></div>
+                        </div>
+                    }
+                    else //ToDo :: @* ToDo :: Remove this after intro lecture *@
+                    {
+                        if (lec.Introduction && lec.Free)
+                         {
+                             <div class="edit-lecture-btns" style="padding-left: 1%; padding-right: 1%;">
+                                 <a target="_blank" href="@lec.Course.ClassUrl"><button class="btn btn-danger">الذهاب للمحاضرة التعريفية</button></a>
+                             </div>
+                         }
+                    }
+                    
+                    
+                </div>
+        
+                
+        
+
+            </div>
+        </div>
+//        i++;
+    }
+    
+    @if (edit)
+    {
+        <button class="m-button m-button-secondary d-inline-block" id="add-lecture" style="border-radius: 90%; display: block; margin: 1rem 0.5rem;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <span class="text-muted small font-cairo un-select">{{$t('message.addLecture')}}</span>
+    }
+    @if (isAdmin)
+    {
+        <button class="m-button m-button-success" id="add-intro-lecture" style="border-radius: 90%; display: block; margin: 1rem 0.5rem;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    }
+</div>
+
+
+

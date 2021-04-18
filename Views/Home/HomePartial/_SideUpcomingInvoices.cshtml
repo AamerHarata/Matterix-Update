@@ -1,0 +1,38 @@
+@using Matterix.Services
+@model IEnumerable<MatterixInvoice>
+@inject PaymentService Payment
+<div class="collapse task-box"  id="upcoming-invoices-task-box">
+    <hr class="mt-0"/>
+    <div class="text-0-6">
+    
+        @if (!Model.Any())
+        {
+            <div class="small text-center direction">{{$t('message.noUnPaidInvoice')}}</div>
+        }
+        else
+        {
+        
+            foreach (var invoice in Model)
+            {
+                var color = invoice.IsPostponed() ? "green" : "red";
+                var overdueOrLate = !invoice.IsPostponed();
+            
+                <div class="card task-card invoice-btn" invoiceNumber="@invoice.Number" type="button" dueOrLate="@overdueOrLate.ToString()">
+                    <div class="text-left" style="font-weight: 600">@invoice.Course.Subject</div>
+                    <div class="direction matterix-color">{{$tc('message.currency', '@Format.NumberFormat(invoice.CurrentAmount)')}}</div>
+                    <div class="text-left">Kidnummer: <span class="force-select">@invoice.CIDNumber</span></div>
+                    <div class="direction" style="color: gray">{{$t('message.dueDate')}}: @Format.DateFormat(invoice.CurrentDueDate) <span style="color: @color">&nbsp;&nbsp;(@Format.Translate(invoice.StatusString()))</span></div>
+                </div>
+            
+            
+                <partial name="PartialViews/_InformationModals/_InvoiceInformation" model="@invoice"/>
+            
+        
+            }
+        }
+    </div>
+
+    <div class="mb-2 text-0-6 text-secondary">{{$t('message.invoicesCanBePaidToAccount')}}: <span class="force-select">@StaticInformation.AccountNumber</span></div>
+    <div class="mb-2 text-0-6"><a class="card-link text-secondary" asp-controller="Invoice" asp-action="History">{{$t('message.invoicesAndReceipts')}}</a></div>
+</div>
+

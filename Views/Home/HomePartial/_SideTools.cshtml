@@ -1,0 +1,53 @@
+@model Matterix.Models.ViewModel.HomeViewModel
+
+@{
+    var homeworkCount = Model.UpcomingHomework.Count == 0 ? "" : $" ({Model.UpcomingHomework.Count})";
+    var invoicesCount = $" ({Model.UpcomingInvoices.Count})";
+    var tasksCount = 0;
+    var user = new ApplicationUser();
+    tasksCount = !ViewBag.EmailVerified ? ++tasksCount : tasksCount;
+    tasksCount = !ViewBag.PhoneVerified ? ++tasksCount : tasksCount;
+    tasksCount = !ViewBag.StudentAgreementSigned ? ++tasksCount : tasksCount;
+    tasksCount = Model.NonCompletedOrders.Any() ? ++tasksCount : tasksCount;
+    
+}
+
+<div id="tasks-container" class="col-md-3 un-select direction text-center">
+    
+    @if (tasksCount > 0)
+    {
+        <div class="task-div">
+            <div id="todo-tasks-title" data-toggle="collapse" data-parent="#tasks-container"  data-target="#upcoming-todo-events-task-box" class="text-center title-1-0 task-title">{{$t('message.todoTasks')}} (@tasksCount)</div>
+            <partial name="HomePartial/_SideTodoEvents" model="@Model.NonCompletedOrders"/>
+        </div>
+    }
+    
+    <div class="task-div">
+        <div id="upcoming-lectures-title" data-toggle="collapse" data-parent="#tasks-container"  data-target="#upcoming-lectures-task-box" class="text-center title-1-0 task-title"><span id="live-circle"></span>{{$t('message.upComingLectures')}}</div>
+        <partial name="HomePartial/_SideUpcomingLectures" model="@Model.UpcomingLectures"/>
+    </div>
+    
+    <div  class="task-div">
+        <div data-toggle="collapse" data-parent="#tasks-container"  data-target="#upcoming-homework-task-box" class="text-center title-1-0 task-title">{{$t('message.upComingHomework')}}@homeworkCount</div>
+        <partial name="HomePartial/_SideUpcomingHomework" model="@Model.UpcomingHomework"/>
+    </div>
+    
+    @if (Model.UpcomingInvoices.Any())
+    {
+        <div  class="task-div">
+            <div id="upcoming-invoices-title" data-toggle="collapse" data-parent="#tasks-container" data-target="#upcoming-invoices-task-box" class="text-center title-1-0 task-title">{{$t('message.unPaidInvoices')}}@invoicesCount</div>
+            <partial name="HomePartial/_SideUpcomingInvoices" model="@Model.UpcomingInvoices"/>
+        </div>
+    }
+    
+    <div  class="task-div">
+        <div id="short-videos-title" data-toggle="collapse" data-parent="#tasks-container"  data-target="#short-videos-task-box" class="text-center title-1-0 task-title">{{$t('message.helpByShortVideos')}}</div>
+        <partial name="HomePartial/_SideShortVideos"/>
+    </div>
+                
+               
+    <div hidden="hidden" id="socialSideTask" style="max-height: 20%;">
+        <partial name="HomePartial/_SideSocialMedia"/>
+                    
+    </div>
+</div>

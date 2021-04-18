@@ -1,0 +1,96 @@
+@using Matterix.Services
+@model IEnumerable<UserDevice>
+
+@if (!Model.Any())
+{
+    <hr/>
+    <div class="text-center">Ops! No Activities</div>
+    
+}
+else
+{
+    <table class="direction text-center table table-striped" style="width: 100%;">
+            
+            <thead>
+            <tr>
+                <th style="width: 2rem">#</th>
+                <th style="width: 7rem">Device</th>
+                <th>Operating System</th>
+                <th>IP Number</th>
+                <th>Date and Time</th>
+                <th>Activity</th>
+                <th>Device Id</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Is New</th>
+                <th>Group</th>
+                <th >Apply</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            @{ var i = 1;}
+            @foreach (var activity in Model)
+            {
+                <tr>
+                    <td class="activity-number">@i</td>
+                    <td>@activity.DeviceType</td>
+                    <td>@activity.OperatingSystem</td>
+                    @if (!string.IsNullOrEmpty(activity.Ip))
+                    {
+                        <td>@activity.Ip</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    <td dir="ltr">@Format.DateFormat(activity.DateTime) - @Format.TimeFormat(activity.DateTime)</td>
+                    <td>@activity.Activity</td>
+                    @if (!string.IsNullOrEmpty(activity.AuthCookies) && activity.AuthCookies.Length>23)
+                    {
+                        <td group-number="@activity.GroupNumber" full-auth="@activity.AuthCookies" class="activity-device auth-cookies" style="background-color: ">@activity.AuthCookies.Substring(6, 16)</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    <td>@activity.Activity</td>
+                    
+                    
+                    
+                    @* Whole statement is for status *@
+                    @if (activity.New)
+                    {
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourDevice')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.newDevice')}}: @activity.GroupNumber</td>
+                        }
+                    }
+                    else
+                    {
+                        
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourIdAuth')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.registeredInNumber')}}: @activity.GroupNumber</td>
+                        }
+                        
+                    }
+                    
+                    
+                    <td><input class="is-new-device" type="checkbox" checked="@activity.New"/></td>
+                    <td><input class="form-control w-25 m-auto device-group-number" type="number" value="@activity.GroupNumber"/></td>
+                    <td><button class="btn btn-dark modify-device" device-id="@activity.Id">Ok</button></td>
+                    <td><button class="btn btn-danger delete-device" device-id="@activity.Id">delete</button></td>
+                </tr>
+                i++;
+            }
+        </table>
+}
+

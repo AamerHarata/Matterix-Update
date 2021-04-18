@@ -1,0 +1,168 @@
+/*body{*/
+    /*margin-bottom: auto!important;*/
+/*}*/
+
+/*@media (max-width: 1199px) {*/
+    /*body{*/
+        /*margin-bottom: auto!important;*/
+    /*}*/
+/*}*/
+
+
+.course-div-info{
+    width: 100%;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+    border: 1px lightgray solid;
+    /*border-bottom: 1px solid rgba(0, 0, 0, 0.2);*/
+    /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);*/
+    background-color: white;
+    font-size: 0.8rem;
+}
+
+.full-course-body {
+    margin-left: 1rem;
+    width: 80%;
+    /*border-left: This changes by Jquery in Language file*/
+}
+
+.course-div-pic {
+    /*border-right: This changes by Jquery in Language file*/
+    /*border-top: 1px solid black;*/
+    /*border-radius: 50%;*/
+    border: none;
+    object-fit: cover;
+}
+
+
+
+/*The close button for div info*/
+#close-info-box {
+    font-size: 1.5em;
+    color: var(--Matterix);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+#course-nav-tab{
+    width: 100%;
+    background-color: #4e54a4;
+    background-color: rgba(78, 84, 164, 0.85);
+    margin-top:0;
+    direction: rtl;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    margin-bottom: 0.5rem;
+    z-index: 1;
+    
+}
+
+#course-nav-tab ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#course-nav-tab li{
+    /*float: right;*/
+    display: inline-flex;
+    
+}
+
+#course-nav-tab li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+
+#course-nav-tab li a:hover, #course-nav-tab li a.active-tab {
+    background-color: rgba(36, 36, 36, 0.55);
+}
+#course-nav-tab li a:active, #course-nav-tab li a.active-tab:active {
+    transform: translateY(-1px);
+    /*box-shadow: 0 5px 5px rgba(247, 228, 228, 0.7);*/
+}
+
+#nav-class-btn, #nav-discord-btn{
+    background-color: var(--Matterix);
+    box-shadow: 0 5px 5px rgba(41, 37, 37, 0.2);
+}
+
+
+
+/*** Course People ***/
+
+.person-full-div {
+    cursor: pointer;
+    width: 300px;
+    /*max-width: 15%;*/
+    background-color: whitesmoke;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    margin: 1rem 1rem;
+    padding: 0.5rem;
+}
+
+.person-full-div:hover{
+    cursor: pointer;
+    width: 300px;
+    border-bottom: none;
+    box-shadow: snow;
+    /*max-width: 15%;*/
+    background-color: white;
+
+}
+
+.person-pic-div img{
+    border-radius: 50%;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    
+}
+
+.person-body-div {
+    padding: 0 1rem;
+    font-size: 0.8rem;
+    overflow-x: hidden;
+    white-space: nowrap;
+       
+}
+
+.person-body-div div {
+    margin-bottom: 0.2rem;
+    display: block;
+    
+}
+
+.person-link{
+    color: black;
+}
+
+.person-link:hover{
+    color: black;
+}
+
+
+
+.file-card{
+    margin: auto auto 0.5rem auto;
+    background-color: rgba(245, 245, 245, 0.51);
+    padding: 1rem;
+    border: 0;
+    font-size: 0.8rem;
+    width: 70%;
+}
+
+.file-card div{
+    margin-bottom: 7px;
+}

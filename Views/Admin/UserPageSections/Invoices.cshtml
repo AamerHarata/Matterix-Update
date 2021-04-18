@@ -1,0 +1,117 @@
+@using Matterix.Services
+@model IEnumerable<MatterixInvoice>
+@inject PaymentService Payment
+
+
+
+<button class="btn btn-danger" id="new-inv" style="margin-bottom: 1rem;">New</button>
+
+<table class="table table-hover" id="admin-create-inv" hidden="hidden">
+    <tr>
+        
+        <td><select class="form-control" name="courseId" asp-items="ViewBag.Courses"></select></td>
+        <td><input type="number" name="amount" class="form-control" placeholder="Amount"/></td>
+        <td><span> @Html.DropDownList(" " ,
+                       new SelectList(Enum.GetValues(typeof(EnumList.InvoiceReason))), "Select reason",
+                       new {@class = "form-control", @id="create-inv-reason"})</span></td>
+        <td><input class="form-control" name="description" placeholder="Comment"/></td>
+        <td><input type="date" class="form-control" name="dueDate"/></td>
+        <td><button class="btn btn-success" id="admin-create-inv-btn">Create</button></td>
+        
+    </tr>
+    <tr>
+        <td colspan="5" id="add-inv-response"><br/></td>
+        
+    </tr>
+</table>
+
+
+
+@if (!Model.Any())
+    {
+        <hr/>
+        <div class="text-center">No Invoice yet!</div>
+    }
+    else
+    {
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Kid</th>
+                <th>Course</th>
+                <th>Due Date</th>
+                <th>Org. Amount</th>
+                <th>Full Amount</th>
+                <th>Deadline</th>
+                <th>Reason</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Paid</th>
+                <th>Status</th>
+                <th>-</th>
+                <th>Remind</th>
+                <th>Inc</th>
+                <th>Del</th>
+            </tr>
+            </thead>
+            @{var i = 1;}
+            @foreach (var invoice in Model)
+            {
+            
+                <tr id="@invoice.Number">
+                    
+                    
+                    @if (invoice.IsLate())
+                    {
+                        <td style="background-color:tomato; color: white" class="inv-nr-row">@i</td>
+                        <td style="background-color: tomato; color: white" class="invoice-number"><a asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@invoice.Number">@invoice.Number</a></td>
+                    }
+                    else
+                    {
+                        <td class="inv-nr-row">@i</td>
+                        <td class="invoice-number"><a asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@invoice.Number">@invoice.Number</a></td>
+                    }
+                    <td class="invoice-cid">@invoice.CIDNumber</td>
+                    <td>@invoice.Course.Subject<span class="small"> / @invoice.Course.Code</span></td>
+                    <td><input style="width: max-content" class="form-control inv-edit" asp-for="@invoice.OriginalDueDate"/></td>
+                    @* <td><input style="width: max-content" class="form-control inv-edit" asp-for="@invoice.Amount"/></td> *@
+                    <td><input class="form-control inv-edit w-75" asp-for="@invoice.Amount"/></td>
+                    <td>@Format.NumberFormat(invoice.CurrentAmount)</td>
+                    <td><input style="width: max-content" class="form-control inv-edit" asp-for="@invoice.OriginalDeadline"/></td>
+                    <td>
+                        <span> @Html.DropDownListFor(x => invoice.Reason,
+                                   new SelectList(Enum.GetValues(typeof(EnumList.InvoiceReason))), "Select Reason",
+                                   new {@class = "form-control invoice-reason inv-edit"})</span></td>
+                    <td>
+                        <span> @Html.DropDownListFor(x => invoice.InvoiceType,
+                                   new SelectList(Enum.GetValues(typeof(EnumList.InvoiceType))), "Select type",
+                                   new {@class = "form-control invoice-type inv-edit"})</span></td>
+                    <td><input class="form-control inv-edit" asp-for="@invoice.ExtraDescription"/></td>
+                    <td><input type="checkbox" class="paid-invoice inv-edit" asp-for="@invoice.Paid"/></td>
+
+
+                    @if (invoice.Canceled)
+                    {
+                        <td>Canceled</td>
+                    }
+                    else if (invoice.Paid)
+                    {
+                        <td class="invoice-done-paid" inv-payment-id="@invoice.PaymentId">Payed</td>
+                    }
+                    else
+                    {
+                        <td><button class="btn btn-primary admin-cancel-invoice" invoice-number="@invoice.Number">Cancel?</button></td>
+                    }
+                    <td><button class="btn btn-secondary admin-edit-invoice-btn">Ok</button></td>
+                    <td><button invoice-number="@invoice.Number" class="btn btn-info admin-invoice-email">Email</button></td>
+                    <td><button class="btn btn-success invoice-increment-btn" invoice-number="@invoice.Number">Inc</button></td>
+                    <td><button class="btn btn-danger admin-delete-invoice">Del</button></td>
+                </tr>
+            i++;
+        }
+        </table>
+    }
+
+

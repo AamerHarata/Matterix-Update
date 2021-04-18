@@ -1,0 +1,76 @@
+@using Matterix.Services
+
+
+
+
+<div class="container-fluid">
+    
+    <div class="text-center direction row">
+        <div class="col-sm-3 mb-4">
+            <div style="width: max-content;min-width: 60%; margin: auto; white-space: nowrap; overflow: visible;" class="direction">
+                <p>{{$t('message.contactUs')}}</p>
+                <div class="normal light">
+                    <div><a target="_blank" href="@StaticInformation.FacebookPage"><i class="fab fa-facebook"></i>&nbsp; {{$t('message.facebookPage')}}</a></div>
+                    <div><a target="_blank" href="@StaticInformation.FacebookGroup"><i class="fas fa-users"></i>&nbsp; {{$t('message.facebookGroup')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" title="@StaticInformation.ContactEmail" href="mailto:@StaticInformation.ContactEmail"><i class="fas fa-envelope"></i>&nbsp; {{$t('message.email')}}</a></div>
+                    <div><a href="tel:@StaticInformation.ContactNumber" data-toggle="tooltip" data-placement="auto" title="@StaticInformation.ContactNumber"><i class="fas fa-phone-square"></i>&nbsp; {{$t('message.phone')}} ({{$t('message.phoneNecessity')}})</a></div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mb-4">
+            <div style="width: max-content; min-width: 60%; margin: auto; white-space: nowrap; overflow: visible;" class="direction">
+                <p>{{$t('message.usageTerms')}}</p>
+                <div class="normal light">
+                    <div><a asp-controller="Home" asp-action="Privacy">{{$t('message.privacy')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.coursesRules')}}</a></div>
+                    <div><a asp-controller="Instructions" asp-action="StudentAgreement">{{$t('message.studentAgreement')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.otherRules')}}</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mb-4">
+            <div style="width: max-content; min-width: 60%; margin: auto; white-space: nowrap; overflow: visible;" class="direction">
+                <p>{{$t('message.helpAndSupport')}}</p>
+                <div class="normal light">
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.schoolAndSystemTutorial')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.enrollCoursesAndHowTo')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.educationInNorwayTutorial')}}</a></div>
+                    <div><a asp-controller="Home" asp-action="ContactUs">{{$t('message.contactSupportOrReportProblem')}}</a></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-3 mb-4">
+            <div style="width: max-content; min-width: 60%; margin: auto; white-space: nowrap; overflow: visible;" class="direction">
+                <p>{{$t('message.quickLinks')}}</p>
+                <div class="normal light">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div><a asp-area="Identity" asp-page="/Account/Manage/Index">{{$t('message.yourAccountSettings')}}</a></div>
+                    }
+                    else
+                    {
+                        <div><a  asp-area="Identity" asp-page="/Account/Login">{{$t('message.login')}}</a></div>
+                    }
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.courseChat')}}</a></div>
+                    <div><a data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.underDevelopment')" href="javascript:;">{{$t('message.scheduleForThisSemester')}}</a></div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div><a asp-controller="Invoice" asp-action="History">{{$t('message.invoicesAndReceipts')}}</a></div>
+                    }
+                    else
+                    {
+                        <div><a asp-controller="Home" asp-action="AboutUs">{{$t('message.aboutOrganization')}}</a></div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <hr/>
+    <span class="normal">&copy;</span> @DateTime.Now.Year - @StaticInformation.FirstName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div class="direction" style="display: inline-block; float: right; margin-right: 1%"><a target="_blank" href="https://www.facebook.com/Aamer.Harata">{{$t('message.developedAndDesignedBy')}}: Aamer Harata</a></div>
+</div>
+
+

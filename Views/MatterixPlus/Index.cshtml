@@ -1,0 +1,113 @@
+@using Matterix.Services
+
+@{
+     ViewBag.Title = "Plus";
+     Layout = "_Layout";
+}
+
+<div class="un-select direction" style="margin-bottom: 15rem;">
+     
+     <div class="text-center font-cairo title-1-5 matterix-color">{{$t('message.getKnownWithNewPlus')}}</div>
+     <div class="text-center"><img src="~/Images/LogoPlus.png" width="10%" style="min-width: 150px;"/></div>
+     <hr class="w-75"/>
+     <div class="p-4 col-md-11 text-justify m-auto">
+          <p class="font-cairo matterix-color">{{$t('message.whatIsPlus')}}</p>
+          <ul class="dashed-list text-0-9">
+               <li>{{$t('message.itsSystemAllowsYouEnrollViaOrg')}}</li>
+               <li>{{$t('message.studentsInQualifyProgramsCanGet')}}</li>
+               <li>{{$t('message.studentsWithoutPlusCannot')}}</li>
+               <li>{{$t('message.inCaseStudentsWantCoverCosts')}}</li>
+            
+          </ul>
+          
+          <p class="font-cairo matterix-color mt-4">{{$t('message.plusRegisterConditions')}}</p>
+          <ul class="dashed-list text-0-9">
+               <li>{{$t('message.studentMustAlreadyHasAccount')}}</li>
+               <li>{{$t('message.studentMustAlreadyBeInQualifyProgram')}}</li>
+               <li>{{$t('message.studentMustHaveCaseworker')}}</li>
+               <li>{{$t('message.caseworkerMustKnowAboutApp')}}</li>
+               <li>{{$t('message.mustBeFullyCommittedToLectures')}}</li>
+               <li>{{$t('message.youAcceptShareInfoAboutYourProcess')}}</li>
+               <li>{{$t('message.notCommittedToAnyCostsViaPlus')}}</li>
+               <li>{{$t('message.inCaseDeclinedWrittenApprovalNeeded')}}</li>
+            
+          </ul>
+          
+          
+          
+          <p class="font-cairo matterix-color mt-4">{{$t('message.howToEnrollCoursesViaPlus')}}</p>
+          <ul class="dashed-list text-0-9">
+               <li>{{$t('message.afterReadingInstructionClickButtonDown')}}</li>
+               <li>{{$t('message.studentOrCaseworkerCanApply')}}</li>
+               <li>{{$t('message.provideRequiredInfoCorrectly')}}</li>
+               <li>{{$t('message.nextStepIsToChooseCourses')}}</li>
+               <li>{{$t('message.afterChoosingDocumentsWillBeSent')}}</li>
+               <li>{{$t('message.youWillBeRedirectedToAppPage')}}</li>
+               <li>{{$t('message.documentMustBeDownloadedThenUploaded')}}</li>
+               <li>{{$t('message.applicationWillBeProcessedYouWillBeNotified')}}</li>
+               <li>{{$t('message.appInvoicesWillBeSentToOrg')}}</li>
+               <li>{{$t('message.inCaseAlreadyEnrolledToBeConvertedToPlus')}}</li>
+            
+          </ul>
+          
+          <p class="font-cairo matterix-color mt-4">{{$t('message.otherInfo')}}</p>
+          <ul class="dashed-list text-0-9">
+               <li>{{$t('message.doYouWantToGetAboutSchoolDoc')}} <a class="matterix-link" asp-action="DownloadApplicationFile" asp-route-plusRegDocument="AboutSchool">{{$t('message.download')}}</a></li>
+               <li>{{$t('message.doYouWorkForPublicCollaboration')}} <a target="_blank" class="matterix-link" asp-controller="Home" asp-action="ContactUs">{{$t('message.contactUs')}}</a></li>
+
+               @* <li>{{$t('message.inCaseAlreadyEnrolledToBeConvertedToPlus')}}</li> *@
+               @* <li>{{$t('message.inCaseAlreadyEnrolledToBeConvertedToPlus')}}</li> *@
+               @* <li>{{$t('message.inCaseAlreadyEnrolledToBeConvertedToPlus')}}</li> *@
+               @* <li>{{$t('message.inCaseAlreadyEnrolledToBeConvertedToPlus')}}</li> *@
+
+          </ul>
+               
+               
+     </div>
+
+     <div class="text-center">
+          @if (ViewBag.previousApplications)
+          {
+               <span>&nbsp;</span><a asp-action="Applications" class="m-button m-button-primary">{{$t('message.previousApplications')}}</a>
+          }
+          else
+          {
+               <a asp-action="Identity" class="m-button m-button-primary">{{$t('message.apply')}}</a>
+          }
+     </div>
+     
+     
+     
+</div>
+
+
+@section Scripts
+{
+     <script src="~/js/Search.js" asp-append-version="true"></script>
+}
+
+
+@section MetaTags
+{
+     @{
+          var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/Covers/StudentIdentity.jpg")}";
+     }
+    
+    
+     <meta property="og:url"    content="@StaticInformation.FullWebsite/plus"/>
+     <meta property="og:type"    content="website"/>
+    
+     <meta property="og:image" content="@imageUrl" />
+     <meta property="og:image:url"    content="@imageUrl" />
+     <meta property="og:image:secure_url"    content="@imageUrl" />
+     <meta property="og:image:type"    content="image/jpeg" />
+     <meta property="og:image:width"    content="4000" />
+     <meta property="og:image:height"    content="4000" />
+     <meta property="fb:app_id"    content="3431737436868705" />
+    
+    
+    
+    
+     <meta property="og:title"    content="Matterix Plus - Norske Fag på Arabisk" />
+     <meta property="og:description"    content="Meld deg på kurs gjennom organisasjoner som NAV / Introduksjonssenteret eller lignende offentlige / private institusjoner som tilbyr kvalifiseringsprogrammer" />
+}

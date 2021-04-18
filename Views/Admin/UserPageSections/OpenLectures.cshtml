@@ -1,0 +1,53 @@
+@model IEnumerable<OpenLecture>
+@using Matterix.Services
+
+<button class="btn btn-danger" id="new-open-lecture" style="margin-bottom: 1rem;">New</button>
+
+<table class="table table-hover" id="admin-open-lecture" hidden="hidden">
+    <tr>
+        
+        <td><select class="form-control" name="courseId" asp-items="ViewBag.Courses"></select></td>
+        <td><input type="number" name="lectureNumber" class="form-control" placeholder="lectureNumber"/></td>
+        <td><input type="date" class="form-control" name="expDate" value="Expire"/></td>
+        <td><button class="btn btn-success" id="admin-open-lecture-btn">Open</button></td>
+    </tr>
+    <tr>
+        <td colspan="5" id="open-lecture-response"><br/></td>
+        
+    </tr>
+</table>
+
+@if (!Model.Any())
+{
+    <hr/>
+    <div class="text-center">No OpenLectures!</div>
+}
+else
+{
+    <table class="table table-hover">
+        
+        <thead>
+        <tr>
+            <th>Course</th>
+            <th>Code</th>
+            <th>LectureNumber</th>
+            <th>Exp Date</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+    
+        @foreach (var openLec in Model)
+        {
+            <tr>
+                <td>@openLec.Lecture.Course.Subject</td>
+                <td>@openLec.Lecture.Course.Code</td>
+                <td>@openLec.Lecture.Number</td>
+                <td>@Format.DateFormat(openLec.ExpireDate)</td>
+                <td><button id="remove-open-lecture" lecture-id="@openLec.LectureId" class="btn btn-danger">Delete</button></td>
+
+            </tr>
+        
+        }
+    </table>
+}
+

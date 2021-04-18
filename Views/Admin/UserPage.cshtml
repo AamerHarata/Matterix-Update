@@ -1,0 +1,83 @@
+@model Matterix.Models.Admin.AdminViewModel
+
+
+@{
+    ViewBag.Title = $"{Model.User.FirstName} {Model.User.LastName}";
+    Layout = "_Layout";
+}
+
+
+
+<link rel="stylesheet" href="~/css/Admin.css" />
+<div id="admin-nav-tab" style="position: sticky; top: 60px;">
+    <ul>
+        <li><a href="#payments" class="tab-link">Payments</a></li>
+        <li><a href="#invoices" class="tab-link">Invoices</a></li>
+        <li><a href="#activities" class="tab-link">Activities</a></li>
+        <li><a href="#registrations" class="tab-link">Registrations</a></li>
+        <li><a href="#feedback" class="tab-link">Feedback</a></li>
+        <li><a href="#ratings" class="tab-link">Ratings</a></li>
+        <li><a href="#passwords" class="tab-link">Used Passwords</a></li>
+        <li><a href="#increments" class="tab-link">Increments</a></li>
+        <li><a href="#open-lectures" class="tab-link">Open Lectures</a></li>
+    </ul>
+</div>
+
+<div class="h5 text-center">
+    <div>@Model.User.FirstName @Model.User.LastName</div>
+    <div id="user-id-main-page"><code>@Model.User.Id</code></div>
+    <a target="_blank" asp-controller="Admin" asp-action="EditStudent" asp-route-userId="@Model.User.Id">Edit</a>
+</div>
+
+
+<div id="payments" class="tab-div">
+    <partial name="UserPageSections/Payments" model="@Model.Payments"/>
+</div>
+
+
+
+
+
+
+<div id="invoices" class="tab-div">
+    <partial name="UserPageSections/Invoices" model="@Model.Invoices"/>
+</div>
+
+<div id="activities" class="tab-div">
+    <partial name="UserPageSections/Activities" model="@Model.Activities"/>
+</div>
+
+<div id="registrations" class="tab-div">
+    <partial name="UserPageSections/Registrations" model="@Model.Registrations"/>
+</div>
+
+<div id="feedback" class="tab-div">
+    <partial name="UserPageSections/Feedback" model="@Model.FeedBacks"/>
+    
+
+</div>
+
+<div id="ratings" class="tab-div">
+    <partial name="UserPageSections/Ratings" model="@Model.Ratings"/>
+</div>
+
+<div id="passwords" class="tab-div">
+    <partial name="UserPageSections/Passwords" model="@Model.Passwords"/>
+</div>
+
+<div id="increments" class="tab-div">
+    <partial name="UserPageSections/Increments" model="@Model.Increments"/>
+</div>
+
+<div id="open-lectures" class="tab-div">
+    <partial name="UserPageSections/OpenLectures" model="@Model.OpenLectures"/>
+</div>
+
+
+<partial name="PartialViews/_SharedModal"/>
+
+@section Scripts
+{
+    <script src="~/js/Admin/UserPage.js" asp-append-version="true"></script>
+    <script src="~/js/ColoringDevices.js" asp-append-version="true"></script>
+}

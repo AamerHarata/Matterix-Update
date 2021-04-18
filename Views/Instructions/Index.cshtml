@@ -1,0 +1,73 @@
+
+
+@{
+    ViewBag.Title = "Help";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/instructions.css"/>
+
+<div class="text-center direction un-select">
+    <div class="title-2-0 matterix-color font-cairo">{{$t('message.instructionsAndHelp')}}</div>
+    <br/>
+    <div class="text-muted text-0-8">{{$t('message.thisPageIsTheFastestWay')}}</div>
+    <div class="text-muted text-0-8">{{$t('message.thenReadCarefully')}}</div>
+    <hr class="w-75"/>
+</div>
+
+
+<div id="main-instructions-container" class="un-select text-center">
+    <div class="row">
+        <div class="col-sm-4">
+            <a asp-controller="Instructions" asp-action="LiveCourses">
+                <div style="font-size: 4rem;"><img style=" margin-bottom: 1rem;" width="90" src="~/Images/HomeIcons/teacher.png"/></div>
+                <div>{{$t('message.accessToLiveLecture')}}</div>
+                <div class="small" style="padding: 1rem 5rem;">{{$t('message.hereYouLearnHowToAccessLive')}}</div>
+            </a>
+        </div>
+    
+        <div class="col-sm-4">
+            <a asp-controller="Instructions" asp-action="CourseChatHelp">
+                <div style="font-size: 4rem;"><img style=" margin-bottom: 1rem;" width="80" src="~/Images/HomeIcons/chat.png"/></div>
+                <div>{{$t('message.accessToCourseChat')}}</div>
+                <div class="small" style="padding: 1rem 5rem;">{{$t('message.hereYouCommunicateWithClassmates')}}</div>
+            </a>
+        </div>
+    
+        <div class="col-sm-4">
+            <a asp-controller="Instructions" asp-action="ShortVideos">
+                <div style="font-size: 4rem;"><img style=" margin-bottom: 1rem;" width="75" src="~/Images/HomeIcons/video.png"/></div>
+                <div>{{$t('message.helpByShortVideos')}}</div>
+                <div class="small direction text-center" style="padding: 1rem 5rem; ">{{$t('message.thisPageIsTheFastestWay')}}</div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="row">
+        
+        <div class="col-sm-4">
+        </div>
+        
+        <div class="col-sm-4">
+            <a asp-controller="Instructions" asp-action="HowToStart">
+                <div style="font-size: 4rem;"><img style=" margin-bottom: 1rem;" width="75" src="~/Images/HomeIcons/rocket.png"/></div>
+                <div>{{$t('message.whereToStart')}}</div>
+                <div class="small" style="padding: 1rem 5rem; ">اعرف المزيد عن كيفية البداية من خلال هذه الصفحة</div>
+            </a>
+        </div>
+        
+        <div class="col-sm-4">
+        </div>
+        
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+
+
+    
+}

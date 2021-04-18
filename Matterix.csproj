@@ -1,0 +1,125 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-Matterix-16D404BC-61D2-4946-9FB1-7705A4609105</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentEmail.Core" Version="3.0.0" />
+    <PackageReference Include="FluentEmail.Razor" Version="3.0.0" />
+    <PackageReference Include="FluentEmail.Smtp" Version="3.0.0" />
+    <PackageReference Include="FormsAuthenticationExtensions" Version="1.3.0.15" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.8.2" />
+    <PackageReference Include="itext7.pdfhtml" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSql.Design" Version="1.1.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+    <PackageReference Include="Stripe.net" Version="39.39.0" />
+    <PackageReference Include="Twilio" Version="5.55.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\CourseBackgrounds" />
+    <Folder Include="wwwroot\Files\CourseFiles" />
+    <Folder Include="wwwroot\Files\CoursePictures" />
+    <Folder Include="wwwroot\Files\HomeworksDelivery" />
+    <Folder Include="wwwroot\Files\JobApplicationCvs" />
+    <Folder Include="wwwroot\Files\PlusApplications" />
+    <Folder Include="wwwroot\Files\ProfilePictures" />
+    <Folder Include="wwwroot\Images\Test" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\ProfilePicture.cs">
+      <DependentUpon>ProfilePicture.cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\PrivacyAndNotifications.cs">
+      <DependentUpon>PrivacyAndNotifications.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-1563686b-bb60-4806-bdfd-2c9eecf5e499\LecNr-1§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-e1621e62-f9a7-4d48-9384-19e052681959\LecNr-2§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Math R1-2019-f6102e00-d19b-4ddd-813d-f6051bf38656\LecNr-1§12072720_10153550151081550_1449771842667828464_n.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Matte ENG1-2019-79761fb5-6be0-414c-9958-46090955ecec\LecNr-1§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Matte ENG1-2019-cab316cf-22fb-42b0-9e5a-5f7197c75699\LecNr-2§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-209a9297-4264-4f22-a67a-15e159bb4e8d\LecNr-1§day3.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-209a9297-4264-4f22-a67a-15e159bb4e8d\LecNr-2§day1.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-4732403a-8573-4d24-998f-839ed98bb107\LecNr-2§day7.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-67376292-a8c2-4234-95c4-dbf24082509f\LecNr-1§day2.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-99444ee0-5145-4f8c-962d-280e54e08f09\LecNr-3§day6.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Norsk Vg3-2019-d84b9b18-4a94-4eb9-82f5-a7499567dabb\LecNr-5§day4.csv" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Fysikk F1-2019-24644d70-bbba-4165-bd52-8c5825f51174\LecNr-1-Aamer-Student§Eiman - Intro bevis.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-1563686b-bb60-4806-bdfd-2c9eecf5e499\LecNr-1-Aamer-Harata§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-1563686b-bb60-4806-bdfd-2c9eecf5e499\LecNr-1-Aamer-Student§2e965977-d07d-49bb-bd2e-b45c93b09139.jfif" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-e1621e62-f9a7-4d48-9384-19e052681959\LecNr-2-Aamer-Harata§79380389_648547145550295_1897155666745753600_n.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Matte ENG1-2019-9dc1ed1d-ff1f-48bd-be5e-d7dd831145d3\LecNr-1-Aamer-Student§2019102720_Harata_919219589_eindafrekening per 23-12-2019 (Velveweg 30).pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Norsk Vg3-2019-596d9c00-c4cb-49ca-8f2a-3e1a7490d82c\LecNr-1-Aamer-Student§3- University_Physics_13th_Edition_Solution.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-0a61bb96-49c2-494f-931c-1ac9b5b94e83\LecNr-1@1p_06_eksamen_1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-b4c5c17d-422a-4b86-8098-74dd0a26576e\LecNr-1@1p_06_eksamen_1.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Math R1-2019-4c823f1e-4cf3-41e1-bde0-583e542127f2\LecNr-1@Innlevering01.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-686a9a65-70f5-47b9-9857-8374332407bd\LecNr-1-Aamer-Harata@84267555_477606366483544_1521313777436327936_n (1) (3).jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-686a9a65-70f5-47b9-9857-8374332407bd\LecNr-5-Aamer-Harata@LecNr-1-Fasih-SharifR2 (1).docx" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-6575fb97-f1f0-480c-84fa-989538b65db0\LecNr-13@تجربة تحميل وظيفة.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-686a9a65-70f5-47b9-9857-8374332407bd\LecNr-1@84267555_477606366483544_1521313777436327936_n (1) (2).jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-686a9a65-70f5-47b9-9857-8374332407bd\LecNr-5@مراجعة من T1 و R1 قوانين وأساسيات.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-01002696-c78c-43e9-b47a-8c83b581404d\LecNr-1@ConferencePaper_BUBBLES.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-01002696-c78c-43e9-b47a-8c83b581404d\LecNr-1@V2018-Del2-Oppgave1.ggb" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-943dfc9e-8b2a-4405-ab61-1992e89b5039\LecNr-1@QA.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-943dfc9e-8b2a-4405-ab61-1992e89b5039\LecNr-1@Student Avtale - Norsk.docx" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@Body shape.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@briller.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@Dealing.docx" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@QA.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@Student Avtale - Norsk.docx" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-fab7b3c2-3ade-458b-80f4-b2d4f56b5309\LecNr-16@Student Avtale.docx" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\TestDocker\asdf.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\TestDocker\briller.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\System\Agreement-Arabic-V1.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\System\Agreement-Norsk-V1.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-19550c88-86ee-4885-b213-996f5a17ac6d\LecNr-1-Aamer-Student@ab.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Kjemi K1-2019-24e2fcf7-0010-45d3-8b5f-985ba2cd52b4\LecNr-1@Schedule.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\HomeworksDelivery\Kjemi K1-2019-24e2fcf7-0010-45d3-8b5f-985ba2cd52b4\LecNr-1-Aamer-Harata@إعلان البطولة.rtf" />
+    <_ContentIncludedByDefault Remove="wwwroot\text.txt\key-32669dda-9bf1-4386-8fc5-7afb40c3e5bb.xml" />
+    <_ContentIncludedByDefault Remove="Views\PaymentTest\PaymentResult\PaymentError.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PaymentTest\PaymentResult\PaymentFailed.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PaymentTest\PaymentResult\PaymentSuccess.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\CourseFiles\Test - Properties - 44-2021-4f9f230e-3e7a-47f7-8b48-b220cd7dc1f3\LecNr-1@Innlevering 08.pdf" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\PlusApplications\Admissions\92972 - 7b00b0ca.pdf" />
+  </ItemGroup>
+
+</Project>

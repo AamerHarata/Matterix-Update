@@ -1,0 +1,122 @@
+@using Matterix.Data
+@using Matterix.Services
+@using Microsoft.EntityFrameworkCore
+@inject InformationService Info
+@inject ApplicationDbContext Con
+@inject PaymentService Payment
+
+@{
+    ViewBag.Title = "Courses Overview";
+    Layout = "_Layout";
+}
+
+@{
+    var courses = Con.Courses.Include(x=>x.Teacher).ToList().OrderByDescending(x=>x.StartDate);
+    var i = 1;
+    var totalCoursesStudents = 0;
+    var totalCoursesExp = 0;
+    var totalCoursesMoney = 0;
+    var totalCoursesPaid = 0;
+    var totalCoursesLate = 0;
+    var totalCoursesRest = 0;
+}
+
+<div class="text-center">
+    <div><code>ALL COURSES</code></div>
+    <table class="table table-hover">
+
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Course</th>
+            <th>Code</th>
+            <th>Teacher</th>
+            <th>Students</th>
+            <th>Exp</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Late</th>
+            <th>Rest</th>
+        </tr>
+        </thead>
+        
+        @foreach (var course in courses)
+        {
+            var registrations = Con.Registrations.Where(x => x.CourseId == course.Id).Where(x=>!x.Canceled).ToList();
+            var totalRequiredInvoices = Con.Invoices.Where(x => x.CourseId == course.Id).Where(x=>!x.Canceled).ToList();
+            var payments = Con.Payments.Where(x => !x.Refunded).Where(x => x.CourseId == course.Id).ToList();
+
+            var overLateInvoices = totalRequiredInvoices.Where(x => x.IsLate()).ToList();
+
+
+
+
+            var totalRequiredMoney = totalRequiredInvoices.Sum(x => x.CurrentAmount);
+            var paidMoney = payments.Sum(x => x.Amount);
+            var lateInvoice = overLateInvoices.Sum(x=>x.CurrentAmount);
+            var restMoney = totalRequiredMoney - paidMoney;
+            var totalStudents = registrations.Count();
+            var totalExp = registrations.Count(x => x.Expire);
+
+
+            <tr>
+                <td>@i</td>
+                <td><a asp-controller="Admin" asp-action="OneCourseOverView" asp-route-id="@course.Id">@course.Subject</a></td>
+                <td>@course.Code</td>
+                <td>@Info.AdminFullName(course.Teacher)</td>
+                <td>@totalStudents</td>
+                <td>@totalExp</td>
+                <td>@Format.NumberFormat(totalRequiredMoney)</td>
+                <td>@Format.NumberFormat(paidMoney)</td>
+                <td><code>@Format.NumberFormat(lateInvoice)</code></td>
+                <td>@Format.NumberFormat(restMoney)</td>
+            </tr>
+
+
+            totalCoursesStudents += totalStudents;
+            totalCoursesExp += totalExp;
+            totalCoursesMoney += (int) totalRequiredMoney;
+            totalCoursesPaid += (int) paidMoney;
+            totalCoursesLate += (int) lateInvoice;
+            totalCoursesRest += (int) restMoney;
+            
+            i++;
+
+        }
+        
+        <tr>
+            <th colspan="10"></th>
+        </tr>
+        
+        <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Total Students</th>
+            <th>Expired</th>
+            <th>Required</th>
+            <th>Paid</th>
+            <th>Late</th>
+            <th>Rest</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>@totalCoursesStudents</th>
+            <th>@totalCoursesExp</th>
+            <th>@totalCoursesMoney</th>
+            <th>@totalCoursesPaid</th>
+            <th><code>@totalCoursesLate</code></th>
+            <th class="text-success">@totalCoursesRest</th>
+        </tr>
+        </tfoot>
+
+
+
+
+    </table>
+</div>

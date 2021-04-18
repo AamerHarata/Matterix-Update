@@ -1,0 +1,42 @@
+@model string[]
+
+@{
+    ViewBag.Title = "Verify Telephone";
+    Layout = "_Layout";
+    var phoneNumber = @Model[1];
+    phoneNumber = Model[1].Length >= 8 ? $"{Model[0]} - {phoneNumber.Substring(0,3)} {@phoneNumber.Substring(3, 2)} {@phoneNumber.Substring(5, phoneNumber.Length-5)}" : $"{@Model[0]} - {@Model[1]}";
+}
+
+<div class="un-select direction">
+    <div class="text-center matterix-color">
+        <div class="font-cairo title-2-0 mb-3">{{$t('message.phoneVerification')}}</div>
+        <div class="title-2-5"><i class="fa fa-mobile"></i></div>
+        <hr class="w-75"/>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+            <p class="text-muted">{{$t('message.weWillSendCodeToYourPhone')}}</p>
+            <p class="not-direction text-muted font-cairo" dir="ltr">@phoneNumber</p>
+            <p><a class="m-button m-button-success" asp-action="SendVerificationCode" asp-route-courseId="@ViewBag.CourseIde" id="send-code">{{$t('message.correctNumberSendCode')}}</a> <a class="m-button m-button-danger" asp-area="Identity" asp-page="/Account/Manage/Index">{{$t('message.wrongNumberModifyIt')}}</a></p>
+            
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            const sendBtn = $("#send-code").find('button');
+            $(sendBtn).unbind().bind('click',
+                function(e) {
+                    $(sendBtn).attr('disabled', 'disabled');
+
+                });
+        })
+    </script>
+}

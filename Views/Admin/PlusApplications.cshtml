@@ -1,0 +1,57 @@
+@using Matterix.Data
+@using Matterix.Services
+@model List<MatterixPlusApplication>
+@inject ApplicationDbContext Context
+
+@{
+    ViewBag.Title = "Plus Applications";
+    Layout = "_Layout";
+}
+
+
+<div class="text-center w-75 m-auto">
+
+@foreach (var application in Model)
+{
+    var studentName = $"{application.Student.FirstName} {application.Student.LastName}";
+    var courseCount = string.IsNullOrEmpty(application.CoursesIds)? 0 : application.CoursesIds.Split(",").Length;
+    var invoices = Context.Invoices.Where(x=>x.ApplicationId == application.Id);
+    
+    <div id="@application.Id" class="card border-0 p-4 mb-1 text-left application-container" style="background-color: whitesmoke">
+        <div><a class="text-dark" target="_blank" asp-action="UserPage" asp-route-userId="@application.StudentId">@studentName</a> - <a target="_blank" asp-controller="MatterixPlus" asp-action="Application" asp-route-applicationId="@application.Id" asp-route-passCode="@application.PassCode" class="matterix-link">#@application.Reference</a>&nbsp;&nbsp;&nbsp;<span>@application.Id</span></div>
+        <div class="mb-1">Org: @application.Organization / City: @application.City</div>
+        <div class="mb-1">Contact: @application.ContactPersonName / @application.ContactPersonEmail / @application.ContactPersonPhone</div>
+        <div class="mb-1">Courses: @courseCount</div>
+        @if(invoices.Any()){<div class="mb-1 text-success">Rest: @invoices.Where(x=>!x.Paid).Sum(x=>x.CurrentAmount)</div>}
+        <div class="mt-3 mb-3">
+            @Html.DropDownListFor(x => application.Status,
+                     new SelectList(Enum.GetValues(typeof(EnumList.ApplicationStatus))),
+                     new {@class = "form-control w-25 status", @id=$"status{application.Id}"})
+        </div>
+        <div><a class="m-button m-button-primary update-application">Update</a></div>
+        
+        <div class="text-center">
+            @if (application.Status != EnumList.ApplicationStatus.Accepted)
+            {
+                <a class="m-button m-button-success accept-application">Accept</a>
+            }
+            <a class="m-button m-button-primary send-documents" document="Documents">Send Documents</a>
+            <a class="m-button m-button-primary send-documents" document="Invoices">Send Invoices</a>
+            <a class="m-button m-button-danger delete-application">Delete</a>
+        </div>
+        
+        
+        <div class="text-center font-cairo mt-3 text-success update-response"></div>
+    </div>
+    
+}
+
+
+<partial name="PartialViews/_SharedModal"/>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/Admin/PlusApplications.js" asp-append-version="true"></script>
+}

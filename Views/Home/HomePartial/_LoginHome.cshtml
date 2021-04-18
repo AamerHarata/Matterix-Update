@@ -1,0 +1,199 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.HomeViewModel
+
+<div class="row direction text-center home-body" style="width: 100%">
+    <partial name="HomePartial/_SideTools"/>
+    
+    
+    @* Whole Course Area *@
+    <div class=" col-sm-9">
+        
+        @*Manual Notifications Area *@
+        
+        @*Email Verification*@
+@*         @if (!ViewBag.EmailVerified) *@
+@*         { *@
+@*             <div class="w-75 card m-auto direction p-2 m-2  title-1-0" style="margin-bottom: 1rem!important; background-color: whitesmoke"> *@
+@*                 <p class="title-1-5" style="max-width: 80%">{{$t('message.pleaseVerifyEmailByClicking')}}</p> *@
+@*                 <p>{{$t('message.afterClickingWeWillSend')}}</p> *@
+@*                 <p style="font-size: 0.7rem">{{$t('message.ifDidNotReceiveCheckSpam')}}</p> *@
+@*                 <form method="post" class="text-center"><button type="submit" asp-area="Identity" asp-page="/Account/Manage/Index" asp-page-handler="SendVerificationEmailFromOutSide" class="m-btn m-btn-success">{{$t('message.sendVerificationEmail')}}</button></form> *@
+@*             </div> *@
+@*         } *@
+        
+        @*Phone Verification*@
+@*         @if (!ViewBag.PhoneVerified) *@
+@*         { *@
+@*             <div class="w-75 card m-auto direction p-2 m-2  title-1-0" style="margin-bottom: 1rem!important; background-color: whitesmoke"> *@
+@*                 <p class="title-1-5" style="max-width: 80%">{{$t('message.pleaseVerifyYourPhoneByClicking')}}</p> *@
+@*                 <p>{{$t('message.soonTheImportantMessages')}}</p> *@
+@*                 <a asp-action="Index" asp-controller="Verification" class="text-center"><button class="m-btn m-btn-success">{{$t('message.phoneVerification')}}</button></a> *@
+@*             </div> *@
+@*         } *@
+
+        @* LIVE NOW *@
+@*         @foreach (var live in Model.UpcomingLectures) *@
+@*         { *@
+@*             if (Format.NorwayDateNow() == live.Date.Date && Format.NorwayTimeNow() >= live.From.Subtract(new TimeSpan(0, 30, 0)) *@
+@*                 && Format.NorwayTimeNow() < live.To) *@
+@* *@
+@*             { *@
+@*                 var diff = live.From.Subtract(Format.NorwayTimeNow()).TotalMilliseconds; *@
+@*                 <div class="card p-4 w-75 text-center" style="margin: 1rem auto; background: whitesmoke;"> *@
+@*                     <div class="display-4 title-2-5 mb-3">{{$t('message.youHaveLiveLecture')}}</div> *@
+@*                     <div class="mb-2"><strong>{{$t('message.course')}}: @live.Course.Subject</strong></div> *@
+@*                     <div class="mb-2">{{$tc('message.lecture', '@live.Number')}} *@
+@*                         @if (!string.IsNullOrEmpty(live.Title)) *@
+@*                         {<span>- @live.Title</span>} *@
+@*                     </div> *@
+@*                     <div diff="@diff" class="start-within"></div> *@
+@*                     <div class="mb-2 mt-3"><a target="_blank" href="@live.Course.ClassUrl"><button class="m-btn m-btn-danger">{{$t('message.clickHereToJoin')}}</button></a></div> *@
+@*                     <div><a target="_blank" asp-controller="Instructions" asp-action="LiveCourses">{{$t('message.ifYouHaveTroubleWithJoining')}}</a></div> *@
+@* *@
+@*                 </div> *@
+@*             } *@
+@*         } *@
+        
+        @* Due invoices *@
+@*         @if (Model.UpcomingInvoices.Any(x=>x.IsOverDue() || x.IsLate())) *@
+@*         { *@
+@*             foreach (var invoice in @Model.UpcomingInvoices.Where(x => x.IsOverDue() || x.IsLate()).ToList()) *@
+@*             { *@
+@*                 <div class='row p-2 direction position-relative' style='background-color: snow; width: 75%; border: lightgray solid 1px; border-radius: 0.2rem; margin: 1rem auto;'> *@
+@*                         <div class="col-md-6"> *@
+@*                             <a class="d-inline-block matterix-color card-link un-select" target="_blank"><div class="title-1-5 matterix-color">{{$t('message.dueInvoiceRelatedToCourse')}}: </div></a> *@
+@*                             <div class="d-inline-block ml-3 un-select">@invoice.Course.Subject</div> *@
+@*                             <div class="small m-1">#<span class="force-select">@invoice.Number</span></div> *@
+@*                             <hr/> *@
+@*                             <div class="ml-3 small"> *@
+@*                                 <div class="title-1-0">{{$t('message.accountNumberForBankPayment')}}: <span class="force-select matterix-">@StaticInformation.AccountNumber</span></div> *@
+@*                                 <div class="title-1-0">{{$t('message.cidToBeAttached')}}: <span class="force-select matterix-">@invoice.CIDNumber</span></div> *@
+@*                                 <div class="title-1-0">{{$t('message.amount')}}: <span class="matterix-">{{$tc('message.currency', '@Format.NumberFormat(invoice.CurrentAmount)')}}</span></div> *@
+@*                             </div>                             *@
+@*                         </div> *@
+@*                          *@
+@*                         <div class="col-md-3 un-select small mb-2 align-self-md-center"> *@
+@*                             <div>{{$t('message.dueDate')}}: <span>@Format.DateFormat(@invoice.CurrentDueDate)</span></div> *@
+@*                             <div>{{$t('message.payDeadline')}}: <strong class="matterix-color">@Format.DateFormat(@invoice.CurrentDeadline)</strong></div> *@
+@*                             <hr/> *@
+@*                             $1$ <div class="mt-2 title-1-0">تم إرسال إشعارات بواسطة:</div> #1# *@
+@*                             $1$ <div>{{$t('message.email')}}: @Formatting.ToDate(invoice.LastEmail)</div> #1# *@
+@*                             $1$ <div>{{$t('message.sms')}}: @Formatting.ToDate(invoice.LastSMS)</div> #1# *@
+@*                             <div class="align-self-end align-content-end mt-2"> *@
+@*                                 <div>{{$t('message.notificationsSentVia')}}:</div> *@
+@*                                 <div>{{$t('message.email')}}: @Format.DateFormat(invoice.LastNotification)</div> *@
+@*                                 $1$ <div>{{$t('message.sms')}}: @Formatting.ToDate(invoice.LastSMS)</div> #1# *@
+@*                                 <div>{{$t('message.sms')}}: {{$t('message.underDevelopment')}}</div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                          *@
+@*                         <div class="col-md-3 small un-select align-self-center text-left"> *@
+@*                              *@
+@*                              *@
+@*                             <div> *@
+@*                                 <a asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@invoice.Number"><button  class='m-btn m-btn-small m-btn-success'>{{$t('message.viewPrint')}}</button></a> *@
+@*                                 <a asp-controller="Payment" asp-action="Index" asp-route-reason="Invoice" asp-route-invoiceNumber="@invoice.Number"><button  invoice-number="${invoice.Number}" class='m-btn m-btn-small m-btn-danger add-increment'>{{$t('message.pay')}}</button></a> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                      *@
+@*                      *@
+@*                     </div>; *@
+@*             } *@
+@*         } *@
+        
+        
+        
+    <partial name="HomePartial/_SearchCourse"/>
+        
+        
+        
+        
+        
+        
+        
+
+
+        @* Owned Courses *@
+        <div class="course-type-bar title-2-0">{{$t('message.yourCourses')}}</div>
+        @* <div class="course-sub-bar title-1-5">الدورات التي قمت بالتسجيل بها</div> *@
+        @* <div class="course-type-bar text-center" style="width: 90%"> *@
+        @*     <p class="course-type-text">{{$t('message.yourCourses')}}</p> *@
+        @* </div> *@
+        <div class="text-center">
+            @if (Model.OwnCourses.Count != 0)
+            {
+                foreach (var course in Model.OwnCourses)
+                {
+                    <partial name="../Course/CoursePartial/_CourseBox" model="@course"/>
+                }
+            }
+            else
+            {
+                <p class="small direction text-center" style="color: gray">{{$t('message.youDontHaveCourses')}}</p>
+            }
+        </div>
+
+        @* Recommended Courses *@
+        <div class="course-type-bar title-2-0">{{$t('message.thisSemestersCourses')}}</div>
+        
+        <div>
+            @{
+                var count = 0;
+                var i = 1;
+                
+            }
+            @foreach (var course in Model.AllCourses.Where(x=>!x.Ended))
+            {
+                if (!Model.OwnCourses.Contains(course))
+                {
+@*                     <div style="display: none" class="recommended-course" id="non-log-recommended-course-@i"> *@
+                    <partial name="../Course/CoursePartial/_CourseBox" model="@course"/>
+//                    </div>
+                    count++;
+                    i++;
+                }
+            }
+            @if (count == 0)
+            {
+@*                 <p class="small text-center direction" style="color: gray">{{$t('message.emptyList')}}</p> *@
+                 <div class="small text-center direction" style="color: gray">{{$t('message.theNewSemestersCoursesStart')}}</div>
+            }
+            @* <div class="small text-center direction" style="color: gray">{{$t('message.theNewSemestersCoursesStart')}}</div> *@
+
+
+        </div>
+        <div class="part-update-contain" id="none-log-recommended-course-show">
+            @* <div class="d-inline part-update-btn" id="none-log-recommended-course-show-more-btn">{{$t('message.showMore')}}</div>&nbsp;&nbsp;&nbsp; *@
+            @* <div class="d-inline part-update-btn" id="none-log-recommended-course-show-all-btn">{{$t('message.showAll')}}</div> *@
+        </div>
+        
+        
+        <div class="course-type-bar title-2-0">{{$t('message.previousCourses')}}</div>
+        <div>
+            @foreach (var course in Model.AllCourses.Where(x=>x.Ended))
+            {
+                if (!Model.OwnCourses.Contains(course))
+                {
+@*                     <div style="display: none" class="recommended-course" id="non-log-recommended-course-@i"> *@
+                    <partial name="../Course/CoursePartial/_CourseBox" model="@course"/>
+//                    </div>
+
+                }
+            }
+
+
+        </div>
+
+
+
+        @* <div class="text-center text-danger"> *@
+        @*     <span>{{$t('message.didntFindCourses')}} <a asp-controller="Course" asp-action="Search">{{$t('message.searchCourse')}}</a></span> *@
+        @* </div> *@
+
+    </div>
+    
+    
+    
+</div>
+
+

@@ -1,0 +1,60 @@
+@model List<Course>
+@{
+    ViewBag.Title = "Choose Courses";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true"/>
+<link rel="stylesheet" href="~/css/Home/CourseBox.css" asp-append-version="true"/>
+
+<div class="m-auto text-center"><img src="~/Images/LogoPlus.png" width="200" height="auto"/></div>
+<div class="text-center un-select font-cairo text-0-9 mb-4" >{{$t('message.enrollmentWithPlus')}}</div>
+@* <hr class="w-75"/> *@
+
+<div class="text-center un-select">
+    <div class="course-type-bar font-cairo title-1-5">{{$t('message.chosenCourses')}}</div>
+    <div id="select-statement" class="font-cairo text-muted mb-5">{{$t('message.chooseCoursesViaSearchThenConfirm')}}</div>
+    <div id="selected-courses"></div>
+    <div>
+        <a id="continue-button" class="m-button m-button-primary change-section disabled" disabled="disabled" target="some-section">{{$t('message.confirmRegistration')}}</a>
+        @if (User.HasClaim("Role", "Admin"))
+        {
+            <a id="course-description" class="m-button m-button-primary change-section">Description Admin</a>
+            <form hidden id="description-form" asp-controller="Documents" asp-action="CourseDescriptionNoApplication" method="get">
+                <input id="courseIds" name="courseIds"/>
+            </form>
+        }
+    </div>
+    <div class="mt-3 text-0-7 text-red">{{$t('message.afterCourseChoosingAppSend')}}</div>
+    <div class="mt-1 text-0-7 text-red">{{$t('message.notPossibleToEditCourses')}}</div>
+    <hr class="w-75"/>
+</div>
+
+
+<div class="text-center">
+    <partial name="../Home/HomePartial/_SearchCourse"/>
+    
+    
+    
+    <div class="course-type-bar font-cairo title-1-5">{{$t('message.coursesAvailableForYou')}}</div>
+    
+    @foreach (var course in Model)
+    {
+
+        <partial name="PlusPartial/_CourseBox" model="@course"/>
+    }
+    
+</div>
+
+<form hidden asp-action="ChooseCourses" method="post" id="select-courses-form">
+    <input id="applicationId" name="applicationId" value="@ViewBag.applicationId"/>
+    <input id="coursesIds" name="coursesIds"/>
+
+</form>
+
+@section Scripts
+{
+    <script src="~/js/MatterixPlus/ChooseCourses.js" asp-append-version="true"></script>
+    <script src="~/js/Home/CourseSearch.js" asp-append-version="true"></script>
+    <script src="~/js/Home/InformationModal.js" asp-append-version="true"></script>
+}

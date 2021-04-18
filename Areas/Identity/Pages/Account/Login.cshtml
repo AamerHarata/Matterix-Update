@@ -1,0 +1,239 @@
+﻿@page
+@using Matterix.Services
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<link rel="stylesheet" href="~/css/Identity/Register.css" asp-append-version="true"/>
+
+<div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto auto 5rem auto;">
+
+     <div class="row">
+         <div class="col-sm-7 p-5">
+
+             <div class="section" id="login">
+                 
+                 @* TITLE *@
+                 <div class=" direction text-center">
+                     <div class="display-4 title-1-5 matterix-color font-cairo mt-4 mb-4">{{$t('message.login')}}</div>
+                 </div>
+                 <br/>
+                 
+                 @* MAIN login FORM *@
+                 <form id="account" method="post">
+                     @* USER DEVICE SECTION :: TODO:: To be changed later and set as global maybe *@
+                     <input asp-for="Input.Ip" hidden="hidden" id="ip"/>
+                     <input asp-for="Input.DeviceType" hidden="hidden" id="deviceType"/>
+                     <input asp-for="Input.OperatingSystem" hidden="hidden" id="operatingSystem"/>
+                     <input asp-for="Input.AuthCookies" hidden="hidden" id="authCookies"/>
+
+
+
+                     <div class="row">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-8">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" type="text" asp-for="Input.Email" required title=""/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$t('message.email')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-8">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" asp-for="Input.Password" required/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-key set-my-direction icon-direction"></i>&nbsp;&nbsp;{{$t('message.password')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+
+                     </div>
+
+                     <div class="row mt-4">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-8 direction">
+                             <div class="custom-switch matterix-switch">
+                                 <input type="checkbox" value="@Model.Input.RememberMe" asp-for="Input.RememberMe" checked="@Model.Input.RememberMe" class="custom-control-input matterix-switch-input">
+                                 <label class="custom-control-label matterix-switch-label matterix-color">{{$t('message.rememberMe')}}</label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+
+
+
+
+                     @*VALIDATION AREA*@
+                     <div style="color: red" class="text-center text-0-7 font-cairo mt-4 validation login-validation"></div>
+                     <div style="color: red" class="direction text-0-7 font-cairo mt-4 validation email-not-exist-validation"></div>
+                     <div id="wrongValidation" style="color:red" class="text-center validation text-0-7 font-cairo mt-4">@Html.ValidationMessage("wrongPassword")</div>
+
+
+
+                     <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                         <a id="login-btn" class="m-button m-button-primary text-center m-auto change-section" target="complete">{{$t('message.login')}}</a>
+                     </div>
+
+
+                 </form>
+
+                 <hr/>
+                 <div class="direction text-0-7 font-cairo mt-4 text-secondary">
+                     <p>{{$t('message.forgotPassword')}} <a class="matterix-link change-section" target="forget-password">{{$t('message.resetPassword')}}</a></p>
+                     <p>{{$t('message.noAccountYet')}} <a class="matterix-link" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">{{$t('message.registerNewUser')}}</a></p>
+                 </div>
+
+             </div>
+             
+             <div class="section" id="forget-password" style="display: none">
+                 
+                 @* TITLE *@
+                 <div class=" direction text-center">
+                     <div class="display-4 title-1-5 matterix-color font-cairo mt-4 mb-4">{{$t('message.resetPassword')}}</div>
+                 </div>
+                 <br/>
+                 
+                 <div class="row direction text-0-8 text-muted">
+                     <div class="col-md-1"></div>
+                     <div class="col-md-11">
+                         <p class="matterix-color font-cairo">{{$t('message.pleaseEnterYourEmail')}}</p>
+                         <p class="small">{{$t('message.afterClickingWeWillSend')}}. {{$t('message.ifDidNotReceiveCheckSpam')}}.</p>
+                         <p class="small"></p>
+                     </div>
+
+                 </div>
+                 
+                 <form method="post" asp-page="./ForgotPassword" id="reset-link-form">
+                     <div class="row">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-8">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" type="text" asp-for="Input.Email" id="email-for-reset" required title=""/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$t('message.email')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+                 </form>
+                 
+                 
+                 @*VALIDATION AREA*@
+                 <div style="color: red" class="text-center text-0-7 font-cairo mt-4 validation login-validation"></div>
+                 <div style="color: red" class="direction text-0-7 font-cairo mt-4 validation email-not-exist-validation"></div>
+                 
+                 <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                     <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right icon-direction float-left text-secondary set-my-direction pointer change-section" target="login"></i>
+                     <a class="m-button m-button-primary text-center m-auto change-section" target="send-reset-link">{{$t('message.submit')}}</a>
+                 </div>
+             </div>
+             
+
+         </div>
+         
+         
+         
+
+         <div class="col-sm-5">
+             <img src="~/Images/Covers/login.jpg" width="100%" height="100%" style="object-fit: cover; min-height: 580px;"/>
+         </div>
+
+     </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="display-4 title-2-0 direction matterix-color">{{$t('message.login')}}</div> *@
+@* <hr /> *@
+@* <div class="row login-container direction"> *@
+@*      <div class="col-md-4 login-col text-0-8"> *@
+@*          <section> *@
+@*              <form id="account" method="post"> *@
+@* *@
+@*                  <input asp-for="Input.Ip" hidden="hidden" id="ip"/> *@
+@*                  <input asp-for="Input.DeviceType" hidden="hidden" id="deviceType"/> *@
+@*                  <input asp-for="Input.OperatingSystem" hidden="hidden" id="operatingSystem"/> *@
+@*                  <input asp-for="Input.AuthCookies" hidden="hidden" id="authCookies"/> *@
+@* *@
+@* *@
+@*                  <div class="form-group"> *@
+@*                      <label asp-for="Input.Email">{{$t('message.email')}}</label> *@
+@*                      <input asp-for="Input.Email" class="form-control"/> *@
+@*                      <span asp-validation-for="Input.Email" class="text-danger"></span>  *@
+@*                      <div id="email-validation" class="text-danger login-validation"></div> *@
+@*                  </div> *@
+@*                  <div class="form-group"> *@
+@*                      <label asp-for="Input.Password">{{$t('message.password')}}</label> *@
+@*                      <input asp-for="Input.Password" class="form-control"/> *@
+@*                      <span asp-validation-for="Input.Password" class="text-danger"></span> *@
+@*                      <div id="password-validation" class="text-danger login-validation"></div> *@
+@*                      <div id="wrongValidation" class="text-danger text-center">@Html.ValidationMessage("wrongEmailOrPassword")</div> *@
+@*                  </div> *@
+@*                  <div class="form-group"> *@
+@*                      <div class="custom-checkbox"> *@
+@*                          <label asp-for="Input.RememberMe"> *@
+@*                              {{$t('message.rememberMe')}} *@
+@*                              <input class="custom-checkbox" style="color-rendering: yellow !important" asp-for="Input.RememberMe"/> *@
+@*                              $1$ @Html.DisplayNameFor(m => m.Input.RememberMe) #1# *@
+@*                          </label> *@
+@*                      </div> *@
+@*                  </div> *@
+@*                  <div asp-validation-summary="All" class="text-danger"></div> *@
+@*                  <div class="form-group"> *@
+@*                      <button id="login-btn" type="button" class="m-btn m-btn-primary">{{$t('message.login')}}</button> *@
+@*                  </div> *@
+@*                  <div class="form-group"> *@
+@*                      <div> *@
+@*                          <a id="forgot-password" asp-page="./ForgotPassword">{{$t('message.forgotPassword')}}</a> *@
+@*                      </div> *@
+@*                      <div> *@
+@*                          <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">{{$t('message.registerNewUser')}}</a> *@
+@*                      </div> *@
+@*                  </div> *@
+@*              </form> *@
+@*          </section> *@
+@*      </div> *@
+@*      <div class="col-1 pb-4"></div> *@
+@*      <div class="col-md-7 col-md-offset-2"> *@
+@*          <div class="row logo-container" > *@
+@*              <div class="col-md-12 text-center"> *@
+@*                  <div><img src="~/Images/LogoHomePage.png" width="50%" height="auto" /></div> *@
+@*                  <br/> *@
+@*                  <p class="display-4 title-1-0">~ @StaticInformation.SecondName ~</p> *@
+@*                  <div class="text-center un-select"> *@
+@*                      <h6 class="display-4 title-1-0">{{$t('message.firstNorSchool')}}</h6> *@
+@*                  </div> *@
+@*              </div> *@
+@*          </div> *@
+@*          <hr class="w-50 matterix-background"/> *@
+@*          <div class="text-danger text-center">@Html.ValidationMessage("wrongEmailOrPassword")</div> *@
+@*      </div> *@
+@* </div> *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/IdentityArea/Login.js" asp-append-version="true"></script>
+    <script src="~/js/Validation.js" asp-append-version="true"></script>
+    <script src="~/js/UserDeviceInfo.js" asp-append-version="true"></script>
+    
+}

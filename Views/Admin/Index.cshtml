@@ -1,0 +1,85 @@
+@using Matterix.Services
+@inject AdminService AdminService
+@inject InformationService Info
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Admin";
+}
+<link rel="stylesheet" href="~/css/Admin.css"/>
+
+<div class="text-center">
+    <form id="admin-user-search" method="post" asp-action="Index"><input class="form-control" name="searchPattern" placeholder="Write Name, email, phone, or any info to find ..." style="width: 60%; margin: 1rem auto"/></form>
+    <button type="submit" id="admin-user-search-btn" class="btn btn-success">Search</button>
+    <button class="btn btn-secondary" id="admin-user-all-btn">Show All</button>
+    
+</div>
+
+
+@foreach (var user in Model)
+{
+    <div class="full-user-div" blocked="@user.Blocked.ToString()">
+        <div style=" margin: auto"><a target="_blank" asp-controller="Home" asp-action="UserProfile" asp-route-username="@user.ProfileUserName"><img src="@Url.Content(Info.ProfilePicture(user))" width="120" height="120" style="border-radius: 50%; object-fit: cover;"/></a></div>
+        <div class="full-user-body">
+            
+            <table class="table table-hover full-user-body-table">
+                <tr>
+                    <th><span>@user.FirstName @user.LastName @if (!string.IsNullOrEmpty(user.MiddleName)) {<span>, @user.MiddleName</span>} @if(!user.ShowFullName){<span class="small text-success">, Hidden</span>}</span></th>
+                    <td>@user.Id</td>
+                    <td>@user.Email@if(!@user.EmailConfirmed){<span> - Not Verified</span>}</td>
+                    <td>@user.PhoneNumber@if(!@user.PhoneNumberConfirmed){<span> - Not Verified</span>}</td>
+                </tr>
+                <tr>
+                    <td>Sign up: @Format.DateFormat(user.SignUpDate) - @Format.DateFormat(user.SignUpDate)</td>
+                    <td>Birth: @Format.DateFormat(user.BirthDate)</td>
+                    <td>@user.Gender - @user.Language @if(user.Role != EnumList.Role.Student){<span> - @user.Role</span>}</td>
+                    <td>@user.CurrentPassword</td>
+                </tr>
+                <tr>
+                    @{ var address = AdminService.GetUserAddress(user.Id);}
+                    <td colspan="2">@address.Street, @address.ZipCode @address.City</td>
+                    <td>Payments: @AdminService.TotalPaidAmount(user.Id)</td>
+                    <td>Not Paid: @AdminService.NotPaidAmount(user.Id)</td>
+                </tr>
+                <tr>
+                    <td>Total Courses: @AdminService.CourseTakenCount(user.Id)</td>
+                    <td>Total Feedback: @AdminService.UserFeedbackCount(user.Id)</td>
+                    <td>Average Rating: @AdminService.UserRatingAverage(user.Id)</td>
+                    <td>Devices: <span class="user-devices-count">@AdminService.DifferentDevices(user.Id)</span></td>
+                </tr>
+                @if (user.Blocked)
+                {
+                    <tr>
+                        <td>@user.BlockType - @Format.DateFormat(user.BlockDate)</td>
+                        <td colspan="2">@user.BlockDescription</td>
+                        <td><button class="btn btn-light admin-unblock-btn" userId="@user.Id">Unblock</button></td>
+                    </tr>
+                }
+                
+                @if (!string.IsNullOrEmpty(user.StatusMessage))
+                {
+                    <tr><td colspan="4"><code>@user.StatusMessage</code></td></tr>
+                }
+                
+                <tr>
+                    <tfoot class="text-center">
+                    <td><button class="btn btn-success admin-send-email-btn" user-id="@user.Id" email="@user.Email">Email</button></td>
+                    <td><a target="_blank" asp-controller="Admin" asp-action="UserPage" asp-route-userId="@user.Id"><button class="btn btn-info">Page</button></a></td>
+                    <td><a target="_blank" asp-controller="Admin" asp-action="EditStudent" asp-route-userId="@user.Id"><button class="btn btn-secondary">Edit</button></a></td>
+                    <td><button class="btn btn-danger admin-block-btn" userId="@user.Id">Block</button></td>
+                    </tfoot>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+}
+
+<partial name="PartialViews/_SharedModal"/>
+
+@section Scripts
+{
+    <script src="~/js/Admin/AdminMain.js" asp-append-version="true"></script>
+}

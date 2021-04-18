@@ -1,0 +1,194 @@
+@using Matterix.Models.ViewModel
+@using Matterix.Services
+@model InitiatedOrder
+@inject CourseService Course
+@{
+    var course = Course.GetCourse(Model.CourseId);
+}
+
+@{
+    ViewBag.Title = Model.Status == EnumList.OrderStatus.Completed ? "Success" : "Error";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/Payment/Index.css" asp-append-version="true"/>
+
+<input hidden id="facebook-track" reason="@Model.Reason.ToString()" result ="@Model.Status.ToString()" course-id="@course.Id" course-name="@course.Subject" course-code="@course.Code" course-price="@course.Price"/>
+
+<div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto;">
+    
+    
+    
+    <div class="row">
+        
+        <div class="col-sm-7 p-5">
+    
+
+            <div class=" direction text-center">
+
+                <partial name="PaymentPartial/_Header"/>
+        
+            </div>
+            <br/>
+
+        
+        
+        
+        
+            @if (Model.Status == EnumList.OrderStatus.Completed)
+            {
+                @* Payment Result Success*@
+                <div class="section">
+
+                    <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;{{$t('message.theProcessIsDone')}}</div>
+                    <div class="row direction text-0-8 text-muted">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <p></p>
+                            @if (Model.Reason == EnumList.PaymentReason.Register)
+                            {
+                                var courseIdList = new List<string>{Model.CourseId};
+                                <p>{{$t('message.weHaveSentRegConfToEmail')}}</p>
+                                <p><a asp-controller="Documents" asp-action="RegistrationsConfirmation" asp-route-courseIds="@Model.CourseId" class="m-button m-button-secondary">{{$t('message.download')}}</a></p>
+                                
+                                if (!course.Ended)
+                                 {
+                                     <p class="text-red mt-4">{{$t('message.liveCourseInstruction')}}:</p>
+                                     <div class="matterix-color smoke-background mb-2 card task-card task-card-clickable direction open-instruction-modal" device ="Computer" topic="instructionJoinLectureComputer" target="@StaticInstructionVideos.JoinLectureComputer"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+                                         <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureComputer')}}</div></div>
+
+                                     </div>
+    
+                                     <div class="matterix-color smoke-background card task-card task-card-clickable direction open-instruction-modal" device ="Mobile" topic="instructionJoinLectureMobile" target="@StaticInstructionVideos.JoinLectureMobile"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+                                         <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureMobile')}}</div></div>
+
+                                     </div>
+                                 }
+                                
+                                <br/>
+                                
+                                <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                                    <a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@Model.CourseId" class="m-button m-button-primary text-center m-auto">{{$t('message.toTheCourse')}}</a>
+                                </div>
+                                
+                            }
+                            else
+                            {
+                                <p>{{$t('message.weHaveSentReceiptToEmail')}}</p>
+                                <p><a asp-controller="Invoice" asp-action="DownloadInvoice" asp-route-invoiceNumber="@Model.InvoiceNumber" class="m-button m-button-secondary">{{$t('message.download')}}</a></p>
+                                
+                                <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                                    <a asp-controller="Home" asp-action="Index" class="m-button m-button-primary text-center m-auto">{{$t('message.home')}}</a>
+                                </div>
+                            }
+
+
+
+                        </div>
+                
+
+                    </div>
+
+            
+
+                    
+                </div>
+                        
+                        
+                        
+                        
+                        
+            }
+            else
+            {
+                
+                @* Payment Result NOT Completed*@
+                <div class="section">
+
+                    <div class="mt-4 ml-4 mr-4 mb-2 font-cairo text-danger direction text-0-9"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;{{$t('message.paymentFailed')}}</div>
+                    <div class="row direction text-0-8 text-muted">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <p></p>
+                            
+                            <p class="font-cairo matterix-color">{{$t('message.thisUsuallyHappened')}}:</p>
+                            <ul class="dashed-list text-justify">
+                                <li class="p-1">{{$t('message.youCancelledPayment')}}</li>
+                                <li class="p-1">{{$t('message.cardExpiredMessageVipps')}}</li>
+                                <li class="p-1">{{$t('message.paymentFailedMessageVipps')}}</li>
+                                <li class="p-1">{{$t('message.notMentionedErrorContact')}}</li>
+                            </ul>
+                                
+                                
+                            
+                            
+                            
+                            <div class="mt-5 mb-4 text-center" style="position: relative; bottom: 0">
+                                <a class="m-button m-button-success text-center m-auto" asp-controller="Payment" asp-action="Index" asp-route-reason="@Model.Reason.ToString()" asp-route-courseId="@Model.CourseId" asp-route-invoiceNumber="@Model.InvoiceNumber">المحاولة مجدداً</a>
+                                <a asp-controller="Home" asp-action="ContactUs" class="m-button m-button-secondary text-center m-auto">{{$t('message.contactUs')}}</a>
+                            </div>
+                            
+
+
+
+                        </div>
+                
+
+                    </div>
+
+            
+
+                    
+                </div>
+                
+            }
+        
+        
+
+
+
+
+
+        </div>
+        
+        
+        
+        @{ var picture = Model.Reason == EnumList.PaymentReason.Register ? "CourseRegister.jpg" : "Invoice.jpg";}
+        
+        <div class="col-sm-5">
+            <img src="~/Images/Covers/@picture" width="100%" height="100%" style="object-fit: cover; min-height: 580px;"/>
+        </div>
+        
+        
+        
+
+    </div>
+    
+    
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            RevokeNotifications("Email");
+            
+            
+            
+            
+            //Facebook Track Purchase Completed
+            const facebookElm = $("#facebook-track");
+            if(facebookElm.attr('reason') === 'Register' && facebookElm.attr('result') === 'Completed')
+                FacebookTrack().Purchase('Course', facebookElm.attr('course-id'), facebookElm.attr('course-name') + ' / ' + facebookElm.attr('course-code'), facebookElm.attr('course-price'));
+            
+            
+        })
+    </script>
+    
+    <script src="~/js/InstructionVideoModal.js"></script>
+}

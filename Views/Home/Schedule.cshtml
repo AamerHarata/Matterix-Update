@@ -1,0 +1,107 @@
+@using Matterix.Services
+@inject AccessService Access
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "_Layout";
+}
+
+<div class="text-center m-auto un-select" dir="rtl">
+    <div class="matterix-color title-1-5 display-4">Timeplan Vår - 2021</div>
+    <hr/>
+    <img src="@Url.Content("~/Images/Schedule.png")" width="90%" height="auto"/>
+    <div>
+        <button path="@Url.Content("~/Images/Schedule.png")" class="m-btn m-btn-primary text-center" id="download-schedule">{{$t('message.download')}}</button>
+        &nbsp;&nbsp;
+        <div class="fb-share-button" 
+             data-href="@StaticInformation.FullWebsite/Home/Schedule" 
+             data-layout="button_count">
+        </div>
+    </div>
+</div>
+@if (Access.IsAdmin(User))
+{
+    <form method="post" enctype="multipart/form-data" class="un-select">
+        <input type="file" name="file"/>
+        <button type="submit" >Upload</button>
+
+    </form>
+}
+
+
+
+@section Scripts
+{
+    <script>
+    $(document).ready(function() {
+        
+        
+        
+        //Facebook button
+        $(document).ready(function() {
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        });
+        
+        
+        
+        
+        
+        //Download file
+        $("#download-schedule").unbind().bind('click', function () {
+            const path = $(this).attr('path');
+            const name = "Matterix.png";
+
+            $.ajax({
+                url: path,
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    let a = document.createElement('a');
+                    let url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = name;
+                    document.body.append(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                }
+            });
+        });    
+    
+    })
+    </script>
+}
+
+
+@section MetaTags
+{
+    @{
+        var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/Schedule.png")}";
+    }
+    
+    
+    <meta property="og:url"    content="@StaticInformation.FullWebsite/Home/Schedule"/>
+    <meta property="og:type"    content="website"/>
+    
+    <meta property="og:image" content="@imageUrl" />
+    <meta property="og:image:url"    content="@imageUrl" />
+    <meta property="og:image:secure_url"    content="@imageUrl" />
+    <meta property="og:image:type"    content="image/png" />
+    <meta property="og:image:width"    content="4000" />
+    <meta property="og:image:height"    content="4000" />
+    <meta property="fb:app_id"    content="3431737436868705" />
+    
+    
+    
+    
+    <meta property="og:title"    content="Norske Fag på Arabisk - MATTERIX" />
+    <meta property="og:description"    content="برنامج مواد الفصل الدراسي Vår 2020" />
+}

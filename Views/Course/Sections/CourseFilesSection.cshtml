@@ -1,0 +1,31 @@
+@model IEnumerable<LectureFile>
+@using Matterix.Services
+
+
+@if (!Model.Any())
+{
+    <div class="text-center direction font-cairo">{{$t('message.noFilesInCourseYet')}}</div>
+}
+else
+    
+{
+
+    <div class="un-select direction">
+        
+        @foreach (var file in Model)
+        {
+            <div class="card file-card">
+                <a class="text-center matterix-link font-cairo" href="@Url.Content(file.Path)" target="_blank">{{$t('message.file')}}: @file.Name</a>
+                <div class="">{{$tc('message.lecture', '@file.Lecture.Number')}} - @file.Lecture.Title</div>
+                <div class="text-muted text-0-6">{{$t('message.addedIn')}}: @Format.DateFormat(file.UploadDate)</div>
+                <div class="text-center"><a class="m-button m-button-primary" asp-controller="Lecture" asp-action="DownloadFile" asp-route-name="@file.Name" asp-route-path="@file.RootPath">{{$t('message.download')}}</a></div>
+                @* <button style="width: 25%;"class="btn btn-dark file-get-btn"><a asp-controller="Lecture" asp-action="DownloadFile" asp-route-name="@Model.ToList()[0].Name" asp-route-path="@Model.ToList()[0].RootPath" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.download')">&#128229;</a></button> *@
+            </div>
+        }
+        
+        
+        
+    </div>
+    
+}
+

@@ -1,0 +1,79 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+@inject InformationService Info
+@inject PaymentService Payment
+
+@switch (Model.Reason)
+{
+    
+    case EnumList.PaymentReason.Register:
+        <tr>
+            <th class="border-0 p-2">{{$t('message.courseName')}} / <span class="small">{{$t('message.code')}}</span></th><td class="border-0 p-2">@Model.Course.Subject / <span class="small">@Model.Course.Code</span></td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.startDate')}}</th><td class="border-0 p-2">@Format.DateFormat(@Model.Course.StartDate)</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.status')}}</th><td class="border-0 p-2">@if(@Model.Course.Ended){<span>{{$t('message.completed')}}</span>}else{<span>{{$t('message.live')}}</span>}</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.language')}}</th><td class="border-0 p-2">@Format.Translate(Model.Course.Language.ToString())</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$tc('message.teacher','@((int)Model.Course.Teacher.Gender)')}}</th><td class="border-0 p-2">@Info.FullName(@Model.Course.Teacher.Id)</td>
+        </tr>
+    
+        
+        break;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    case EnumList.PaymentReason.Invoice:
+        <tr>
+            <th class="border-0 p-2">{{$t('message.invoiceNumber')}}</th><td class="border-0 p-2">@Model.InvoiceToPay.Number</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.courseName')}} / <span class="small">{{$t('message.code')}}</span></th><td class="border-0 p-2">@Model.Course.Subject / <span class="small">@Model.Course.Code</span></td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.amount')}}</th><td class="border-0 p-2">{{$tc('message.currency',  '@Format.NumberFormat(Model.InvoiceToPay.CurrentAmount)')}}</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.cidNumber')}}</th><td class="border-0 p-2">@Model.InvoiceToPay.CIDNumber</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.dueDate')}}</th><td class="border-0 p-2">@Format.DateFormat(Model.InvoiceToPay.CurrentDueDate)</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.payDeadline')}}</th><td class="border-0 p-2">@Format.DateFormat(Model.InvoiceToPay.CurrentDeadline)</td>
+        </tr>
+        
+        <tr>
+            <th class="border-0 p-2">{{$t('message.description')}}</th><td class="border-0 p-2">@Model.InvoiceToPay.ExtraDescription</td>
+        </tr>
+        
+    
+        
+        break;
+    case EnumList.PaymentReason.Empty:
+    case EnumList.PaymentReason.Donate:
+    case EnumList.PaymentReason.Other:
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+

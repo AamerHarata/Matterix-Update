@@ -1,0 +1,38 @@
+@using Matterix.Models.ViewModel
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentResultViewModel
+
+@{
+    ViewBag.Title = @Model.Result.ToString();
+    Layout = "_Layout";
+    var paymentViewModel = new PaymentViewModel {Course = Model.Course, Reason = Model.Reason, Student = Model.Student, InvoiceToPay = Model.Invoice};
+}
+
+<partial name="PaymentPartial/_Header" model="@paymentViewModel"/>
+
+@switch (Model.Result)
+{
+    case EnumList.PaymentResult.Failed:
+        <partial name="PaymentResult/PaymentFailed"/>
+        break;
+    case EnumList.PaymentResult.Error:
+        <partial name="PaymentResult/PaymentError"/>
+        break;
+    case EnumList.PaymentResult.Success:
+    <partial name="PaymentResult/PaymentSuccess"/>
+        break;
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            //Revoke notifications from home index (Runs only if authenticated)
+            RevokeNotifications("Email");
+        })
+    </script>
+}

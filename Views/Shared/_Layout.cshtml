@@ -1,0 +1,209 @@
+﻿@using Matterix.Services
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Matterix</title>
+    @await RenderSectionAsync("MetaTags", required: false)
+
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+        
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        
+    </environment>
+    @* <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" /> *@
+    @* <link rel="Shortcut Icon" href="favicon.ico" type="image/png" /> *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/defaultStyle.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @* <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet"> *@
+
+    
+    @* For Time Picker Style *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/djibe/clockpicker@1d03466e3b5eebc9e7e1dc4afa47ff0d265e2f16/dist/bootstrap4-clockpicker.min.css">
+    @* End of For Time Picker Style *@
+    
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2758681101127568');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=2758681101127568&ev=PageView&noscript=1"
+              /></noscript>
+    <!-- End Facebook Pixel Code -->
+    
+    
+    @* End of Facebook pixels *@
+    
+</head>
+<body>
+
+
+
+
+<div id="internationalization-vue" ondragstart="return false;" ondrop="return false;" v-cloak>
+    <header class="direction">
+        <nav id="main-nav" class="navbar navbar-expand-xl navbar-toggleable-xl navbar-light bg-white mb-3 un-select">
+            <div class="container-fluid">
+                @* <img src="~/Images/menuIcon.png" width="40"/> *@
+                <span id="open-nav"><i style="font-size: 1.6rem;" class="far fa-caret-square-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{$t('message.menu')}}</span>
+                <div class="top-nav-vertical-bar ml-2 mr-3">&nbsp;&nbsp; </div>
+                <a asp-controller="Home" asp-action="Index"> <img id="nav-logo" src="~/Images/LogoHomePage.png"></a>
+                <div class="top-nav-vertical-bar">&nbsp;&nbsp; </div>
+                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Matterix</a> *@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-xl-inline-flex flex-xl-row-reverse" style="font-size: 0.9rem;">
+                    <partial name="_LoginPartial"/>
+                    <partial name="PartialViews/_Flags"/>
+                    <ul class="navbar-nav flex-grow-1">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">{{$t('message.home')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                @* <a class="nav-link text-dark" asp-area="" asp-controller="Test" asp-action="Index">{{$t('message.test')}}</a> *@
+                            </li>
+                            @if (User.HasClaim("Role", "Admin"))
+                            {
+                                <li class="nav-item">
+                                    @* <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a> *@
+                                </li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">{{$t('message.myCourses')}}</a>
+                                </li>
+                            }
+                            @if (User.HasClaim("Role", "Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">{{$t('message.admin')}}</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Schedule">{{$t('message.semesterSchedule')}}</a>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" v-bind:title="$t('message.regThroughNavIntro')">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="MatterixPlus" asp-action="Index">{{$t('message.plusVoc')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JobApplication">{{$t('message.jobs')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">{{$t('message.privacy')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">{{$t('message.aboutUs')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">{{$t('message.contact')}}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Instructions" asp-action="Index">{{$t('message.help')}}</a>
+                            </li>
+
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            <partial name="PartialViews/_SideNav"/>
+            <partial name="PartialViews/_WaitModal"/>
+            <partial name="PartialViews/_LanguageModal"/>
+            <partial name="PartialViews/_InformationModal"/>
+            <partial name="PartialViews/_InstructionVideoModal"/>
+            
+            
+            @RenderBody()
+            
+            
+        </main>
+    </div>
+
+    <footer class="border-top footer un-select text-0-8">
+        <partial name="PartialViews/_Footer"/>
+    </footer>
+</div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        
+        @* For Time Picker *@
+        <script src="https://cdn.jsdelivr.net/gh/djibe/clockpicker@6d385d49ed6cc7f58a0b23db3477f236e4c1cd3e/dist/bootstrap4-clockpicker.min.js"></script>
+        
+        
+        
+        @* For Internationalization *@
+        <script src="@Url.Content("https://unpkg.com/vue/dist/vue.js")"></script>
+        @* <script src="@Url.Content("https://unpkg.com/vue-i18n/dist/vue-i18n.js")"></script> *@
+        <script src="@Url.Content("https://unpkg.com/vue-i18n@8.21.1/dist/vue-i18n.js")"></script>
+        <script src="@Url.Content("https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js")"></script>
+        
+        @*Font Awesome 5*@
+        <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+        
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+        
+        @* For Internationalization *@
+        <script src="@Url.Content("https://unpkg.com/vue/dist/vue.js")"></script>
+        @* <script src="@Url.Content("https://unpkg.com/vue-i18n/dist/vue-i18n.js")"></script> *@
+        <script src="@Url.Content("https://unpkg.com/vue-i18n@8.21.1/dist/vue-i18n.js")"></script>
+        <script src="@Url.Content("https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js")"></script>
+        
+        @* For Time Picker *@
+        <script src="https://cdn.jsdelivr.net/gh/djibe/clockpicker@6d385d49ed6cc7f58a0b23db3477f236e4c1cd3e/dist/bootstrap4-clockpicker.min.js"></script>
+        
+        @*Font Awesome 5*@
+        <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+        
+    </environment>
+<script src="~/js/Language/Language.js" asp-append-version="true"></script>
+<script src="~/js/GlobalShared.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/FacebookTrackEvents.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

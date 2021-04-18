@@ -1,0 +1,244 @@
+@using Matterix.Services
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ContactMessage>
+@inject UserManager<ApplicationUser> UserManager
+@inject InformationService Info
+@{
+    ViewBag.Title = "Contact";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/Admin.css"/>
+
+
+@if (!Model.Any())
+{
+    <div class="text-center display-4 title-1-5">
+        <br/><br/>
+        No messages yet
+    </div>
+}
+
+
+
+@foreach (var message in Model)
+{
+
+    var user = message.User;
+    var logged = true;
+    if (user == null)
+    {
+        user = new ApplicationUser();
+        logged = false;
+
+    }
+    
+
+    <div class="full-user-div" processed="@message.Processed.ToString()">
+        <div style=" margin: auto"><img src="@Url.Content(Info.ProfilePicture(user))" width="120" height="120" style="border-radius: 50%; object-fit: cover;"/></div>
+        <div class="full-user-body">
+            
+            <table class="table table-striped full-user-body-table">
+                
+                <tr>
+                    <th colspan="4">User Information</th>
+                </tr>
+                
+                @if (logged)
+                {
+                    <tr>
+                        <th><span>@user.FirstName @user.LastName @user.MiddleName </span></th>
+                        <td>@user.Id</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th><td colspan="4">Not logged</td></th>
+                    </tr>
+                }
+                
+                
+                <tr>
+                    <th colspan="4">Message Information</th>
+                </tr>
+                
+                <tr>
+                    <td>@Format.Translate(message.Reason.ToString())</td>
+                    <td>@message.Name</td>
+                    <td>@message.Email</td>
+                    <td>@message.PhoneNumber</td>
+                </tr>
+                
+                
+                <tr>
+                    <td>@Format.DateFormat(message.DateTime) - @Format.TimeFormat(message.DateTime)</td>
+                    <td>@message.Ip</td>
+                    <td colspan="2">@message.AuthCookies</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="4">@message.Message</td>
+                </tr>
+                
+                <tr>
+                    @if (string.IsNullOrEmpty(message.FileRootPath))
+                    {
+                        <td class="text-center" colspan="2"><button contact-message-id="@message.Id" class="contact-processed-admin-btn btn btn-primary">Change Status</button></td>
+                        <td class="text-center" colspan="2"><button contact-message-id="@message.Id" class="contact-delete-admin-btn btn btn-danger">Delete This</button></td>
+                    }
+                    else
+                    {
+                        <td class="text-center" ><button contact-message-id="@message.Id" class="contact-processed-admin-btn btn btn-primary">Change Status</button></td>
+                        <td class="text-center" ><button contact-message-id="@message.Id" class="contact-delete-admin-btn btn btn-danger">Delete This</button></td>
+                        <td class="text-center"><button title="@message.FileName" fileName="@message.FileName" path="@Url.Content(message.FileGetPath)" class="contact-message-get-file btn btn-secondary">File</button></td>
+                        <td><button class="btn btn-danger contact-message-delete-file" contact-message-id="@message.Id">Delete File</button></td>
+                        
+                    }
+                </tr>
+                
+                <tr>
+                    
+                    <td colspan="4" class="text-center contact-message-response"></td>
+                </tr>
+                
+                
+            </table>
+            
+        </div>
+    </div>
+
+
+}
+
+
+
+@section Scripts
+{
+    
+    
+    <script>
+        $(document).ready(function() {
+
+
+            const getFileBtn = $(".contact-message-get-file");
+            
+            $(getFileBtn).unbind().bind('click', function () {
+                const path = $(this).attr("path");
+                const name = $(this).attr("fileName");
+
+                $.ajax({
+                    url: path,
+                    method: 'GET',
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data) {
+                        let a = document.createElement('a');
+                        let url = window.URL.createObjectURL(data);
+                        a.href = url;
+                        a.download = name;
+                        document.body.append(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    }
+                });
+            });
+
+
+            let messageBody = $(".full-user-div");
+
+            changeColor();
+            
+            
+            function changeColor() {
+                messageBody.each(function(index, element){
+                    if($(element).attr("processed") === "True"){
+                        $(element).css("background-color", "rgba(46, 139, 87, 0.18)");
+                    }
+                });
+            }
+
+
+            const changeProcessBtn = $(".contact-processed-admin-btn");
+            const processResponse = $(".contact-message-response");
+            const deleteFileBtn = $(".contact-message-delete-file");
+            const deleteWholeMessageBtn = $(".contact-delete-admin-btn");
+
+            
+            //Change process request
+            $(changeProcessBtn).unbind().bind('click',
+                function() {
+                    
+                    const messageId = $(this).attr("contact-message-id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/ChangeContactMessage",
+                        data: {messageId: messageId},
+                        success: function(response) {
+                            $(processResponse).addClass("text-success").text(response);
+                        },
+                        error: function(response) {
+                            $(processResponse).addClass("text-danger").text(response);
+
+                        }
+                    });
+
+                });
+            
+            
+            //Delete File request
+            $(deleteFileBtn).unbind().bind('click',
+                function() {
+                    const messageId = $(this).attr("contact-message-id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/DeleteContactFile",
+                        data: {messageId: messageId},
+                        success: function(response) {
+                            $(processResponse).addClass("text-success").text(response);
+                        },
+                        error: function(response) {
+                            alert(123);
+                            $(processResponse).addClass("text-danger").text(response);
+
+                        }
+                    });
+
+                });
+            
+            
+            //Delete whole message
+            $(deleteWholeMessageBtn).unbind().bind('click',
+                function() {
+                    const messageId = $(this).attr("contact-message-id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/DeleteContactMessage",
+                        data: {messageId: messageId},
+                        success: function(response) {
+                            $(processResponse).addClass("text-success").text(response);
+                        },
+                        error: function(response) {
+                            alert(123);
+                            $(processResponse).addClass("text-danger").text(response);
+
+                        }
+                    });
+
+                });
+
+        });
+    </script>
+    
+    
+    
+    
+    
+}

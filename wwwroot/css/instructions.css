@@ -1,0 +1,79 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+}
+
+table tr td a{
+    color: black;
+}
+
+#main-instructions-container a{
+    color: var(--primary);
+    text-decoration: none;
+}
+
+#main-instructions-container a:hover{
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+#fast-links tr td{
+    padding: 1rem;
+}
+
+.w-mw-33{
+    width: 33.33%;
+    max-width: 33.33%;
+}
+
+ol.start {
+    counter-reset: mycounter;
+}
+ol.start li, ol.continue li {
+    list-style: none;
+}
+ol.start li:before, ol.continue li:before {
+    content: counter(mycounter) ". ";
+    counter-increment: mycounter;
+}
+
+ol:not(.no-strong) li, .sec-title{
+    font-weight: bolder;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+
+.big-inst-image {
+    width: 60%;
+    max-width: 60%;
+    margin:1.5rem auto;
+    height: auto;
+    box-shadow: 1px 1px 10px 1px gray;
+}
+
+.md-inst-image {
+    width: 30%;
+    max-width: 30%;
+    margin:1.5rem auto;
+    height: auto;
+    box-shadow: 1px 1px 10px 1px gray;
+}
+
+.sm-inst-image {
+    width: 20%;
+    max-width: 20%;
+    margin:1.5rem auto;
+    height: auto;
+    box-shadow: 1px 1px 10px 1px gray;
+}
+
+.exsm-inst-image {
+    width: 10%;
+    max-width: 10%;
+    margin:1.5rem auto;
+    height: auto;
+    /*box-shadow: 1px 1px 5px 1px gray;*/
+}
+.red-inst{
+    color: red;
+}

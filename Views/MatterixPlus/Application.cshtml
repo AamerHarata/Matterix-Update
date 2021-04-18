@@ -1,0 +1,356 @@
+@using Matterix.Services
+@using Newtonsoft.Json.Linq
+@model Matterix.Models.ViewModel.MatterixPlusViewModel
+
+@{
+    var application = Model.Application;
+    ViewBag.Title = $"application {application.Reference}";
+    Layout = "_Layout";
+    var applier = application.Applier == "Student" ? "theStudent" : application.Applier;
+    var courses = Model.Courses;
+    var coursesCount = courses.Count;
+    var studentName = $"{application.Student.FirstName} {application.Student.LastName}";
+    var studentPhone = $"{application.Student.PhoneCode} - {application.Student.PhoneNumber}";
+    var studentEmail = application.Student.Email;
+    var courseIdsList = application.CoursesIds.Split(",").ToList();
+    var ids = "";
+    foreach (var id in courseIdsList)
+    {
+        ids += $"courseIds={id}&";
+    }
+    var processed = application.Status == EnumList.ApplicationStatus.Accepted || application.Status == EnumList.ApplicationStatus.Declined;
+}
+
+<div class="m-auto text-center"><img src="~/Images/LogoPlus.png" width="200" height="auto"/></div>
+<div class="text-center un-select font-cairo text-0-9 mb-4" >{{$t('message.applicationNumber')}} @application.Reference</div>
+
+
+<div class="un-select direction text-0-8" style="margin-bottom: 26rem;">
+    
+    <div class="card border-0 m-auto p-4" style="background-color: whitesmoke; width: 90%;">
+        
+        <div class="row">
+            <div class="col-md-3 m-auto" style="max-width: max-content">
+                <div class="font-cairo font-weight-bold">{{$t('message.applicationInfo')}}</div>
+                <div class="p-2">
+                    <div>{{$t('message.appliedVia')}}: @Format.Translate(applier)</div>
+                    <div>{{$t('message.applyDate')}}: @Format.DateFormat(application.ApplyDate)</div>
+                    <div>{{$t('message.status')}}: <span class="matterix-color font-weight-bold">@Format.Translate(application.Status.ToString())</span></div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 m-auto" style="max-width: max-content">
+                <div class="font-cairo font-weight-bold">{{$t('message.participantInfo')}}</div>
+                <div class="p-2">
+                    <div>{{$t('message.name')}}: @studentName</div>
+                    <div>{{$t('message.phone')}}: <span dir="ltr"><a class="text-dark" href="tel:@studentPhone">@studentPhone</a></span></div>
+                    <div>{{$t('message.email')}}: <a class="text-dark" href="mailto:@studentEmail">@studentEmail</a></div>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-auto" style="max-width: max-content">
+                <div class="font-cairo font-weight-bold">{{$t('message.responsibleOrg')}}</div>
+                <div class="p-2">
+                    <div>{{$t('message.contactPerson')}}: @application.Organization / @application.ContactPersonName</div>
+                    <div>{{$t('message.programName')}}: @application.Program</div>
+                    <div>{{$t('message.contactInfo')}}: <a class="text-dark" href="mailto:@application.ContactPersonEmail">@application.ContactPersonEmail</a></div>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-auto" style="max-width: max-content">
+                <div class="font-cairo font-weight-bold">{{$t('message.reachApplicationByOrg')}}</div>
+                <div class="p-2">
+                    <div class="force-select">{{$t('message.organizationCanOpenFollowingLink')}}: <a class="matterix-link" target="_blank" asp-action="Application">www.matterix.no/plus/application</a></div>
+                    <div>{{$t('message.applicationNumber')}}: <span class="force-select">@application.Reference</span></div>
+                    <div>{{$t('message.passCode')}}: <span class="force-select">@application.PassCode</span></div>
+                </div>
+            </div>
+        </div>
+        
+        
+        @if (!string.IsNullOrEmpty(application.Replay))
+        {
+            <div class="font-cairo">Administration message: @Model.Application.Replay</div>
+        }
+        
+
+        <hr/>
+
+        <div class="font-cairo font-weight-bold pointer" data-toggle="collapse" href="#courses">{{$t('message.courses')}} (@coursesCount)</div>
+        
+        <div id="courses" class="collapse">
+            <div class="m-auto w-50">
+                @if (courses.Count > 0)
+                {
+                    foreach (var course in courses)
+                    {
+                        var days = (int) Math.Round(course.StartDate.Subtract(DateTime.Now).TotalDays + 0.4);
+                        var startedAt = days > 0 ? "{{$t('message.startsWithin')}}" : "{{$t('message.startedFor')}}";
+                        var ago = days > 0 ? "" : "{{$t('message.ago')}}";
+                        days = Math.Abs(days);
+                        var months = 0;
+                        while (days > 30)
+                        {
+                            months++;
+                            days -= 30;
+                        }
+
+                        var daysString = days == 2 ? "{{$t('message.twoDays')}}" : days > 2 && days <= 10 ? "{{$tc('message.totalDays10Less', '" + days + "')}}" : "{{$tc('message.totalDays10More', " + days + ")}}";
+                        var monthsString = months == 2 ? "{{$t('message.twoMonths')}}" : months > 2 && months <= 10 ? "{{$tc('message.totalMonths10Less', '" + months + "')}}" : "{{$tc('message.totalMonths10More', '" + months + "')}}";
+                        var and = "{{$t('message.and')}}";
+
+
+                        if (days + months == 0)
+                        {
+                            startedAt = "{{$t('message.startsToday')}}";
+                            daysString = and = monthsString = "";
+                        }
+                        else if (days * months == 0)
+                        {
+                            and = "";
+                        }
+                        
+                        <div class="card border-0 p-4 mb-1">
+                            <div class="row align-items-center">
+                                <div class="matterix-color font-weight-bold col-md-3 font-cairo">@course.Subject</div>
+                                @if (course.Ended)
+                                {
+                                    <div class="col-md-4 text-0-7">@if(application.Status != EnumList.ApplicationStatus.Accepted){<span>{{$t('message.courseEndedYouCan')}}</span>}else{<span>{{$t('message.ownSchedule')}}</span>}</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 text-0-7">@startedAt @monthsString @and@daysString @ago</div>
+                                }
+                            
+                                <div class="col-md-5 text-center">
+                                    <a class="m-button m-button-primary text-0-7" target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@course.Id">{{$t('message.coursePage')}}</a>&nbsp;&nbsp;
+                                    <a courseId="@course.Id" class="m-button m-button-secondary text-0-7 course-info-btn">{{$t('message.courseInfo')}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div hidden="hidden" id="course-information-@course.Id" courseTitle="@course.Subject">
+                            <partial name="PlusPartial/_CourseInformation" model="@course"/>
+                        </div>
+                        
+                    }
+                        
+                }
+                else
+                {
+                    <div class="card border-0 p-4 mb-1">
+                        <div class="row align-items-center">
+                            <div class="matterix-color font-weight-bold col-md-3 font-cairo">{{$t('message.youHaveNotChosenCoursesYet')}}</div>
+                            
+                            @if (!processed)
+                            {
+                                <div class="col-md-5 text-center">
+                                    <a class="m-button m-button-primary text-0-7" asp-action="ChooseCourses" asp-route-applicationId="@application.Id">{{$t('message.chooseCoursesNow')}}</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                
+            
+                
+            </div>
+        </div>
+        <hr/>
+
+        <div class="font-cairo font-weight-bold pointer"  data-toggle="collapse" href="#registration-documents">{{$t('message.registrationDocuments')}}</div>
+        
+        @if (application.Status != EnumList.ApplicationStatus.PendingCoursesChoosing)
+        {
+            <div id="registration-documents" class="collapse">
+            <div class="m-auto w-50">
+                
+                <div class="card border-0 p-4 mb-1">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">{{$t('message.schoolDocument')}}</div>
+                        <div class="col-md-4 text-left" dir="ltr"><a asp-action="DownloadApplicationFile" asp-route-applicationId="@application.Id" asp-route-plusRegDocument="AboutSchool" class="matterix-link">Litt om @StaticInformation.FirstName skole.pdf</a></div>
+                    </div>
+                </div>
+                
+                <div class="card border-0 p-4 mb-1">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">{{$t('message.courseDescriptionDocument')}}</div>
+                        <div class="col-md-4 text-left" dir="ltr"><a asp-action="DownloadApplicationFile" asp-route-applicationId="@application.Id" asp-route-plusRegDocument="CoursesDescription" class="matterix-link">Kursbeskrivelse.pdf</a></div>
+                    </div>
+                </div>
+                
+                @if (application.Status == EnumList.ApplicationStatus.UnderProcessing || application.Status == EnumList.ApplicationStatus.PendingDocuments)
+                {
+                    <div class="card border-0 p-4 mb-1">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">{{$t('message.approvalDocumentForSigning')}}</div>
+                            <div class="col-md-4 text-left" dir="ltr"><a asp-action="DownloadApplicationFile" asp-route-applicationId="@application.Id" asp-route-plusRegDocument="Approval" class="matterix-link">Godkjenningsdokument.pdf</a></div>
+                        </div>
+                        <div class="mt-2 text-0-7 text-muted text-center">{{$t('message.downloadDocumentSignAndUpload')}}</div>
+                    </div>
+                }
+                
+                @if (application.Status == EnumList.ApplicationStatus.Accepted)
+                {
+                    <div class="card border-0 p-4 mb-1">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">{{$t('message.registrationConfirmationDocument')}}</div>
+                            <div class="col-md-4 text-left" dir="ltr"><a asp-controller="Documents" asp-action="MatterixPlusRegistrationsConfirmation" asp-route-applicationId="@application.Id" class="matterix-link">Påmeldingsbekreftelse.pdf</a></div>
+                        </div>
+                        <div class="mt-2 text-0-7 text-muted text-center">{{$t('message.documentConfirmsRegistrationInAppCourses')}}</div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+        }
+        else
+        {
+            <div id="registration-documents" class="collapse">
+                <div class="card border-0 p-4 mb-1 text-center col-md-3 m-auto font-cairo">
+                    @Format.Translate(application.Status.ToString())
+                </div>
+            </div>
+        }
+        <hr/>
+
+        <div class="font-cairo font-weight-bold pointer" data-toggle="collapse" href="#admission-documents">{{$t('message.approvalDocuments')}}</div>
+        
+        
+        @if (application.Status != EnumList.ApplicationStatus.PendingCoursesChoosing)
+        {
+            <div id="admission-documents" class="collapse">
+                <div class="m-auto w-50">
+                    <div class="card border-0 p-4 mb-1 text-center">
+                         
+                        @if (Model.Files.Any())
+                        {
+                            <div id="files-container" class="text-center mb-4">
+                                <div class="mb-3">{{$t('message.filesHasBeenUploaded')}}</div>
+                                @foreach (var file in Model.Files)
+                                {
+                                    <div dir="ltr" class="mb-2"><a class="matterix-link" target="_blank" href="@Url.Content(file.WebPath)">@file.DisplayName</a></div> 
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            if (!processed)
+                            {
+                                <div class="mb-3" id="">{{$t('message.pleaseDownloadDocumentSignAndUpload')}}</div>
+                            }
+                        }
+                        
+                        
+                        @if (!processed)
+                        {
+                            <div>
+                                <input hidden type="file" id="hidden-file-input"/>
+                                <a class="m-button m-button-primary text-0-7" id="choose-file">{{$t('message.chooseFile')}}</a>&nbsp;&nbsp;
+                                <a applicationId="@application.Id" class="m-button m-button-secondary text-0-7 disabled" disabled="disabled" id="upload-file">{{$t('message.upload')}}</a>
+                            </div>
+                        }
+                        
+                        
+                        <div class="mt-3 text-red" style="display: none" id="file-response"></div>
+                         
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="admission-documents" class="collapse">
+                <div class="card border-0 p-4 mb-1 text-center col-md-3 m-auto font-cairo">
+                    @Format.Translate(application.Status.ToString())
+                </div>
+            </div>
+        }
+        
+        
+    
+    
+    @if (application.Status == EnumList.ApplicationStatus.Accepted)
+    {
+        <hr/>
+        <div class="font-cairo font-weight-bold pointer" data-toggle="collapse" href="#invoices">{{$t('message.invoicesAndReceipts')}}</div>
+        
+        <div id="invoices" class="collapse">
+            <div class="m-auto w-50">
+                
+                         
+                    @if (Model.Invoices.Any())
+                    {
+                        <div class="text-center mb-4">
+                            
+                            @{
+                                var invoices = Model.Invoices.Where(x => !x.Paid).ToList();
+                                var receipts = Model.Invoices.Where(x => x.Paid).ToList();
+                                
+                            }
+                            
+                            @if (invoices.Any())
+                            {
+                                <div class="mb-3">{{$t('message.invoicesRelatedToApp')}}</div>
+                                foreach (var invoice in invoices)
+                                 {
+                                     <div class="card" type="button" style="padding: 0.4rem 0.7rem; margin-bottom: 0.5rem;">
+                                         <div class="text-left" style="font-weight: 600">@invoice.Course.Subject</div>
+                                         <div class="direction matterix-color">{{$tc('message.currency', '@Format.NumberFormat(invoice.CurrentAmount)')}}</div>
+                                         <div class="text-left">Kidnummer: <span class="force-select">@invoice.CIDNumber</span></div>
+                                         <div class="direction" style="color: gray">{{$t('message.dueDate')}}: @Format.DateFormat(invoice.CurrentDueDate)</div>
+                                         <div class="text-center mb-2"><a asp-controller="Invoice" asp-action="DownloadInvoice" asp-route-invoiceNumber="@invoice.Number" class="m-button m-button-primary text-0-7">{{$t('message.download')}}</a></div>
+                                     </div>
+                                 }
+                            }
+                            
+                            @if (receipts.Any())
+                            {
+                                <div class="mb-3">{{$t('message.receiptRelatedToApp')}}</div>
+                                foreach (var receipt in receipts)
+                                {
+                                    <div class="card" type="button" style="padding: 0.4rem 0.7rem; margin-bottom: 0.5rem;">
+                                        <div class="text-left" style="font-weight: 600">@receipt.Course.Subject</div>
+                                        <div class="direction matterix-color">{{$tc('message.currency', '@Format.NumberFormat(receipt.CurrentAmount)')}}</div>
+                                        <div class="direction" style="color: gray">{{$t('message.payed')}}</div>
+                                        <div class="text-center mb-2"><a asp-controller="Invoice" asp-action="DownloadInvoice" asp-route-invoiceNumber="@receipt.Number" class="m-button m-button-primary text-0-7">{{$t('message.download')}}</a></div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">{{$t('message.noUnPaidInvoice')}}</div>
+                    }
+
+
+
+
+
+
+            </div>
+        </div>
+        
+    }
+    
+    
+    
+    
+
+    </div>
+    
+</div>
+
+@section Scripts
+{
+    <script src="~/js/MatterixPlus/Application.js" asp-append-version="true"></script>
+    <script src="~/js/Home/InformationModal.js" asp-append-version="true"></script>
+}

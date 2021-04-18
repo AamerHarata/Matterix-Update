@@ -1,0 +1,285 @@
+@using Matterix.Services
+@inject AccessService Access
+@inject InformationService Info
+
+@{
+    ViewBag.Title = "Course Chat";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/instructions.css"/>
+
+<div class="text-center direction un-select">
+    <div class="title-2-5 matterix-color display-4">{{$t('message.instructionsAndHelp')}}</div>
+    <br/>
+    <div style="font-size: 4rem;"><i class="fas fa-comments matterix-color"></i></div>
+    <div class="title-1-5 display-4">{{$t('message.accessToCourseChat')}}</div>
+    <hr class="w-75 matterix-background"/>
+</div>
+
+
+<div class="text-center direction un-select">
+    
+    <table id="fast-links" class="text-center w-100">
+        <tr>
+            <td class="w-mw-33 display-4 title-1-0 matterix-color" colspan="3"><div><strong>{{$t('message.fastHelpLinks')}}</strong></div></td>
+        </tr>
+
+        <tr>
+            <td class="w-mw-33"><a href="#download-and-enter">{{$t('message.downLoadAndEnter')}}</a></td>
+            <td class="w-mw-33"><a href="#how-to-use">{{$t('message.usingTheProgram')}}</a></td>
+            <td class="w-mw-33"><a href="#chat-roles">{{$t('message.rolesForChat')}}</a></td>
+        </tr>
+        
+
+    </table>
+
+
+</div>
+
+<div class="text-0-9 matterix-color smoke-background card task-card task-card-clickable direction open-instruction-modal m-auto" device ="Computer" topic="instructionJoinCourseChat" target="@StaticInstructionVideos.JoinCourseChat"  style="padding: 0.4rem 0.7rem; border: 0; width: max-content" type="button">
+            
+    <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinCourseChat')}}</div></div>
+
+</div>
+
+
+@if (ViewBag.LiveCourseAccess)
+{
+    
+    <div class="text-justify direction un-select" id="download-and-enter">
+        <hr/>
+        <br/>
+        <p class="matterix-color sec-title"><strong>{{$t('message.yourVerificationCode')}}</strong></p>
+
+
+        <p class="col-sm-4"><input value="@Access.GetUserId(User)" class="form-control"/> </p>
+
+        
+
+
+    </div>
+    
+    
+    
+    
+    @* Download and enter *@
+    <div class="text-justify direction un-select" id="download-and-enter">
+        <hr/>
+        <br/>
+        <p class="matterix-color sec-title"><strong>{{$t('message.downLoadAndEnter')}}</strong></p>
+
+
+        <ul>
+            <li >
+                <p>{{$t('message.goToProgramWebsite')}} <a href="https://discord.com" target="_blank">{{$t('message.here')}}</a></p>
+            </li>
+
+            <li>
+                <p>{{$t('message.orDownloadApp')}} </p>
+            </li>
+
+        </ul>
+
+        <div class="text-center">
+            <img class="exsm-inst-image" src="~/Images/Instructions/DiscordIcon.png"/>
+        </div>
+
+        <ul>
+            <li>
+                <p>{{$t('message.afterYouFinishedClick')}} <a href="@Info.GetDiscordLink()" target="_blank">{{$t('message.here')}}</a></p>
+
+            </li>
+            <li>
+                <p>{{$t('message.youNeedToCreateOwn')}} </p>
+            </li>
+        </ul>
+
+        <p>{{$t('message.yourScreenNameIs')}} <span class="red-inst font-weight-bold">&nbsp;@Info.ScreenName(User)&nbsp;</span></p>
+        <p>{{$t('message.orUserYourTrueName')}} </p>
+        <p>{{$t('message.ifYouDontWouldLikeUseName')}} </p>
+
+
+        <ul>
+            <li>
+                <p>{{$t('message.theProgramView')}} </p>
+            </li>
+        </ul>
+
+        <div class="text-center">
+            <img class="big-inst-image" src="~/Images/Instructions/DiscordView.png"/>
+        </div>
+
+
+        <ul>
+            <li>
+                <p>{{$t('message.orFromMobile')}} </p>
+            </li>
+        </ul>
+
+
+    </div>
+
+
+
+
+
+
+
+
+@* How to use *@
+
+
+    <div class="text-justify direction un-select" id="how-to-use">
+        <hr/>
+        <br/>
+        <p class="matterix-color sec-title"><strong>{{$t('message.usingTheProgram')}}</strong></p>
+        <p>{{$t('message.usingThisProgramIsNot')}} </p>
+
+        <ol>
+            <li>
+                <p>{{$t('message.toTheLeftYouFind')}} </p>
+            </li>
+        </ol>
+
+        <ul>
+
+            <li>
+                <p>{{$t('message.beAwareVoice')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.textChannelsIsWhere')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.toMuteNotificationOf')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.youHaveToSendTheAdmin')}}:</p>
+            </li>
+
+        </ul>
+
+        <p class="col-sm-4"><input value="@Access.GetUserId(User)" class="form-control"/> </p>
+
+        
+
+        <ol start="2">
+            <li>
+                <p>{{$t('message.toTheRightYouFind')}} </p>
+            </li>
+        </ol>
+
+        <ul>
+            <li>
+                <p>{{$t('message.inRedIsAdmin')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.inYellowAreTeacher')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.whiteMeansOld')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.otherColorsCourses')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.toSendAMessageTo')}} </p>
+            </li>
+        </ul>
+
+
+
+    </div>
+
+
+@* Chat roles *@
+
+
+    <div class="text-justify direction un-select" id="chat-roles">
+        <hr/>
+        <br/>
+        <p class="matterix-color sec-title"><strong>{{$t('message.rolesForChat')}}</strong></p>
+        <p>{{$t('message.breakingChatRoles')}} </p>
+
+        <ol class="no-strong">
+            <li>
+                <p>{{$t('message.privateChatIsPossible')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.thePurposeOfChat')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.youAreNotAllowedToShare')}} </p>
+            </li>
+            <li>
+                <p>{{$t('message.doNotEmbarrassTheTeacher')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.itIsNotAllowedToCommunication')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.teachersAreStudents')}} </p>
+            </li>
+
+            <li>
+                <p>{{$t('message.teacherMayHelpButNot')}} </p>
+            </li>
+
+
+        </ol>
+
+    </div>
+
+
+
+
+
+
+
+}
+
+else
+{
+@* No Access Here *@
+
+    if (ViewBag.Logged)
+    {
+        <div class="text-center un-select">
+            <br/>
+            <br/>
+            <div class="text-danger">{{$t('message.youHaveToHaveAnyCourse')}}</div>
+            <br/>
+            <a asp-controller="Home" asp-action="Index"><div class="small">{{$t('message.searchCourse')}}</div></a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center un-select">
+            <br/>
+            <br/>
+            <div class="text-danger">{{$t('message.youHaveToLogIn')}}</div>
+            <br/>
+            <a asp-area="Identity" asp-page="/Account/Login"><div class="small">{{$t('message.login')}}</div></a>
+        </div>
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+    <script src="~/js/InstructionVideoModal.js" asp-append-version="true"></script>
+}

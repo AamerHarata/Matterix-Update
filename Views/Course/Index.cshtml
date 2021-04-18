@@ -1,0 +1,96 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.MyCoursesViewModel
+@inject AccessService Access
+@inject CourseService CourseService
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<link rel="stylesheet" href="~/css/CourseArea/SearchCourse.css" asp-append-version="true"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@* Teacher Courses *@
+<div class="text-center un-select">
+    <p class="display-4 title-2-5 "><strong>{{$t('message.yourCourses')}}</strong></p>
+    <hr style="width: 95%"/>
+</div>
+
+@if (Access.IsTeacherOrAdmin(User))
+{
+    <div class="course-type-bar text-center un-select" style="width: 90%">
+        <p class="course-type-text">{{$t('message.yourCoursesAsTeacher')}}</p>
+    </div>
+
+    if (Model.TeachCourses.Any())
+    {
+        foreach (var teachCourse in Model.TeachCourses)
+        {
+            <partial name="CoursePartial/_CourseDiv" model="@teachCourse"/>
+        }
+    }
+    else
+    {
+        <p class="text-center direction">{{$t('message.emptyList')}}</p>
+    }
+}
+
+
+
+@* Owned Courses *@
+<div class="course-type-bar text-center un-select" style="width: 90%">
+    <p class="course-type-text">{{$t('message.activeCourses')}}</p>
+</div>
+
+@if (!Model.OwnedCourses.Any())
+{
+    <div class="text-center direction">
+        <div>{{$t('message.noActiveCourses')}}</div>
+        <br/>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Search")'">{{$t('message.searchCourse')}}</button>
+    </div>
+}
+
+
+@foreach (var ownCourse in Model.OwnedCourses)
+{
+    <partial name="CoursePartial/_CourseDiv" model="@ownCourse"/>
+@*     <partial name="CoursePartial/_CourseDivView" model="@ownCourse"/> *@
+}
+<hr/>
+
+
+@* Expired Courses *@
+<div class="course-type-bar text-center un-select" style="width: 90%">
+    <p class="course-type-text">{{$t('message.expiredCourses')}}</p>
+</div>
+@if (!Model.ExpiredCourses.Any())
+{
+    <div class="text-center direction">
+        {{$t('message.expiredCoursesShowsHere')}}
+    </div>
+}
+else
+{
+    foreach (var expCourse in Model.ExpiredCourses)
+    {
+        <partial name="CoursePartial/_CourseDiv" model="@expCourse"/>
+@*         <partial name="CoursePartial/_CourseDivEnded" model="@expCourse"/> *@
+    }
+}
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        })
+    </script>
+}

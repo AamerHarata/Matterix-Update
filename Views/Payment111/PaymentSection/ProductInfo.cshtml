@@ -1,0 +1,132 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+@inject InformationService Info
+@inject PaymentService Payment
+
+@switch (Model.Reason)
+{
+    
+    case EnumList.PaymentReason.Register:
+        <div class="text-center display-4 title-1-5">{{$t('message.courseInfo')}}</div>
+        <br/>
+        
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <table class="table table-hover text-center direction m-auto w-100">
+            <tr>
+                <th>{{$t('message.courseName')}} / <span class="small">{{$t('message.code')}}</span></th>
+                <td>@Model.Course.Subject / <span class="small">@Model.Course.Code</span></td>
+            </tr>
+            <tr>
+                <th>{{$t('message.startDate')}}</th>
+                <td>@Format.DateFormat(@Model.Course.StartDate)</td>
+            </tr>
+            <tr>
+                <th>{{$t('message.status')}}</th>
+                <td>@if(@Model.Course.Ended){<span>{{$t('message.completed')}}</span>}else{<span>{{$t('message.live')}}</span>}</td>
+            </tr>
+            <tr>
+                <th>{{$t('message.language')}}</th>
+                <td>@Format.Translate(Model.Course.Language.ToString())</td>
+            </tr>
+            <tr>
+                <th>{{$tc('message.teacher','@((int)Model.Course.Teacher.Gender)')}}</th>
+                <td>@Info.FullName(@Model.Course.Teacher.Id)</td>
+            </tr>
+    
+            <tfoot>
+    
+            <tr>
+                <th colspan="2">
+                    @if (Model.Course.Price <= 0)
+                    {
+                        <a class="m-button m-button-danger payment-next-section"  current-section="product-info" next-section="personal-info">{{$t('message.back')}}</a>
+                        <a class="m-button m-button-success payment-next-section" current-section="product-info" next-section="free-registration">{{$t('message.next')}}</a>
+                    }
+                    else
+                    {
+                        <a class="m-button m-button-danger payment-next-section"  current-section="product-info" next-section="personal-info">{{$t('message.back')}}</a>
+                        <a class="m-button m-button-success payment-next-section" current-section="product-info" next-section="payment-info">{{$t('message.next')}}</a>
+                    }
+                </th>
+            </tr>
+
+            </tfoot>
+    
+        </table>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+        
+        break;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    case EnumList.PaymentReason.Invoice:
+        <div class="text-center display-4 title-1-5">{{$t('message.invoiceInfo')}}</div>
+        <br/>
+        
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <table class="table table-hover text-center direction m-auto w-100">
+                    <tr>
+                        <th>{{$t('message.invoiceNumber')}}</th>
+                        <td>@Model.InvoiceToPay.Number</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.courseName')}} / <span class="small">{{$t('message.code')}}</span></th>
+                        <td>@Model.Course.Subject / <span class="small">@Model.Course.Code</span></td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.amount')}}</th>
+                        <td>{{$tc('message.currency',  '@Format.NumberFormat(Model.InvoiceToPay.CurrentAmount)')}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.cidNumber')}}</th>
+                        <td>@Model.InvoiceToPay.CIDNumber</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.dueDate')}}</th>
+                        <td>@Format.DateFormat(Model.InvoiceToPay.CurrentDueDate)</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.payDeadline')}}</th>
+                        <td>@Format.DateFormat(Model.InvoiceToPay.CurrentDeadline)</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.description')}}</th>
+                        <td>@Model.InvoiceToPay.ExtraDescription</td>
+                    </tr>
+                    <tfoot>
+    
+                    <tr>
+                        <th colspan="2">
+                            <a class="m-button m-button-danger payment-next-section"  current-section="product-info" next-section="personal-info">{{$t('message.back')}}</a>
+                            <a class="m-button m-button-success payment-next-section" current-section="product-info" next-section="payment-info">{{$t('message.next')}}</a>
+                        </th>
+                    </tr>
+
+                    </tfoot>
+    
+                </table>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+        break;
+    case EnumList.PaymentReason.Empty:
+    case EnumList.PaymentReason.Donate:
+    case EnumList.PaymentReason.Other:
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+

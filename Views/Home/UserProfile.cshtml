@@ -1,0 +1,306 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.UserProfileViewModel
+@inject InformationService Info
+
+@{
+    ViewBag.Title = Info.FullName(Model.User.Id);
+    Layout = "_Layout";
+    var old = DateTime.Now.Year - Model.User.BirthDate.Year;
+}
+
+<link rel="stylesheet" href="~/css/UserProfileIndex.css"/>
+
+
+
+
+
+<div class="full-user-div direction un-select" id="course-info-main-box">
+    <div class="row">
+        <div class="col-3 align-self-center"><img id="in-profile-pic" src="@Url.Content(Info.ProfilePicture(Model.User))" class="full-width" style="border-radius: 50%; object-fit: cover"/></div>
+        <div class="col-7 full-course-body w-75">
+            <div class="matterix-color title-2-0 w-50 display-4 " style="padding: 5% 0 1% 0; margin-bottom: 5%; border-bottom: 1px solid lightgray">
+                @if (Model.User.ShowFullName)
+                {
+                    <span>@Info.FullName(Model.User)</span>
+                }
+                else
+                {
+                    <span data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.thisUserChoseToDontShow')" style="border-top: none;">@Info.FullName(Model.User)</span>
+                }
+            </div>
+            
+            
+            <div class="display-4 title-1-0 mb-3">
+                @Format.Translate(Model.User.Gender.ToString()){{$t('message.,')}}&nbsp;{{$tc('message.yearOld', '@old')}}{{$t('message.,')}}&nbsp;
+                    
+                @switch (Model.User.Language)
+                {
+                    case EnumList.Language.Norwegian:
+                        <span><img data-toggle="tooltip" data-placement="auto" width="25" class="flag lang" src="~/Images/flag-nob.png"/></span>
+
+                        break;
+                    case EnumList.Language.English:
+                        <span><img data-toggle="tooltip" data-placement="auto" class="flag lang" src="~/Images/flag-en.png"/></span>
+
+                        break;
+                    case EnumList.Language.Arabic:
+                        <span><img data-toggle="tooltip" data-placement="auto" title="عربي" width="20"  src="~/Images/flag-ar.png"/></span>
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            </div>
+            
+            
+            <div class="mb-3 display-4 title-1-0">
+                @switch (Model.User.Role)
+                {
+                    case EnumList.Role.Student:
+                        <span class="display-4 title-1-0" >{{$tc('message.student','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.DateFormat(Model.User.SignUpDate)</span>;
+                        break;
+                    case EnumList.Role.Teacher:
+                        <span class="display-4 title-1-0" >{{$tc('message.aTeacher','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.DateFormat(Model.User.SignUpDate)</span>;
+                        <span>{{$tc('message.aTeacher','1')}}</span>
+                        break;
+                    case EnumList.Role.Admin:
+                        <span class="display-4 title-1-0">{{$tc('message.aTeacher','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$tc('message.anAdmin','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.DateFormat(Model.User.SignUpDate)</span>;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                <span class="title-1-0">&nbsp;&nbsp;<i class="fa fa-comments-o" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.thisSectionIsUnderDeveloping')"></i></span>
+
+
+            </div>
+            
+            <div>
+                @if (string.IsNullOrEmpty(Model.User.StatusMessage))
+                {
+                    <div id="status-message" class="small" style="color: gray">{{$t('message.noStatusMessage')}}</div>
+                }
+                else
+                {
+                    <div id="status-message"><code>@Model.User.StatusMessage</code></div>
+                }
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+@* <div class="full-user-div direction un-select" id="course-info-main-box"> *@
+@*          *@
+@*          *@
+@*     <div><img src="@Url.Content(Info.ProfilePicture(Model.User))" height="300rem" width="300rem" style="border-radius: 50%; object-fit: cover"/></div> *@
+@*          *@
+@*     <div class="full-course-body"> *@
+@*              *@
+@*         <table class="table"> *@
+@*             <tr style="border-bottom: 1px solid lightgray"> *@
+@*                 @if (Model.User.ShowFullName) *@
+@*                 { *@
+@*                     <th colspan="5" class="title-2-0 display-4 matterix-color" style="border-top: none; ">@Info.FullName(Model.User)</th><td></td> *@
+@*                 } *@
+@*                 else *@
+@*                 { *@
+@*                     <th colspan="5" class="title-2-0 display-4 matterix-color" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.thisUserChoseToDontShow')" style="border-top: none;">@Info.FullName(Model.User)</th> *@
+@*                 } *@
+@*                      *@
+@*             </tr> *@
+@*             <tr> *@
+@*                 <td class="display-4 title-1-5"> *@
+@*                     @Format.Translate(Model.User.Gender.ToString()){{$t('message.,')}} &nbsp;&nbsp; {{$tc('message.yearOld', '@old')}}{{$t('message.,')}}&nbsp;&nbsp;&nbsp; *@
+@*                      *@
+@*                     @switch (Model.User.Language) *@
+@*                     { *@
+@*                         case EnumList.Language.Norwegian: *@
+@*                             <span><img data-toggle="tooltip" data-placement="auto" class="flag lang" src="~/Images/flag-nob.png"/></span> *@
+@* *@
+@*                             break; *@
+@*                         case EnumList.Language.English: *@
+@*                             <span><img data-toggle="tooltip" data-placement="auto" class="flag lang" src="~/Images/flag-en.png"/></span> *@
+@* *@
+@*                             break; *@
+@*                         case EnumList.Language.Arabic: *@
+@*                             <span><img data-toggle="tooltip" data-placement="auto" title="عربي" class="flag lang" src="~/Images/flag-ar.png"/></span> *@
+@* *@
+@*                             break; *@
+@*                         default: *@
+@*                             throw new ArgumentOutOfRangeException(); *@
+@*                     } *@
+@*                 </td>  *@
+@*             </tr> *@
+@*                  *@
+@*             <tr> *@
+@*                 @switch (Model.User.Role) *@
+@*                 { *@
+@*                     case EnumList.Role.Student: *@
+@*                         <td class="display-4 title-1-5" colspan="4">{{$tc('message.student','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.ToDate(Model.User.SignUpDate)</td>; *@
+@*                         break; *@
+@*                     case EnumList.Role.Teacher: *@
+@*                         <td class="display-4 title-1-5" colspan="4">{{$tc('message.aTeacher','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.ToDate(Model.User.SignUpDate)</td>; *@
+@*                         <td>{{$tc('message.aTeacher','1')}}</td> *@
+@*                         break; *@
+@*                     case EnumList.Role.Admin: *@
+@*                         <td class="display-4 title-1-5" colspan="4">{{$tc('message.aTeacher','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$tc('message.anAdmin','@((int)Model.User.Gender)')}} {{$t('message.,')}} {{$t('message.since')}} @Format.ToDate(Model.User.SignUpDate)</td>; *@
+@*                         break; *@
+@*                     default: *@
+@*                         throw new ArgumentOutOfRangeException(); *@
+@*                 } *@
+@*                  *@
+@*                 <td class="title-1-0"><i class="fa fa-comments-o" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.thisSectionIsUnderDeveloping')"></i></td> *@
+@* *@
+@* *@
+@*             </tr> *@
+@*                  *@
+@*                  *@
+@* *@
+@*              *@
+@*                  *@
+@*                  *@
+@*                  *@
+@* *@
+@* *@
+@*         </table> *@
+@*              *@
+@*         @if (string.IsNullOrEmpty(Model.User.StatusMessage)) *@
+@*         { *@
+@*             <div id="status-message" class="small" style="color: gray">{{$t('message.noStatusMessage')}}</div> *@
+@*         } *@
+@*         else *@
+@*         { *@
+@*             <div id="status-message"><code>@Model.User.StatusMessage</code></div> *@
+@*         } *@
+@*     </div> *@
+@* </div> *@
+
+    
+@if (ViewBag.ProfileOwner || User.HasClaim("Role", "Admin"))
+{
+    
+    <div class="text-center direction d-flex un-select" style="width: 80%; margin: auto;">
+        <input maxlength="200" autocomplete="off" class="form-control direction m-auto" style="width: 85%" id="status" v-bind:placeholder="$t('message.writeAStatus')"/>
+        <button style="width: fit-content;" class="btn btn-primary" id="change-status" user-id="@Model.User.Id">{{$t('message.ChangeStatus')}}</button>
+    </div>
+}
+
+<div class="un-select">
+    <br/>
+    <br/>
+</div>
+
+@switch (Model.User.Role)
+{
+    case EnumList.Role.Student:
+    
+    
+        <div class="direction un-select">
+                <div class="matterix-color display-4 title-2-0" style="margin: auto 1rem;width: fit-content;border-bottom: 1px dashed var(--Matterix)">
+                    {{$tc('message.theyStudied', '@((int)Model.User.Gender)')}}
+                </div>
+                <br/>
+        </div>
+        
+        
+        <div class="direction un-select" style="margin: 0 0.5rem;">
+            <div>
+                <ul>
+                    @foreach (var course in Model.RegisteredCourses)
+                    {
+                        <li class="display-4 title-1-5" style="padding: 0.4rem"><a target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@course.Id" >@course.Subject / <span class="small">@course.Code</span></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    
+    
+        break;
+    case EnumList.Role.Teacher:
+    case EnumList.Role.Admin:
+    
+        <div class="row direction un-select">
+            <div class="col-1"></div>
+            <div class="col-3">
+                <div class="matterix-color display-4 title-2-0" style="border-bottom: 1px dashed var(--Matterix)">
+                    {{$tc('message.theyTeach', '@((int)Model.User.Gender)')}}
+                </div>
+                <br/>
+            </div>
+        </div>
+        
+        
+        <div class="row direction un-select">
+            <div class="col-1"></div>
+            <div class="col-5">
+                <ul>
+                    @foreach (var course in Model.TeacherCourses)
+                    {
+                        <li class="display-4 title-1-5" style="padding: 0.4rem"><a target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@course.Id" >@course.Subject / <span class="small">@course.Code</span></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    
+    
+    
+        break;
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+
+
+
+@section Scripts
+{
+    
+    <script>
+        $(document).ready(function() {
+            $("#in-profile-pic").css('height', $("#in-profile-pic").css('width'));
+            $(window).on('resize',
+                function() {
+                    $("#in-profile-pic").css('height', $("#in-profile-pic").css('width'));
+                });
+            
+
+            const changeBtn = $("#change-status");
+
+
+            $("#status").keyup(function(e) {
+                if (e.keyCode === 13)
+                    $(changeBtn).click();
+            });
+            
+            
+
+            $(changeBtn).unbind().bind('click',
+                function() {
+                    const userId = $(this).attr("user-id");
+                    const status = $("#status").val();
+                    console.log(userId);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url:"/home/ChangeUserName/",
+                        data: {userId: userId, status: status},
+                        success: function() {
+                            $("#status").val('');
+                            $("#status-message").removeAttr("style").html(`<code>${status}</code>`);
+                        }
+                    });
+                    
+
+                });
+
+        });
+    </script>
+    
+    
+}

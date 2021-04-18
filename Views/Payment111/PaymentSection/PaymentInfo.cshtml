@@ -1,0 +1,28 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+
+@switch(Model.Reason){
+    
+    case EnumList.PaymentReason.Register:
+    <partial name="PaymentPartial/_RegistrationPaymentInfo"/>
+        break;
+        
+        
+    case EnumList.PaymentReason.Invoice:
+    <partial name="PaymentPartial/_InvoicePaymentInfo"/>
+        break;
+    
+    
+    
+    
+    case EnumList.PaymentReason.Donate:
+    case EnumList.PaymentReason.Empty:
+    case EnumList.PaymentReason.Other:
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+
+@* <div class="text-center" style="width: 20%; margin: auto" id="paypal-button-container"></div> *@
+
+<br/>
+<div class="text-danger text-center">{{$t('message.duringThePaymentProcess')}}</div>

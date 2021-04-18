@@ -1,0 +1,28 @@
+@model IEnumerable<Matterix.Models.LectureVideo>
+
+
+    @foreach (var video in Model)
+     {
+         @* ToDo :: Use in case Zoom stopped to work *@
+@*          if (video.Url.Contains("youtube", StringComparison.CurrentCultureIgnoreCase) || video.Url.Contains("embed")) *@
+@*          { *@
+@*              <button class="btn btn-light video-btn direction" onclick="window.open('@video.Url')"> *@
+@*               *@
+@*                  <table style="width: 100%"> *@
+@*                      <tr class="direction"> *@
+@*                          <td class="video-icon"><i class="fa fa-play-circle" style="font-size: 2rem;"></i></td> *@
+@*                          <td><span style="font-size: 1rem;">@video.Name</span></td> *@
+@*                      </tr> *@
+@*                  </table> *@
+@*              </button> *@
+@*          } *@
+@*          else *@
+@*          { *@
+             <a class="m-button m-button-primary video-btn direction p-3" onclick="window.open(window.location.href.split('#')[0] + '#videos#' + '@video.UniqueCode')">
+                 <div class="direction d-flex align-items-center normal">
+                     <span><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i></span>
+                     <span style="font-size: 0.8rem;">@video.Name</span>
+                 </div>
+             </a>
+//         }
+     }

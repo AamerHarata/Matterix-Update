@@ -1,0 +1,12 @@
+<form id="payment-form" method="post">
+    <div id="card-element" class="text-0-6" ><!--Stripe.js injects the Card Element--></div>
+    <button id="stripe-submit-button" class="pointer">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">{{$t('message.payNow')}} | <span class="to-pay-now"></span> {{$t('message.nok')}}</span>
+    </button>
+    <p class="direction pl-1 pr-1" id="card-error" role="alert"></p>
+</form>
+
+
+
+

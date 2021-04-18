@@ -1,0 +1,109 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+
+@switch (Model.Reason)
+{
+    
+    case EnumList.PaymentReason.Register:
+        if (Model.Course.Ended)
+        {
+            if (!string.IsNullOrEmpty(ViewBag.AltCourse))
+            {
+                <div class="text-danger text-center direction un-select">{{$t('message.altCourseExists')}} <a asp-action="Index" asp-controller="Payment" asp-route-courseId="@ViewBag.AltCourse" asp-route-reason="Register">@Model.Course.Subject</a></div>
+                <br/>
+            }
+            
+        }
+    
+    
+        <div class="text-center display-4 title-1-5">{{$t('message.termsConditions')}}</div>
+        <br/>
+        
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <table class="table table-active text-center direction w-100 m-auto">
+            
+
+                    <tr><td>{{$t('message.courseValidOneYear')}}</td></tr>
+                    <tr>
+                
+                        <td>
+                            {{$t('message.thisRegistrationExpiresAt')}}
+                            @if (DateTime.Now > Model.Course.StartDate)
+                            {
+                                <span>@Format.DateFormat(DateTime.Now.AddYears(1))</span>
+                            }
+                            else
+                            {
+                                <span>@Format.DateFormat(Model.Course.StartDate.AddYears(1))</span>
+                            }
+                        </td>
+                    </tr>
+            
+                    @if (!Model.Course.Ended)
+                    {
+                        <tr><td>{{$t('message.onceYouAreDoneYouGetInstruction')}}</td></tr>
+                    }
+            
+            
+                    <tr><td>{{$t('message.rightsOfFilesAndVideos')}}</td></tr>
+                    <tr><td>{{$t('message.ifYouNoticeMistake')}}</td></tr>
+                    <tr><td>{{$t('message.thisProcessIsDoneBy')}}. {{$t('message.thisProcedureCauseExpenses')}}</td></tr>
+                    <tr>
+                        <td id="user-device">
+                            {{$t('message.youAreNowRegisteringFrom')}}: <span id="device-type"></span>, {{$t('message.withAnOperatingSystem')}}: <span id="operating-system"></span>, {{$t('message.hasTheIpNumber')}}: <span id="ip-number"></span>
+                        </td>
+                    </tr>
+                    <tr id="terms-row"><td><input id="terms-btn" type="radio"/>&nbsp; {{$t('message.iAcceptThe')}} <a target="_blank" href="@Url.Action("Privacy", "Home")">{{$t('message.termsConditions')}}</a></td></tr>
+                    <tfoot>
+                    <tr><td><a class="m-button m-button-success payment-next-section" current-section="terms" next-section="personal-info">{{$t('message.next')}}</a></td></tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div class="col-sm-3"></div>
+
+        </div>
+        
+        break;
+        
+        
+        
+        
+        
+        
+        
+        
+    case EnumList.PaymentReason.Invoice:
+        <div class="text-center display-4 title-1-5">{{$t('message.termsConditions')}}</div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <table class="table table-active text-center direction w-100 m-auto">
+
+                    <tr><td>{{$t('message.delayInPaying')}}</td></tr>
+                    <tr><td>{{$t('message.ifYouNoticeMistakeInInvoice')}}</td></tr>
+                    <tr><td>{{$t('message.ifYouNoticeMistake')}}</td></tr>
+                    <tr>
+                        <td id="user-device">
+                            {{$t('message.youAreNowPayingFrom')}}: <span id="device-type"></span>, {{$t('message.withAnOperatingSystem')}}: <span id="operating-system"></span>, {{$t('message.hasTheIpNumber')}}: <span id="ip-number"></span>
+                        </td>
+                    </tr>
+                    <tr id="terms-row"><td><input id="terms-btn" type="radio"/>&nbsp; {{$t('message.iAcceptThe')}} <a target="_blank" href="@Url.Action("Privacy", "Home")">{{$t('message.termsConditions')}}</a></td></tr>
+                    <tfoot>
+                    <tr><td><button class="btn btn-success payment-next-section" current-section="terms" next-section="personal-info">{{$t('message.next')}}</button></td></tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        break;
+    case EnumList.PaymentReason.Donate:
+    case EnumList.PaymentReason.Empty:
+    case EnumList.PaymentReason.Other:
+    default:
+        throw new ArgumentOutOfRangeException();
+}
+

@@ -1,0 +1,10 @@
+@model Matterix.Models.ViewModel.PaymentViewModel
+@using Matterix.Services
+@inject PaymentService Payment
+<div class="text-center display-4 title-1-5">{{$t('message.paymentMethod')}}</div>
+<br/>
+<br/>
+
+<div class="un-select text-center">
+    <a id="free-register-btn" class="m-button m-button-primary">{{$tc('message.registerFree', '0')}}</a>
+</div>

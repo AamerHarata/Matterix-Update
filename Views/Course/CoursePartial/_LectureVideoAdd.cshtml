@@ -1,0 +1,19 @@
+@model Matterix.Models.ViewModel.VideoViewModel
+<div class="add-video-container">
+
+    @if (Model.OneLectureVideos.Count != 0)
+    {
+        foreach (var video in Model.OneLectureVideos)
+         {
+             <div class="add-video-inputs" ready="false" style="display: block;">
+                 <span>@video.VideoNumber- </span>
+                 <input class="video-name form-control" v-bind:placeholder="Name" value="@video.Name" id="video-name-@video.VideoNumber"/>
+                 <input class="video-path form-control" v-bind:placeholder="Link" value="@video.Url" id="video-path-@video.VideoNumber"/>
+                 <div class="video-remove">&#10060;</div>
+             </div>
+         }
+    }
+    
+</div>
+
+<button class="btn btn-dark" id="new-video-btn" style="border-radius: 90%; display: block; margin: 1rem"><i class="fa fa-plus" aria-hidden="true"></i></button>

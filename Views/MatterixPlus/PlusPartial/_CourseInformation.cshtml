@@ -1,0 +1,82 @@
+@using Matterix.Services
+@using Microsoft.AspNetCore.Identity
+@model Course
+@inject InformationService Info
+@inject CourseService CourseService
+@inject AccessService Access
+@inject PaymentService PaymentService
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var course = Model;
+    var courseId = Model.Id;
+    var courseRating = CourseService.GetCourseRating(courseId)[1];
+
+}
+
+<div class="direction text-0-7">
+    
+    <table class="table table-hover table-secondary mb-0" style="border-radius: 0.1rem;">
+        <tr>
+            <th style="border-top: none">{{$t('message.start')}}</th><td style="border-top: none">@Format.DateFormat(Model.StartDate)</td>
+            <th style="border-top: none">{{$t('message.end')}}</th><td style="border-top: none">@Format.DateFormat(Model.EndDate)</td>
+        </tr>
+        <tr>
+            <th>{{$tc('message.teacher', '@Model.Teacher.Gender')}}</th><td>@Info.FullName(Model.TeacherId)</td>
+            <th>{{$t('message.rating')}}</th><td style="font-size: 0.6rem; white-space: nowrap"><partial name="PartialViews/_StarsRow", model="@courseRating"/></td>
+        </tr>
+        <tr>
+            <th>{{$t('message.status')}}</th><td>@if(Model.Ended){<span>{{$t('message.completed')}}</span>}else{<span>{{$t('message.live')}}</span>}&nbsp;&nbsp;|&nbsp;&nbsp;@if(Model.Available){<span>{{$t('message.registrationsAvailable')}}</span>}else{<span>{{$t('message.registrationsNotAvailable')}}</span>}</td>
+            <th>{{$t('message.studentCount')}}</th><td>@CourseService.GetStudentsCount(Model.Id)</td>
+        </tr>
+        
+        @if (!Model.Ended)
+        {
+            var schedules = CourseService.GetCourseSchedule(courseId);
+            var i = 0;
+            var wrap = schedules.Count > 2 ? "normal" : "nowrap";
+            
+            <tr>
+                <th>{{$t('message.schedule')}}</th><td colspan="3" style="white-space: @wrap">
+                    
+                    @foreach (var schedule in schedules)
+                    {
+                        <div class="d-inline-block">@Format.Translate(schedule.Day.ToString()): @Format.TimeFormat(schedule.From) - @Format.TimeFormat(schedule.To)</div>
+                        i++;
+                        if (i != schedules.Count)
+                        {
+                            <span>&nbsp;&nbsp;&#9200;&nbsp;&nbsp;</span>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+        
+        <tr>
+            <th>{{$t('message.completedLectures')}}</th><td>@CourseService.GetCompletedLecturesCount(courseId) {{$t('message.ofTotal')}} @CourseService.GetLecturesCount(courseId)</td>
+            <th>{{$t('message.completedHours')}}</th><td>@CourseService.CompletedHours(courseId) {{$t('message.ofTotal')}} @CourseService.ExpectedTotalHours(courseId)</td>
+        </tr>
+        
+        <th>{{$t('message.ordinaryPrice')}}</th><td>{{$tc('message.currency','@Format.NumberFormat(Format.GetPlusPrice(course.Price))')}}</td>
+        <td colspan="2">{{$t('message.priseNotIncludeStudentDiscount')}}</td>
+        
+        
+        @if (!string.IsNullOrEmpty(course.ExtraDescription))
+        {
+            var descriptionTokens = Model.ExtraDescription.Split("#%"); 
+            
+            <tr><td colspan="4">Opplysningene nede finner du på norsk i Kurs Beskrivelse dokumentet</td></tr>
+            <tr>
+                <th style="vertical-align:top!important">{{$t('message.more')}}</th><td colspan="3" class="direction-text" style="line-break: auto"><ul class="dashed-list" style="list-style-type:none">@foreach(var token in descriptionTokens){<li>@token</li>}</ul></td>
+            </tr>
+        }
+        
+    </table>
+
+    <div class="text-center buttons-in-modal-container set-my-direction mt-2">
+        <a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId"><span>{{$t('message.coursePage')}}</span></a>
+    </div>
+    
+    
+</div>
+

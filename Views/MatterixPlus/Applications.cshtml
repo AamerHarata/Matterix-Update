@@ -1,0 +1,26 @@
+@using Matterix.Services
+@model List<MatterixPlusApplication>
+
+@{
+    ViewBag.Title = "Plus Applications";
+    Layout = "_Layout";
+}
+
+<div class="un-select text-center direction" style="margin-bottom: 15rem;">
+    <div><img src="~/Images/LogoPlus.png" width="10%" style="min-width: 150px;"/></div>
+    <div class="font-cairo title-1-0 matterix-color">{{$t('message.previousApplications')}}</div>
+    <hr class="w-75"/>
+    
+    @foreach (var application in Model)
+    {
+        
+        <div class="card border-0 p-4 col-md-4 m-auto text-0-8 direction" style="background-color: whitesmoke; margin-bottom: 1rem;">
+            <p>{{$t('message.applicationNumber')}}: @application.Reference</p>
+            <p>{{$t('message.status')}}: @Format.Translate(application.Status.ToString())</p>
+            <a asp-action="Application" asp-route-applicationId="@application.Id" asp-route-passCode="@application.PassCode" class="m-button m-button-primary text-center m-auto">{{$t('message.applicationPage')}}</a>
+        </div>
+        
+    }
+
+
+</div>

@@ -1,0 +1,12 @@
+﻿@page
+@model LockoutModel
+@{
+    ViewData["Title"] = "Locked out";
+}
+
+<div class="direction text-center un-select">
+    <h1 class="display-4 title-2-5 matterix-color un-select">{{$t('message.lockedOut')}}</h1>
+    <hr class="matterix-background w-75 un-select"/>
+    <p class="text-danger">{{$t('message.thisAccountHasBeenLocked')}}</p>
+    <div><img src="~/Images/failure.png" width="200rem"/></div>
+</div>

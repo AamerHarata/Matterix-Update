@@ -1,0 +1,153 @@
+@using Matterix.Services
+@model ApplicationUser
+@inject InformationService Info
+
+
+
+@{
+    ViewBag.Title = "Agreement";
+    Layout = "_Layout";
+    var address = Info.GetAddress(Model);
+    var device = new UserDevice();
+}
+
+@if (!Model.SignedStudentAgreement)
+{
+    <div class="title-1-5 font-cairo un-select text-center matterix-color">{{$t('message.toCouldRegisterYouHaveToSign')}}</div>
+<hr class="w-75"/>
+<div class="un-select text-center direction" style="margin-bottom: 10rem;">
+    
+    <div class="row text-0-8">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6">
+            <table class="table table-hover direction" style="width: max-content">
+                <tr>
+                    <th class="border-0 font-cairo">{{$t('message.yourName')}}</th>
+                    <td class="border-0">@Model.FirstName @Model.LastName</td>
+                </tr>
+                <tr>
+                    <th class="border-0 font-cairo">{{$t('message.phoneNumber')}}</th>
+                    <td class="border-0">@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <th class="border-0 font-cairo">{{$t('message.email')}}</th>
+                    <td class="border-0">@Model.Email</td>
+                </tr>
+                <tr>
+                    <th class="border-0 font-cairo">{{$t('message.address')}}</th>
+                    <td class="border-0">@if(address != null){<span>@address.Street, @address.ZipCode @address.City</span>}</td>
+                </tr>
+    
+            </table>
+            <div class="direction pl-3 pr-3 pt-1 pb-1" colspan="2">{{$t('message.ifYouNoticeMistake')}}! <a asp-controller="Home" asp-action="ContactUs">{{$t('message.contactUs')}}</a></div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    
+    <br/>
+    <div class="mb-4">
+        <div><a class="matterix-link text-0-8" asp-action="AgreementFile" asp-route-language="Arabic">{{$t('message.downLoadStudentAgreementAr')}} (PDF)</a></div>
+        <div><a class="matterix-link text-0-8" asp-action="AgreementFile" asp-route-language="Norwegian">{{$t('message.downLoadStudentAgreementNo')}} (PDF)</a></div>
+    </div>
+    
+    <div class="text-red font-cairo">{{$t('message.bySigningAgreementYouAgree')}}</div>
+    
+    <hr class="w-50"/>
+    <form class="text-center m-auto"  method="post" asp-action="StudentAgreement" id="sign-form">
+        
+            
+            <input hidden id="returnUrl" name="returnUrl" value="@ViewBag.ReturnUrl"/>
+            
+            <table id="agree-table" class="m-auto" style="width: max-content">
+                <tr>
+                    <td class="border-0 p-4"><div id="agree-container" class="custom-control custom-switch"><input id="agree" name="agree" type="checkbox" value="true" class="custom-control-input"><label class="custom-control-label font-cairo"></label></div></td>
+                    <td class="border-0 p-4">{{$t('message.iAcceptAgreement')}}</td>
+                </tr>
+            </table>
+        
+        <input id="ip" hidden="hidden" asp-for="@device.Ip"/>
+        <input id="operatingSystem" hidden="hidden" asp-for="@device.OperatingSystem"/>
+        <input id="deviceType" hidden="hidden" asp-for="@device.DeviceType"/>
+        <input id="authCookies" hidden="hidden" asp-for="@device.AuthCookies"/>
+        
+    </form>
+    
+    <div class="text-center"><a id="confirm-sign" class="m-button m-button-primary mt-4">{{$t('message.confirmProcess')}}</a></div>
+    
+</div>
+}
+
+
+@* User Has already signed *@
+else
+{
+    <br/>
+    <div class="un-select direction text-center mt-5" style="margin-bottom: 8rem;">
+        <div class="mb-5 mt-5 title-2-0 font-cairo matterix-color">{{$t('message.agreementSignedSuccessfully')}}</div>
+        <img class="mb-5" src="~/Images/done.png" width="120rem"/>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ReturnUrl) && !string.Equals(ViewBag.ReturnUrl, "none"))
+        {
+            <div class="mb-5"><a class="m-button m-button-primary" asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@ViewBag.ReturnUrl">{{$t('message.continueEnrolling')}}</a></div>
+        }
+        else
+        {
+            <div class="mb-5"><a class="m-button m-button-primary" asp-controller="Home" asp-action="Index">{{$t('message.backHomePage')}}</a></div>
+        }
+
+        <div class="mb-5">
+            <div><a class="matterix-link font-cairo text-0-7" asp-action="AgreementFile" asp-route-language="Arabic">{{$t('message.downLoadStudentAgreementAr')}} (PDF)</a></div>
+            <div><a class="matterix-link font-cairo text-0-7" asp-route-language="Norwegian">{{$t('message.downLoadStudentAgreementNo')}} (PDF)</a></div>
+        </div>
+
+
+    </div>
+}
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/js/UserDeviceInfo.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            const agreeInput = $("#agree");
+            let isAgree = $(agreeInput).prop('checked');
+            const form = $("#sign-form");
+            const agreeTable = $("#agree-table")
+            
+            
+            $("#agree-container").unbind().bind('click', function() {
+                isAgree = !isAgree;
+                    $(agreeInput).prop('checked', isAgree);
+                });
+
+
+            const confirmBtn = $("#confirm-sign");
+            $(confirmBtn).unbind().bind('click', function() {
+                isAgree = $(agreeInput).prop('checked');
+
+                if (!isAgree) {
+                    $(agreeTable).attr('style', 'background-color: indianred');
+                    setTimeout(function() { $(agreeTable).removeAttr('style') }, 800);
+                } else
+                    $(form).submit();
+            });
+            
+            
+            //Prevent Confirmation on page refresh
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            }
+            
+        })
+        
+    </script>
+    
+}

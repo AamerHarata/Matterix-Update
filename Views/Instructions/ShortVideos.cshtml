@@ -1,0 +1,100 @@
+@using Matterix.Services
+
+
+@{
+    ViewBag.Title = "Help Videos";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/instructions.css"/>
+
+<div class="text-center direction un-select">
+    <div class="title-1-5 matterix-color font-cairo">{{$t('message.helpByShortVideos')}}</div>
+    <div style="font-size: 3rem;"><i class="fas fa-play-circle matterix-color"></i></div>
+    <hr class="w-75"/>
+    
+    <div class="w-75 text-center m-auto">
+        
+        <div class="card task-card task-card-clickable direction open-instruction-modal w-75 m-auto mb-3" device ="Computer" topic="instructionEnrollCourseStudent" target="@StaticInstructionVideos.EnrollCourseStudent" style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+            <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionEnrollCourseStudent')}}</div></div>
+
+        </div>
+        <br/>
+        
+        <div class="card task-card task-card-clickable direction open-instruction-modal w-75 m-auto mb-3" device ="Computer" topic="instructionJoinLectureComputer" target="@StaticInstructionVideos.JoinLectureComputer"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+            <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureComputer')}}</div></div>
+
+        </div>
+        <br/>
+    
+        <div class="card task-card task-card-clickable direction open-instruction-modal w-75 m-auto mb-3" device ="Mobile" topic="instructionJoinLectureMobile" target="@StaticInstructionVideos.JoinLectureMobile"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+            <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureMobile')}}</div></div>
+
+        </div>
+        <br/>
+        
+        <div class="card task-card task-card-clickable direction open-instruction-modal w-75 m-auto mb-3" device ="Computer" topic="instructionJoinCourseChat" target="@StaticInstructionVideos.JoinCourseChat"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+            <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinCourseChat')}}</div></div>
+
+        </div>
+        <br/>
+        
+    </div>
+    
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+    <script src="~/js/InstructionVideoModal.js" asp-append-version="true"></script>
+}
+
+
+
+@section MetaTags
+{
+    @{
+        var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/Covers/ContactUs.jpg")}";
+    }
+    
+    
+    <meta property="og:url"    content="@StaticInformation.FullWebsite/Instructions/ShortVideos"/>
+    <meta property="og:type"    content="website"/>
+    
+    <meta property="og:image" content="@imageUrl" />
+    <meta property="og:image:url"    content="@imageUrl" />
+    <meta property="og:image:secure_url"    content="@imageUrl" />
+    <meta property="og:image:type"    content="image/jpeg" />
+    <meta property="og:image:width"    content="4000" />
+    <meta property="og:image:height"    content="4000" />
+    <meta property="fb:app_id"    content="3431737436868705" />
+    
+    
+    
+    
+    <meta property="og:title"    content="Help - Norske Fag på Arabisk" />
+    <meta property="og:description"    content="المساعدة بواسطة فيديوهات قصيرة" />
+}

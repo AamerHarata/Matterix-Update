@@ -1,0 +1,121 @@
+/*body{*/
+    /*margin-bottom: auto!important;*/
+/*}*/
+
+/*@media (max-width: 1199px) {*/
+    /*body{*/
+        /*margin-bottom: auto!important;*/
+    /*}*/
+/*}*/
+
+
+#course-videos-container{
+    width: 100%;
+    margin: auto;
+}
+
+#playlist-container {
+    /*margin-left: 0;*/
+    
+    padding: 0 0.5rem 0 0;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    
+}
+
+.open-close-video-list{
+    display: none;
+}
+
+
+.video-in-list {
+    padding: 1rem;
+    background-color: whitesmoke;
+    color: #505050;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.video-in-list div{
+    margin-bottom: 1rem;
+}
+
+.video-in-list:hover:not(.active-video){
+    background-color: whitesmoke;
+    box-shadow: inset 0 0 10px #8e8e8e;
+    border-radius: 2px;
+}
+
+.active-video{
+    background-color: var(--Matterix);
+    color: whitesmoke;
+    box-shadow:         inset 0 0 10px #8e8e8e;
+    border-radius: 2px;
+}
+
+#main-video-container {
+    /*background-color: tan;*/
+    width:100%;
+    
+}
+
+#video-mask {
+    /*width: 80%;*/
+    /*height: 50px;*/
+    /*background-color: white;*/
+    /*z-index: 2;*/
+    /*display: block;*/
+    /*position: fixed;*/
+    margin: 0.5rem 0;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+
+
+@media (max-width: 1000px) {
+
+
+    #playlist-container {
+        transition: 0.3s;
+        overflow-x: hidden;
+        position: absolute;
+        z-index: 3;
+        width: 100%;
+        max-width: 50%;
+        padding: 0 0.5rem 0 0;
+        overflow-y: auto;
+        margin-bottom: 2rem;
+
+    }
+    .open-close-video-list{
+        max-height: fit-content;
+        height: fit-content;
+        position: absolute;
+        left: 50%;
+        margin-left: 1rem;
+        z-index: 3;
+    }
+
+    #open-video-list{
+        left: 0;
+        display: none;
+    }
+    #close-video-list{
+        left: 50%;
+        display: block;
+    }
+
+    #video-mask {
+        width: 100%;
+        height: 70px;
+        background-color: white;
+        z-index: 2;
+        /*display: block;*/
+        position: fixed;
+        /*margin: auto;*/
+        /*font-family: monospace;*/
+        font-size: 1rem;
+    }
+
+}

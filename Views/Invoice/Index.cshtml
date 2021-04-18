@@ -1,0 +1,273 @@
+@model Matterix.Models.ViewModel.InvoiceViewModel
+@using Matterix.Services
+@inject InformationService Info
+@{
+    ViewBag.Title = $"Invoice {Model.Invoice.Number}";
+    Layout = "_Layout";
+    var invoiceType = Model.Invoice.InvoiceType == EnumList.InvoiceType.Other || Model.Invoice.InvoiceType == EnumList.InvoiceType.Invoice? "Faktura" :
+        Model.Invoice.InvoiceType == EnumList.InvoiceType.Purring ? "Faktura / Purring" : Model.Invoice.InvoiceType.ToString();
+}
+
+<link rel="stylesheet" href="~/css/Invoice.css"/>
+
+<div class="row">
+    <div class="col-3 text-center">
+        <table class="text-center" style="width: 60%; margin: auto">
+            <tr>
+                <td colspan="2"><img src="~/Images/LogoHomePage.png" width="250"/></td>
+            </tr>
+            <tr><td colspan="2"><h5>@StaticInformation.SecondName</h5></td></tr>
+            <tr class="small"><td colspan="2">Nettskole</td></tr>
+            <tr><td colspan="2">@StaticInformation.Address</td><td></td></tr>
+            <tr><td colspan="2">Org. nr: @StaticInformation.OrgNumber</td></tr>
+            <tr><td colspan="2">@StaticInformation.Website</td></tr>
+        </table>
+    </div>
+    <div class="col-4">
+        
+    </div>
+    
+    <div class="col-5">
+        <table class=""style="width: 50%">
+            <tr class=""><th colspan="2" class="display-4 title-2-5">@invoiceType</th></tr>
+            <tr><th>KundeId:</th><td>@Model.User.Id.Split("-")[0]</td></tr>
+            <tr><th>Fakturanr:</th><td>@Model.Invoice.Number</td></tr>
+            <tr><th>Fakturadato:</th><td>@Format.DateFormat(Model.Invoice.CreateDate)</td></tr>
+            <tr><th>Forfallsdato:</th><td>@Format.DateFormat(Model.DueDate)</td></tr>
+            <tr><th>Betalingsfrist:</th><td>@Format.DateFormat(Model.Deadline)</td></tr>
+        </table>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-8">
+        <div class="display-4 title-2-5">@Info.AdminFullName(Model.User).ToUpper()</div>
+        <div class="display-4 title-1-5">@Model.Address.Street</div>
+        <div class="display-4 title-1-5">@Model.Address.ZipCode @Model.Address.City</div>
+        <hr style="width: 50%;margin-left: 0" class="text-left"/>
+        
+        <div style="display: flex">
+            <div class="display-4 title-1-5"><strong>Til å betale: </strong>@Format.NumberFormat(Model.FullAmount),- kr</div>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="m-button m-button-primary" asp-action="DownloadInvoice" asp-route-invoiceNumber="@Model.Invoice.Number">{{$t('message.download')}}</a>&nbsp;&nbsp;&nbsp;<a class="m-button m-button-danger" target="_blank" asp-action="Index" asp-controller="Payment" asp-route-reason="Invoice" asp-route-courseId="@Model.Course.Id" asp-route-invoiceNumber="@Model.Invoice.Number">{{$t('message.payNow')}}</a>
+        </div>
+        <hr style="width: 50%;margin-left: 0" class="text-left"/>
+    </div>
+
+</div>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10 text-center">
+        <div class="display-4 font-cairo title-1-5"><strong>Faktura Beskrivelse</strong></div>
+        <hr class="matterix-background"/>
+        <br/>
+        
+        
+             @if(!string.IsNullOrEmpty(Model.Course.Id)){
+                 <div class="title-1-0 mb-2"><strong>Kurs opplysninger</strong></div>
+                 <table class="table table-striped text-0-7" style="width: 100%; margin: auto">
+                     <thead>
+                     <tr>
+                         <th>Kursnavn / kode</th>
+                         <th>Påmeldingsdato</th>
+                         <th>Gyldig til</th>
+                         <th>Kurspris</th>
+                         <th>Betalt så langt</th>
+                         
+                     </tr>
+                     </thead>
+             
+                     <tr>
+                     
+                         <td>@Model.Course.Subject / @Model.Course.Code</td>
+                         @if (Model.Registration != null)
+                         {
+                             <td>@Format.DateFormat(Model.Registration.RegisterDate)</td>
+                             <td>@Format.DateFormat(Model.Registration.ExpireDate)</td>
+                             <td>@Format.NumberFormat(Model.Registration.Price),- kr.</td>
+                         }
+                         else
+                         {
+                             <td>-</td>
+                             <td>-</td>
+                             <td>-</td>
+                         }
+                         <td>@Format.NumberFormat(Model.Payments),- kr</td>
+                         
+                     </tr>
+            
+                 </table>
+                 <hr/>
+                 <br/>
+             }
+        <div class="title-1-0 mb-2"><strong>Faktura opplysninger</strong></div>
+        <table class="table table-striped small" style="width: 100%; margin: auto">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Krav</th>
+                <th>Bekrivelse</th>
+                <th>Dato opprettet</th>
+                <th>(Ny) Betalingsfrist</th>
+                <th>Beløp</th>
+            </tr>
+            </thead>
+             
+            <tr>
+                     
+                <td>1</td>
+                <td>Faktura - @Model.Invoice.Number</td>
+                
+                @if (string.IsNullOrEmpty(Model.Invoice.ExtraDescription))
+                {
+                    <td>-</td>
+                }
+                else
+                {
+                    <td>@Model.Invoice.ExtraDescription</td>
+                }
+                <td>@Format.DateFormat(Model.Invoice.CreateDate)</td>
+                <td>@Format.DateFormat(Model.Invoice.OriginalDeadline)</td>
+                <td>@Format.NumberFormat(Model.Invoice.Amount),- kr</td>
+            </tr>
+            
+            @{ var i = 2;}
+            @foreach (var increment in Model.Increments)
+            {
+                var claim = "";
+                var explanation = "";
+                
+                
+                 switch (increment.Reason)
+                {
+                    case EnumList.IncrementReason.Latency:
+                        if (increment.Type == EnumList.IncrementType.Fixed)
+                        {
+                            if (increment.InvoicePhase == EnumList.InvoiceType.Purring)
+                            {
+                                claim = "Purregebyr";
+                                explanation = "Purring sent etter forsinkelsen";
+                            }else if (increment.InvoicePhase == EnumList.InvoiceType.Inkassovarsel)
+                            {
+                                claim = "Inkassovarsel / Siste frist";
+                                explanation = "Utsettelse på 15 nye dager som siste frist";
+                            }
+                            else if (increment.InvoicePhase == EnumList.InvoiceType.Inkasso)
+                            {
+                                claim = "Inkasso";
+                                explanation = "Fakturaen har blitt sent til inkasso";
+                            }
+                            else
+                            {
+                                claim = "Gebyr";
+                                explanation = "Forsinkelse gebyr";
+                            }
+                        }else
+                        {
+                            claim = "Inkassovarsel / Rente";
+                            explanation = "Inkassovarsel / Forsinkelse rente på 8.5%";
+                        }
+                            
+                        
+                        break;
+                    case EnumList.IncrementReason.Discount:
+                        break;
+                    case EnumList.IncrementReason.PaperInvoice:
+                        claim = "Varsel på papir";
+                        explanation = "Faktura sent via posten etter forsinkelsen";
+                        break;
+                    case EnumList.IncrementReason.Delay:
+                        claim = "Utsettelse";
+                        explanation = $"Betaling utsettet for {increment.Delay} dager";
+                        break;
+                    default:
+                        break;
+                }
+                
+                
+                <tr>
+                    <td>@i</td>
+                    <td>@claim</td>
+                    <td>@explanation</td>
+                    <td>@Format.DateFormat(increment.Date)</td>
+                    <td>@Format.DateFormat(increment.NewDeadline)</td>
+                    <td>@Format.NumberFormat(increment.Amount),- kr</td>
+                </tr>
+                
+                
+                
+
+                i++;
+            }
+             
+            
+            <tfoot>
+            <tr>
+                <th colspan="1">Total</th>
+                <th colspan="4"></th>
+                <th>@Format.NumberFormat(Model.FullAmount),- kr</th>    
+            </tr>
+            </tfoot>
+            
+        </table>
+        
+        
+        
+        
+        <hr/>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<br/><br/>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-4">
+        <table style="width: 100%; font-size: 1rem;">
+            <tr><th>Kontonummer:</th><td>@StaticInformation.AccountNumber</td></tr>
+            <tr><th>KID Nummer:</th><td>@Model.Invoice.CIDNumber</td></tr>
+            <tr><th>Betalingsfrist:</th><td>@Format.DateFormat(Model.Deadline)</td></tr>
+        </table>
+    </div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-11">
+        <p><div style="color:red;">Studentrabatt er inkludert. Derfor kan beløpet ikke betales eller refunderes av private eller offentlige organisasjoner (som NAV, kommuner, introduksjonssentere ... osv). Les mer om dette på www.matterix.no/plus</div></p>
+    </div>
+</div>
+
+    
+@if (Model.Invoice.InvoiceType == EnumList.InvoiceType.Inkassovarsel)
+        {
+            <br/>
+            <div class="text-center font-cairo">Inkassovarsel betyr at fakturaen vil bli sendt videre til inkasso om det er ikke betalt før betalingsfrist. Dette kan utsette fakturaen for ekstra salær og renter.</div>
+            
+
+        }
+    
+
+<br/>
+<br/>
+
+<div class="row">
+    <div class="col-12">
+        <hr/>
+        <table style="width: 100%; margin: auto;" class="small text-center">
+            <tr>
+                <td>@StaticInformation.SecondName - @StaticInformation.FirstName.ToUpper() / Nettbasert utdanning</td>
+                <td >Org. Nr. @StaticInformation.OrgNumber</td>
+                <td>Telefon: @StaticInformation.ContactNumber</td>
+                <td>E-post: @StaticInformation.ContactEmail</td>
+                @* <td>&nbsp;&nbsp;&nbsp;</td> *@
+            </tr>
+        </table>
+    </div>
+</div>

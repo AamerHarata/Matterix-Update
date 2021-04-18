@@ -1,0 +1,258 @@
+@using Matterix.Services
+@model ApplicationUser
+@inject AdminService AdminService
+@inject InformationService Info
+
+@{
+    ViewBag.Title = "Edit Student";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/Admin.css"/>
+<link rel="stylesheet" href="~/css/Identity/IdentityArea.css"/>
+
+
+@* Student Div Over *@
+<div class="full-user-div" blocked="@Model.Blocked.ToString()">
+    <div style=" margin: auto"><img src="@Url.Content(Info.ProfilePicture(Model))" width="120" height="120" style="border-radius: 50%; object-fit: cover;"/><span id="admin-delete-pic-response"></span></div>
+    <div class="full-user-body">
+            
+        <table class="table table-hover full-user-body-table">
+            <tr>
+                <th><span>@Model.FirstName @Model.LastName @if (Model.MiddleName != null) {<span>, @Model.MiddleName</span>} </span></th>
+                <td>@Model.Id</td>
+                <td>@Model.Email@if(!@Model.EmailConfirmed){<span> - Not Verified</span>}</td>
+                <td>@Model.PhoneNumber@if(!@Model.PhoneNumberConfirmed){<span> - Not Verified</span>}</td>
+            </tr>
+            <tr>
+                <td>Sign up: @Format.DateFormat(Model.SignUpDate) - @Format.DateFormat(Model.SignUpDate)</td>
+                <td>Birth: @Format.DateFormat(Model.BirthDate)</td>
+                <td>@Model.Gender - @Model.Language @if(Model.Role != EnumList.Role.Student){<span> - @Model.Role</span>}</td>
+                <td>@Model.CurrentPassword</td>
+            </tr>
+            <tr>
+                @{ var address = AdminService.GetUserAddress(Model.Id);}
+                <td colspan="2">@address.Street, @address.ZipCode @address.City</td>
+                <td>Payments: @AdminService.TotalPaidAmount(Model.Id)</td>
+                <td>Not Paid: @AdminService.NotPaidAmount(Model.Id)</td>
+            </tr>
+            <tr>
+                <td>Total Courses: @AdminService.CourseTakenCount(Model.Id)</td>
+                <td>Total Feedback: @AdminService.UserFeedbackCount(Model.Id)</td>
+                <td>Average Rating: @AdminService.UserRatingAverage(Model.Id)</td>
+                <td>Devices: <span class="user-devices-count">@AdminService.DifferentDevices(Model.Id)</span></td>
+            </tr>
+            @if (Model.Blocked)
+            {
+                <tr>
+                    <td>@Model.BlockType - @Format.DateFormat(Model.BlockDate)</td>
+                    <td colspan="2">@Model.BlockDescription</td>
+                    <td><button class="btn btn-light admin-unblock-btn" userId="@Model.Id">Unblock</button></td>
+                </tr>
+            }
+            <tr >
+                <tfoot class="text-center">
+                <td><button class="btn btn-secondary" id="admin-delete-user-pic" user-id="@Model.Id">Delete Picture</button></td>
+                <td><button user-id="@Model.Id" class="btn btn-success admin-send-email-btn" email="@Model.Email">Email</button></td>
+                <td><button class="btn btn-info" onclick="location.href='@Url.Action("userPage", new{userId= Model.Id})'">Page</button></td>
+                <td><button class="btn btn-danger admin-block-btn" userId="@Model.Id">Block</button></td>
+                </tfoot>
+            </tr>
+        </table>
+            
+    </div>
+</div>
+
+
+<form id="profile-form" method="post">
+    <div class="row admin-edit-user-container">
+        <div class="col-md-4">
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="FirstName">First Name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                </div>
+            
+                <div class="group-inputs">
+                    <label asp-for="LastName">Last Name</label>
+                    <input asp-for="LastName" class="form-control"/>
+                </div>
+            
+                <span class="text-danger">@ViewData["uniqueName"]</span>
+                
+            </div>
+            
+            
+            
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="MiddleName">Middle Name</label>
+                    <input asp-for="MiddleName" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="ProfileUserName">Profile Username</label>
+                    <input asp-for="ProfileUserName" class="form-control"/>
+                </div>
+                <span class="text-danger">@ViewData["uniqueUserName"]</span>
+            </div>
+            
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="BirthDate">Birth Date</label>
+                    <input asp-for="BirthDate" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="SignUpDate">Sign up Date</label>
+                    <input asp-for="SignUpDate" class="form-control"/>
+                </div>
+            </div>
+            
+            
+            
+            <div class="group-inputs">
+                <label asp-for="EmailConfirmed">Email Confirmed</label>
+                <input asp-for="EmailConfirmed" class="form-check"/>
+            </div>
+            <div class="group-inputs">
+                <label asp-for="PhoneNumberConfirmed">Phone Confirmed</label>
+                <input asp-for="PhoneNumberConfirmed" class="form-check"/>
+            </div><div class="group-inputs">
+                <label asp-for="LockoutEnd">Lockout</label>
+                <input asp-for="LockoutEnd" class="form-control" value="@Model.LockoutEnd"/>
+            </div>
+
+        </div>
+        
+        
+        
+        <div class="col-md-4">
+            
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="CurrentPassword">Password</label>
+                    <input asp-for="CurrentPassword" class="form-control"/>
+                </div>
+                <span class="text-danger">@ViewData["uniqueEmail"]</span>
+                <span class="text-danger">@ViewData["setPassword"]</span>
+            </div>
+
+            
+            
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="BlockType">Block Type</label>
+                    <span> @Html.DropDownListFor(x => x.BlockType,
+                               new SelectList(Enum.GetValues(typeof(EnumList.Block))), "Select Block",
+                               new {@class = "form-control"})</span>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="PhoneNumber">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control"/>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="BlockDate">Block Date</label>
+                    <input asp-for="BlockDate" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="BlockDescription">Block Description</label>
+                    <input asp-for="BlockDescription" class="form-control"/>
+                </div>
+            </div>
+            
+
+        </div>
+        
+        
+        
+        
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label asp-for="Gender"></label>
+                    <span> @Html.DropDownListFor(x => x.Gender,
+                               new SelectList(Enum.GetValues(typeof(EnumList.Gender))), "Select Gender",
+                               new {@class = "form-control"})</span>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="Role"></label>
+                    <span> @Html.DropDownListFor(x => x.Role,
+                               new SelectList(Enum.GetValues(typeof(EnumList.Role))), "Select Role",
+                               new {@class = "form-control"})</span>
+                </div>
+            </div>
+            
+            
+
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label>Address Street</label>
+                    <input value="@address.Street" name="street" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label asp-for="PersonalNumber">Personal Number</label>
+                    <input asp-for="PersonalNumber" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="group-inputs">
+                    <label>City</label>
+                    <input value="@address.City" name="city" class="form-control"/>
+                </div>
+                <div class="group-inputs">
+                    <label>Zipcode</label>
+                    <input value="@address.ZipCode" name="zipcode" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="group-inputs">
+                <label asp-for="Language"></label>
+                <span> @Html.DropDownListFor(x => x.Language,
+                           new SelectList(Enum.GetValues(typeof(EnumList.Language))), "Select Language",
+                           new {@class = "form-control"})</span>
+            </div>
+
+
+
+
+
+
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    
+    <div style="display: block;" class="text-center"><button class="btn btn-danger">Confirm</button></div>
+</form>
+
+<partial name="PartialViews/_SharedModal"/>
+
+
+
+
+@section Scripts
+{
+    <script src="~/js/Admin/AdminMain.js" asp-append-version="true"></script>
+}

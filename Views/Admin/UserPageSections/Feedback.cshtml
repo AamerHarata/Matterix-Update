@@ -1,0 +1,32 @@
+@model IEnumerable<CourseFeedback>
+@using Matterix.Services
+@inject InformationService Info
+
+
+
+@if (!Model.Any())
+{
+    <div class="text-center">No feedback from this user yet!</div>
+}
+else
+{
+    foreach (var feedback in Model)
+    {
+        <div class="feedback-div">
+            <div class=""><img src="@Url.Content(Info.ProfilePicture(feedback.User))" width="120" height="120" style="border-radius: 50%; object-fit: cover"/></div>
+            <div class="feedback-body">
+                <span class="small feedback-delete" style="cursor: pointer" course-id="@feedback.CourseId" feedback-id="@feedback.Id">&times;</span>
+                <span><strong>@Info.AdminDashFullName(feedback.User) - @feedback.Course.Subject</strong><span class="small"> / @feedback.Course.Code</span></span>
+                <div>@feedback.Text</div>
+                <span class="small feedback-date">@Format.DateFormat(feedback.DateTime) - @Format.TimeFormat(feedback.DateTime)</span>
+            </div>
+        </div>
+    }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+.invoice-type-bar{
+    font-weight: 500!important;
+    overflow: hidden;
+    padding: 0.5rem;
+    width: 90%;
+    direction: ltr;
+    color: var(--Matterix);
+    /*border-bottom: 1px solid var(--Matterix);*/
+    /*width: max-content;*/
+    margin: 2rem auto;
+}
+
+.invoice-type-bar:before, .invoice-type-bar:after {
+    background-color: var(--Matterix);
+    content: "";
+    display: inline-block;
+    height: 0.04rem;
+    position: relative;
+    vertical-align: middle;
+    width: 11%;
+    min-width: 60px;
+}
+
+.invoice-type-bar:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.invoice-type-bar:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+.invoice-body{
+    background-color: white;
+    width: 28%;
+    /*max-height: 345px;*/
+    height: max-content;
+    margin: 0.5rem 2rem;
+    min-width: 300px;
+    max-width: 350px;
+    padding: 1rem;
+    border: 0.01rem solid gray;
+    border-radius: 0.1rem;
+    font-size: 0.8rem;
+    font-weight: 300;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.title-inside-card{
+    font-weight: 400;
+}
+
+table th{
+    font-weight: 400;
+    font-family: 'Cairo', sans-serif;
+    
+}
+tr{
+    width: 100%;
+    overflow-x: scroll!important;
+}
+th, td{
+    border-top: 0.01rem rgba(0, 0, 0, 0.1) solid!important;
+    border-bottom: 0.01rem rgba(0, 0, 0, 0.1) solid!important;
+    white-space: nowrap;
+}
+
+
+
+table th{
+}
+
+.invoice-increment-card{
+    background-color: whitesmoke;
+    border: 0;
+    border-radius: 0;
+    padding: 0.4rem;
+    white-space: pre-wrap;
+    font-size: 0.6rem;
+    margin-bottom: 0.2rem;
+}

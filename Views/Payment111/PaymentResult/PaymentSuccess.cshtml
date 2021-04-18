@@ -1,0 +1,40 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentResultViewModel
+
+@switch (Model.Reason)
+{
+    case EnumList.PaymentReason.Register:
+        <div class="text-center un-select">
+            <div>
+                <img src="~/Images/done.png" width="200rem"/>
+            </div>
+            <br/>
+            <div class="display-4 title-2-0"><strong>{{$t('message.theProcessIsDone')}}</strong></div>
+            <br/>
+            <button class="btn btn-primary" onclick="location.href = ('@Url.Action("CourseArea", "Course", new{courseId=Model.Course.Id})')">{{$t('message.toTheCourse')}}</button>
+            @if (!Model.Course.Ended)
+            {
+                <br/>
+                <br/>
+                <div class="text-danger">{{$t('message.liveCourseInstruction')}} <a target="_blank" asp-controller="Instructions" asp-action="LiveCourses">{{$t('message.here')}}</a></div>
+            }
+        </div>
+        break;
+        
+        
+        
+        
+
+    case EnumList.PaymentReason.Invoice:
+        <div class="text-center">
+            <div>
+                <img src="~/Images/done.png" width="200rem"/>
+            </div>
+            <br/>
+            <div class="display-4 title-2-0"><strong>{{$t('message.theProcessIsDone')}}</strong></div>
+            <br/>
+            <button class="btn btn-primary" onclick="location.href = ('@Url.Action("Index", "Home")')">{{$t('message.home')}}</button> &nbsp;<button class="btn btn-secondary" onclick="location.href = ('@Url.Action("Receipt", "Invoice", new{invoiceNumber= @Model.Invoice.Number})')">{{$t('message.receipt')}}</button>
+           
+        </div>
+        break;
+}

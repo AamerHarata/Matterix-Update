@@ -1,0 +1,60 @@
+@model Course
+@using Matterix.Services
+@inject AccessService Access
+@inject InformationService Info
+@inject CourseService CourseService
+@{
+    
+    var view = Access.CourseViewAccess(User, Model.Id);
+    var edit = Access.CourseEditAccess(User, Model.Id);
+}
+
+
+
+<div class="text-center un-select direction">
+    <br/>
+    @if (Model.Ended)
+    {
+        <div class="display-4 title-1-5">{{$t('message.courseIsEnded')}}</div>
+    }
+    else
+    {
+        if (view || edit)
+        {
+            <div class="display-4 title-1-5">{{$t('message.oneClickToGoToCourseClass')}}. <span class="title-1-0 text-success">{{$t('message.checkFirstLecturesTime')}}</span></div>
+            <br/>
+            <div class="display-4 title-1-0 text-danger direction text-center">{{$t('message.oneMomentPleaseJoiningReadInstructions')}}</div>
+            
+            <div class="col-md-6" style="margin: 2rem auto 3rem auto;">
+                <div class="mb-3 text-0-9 matterix-color smoke-background card task-card task-card-clickable direction open-instruction-modal" device ="Computer" topic="instructionJoinLectureComputer" target="@StaticInstructionVideos.JoinLectureComputer"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+                    <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureComputer')}}</div></div>
+
+                </div>
+    
+                <div class="text-0-9 matterix-color smoke-background card task-card task-card-clickable direction open-instruction-modal" device ="Mobile" topic="instructionJoinLectureMobile" target="@StaticInstructionVideos.JoinLectureMobile"  style="padding: 0.4rem 0.7rem; border: 0;" type="button">
+            
+                    <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinLectureMobile')}}</div></div>
+
+                </div>
+            </div>
+            
+            <br/>
+            if (!string.IsNullOrEmpty(Model.ClassUrl))
+             {
+                 <div><a class="m-button m-button-primary" style="font-size: 1rem" target="_blank" href="@Model.ClassUrl">{{$t('message.clickHereToJoin')}}</a></div>
+             }
+            else
+            {
+                <div class="display-4 title-1-5 matterix-color">{{$t('message.linkNotWorkContactNow')}}</div>
+            }
+            
+        }
+        else
+        {
+            <div class="display-4 title-1-5 direction text-center">{{$t('message.youHaveToEnrollCourse')}}</div>
+        }
+    }
+    
+    
+</div>

@@ -1,0 +1,19 @@
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<br/>
+
+<br/>
+<br/>
+<br/>
+
+
+
+<form method="post" asp-action="AddLinks" class="text-center">
+    <input class="form-control w-25 m-auto" name="discordLink" id="discordLink" value="@ViewBag.DiscordLink"/>
+    <br/>
+    <button class="btn btn-primary" type="submit">Add Link</button>
+</form>

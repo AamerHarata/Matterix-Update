@@ -1,0 +1,151 @@
+@using Matterix.Data
+@using Matterix.Services
+@model Course
+@inject InformationService Info
+@inject ApplicationDbContext Con
+@inject PaymentService Payment
+@inject AdminService Admin
+
+@{
+    ViewBag.Title = @Model.Subject;
+    Layout = "_Layout";
+}
+
+@{
+    var students = Con.Registrations.Where(x=>x.CourseId == Model.Id).Where(x=>!x.Canceled).OrderBy(x=>x.RegisterDate).Select(x=>x.Student).ToList();
+    var i = 1;
+    
+    var totalCoursesMoney = 0;
+    var totalCoursesPaid = 0;
+    var totalCoursesLate = 0;
+    var totalCoursesRest = 0;
+}
+
+<div class="text-center">
+    <div><code>@Model.Subject <a target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@Model.Id">@Model.Id</a></code> &nbsp;&nbsp;<a asp-action="CoursesOverview" asp-controller="Admin">All Courses</a></div>
+    <br/>
+    <div>
+        <a id="admin-send-email-group-btn" course-id="@Model.Id" class="m-button m-button-primary">Send group email</a>&nbsp;
+        <a id="admin-send-sms-group-btn" course-id="@Model.Id" class="m-button m-button-danger">Send group sms</a>
+    </div>
+    <br/>
+    
+    <table class="table table-hover">
+
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Devices</th>
+            <th>Date</th>
+            <th>Expired</th>
+            <th>Required</th>
+            <th>Paid</th>
+            <th>Late</th>
+            <th>Rest</th>
+        </tr>
+        </thead>
+        
+        @foreach (var student in students)
+        {
+
+            
+            var totalLateInvoices = Con.Invoices.ToList().Where(x=>x.UserId == student.Id).Where(x=>x.CourseId == Model.Id).Where(x=>x.IsLate()).ToList();
+            var totalRequiredInvoices = Con.Invoices.Where(x => x.UserId == student.Id).Where(x=>x.CourseId == Model.Id).Where(x=>!x.Canceled).ToList();
+
+
+            var totalRequired = totalRequiredInvoices.Sum(x=>x.CurrentAmount);
+            var totalPaid = Con.Payments.Where(x=>x.UserId == student.Id).Where(x=>x.CourseId == Model.Id).Where(x=>!x.Refunded).Sum(x=>x.Amount);
+            
+            
+            var totalLate = totalLateInvoices.Sum(x => x.CurrentAmount);
+            
+            
+            var totalRest = totalRequired - totalPaid;
+            
+
+            //ToDo :: Continue fixing here
+            var reg = Con.Registrations.Where(x => x.CourseId == Model.Id).Where(x=>!x.Canceled).SingleOrDefault(x => x.StudentId == student.Id);
+            var expired = "-";
+            var registerDate = DateTime.MinValue;
+            if (reg != null)
+            {
+                registerDate = reg.RegisterDate;
+                if (reg.Expire){
+                    expired = "yes";
+                }
+            }
+
+            <tr>
+                <td>@i</td>
+                <td><a target="_blank" asp-controller="Home" asp-action="UserProfile" asp-route-username="@student.ProfileUserName">@student.Id.Split("-")[0]</a></td>
+                <td><a target="_blank" asp-controller="Admin" asp-action="UserPage" asp-route-userId="@student.Id">@Info.AdminFullName(student)</a></td>
+                <td>@student.PhoneNumber</td>
+                <td>@student.Email</td>
+                <td>@Admin.DifferentDevices(student.Id)</td>
+                <td>@Format.DateFormat(registerDate)</td>
+                <td>@expired</td>
+                <td>@Format.NumberFormat(totalRequired)</td>
+                <td>@Format.NumberFormat(totalPaid)</td>
+                <td><code>@Format.NumberFormat(totalLate)</code></td>
+                <td>@Format.NumberFormat(totalRest)</td>
+            </tr>
+
+            totalCoursesMoney += (int) totalRequired;
+            totalCoursesPaid += (int) totalPaid;
+            totalCoursesLate += (int) totalLate;
+            totalCoursesRest += (int) totalRest;
+            i++;
+
+        }
+        
+        <tr>
+            <th colspan="12"></th>
+        </tr>
+        <tfoot>
+        <tr>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>Required</th>
+            <th>Paid</th>
+            <th>Late</th>
+            <th>Rest</th>
+        </tr>
+        <tr>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>-</th>
+            <th>@totalCoursesMoney</th>
+            <th>@totalCoursesPaid</th>
+            <th><code>@totalCoursesLate</code></th>
+            <th class="text-success">@totalCoursesRest</th>
+        </tr>
+        </tfoot>
+
+
+
+    </table>
+</div>
+
+
+<partial name="PartialViews/_SharedModal"/>
+
+
+@section Scripts
+{
+    <script src="~/js/Admin/AdminSendGroup.js" asp-append-version="true"></script>
+}

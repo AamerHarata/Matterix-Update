@@ -1,0 +1,18 @@
+@using Matterix.Services
+
+<div hidden="hidden" class="text-center text-0-7" id="instruction-video-modal">
+    <div id="instruction-video-container">
+        <iframe height="100%" width="100%" id="instruction-video-frame" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+        
+        </iframe>
+    </div>
+    
+
+    
+    <div class="text-center buttons-in-modal-container set-my-direction mt-2">
+        <a target="_blank" asp-controller="Instructions" asp-action="ShortVideos"><span>{{$t('message.helpByShortVideos')}}</span></a>
+    </div>
+    
+
+</div>
+

@@ -1,0 +1,117 @@
+@model IEnumerable<Course>
+@using Matterix.Services
+@inject InformationService Info
+@inject CourseService CourseService
+@inject AccessService Access
+
+@{
+    ViewBag.Title = "Search Courses";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/CourseArea/SearchCourse.css"/>
+
+
+<div class="text-center direction un-select">
+    <div>{{$t('message.searchWithCourseName')}}</div>
+    <form id="course-search" method="post" asp-action="Search" asp-controller="Course">
+        <input class="form-control" name="searchPattern" id="search-field" value="@ViewBag.SearchPattern" placeholder="Search ..." style="width: 60%; margin: 1rem auto;"/>
+        <div style="margin: 1rem auto">
+            <input type="checkbox" name="live" checked="@ViewBag.Live" value="true"/>
+            &nbsp;
+            <span>{{$t('message.onlyLiveCourses')}}</span>
+        </div>
+    </form>
+    
+    <button type="submit" id="course-search-btn" class="m-btn m-btn-primary">{{$t('message.search')}}</button>
+    <button class="m-btn m-btn-secondary" id="search-course-all-btn">{{$t('message.showAll')}}</button>
+</div>
+
+<hr class="Matterix-background" style="width: 95%"/>
+@if (!Model.Any())
+{
+    <div class="direction text-center">{{$t('message.noResultsForThisSearch')}}</div>
+}
+
+@* @if (!User.Identity.IsAuthenticated) *@
+@* { *@
+@*     foreach (var course in Model) *@
+@*     { *@
+@*         <partial name="CoursePartial/_CourseDivCheck" model="@course"/> *@
+@*     } *@
+@* } *@
+@* else *@
+@* { *@
+    @foreach (var course in Model)
+    {
+        <partial name="CoursePartial/_CourseDiv" model="@course"/>
+@*         if (Access.CourseEditAccess(User, course.Id)) *@
+@*         { *@
+@*             <partial name="CoursePartial/_CourseDivEdit" model="@course"/> *@
+@*         } *@
+@*         else if(Access.CourseViewAccess(User, course.Id)) *@
+@*         { *@
+@*             <partial name="CoursePartial/_CourseDivView" model="@course"/> *@
+@*         } *@
+@*         else if (Access.CourseEndedAccess(User, course.Id)) *@
+@*         { *@
+@*             <partial name="CoursePartial/_CourseDivEnded" model="@course"/> *@
+@*         } *@
+@*         else *@
+@*         { *@
+@*             <partial name="CoursePartial/_CourseDivCheck" model="@course"/> *@
+@*         } *@
+    }
+    
+@* } *@
+
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $('#search-field').attr('placeholder', JSLanguage('search...'));
+
+            //Prevent confirmation on refresh
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+
+            const searchForm = $("#course-search");
+            $("#course-search-btn").unbind().bind("click",
+                function() {
+                    searchForm.submit();
+                });
+            
+            $("#search-course-all-btn").unbind().bind("click", function(){searchForm.children("input").val("");
+                searchForm.children("div").children("input").prop("checked", false);
+                searchForm.submit();
+            });
+
+//            $(".own-course").parent().parent().parent().parent().parent().css("background-color", "rgba(18 , 160, 20, 0.15)");
+            
+            
+            
+            
+            
+            $(document).ready(function() {
+                (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            })
+            
+        });
+    </script>
+    
+    
+    
+    
+    
+
+}

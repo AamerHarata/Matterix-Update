@@ -1,0 +1,278 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.ContactViewModel
+@{
+    ViewBag.Title = "Contact us";
+    Layout = "_Layout";
+    IList<SelectListItem> contactList = Enum.GetValues(typeof(EnumList.Contact)).Cast<EnumList.Contact>().Select(x => new SelectListItem {Text = Format.Translate(x.ToString()).ToString(), Value = ((int) x).ToString()}).ToList();
+    var contactListData = new SelectList(contactList, "Value", "Text");
+}
+<link rel="stylesheet" href="~/css/Identity/Register.css" asp-append-version="true"/>
+
+@*Internal new form *@
+<div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto auto 5rem auto;">
+
+     <div class="row">
+         <div class="col-sm-7 p-4">
+
+             <div class="section" id="contact-section">
+                 
+                 @* TITLE *@
+                 <div class=" direction text-center">
+                     <div class="display-4 title-1-5 matterix-color font-cairo mt-4 mb-4">{{$t('message.contactUs')}}</div>
+                 </div>
+                 <div class="text-center small font-cairo text-secondary">{{$t('message.weSupportTheContact3')}}</div>
+                 <br/>
+                 
+                 @* MAIN login FORM *@
+                 <form id="contact-form" asp-action="ContactUs" enctype="multipart/form-data">
+                     @* USER DEVICE SECTION :: TODO:: To be changed later and set as global maybe *@
+                     <input asp-for="Device.Ip" hidden="hidden" id="ip"/>
+                     <input  asp-for="Device.AuthCookies" hidden="hidden" id="authCookies"/>
+                     <input asp-for="File" hidden="hidden" type="file"/>
+                     
+                     
+                     @* NAME *@
+                     <div class="row">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-4">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" type="text" asp-for="FullName" v-bind:placeholder="$t('message.yourName')" required title=""/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-user-alt"></i>&nbsp;&nbsp;{{$t('message.name')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" type="text" asp-for="User.Email" required title=""/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$t('message.email')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+                     
+                     @* Phone Number *@
+                     <div class="row text-left not-direction" style="text-align: left !important; direction: rtl !important">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-4 text-left">
+                             <div class="matterix-input-container set-my-direction">
+                                 <input class="matterix-input" placeholder="44455566" autocomplete="off" asp-for="User.PhoneNumber" required title=""/>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;{{$t('message.phoneNumber')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="matterix-input-container set-my-direction">
+                                 <select asp-for="User.PhoneCode" class="matterix-select align-self-center" required title="" asp-items="ViewBag.countries"></select>
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-plus text-0-6"></i>&nbsp;&nbsp;{{$t('message.code')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+                     
+                     <div class="row text-left not-direction" style="text-align: left !important; direction: rtl !important">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-8 text-left">
+                             <div class="matterix-input-container set-my-direction">
+                                 @Html.DropDownListFor(x=>x.Reason, contactListData, new {@class = "matterix-select", id="reason-list"})
+                                 <label class="matterix-input-label">
+                                     <span class="matterix-input-content"><i class="fas fa-question-circle "></i>&nbsp;&nbsp;{{$t('message.title')}}</span>
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                     </div>
+                     
+                     <div id="reason-info" class="text-success text-0-6 font-cairo mb-3"></div>
+                     <div class="row">
+                         <div class="col-2"></div>
+                         <div class="col-8">
+                             <textarea asp-for="Message" class="matterix-text-area" v-bind:placeholder="$t('message.textMax500')" required title=""></textarea>
+                         </div>
+                         <div class="col-2"></div>
+                     </div>
+
+
+                     @* BUTTONS *@
+                     <div id="file-name" class="mb-2 text-0-6" dir="ltr"></div>
+                     <div class="mb-4"><a id="choose-file" class="m-button m-button-secondary">{{$t('message.chooseFile')}}</a><span style="display: none" id="delete-file">&nbsp;&nbsp;<a class="m-button m-button-danger">{{$t('message.delete')}}</a></span></div>
+                     
+                     @*VALIDATION AREA*@
+                     <div style="color: red" id="contact-validation" class="text-center text-0-7 font-cairo mt-2 mb-3"></div>
+                     
+                     <div class="mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                         <a id="submit-contact-form" class="m-button m-button-primary text-center m-auto">{{$t('message.send')}}</a>
+                     </div>
+                     
+
+                 </form>
+
+                 <hr/>
+                 
+
+             </div>
+             
+             <div class="section" id="response-section" style="display: none">
+                 <div class=" direction text-center">
+                     <div><img src="~/Images/done.png" width="50"/></div>
+                     <div class="display-4 title-1-5 matterix-color font-cairo mt-4 mb-4">{{$t('message.weReceivedYourRequest')}}</div>
+                     <div class="text-secondary small col-md-10 m-auto">{{$t('message.weWillAnswerViaEmailOrPhone')}}</div>
+                     <div class="text-secondary small mt-2 mb-4 font-cairo">{{$t('message.caseNumber')}} <span class="force-select" id="case-id"></span></div>
+                 </div>
+                 <div class="mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                     <a asp-action="Index" id="submit-contact-form" class="m-button m-button-primary text-center m-auto">{{$t('message.backHomePage')}}</a>
+                 </div>
+             </div>
+
+         </div>
+         
+         
+         @* <button class="m-btn m-btn-primary w-50 mt-4" type="button" id="submit-contact-form">{{$t('message.send')}}</button> *@
+         
+
+         <div class="col-sm-5">
+             <img src="~/Images/Covers/ContactUs.jpg" width="100%" height="100%" style="object-fit: cover; min-height: 580px; opacity: 0.7"/>
+         </div>
+
+     </div>
+
+</div>
+
+
+
+
+
+
+
+@* *@
+@* $1$ Title #1# *@
+@* <div class="row text-center un-select direction m-auto w-100"> *@
+@*     <div class="col-1"></div> *@
+@*     <div class="col-10"> *@
+@*         <div class="display-4 title-2-0">{{$t('message.contactUs')}}</div> *@
+@*         <br/> *@
+@*         <div class="text-center">{{$t('message.weSupportTheContact3')}}</div> *@
+@*         <hr class="matterix-background"/> *@
+@*          *@
+@*     </div> *@
+@* *@
+@* </div> *@
+@* *@
+@* *@
+@* $1$ Internal Form #1# *@
+@* <div class="row un-select direction" id="internal-contact"> *@
+@*     <div class="col-sm-4"></div> *@
+@*     <div class="col-sm-4 mb-3"> *@
+@*         <form id="contact-form" asp-action="ContactUs" enctype="multipart/form-data" class="text-center w-100 m-auto"> *@
+@*             <input asp-for="FullName" class="form-control" style="margin-bottom: 0.5rem !important;" v-bind:placeholder="$t('message.yourName')"/> *@
+@*             <input asp-for="User.PhoneNumber" class="form-control" style="margin-bottom: 0.5rem !important;" v-bind:placeholder="$t('message.phoneNumber')"/> *@
+@*             <input asp-for="User.Email" class="form-control" style="margin-bottom: 0.5rem !important;" v-bind:placeholder="$t('message.email')"/> *@
+@*             @Html.DropDownListFor(x=>x.Reason, contactListData, new {@class = "form-control", @style="margin-bottom: 0.5rem !important;", id="reason-list"}) *@
+@*             <textarea asp-for="Message" maxlength="500" class="form-control" style="margin-bottom: 0.5rem !important; resize: none; height: 10rem; overflow-y: auto" v-bind:placeholder="$t('message.textMax500')"></textarea> *@
+@*             <div id="file-name" style="margin-bottom: 1rem;"></div> *@
+@*             <button type="button" id="choose-file" class="btn btn-light">{{$t('message.chooseFile')}}</button>&nbsp;&nbsp;<button style="display: none" type="button" id="delete-file" class="btn btn-danger">{{$t('message.delete')}}</button> *@
+@*             <br/> *@
+@*             <button class="m-btn m-btn-primary w-50 mt-4" type="button" id="submit-contact-form">{{$t('message.send')}}</button> *@
+@*             <input asp-for="File" hidden="hidden" type="file"/> *@
+@*             <input asp-for="Device.Ip" hidden="hidden" id="ip"/> *@
+@*             <input  asp-for="Device.AuthCookies" hidden="hidden" id="authCookies"/> *@
+@* *@
+@* *@
+@*         </form> *@
+@*     </div> *@
+@*      *@
+@*     <div class="col-sm-4"> *@
+@*         <div id="reason-info"class="text-success"></div> *@
+@*         <br/> *@
+@*         <div class="text-danger">@Html.ValidationMessage("fieldEmpty")</div> *@
+@*         <div class="text-danger">@Html.ValidationMessage("fileError")</div> *@
+@*         <div id="empty-validation"class="text-danger"></div> *@
+@*         <br/> *@
+@*         <div id="phone-validation"class="text-danger"></div> *@
+@*         <br/> *@
+@*         <div id="email-validation"class="text-danger"></div> *@
+@*         <div id="file-validation"class="text-danger"></div> *@
+@*     </div> *@
+@* </div> *@
+@* <br/> *@
+@* <br/> *@
+@* <hr class="matterix-background"/> *@
+
+<hr class="mb-5"/>
+@* External Form *@
+<div class="text-center un-select font-cairo matterix-color title-1-5 mb-3">{{$t('message.otherContactMethods')}}</div>
+<br/>
+<div class="row text-center un-select font-cairo text-0-7">
+    <div class="col-sm-3 mb-5">
+        <a href="tel:+4745525288"><img src="~/Images/Contact/ContactPhoneIcon.png" style="width: 25%; height: auto; margin-bottom: 1rem;"/></a>
+        <br/>
+        <div>@StaticInformation.ContactNumber - {{$t('message.phoneNecessity')}}</div>
+    </div>
+    <div class="col-sm-3 mb-5">
+        <a href="mailto:@StaticInformation.ContactEmail"><img src="~/Images/Contact/ContactEmailIcon.png" style="width: 25%; height: auto; margin-bottom: 1rem; cursor: pointer"/></a>
+        <div>@StaticInformation.ContactEmail</div>
+    </div>
+    <div class="col-sm-3 mb-5">
+        <a href="@StaticInformation.FacebookPage" target="_blank"><img src="~/Images/Contact/ContactFacebookIcon.png" style="width: 25%; height: auto; margin-bottom: 1rem;cursor: pointer"/></a>
+        <div>@StaticInformation.SecondName</div>
+    </div>
+    <div class="col-sm-3 mb-5">
+        <a href="@StaticInformation.FacebookGroup" target="_blank"><img src="~/Images/Contact/ContactGroupIcon.png" style="width: 25%; height: auto; margin-bottom: 1rem;cursor: pointer"/></a>
+        <div>Facebook Group</div>
+    </div>
+    
+</div>
+<hr/>
+<div class="row text-center un-select">
+    <div class="col-12 text-center">
+        <table class="w-100 m-auto">
+            <tr class="display-4 title-1-5"><td>@StaticInformation.FirstName</td></tr>
+            <tr class="small display-4 title-1-0"><td>@StaticInformation.SecondName</td></tr>
+            <tr class="display-4 title-1-0"><td>Org. nr. @StaticInformation.OrgNumber</td></tr>
+            <tr class="display-4 title-1-0"><td>@StaticInformation.Address</td></tr>
+            <tr class="display-4 title-1-0"><td>&copy; @DateTime.Now.Year</td></tr>
+        </table>
+        <div ></div>
+        <div class="small"></div>
+        
+    </div>
+</div>
+
+@* <!-- Load Facebook SDK for JavaScript --> *@
+<div id="fb-root"></div>
+
+@* <!-- Your customer chat code --> *@
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="1982841765373846"
+     theme_color="#4e54a4"
+     logged_in_greeting="مرحباً، كيف أستطيع مساعدتك؟"
+     logged_out_greeting="مرحباً، كيف أستطيع مساعدتك؟"
+     greeting_dialog_display="hide">
+</div>
+
+
+@* //ToDo :: Internal Contact form *@
+@* //ToDo :: Support Section *@
+@* //ToDo :: External Contact info *@
+
+
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/js/Validation.js" asp-append-version="true"></script>
+    <script src="~/js/UserDeviceInfo.js" asp-append-version="true"></script>
+    <script src="~/js/Home/ContactUs.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,46 @@
+@model Course
+@using Matterix.Services
+@inject AccessService Access
+@{
+    var information = new List<string>();
+    if (!string.IsNullOrEmpty(Model.ExtraDescription))
+    {
+        var temp = Model.ExtraDescription.Split("#%");
+        information.AddRange(temp);
+    }
+    
+}
+
+@if (Access.IsAdmin(User))
+{
+<form method="post" asp-action="EditInfo" asp-controller="Course" class="text-right" dir="rtl">
+    <textarea asp-for="ExtraDescription" class="form-control"></textarea>
+    <br/>
+    <button type="submit" class="btn btn-dark">Edit Info</button>
+    <input hidden="hidden" asp-for="Id" value="@Model.Id"/>
+</form>
+}
+
+
+    @if (information.Count > 1)
+    {
+        <div class="un-select text-right display-4 title-1-5 mr-5 mt-5" dir="rtl">
+            @foreach (var i in information)
+            {
+                if (!string.IsNullOrEmpty(i))
+                {
+                    <div><span><i style='font-size:24px' class='fas fa-check matterix-color'></i></span><span>&nbsp;&nbsp;&nbsp; @i</span></div>
+                    <br/>
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center direction un-select">{{$t('message.noCourseInfoYet')}}</div>
+    }
+
+
+
+
+

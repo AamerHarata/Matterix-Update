@@ -1,0 +1,320 @@
+﻿@{
+    ViewData["Title"] = "Privacy";
+}
+<link rel="stylesheet" href="~/css/Privacy.css"/>
+
+
+
+
+
+<div class="text-center direction un-select">
+    <div class="title-2-5 matterix-color display-4">{{$t('message.privacyPolicy')}}</div>
+    <br/>
+    <div style="font-size: 4rem;"><i class="fas fa-user-shield matterix-color"></i></div>
+    <div class="title-1-5 display-4">{{$t('message.Pp0')}}</div>
+    <hr class="w-75 matterix-background"/>
+</div>
+
+
+
+<div class="text-center direction not-direction un-select" style="font-size: 1.2rem">
+    <p class="direction text-center">{{$t('message.Pp1')}}</p>
+    <p>{{$t('message.firstNorSchool')}}</p>
+    <p class="not-direction"><strong class="text-center">(~ Norsk Matte på Arabisk ~)</strong></p>
+    <p dir="ltr">Matterix - 921 498 411</p>
+</div>
+<hr/>
+<div class="direction text-center un-select" style="font-size: 0.9rem">
+    
+        <p>{{$t('message.Pp2')}}</p>
+        <p>{{$t('message.Pp3')}}</p>
+        <p>{{$t('message.Pp4')}}</p>
+    
+  
+    <hr/>
+    
+    
+</div>
+
+
+
+
+
+
+<div class="direction un-select">
+@* Personal Information *@
+
+
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp5')}}</strong></p>
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp5')}}</button> *@
+    <div class="privacy-div">
+        <ul>
+            <li><p>{{$t('message.Pp6')}}</p></li>
+        </ul>
+    </div>
+    
+    
+
+<hr/>
+@* Account Activities *@
+
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp7')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp7')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp8')}}</p></li>
+        <li><p>{{$t('message.Pp9')}}</p></li>
+        <li><p>{{$t('message.Pp10')}}</p></li>
+        <li><p>{{$t('message.Pp11')}}</p></li>
+    </ul>
+</div>
+<hr/>    
+
+
+
+
+
+@* Account Usage *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp12')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp12')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp13')}}</p></li>
+        <li><p>{{$t('message.Pp14')}}</p></li>
+        
+        
+    </ul>
+    
+</div>
+    
+<hr/>
+    @* Enrollment of Course *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp15')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp15')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp17')}} <a asp-controller="Home" asp-action="ContactUs" target="_blank">{{$t('message.contact')}}</a>{{$t('message.Pp18')}}</p></li>
+        <li><p>{{$t('message.Pp19')}}</p></li>
+        <li><p>{{$t('message.Pp20')}}</p></li>
+        <li><p>{{$t('message.Pp21')}}</p></li>
+        <li><p>{{$t('message.Pp22')}}</p></li>
+    </ul>
+    
+</div>
+<hr/>
+
+
+
+
+@* Course Start *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp23')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp23')}}</strong></p>
+    <div class="privacy-div">
+        <ul>
+            <li><p>{{$t('message.Pp24')}}</p></li>
+        </ul>
+    </div>
+    
+
+<hr/>
+@* Data of Courses *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp25')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp25')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp26')}}</p></li>
+        <li><p>{{$t('message.Pp27')}}</p></li>
+        <li><p>{{$t('message.Pp28')}}</p></li>
+    </ul>
+    
+</div>
+    
+<hr/>
+
+
+@* Lecture Roles *@
+
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.rolesInsideLectures')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li>
+            <p>{{$t('message.onceYouEnrollLiveCourse')}}</p>
+        </li>     
+        
+        <li>
+            <p>{{$t('message.readingThisLinkIsObligatory')}}. <a target="_blank" asp-controller="Instructions"  asp-action="LiveCourses">{{$t('message.accessToLiveLecture')}}</a></p>
+        </li> 
+        
+        <li>
+            <p>{{$t('message.enteringWithoutScreenName')}}</p></li>
+        <li>
+            <p>{{$t('message.doNotEmbarrassTheTeacher')}}</p>
+            </li>
+        <li>
+            <p>{{$t('message.keepYourQuestionsWithin')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.itIsNotAllowedToShareYourAccess')}}. {{$t('message.thisProcedureCauseExpenses')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.itIsNotAllowedToCommunication')}}</p>
+        </li>
+        
+        
+    </ul>
+    
+</div>
+    
+<hr/>
+
+
+
+
+@* Course Chat Roles *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.rolesForChat')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li>
+            <p>{{$t('message.youGetThisProgramOnceYouEnroll')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.thisChatWorkAs')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.youHaveToReadTheInstructionToKnow')}}. <a target="_blank"asp-controller="Instructions" asp-action="CourseChatHelp">{{$t('message.accessToCourseChat')}}</a></p>
+        </li>
+        
+        
+        <li>
+            <p>{{$t('message.usingThisProgramIsNot')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.privateChatIsPossible')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.youAreNotAllowedToShare')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.doNotEmbarrassTheTeacher')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.itIsNotAllowedToCommunication')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.teachersAreStudents')}} </p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.teacherMayHelpButNot')}} </p>
+        </li>
+    </ul>
+    
+</div>
+    
+<hr/>
+
+
+
+@* Payments *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp29')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.payments')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp30')}}<a asp-controller="Home" asp-action="ContactUs" target="_blank">{{$t('message.contact')}}</a>{{$t('message.Pp31')}}</p></li>
+        <li><p>{{$t('message.Pp32')}}</p></li>
+        <li><p>{{$t('message.Pp33')}}</p></li>
+        <li><p>{{$t('message.Pp34')}}<a href="https://lovdata.no/dokument/NL/lov/1988-05-13-26" target="_blank">Inkasso</a>.</p></li>
+    </ul>
+    
+
+</div>
+    
+<hr/>
+
+
+
+@* Enrollment Cancellation *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp35')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp35')}}</strong></p>
+<div class="privacy-div">
+    <ul>
+        <li><p>{{$t('message.Pp36')}}<a target="_blank" href="https://lovdata.no/dokument/NL/lov/2014-06-20-27">Angrerettloven</a>{{$t('message.Pp37')}}</p></li>
+        <li><p>{{$t('message.Pp36_1')}}</p></li>
+        <li><p>{{$t('message.Pp38')}}</p></li>
+        <li><p>{{$t('message.Pp39')}}</p></li>
+    </ul>
+</div>
+
+<hr/>
+
+
+
+
+
+@* Fake Accounts *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp40')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp40')}}</strong></p>
+    <div class="privacy-div">
+        <ul>
+            <li><p>{{$t('message.Pp41')}}</p></li>
+            <li><p>{{$t('message.Pp42')}}</p></li>
+            <li><p>{{$t('message.Pp43')}}</p></li>
+        </ul>
+    </div>
+    
+
+<hr/>
+
+
+
+@* Shared Accounts *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp44')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp44')}}</strong></p>
+    <div class="privacy-div">
+        <ul>
+            <li><p>{{$t('message.Pp45')}}</p></li>
+            <li><p>{{$t('message.Pp46')}}</p></li>
+            <li><p>{{$t('message.Pp47')}}</p></li>
+            <li><p>{{$t('message.Pp48')}}</p></li>
+            <li><p>{{$t('message.Pp49')}}</p></li>
+            <li><p><strong>{{$t('message.thisProcedureCauseExpenses')}}</strong></p></li>
+        </ul>
+    </div>
+<hr/>
+
+
+
+
+
+
+@* *@
+@* <button class="btn btn-light text-center privacy-btn">{{$t('message.Pp50')}}</button> *@
+<p class="matterix-color display-4 privacy-title"><strong>{{$t('message.Pp50')}}</strong></p>
+    <div class="privacy-div">
+        <ul>
+            <li><p>{{$t('message.Pp51')}}</p></li>
+            <li><p>{{$t('message.Pp52')}}</p></li>
+            <li><p>{{$t('message.Pp53')}}</p></li>
+            <li><p>{{$t('message.Pp54')}}</p></li>
+            <li><p>{{$t('message.Pp55')}}</p></li>
+        </ul>
+        
+    </div>
+    
+</div>
+
+
+
+@section Scripts
+{
+    <script src="~/js/Privacy.js"></script>
+    <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+}

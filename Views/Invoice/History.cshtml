@@ -1,0 +1,149 @@
+@model IEnumerable<MatterixInvoice>
+@using Matterix.Services
+@inject PaymentService Payment
+
+@{
+    ViewBag.Title = "History";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/Home/Invoice.css" asp-append-version="true"/>
+
+
+
+
+<div class="text-center un-select">
+    <p class="display-4 title-1-5 matterix-color font-cairo"><strong>{{$t('message.invoicesAndReceipts')}}</strong></p>
+    <hr class="matterix-background" style="width: 95%"/>
+</div>
+
+
+
+
+    
+
+
+<div class="direction text-center un-select">
+    @* Paid Invoices *@
+    <div class="invoice-type-bar title-1-5 font-cairo">{{$t('message.paidInvoices')}}</div>
+
+
+    @{ var paidInvoices = Model.Where(x => x.Paid).OrderBy(x => x.OriginalDueDate).ToList();}
+
+    @if (!paidInvoices.Any())
+    {
+       <p class="text-center direction un-select small text-secondary">{{$t('message.noPaidInvoices')}}</p>
+    }
+    else
+    {
+        
+        foreach (var paid in paidInvoices){
+            var payment = Payment.GetActivePayment(paid.Number);
+            <div class="card invoice-body direction">
+                <table class="table w-100">
+                    <tr>
+                        <th style="border-top: 0!important">{{$t('message.courseName')}}:</th><td style="border-top: 0!important"><a class="card-link matterix-color" target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@paid.CourseId">@paid.Course.Subject</a></td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.invoiceNumber')}}:</th><td>@paid.Number</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.reason')}}:</th><td>@Format.Translate(paid.Reason.ToString())</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.payDate')}}:</th><td>@Format.DateFormat(payment.DateTime)</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.paymentMethod')}}:</th><td>@Format.Translate(payment.Method.ToString())</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.amount')}}:</th><td>{{$tc('message.currency0','@Format.NumberFormat(paid.CurrentAmount)')}}</td>
+                    </tr>
+                </table>
+                
+
+                <div class="text-center buttons-in-modal-container set-my-direction mt-2">
+                    <a target="_blank" asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@paid.Number"><span>{{$t('message.receipt')}}</span></a>
+                </div>
+
+            </div>    
+        }
+            
+    }
+
+
+
+
+
+    @* Late Invoices *@
+    <div class="invoice-type-bar title-1-5 font-cairo">{{$t('message.lateInvoices')}}</div>
+    @{ var lateInvoices = Model.Where(x => x.IsOriginallyLate()).OrderBy(x => x.OriginalDueDate).ToList();}
+
+    @if (!lateInvoices.Any())
+    {
+        <p class="text-center direction small text-secondary">{{$t('message.noLateInvoices')}}</p>
+    }
+    else
+    {
+        foreach (var late in lateInvoices)
+        {
+            <partial name="InvoicePartial/_InvoiceInHistory" model="@late"/>
+        }
+
+    }
+
+    
+    
+    @* Overdue Invoices *@
+
+    <div class="invoice-type-bar title-1-5 font-cairo">{{$t('message.overdueInvoices')}}</div>
+
+    @{ var overdueInvoices = Model.Where(x => x.IsOriginallyOverdue()).OrderBy(x => x.OriginalDeadline).ToList();}
+
+    @if (!overdueInvoices.Any())
+    {
+        <p class="text-center direction small text-secondary">{{$t('message.noOverdueInvoices')}}</p>
+    }
+    else
+    {
+        
+        foreach (var overdue in overdueInvoices)
+        {
+            <partial name="InvoicePartial/_InvoiceInHistory" model="@overdue"/>
+        }
+        
+    
+    }
+    
+    
+    
+    
+    @* Postponed Invoices *@
+    @{ var postponed = Model.Where(x => x.IsPostponed()).OrderBy(x => x.OriginalDueDate).ToList();}
+    <div class="invoice-type-bar title-1-5 font-cairo">{{$t('message.postponedInvoices')}}</div>
+
+
+    @if (!postponed.Any())
+    {
+        <p class="text-center direction small text-secondary">{{$t('message.noPostponedInvoices')}}</p>
+    }
+    else
+    {
+        
+        foreach (var post in postponed)
+        {
+            <partial name="InvoicePartial/_InvoiceInHistory" model="@post"/>
+        }
+
+
+    }
+
+
+
+
+
+
+
+    
+
+
+</div>

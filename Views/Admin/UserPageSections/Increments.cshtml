@@ -1,0 +1,50 @@
+@model IEnumerable<InvoiceIncrement>
+@using Matterix.Services
+
+
+
+@if (!Model.Any())
+{
+    <hr/>
+    <div class="text-center">No Increments!</div>
+}
+else
+{
+    <table class="table table-hover">
+        
+        <thead>
+        <tr>
+            <th>Invoice Number</th>
+            <th>KID</th>
+            <th>Reason</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>New DueDate</th>
+            <th>New Deadline</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+    
+        @foreach (var inc in Model)
+        {
+            <tr>
+                <td>@inc.InvoiceNumber</td>
+                <td>@inc.Invoice.CIDNumber</td>
+                <td>@inc.Reason</td>
+                <td>@inc.Type</td>
+                <td>@inc.Amount</td>
+                <td>@Format.DateFormat(inc.NewDueDate)</td>
+                <td>@Format.DateFormat(inc.NewDeadline)</td>
+                <td><button increment-id="@inc.Id" class="btn btn-danger remove-increment">Delete</button></td>
+                @* <td>@openLec.Lecture.Course.Subject</td> *@
+                @* <td>@openLec.Lecture.Course.Code</td> *@
+                @* <td>@openLec.Lecture.Number</td> *@
+                @* <td>@Format.ToDate(openLec.ExpireDate)</td> *@
+                @* <td><button id="remove-open-lecture" lecture-id="@openLec.LectureId" class="btn btn-danger">Delete</button></td> *@
+
+            </tr>
+        
+        }
+    </table>
+}
+

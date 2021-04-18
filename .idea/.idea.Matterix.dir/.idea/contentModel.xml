@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Aamer\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_.19.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_cdn.jsdelivr.net_gh_djibe_clockpicker@1d03466e3b5eebc9e7e1dc4afa47ff0d265e2f16_dist_bootstrap4-clockpicker.css" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_cdn.jsdelivr.net_gh_djibe_clockpicker@6d385d49ed6cc7f58a0b23db3477f236e4c1cd3e_dist_bootstrap4-clockpicker.js" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_cdnjs.cloudflare.com_ajax_libs_font-awesome_4.7.0_css_font-awesome.css" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_kit.fontawesome.com_331f4f953b.js" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_css_bootstrap.css" t="IncludeRecursive" />
+    <e p="C:\Users\Aamer\AppData\Roaming\JetBrains\Rider2020.3\javascript\extLibs\http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_js_bootstrap.bundle.js" t="IncludeRecursive" />
+    <e p="D:\GitFolders\Programming\C#\Update\Matterix" t="IncludeRecursive">
+      <e p=".env" t="Include" />
+      <e p="app.db" t="Include" />
+      <e p="appsettings.Development.json" t="Include" />
+      <e p="appsettings.json" t="Include" />
+      <e p="Areas" t="Include">
+        <e p="Identity" t="Include">
+          <e p="IdentityHostingStartup.cs" t="Include" />
+          <e p="Pages" t="Include">
+            <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="_ViewImports.cshtml" t="Include" />
+            <e p="_ViewStart.cshtml" t="Include" />
+            <e p="Account" t="Include">
+              <e p="_ViewImports.cshtml" t="Include" />
+              <e p="ConfirmEmail.cshtml" t="Include" />
+              <e p="ConfirmEmail.cshtml.cs" t="Include" />
+              <e p="ForgotPassword.cshtml" t="Include" />
+              <e p="ForgotPassword.cshtml.cs" t="Include" />
+              <e p="ForgotPasswordConfirmation.cshtml" t="Include" />
+              <e p="ForgotPasswordConfirmation.cshtml.cs" t="Include" />
+              <e p="Lockout.cshtml" t="Include" />
+              <e p="Lockout.cshtml.cs" t="Include" />
+              <e p="Login.cshtml" t="Include" />
+              <e p="Login.cshtml.cs" t="Include" />
+              <e p="Manage" t="Include">
+                <e p="_Layout.cshtml" t="Include" />
+                <e p="_ManageNav.cshtml" t="Include" />
+                <e p="_StatusMessage.cshtml" t="Include" />
+                <e p="_ViewImports.cshtml" t="Include" />
+                <e p="AccountActivity.cshtml" t="Include" />
+                <e p="AccountActivity.cshtml.cs" t="Include" />
+                <e p="ChangePassword.cshtml" t="Include" />
+                <e p="ChangePassword.cshtml.cs" t="Include" />
+                <e p="Index.cshtml" t="Include" />
+                <e p="Index.cshtml.cs" t="Include" />
+                <e p="ManageNavPages.cs" t="Include" />
+                <e p="PrivacyAndNotifications.cs" t="Include" />
+                <e p="PrivacyAndNotifications.cshtml" t="Include" />
+                <e p="ProfilePicture.cs" t="Include" />
+                <e p="ProfilePicture.cshtml" t="Include" />
+              </e>
+              <e p="Register.cshtml" t="Include" />
+              <e p="Register.cshtml.cs" t="Include" />
+              <e p="ResetPassword.cshtml" t="Include" />
+              <e p="ResetPassword.cshtml.cs" t="Include" />
+              <e p="ResetPasswordConfirmation.cshtml" t="Include" />
+              <e p="ResetPasswordConfirmation.cshtml.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="Controllers" t="Include">
+        <e p="AdminController.cs" t="Include" />
+        <e p="CourseController.cs" t="Include" />
+        <e p="DocumentsController.cs" t="Include" />
+        <e p="HomeController.cs" t="Include" />
+        <e p="InstructionsController.cs" t="Include" />
+        <e p="InvoiceController.cs" t="Include" />
+        <e p="LectureController.cs" t="Include" />
+        <e p="MatterixPlusController.cs" t="Include" />
+        <e p="Payment111Controller.cs" t="Include" />
+        <e p="PaymentController.cs" t="Include" />
+        <e p="SearchController.cs" t="Include" />
+        <e p="SettingsController.cs" t="Include" />
+        <e p="VerificationController.cs" t="Include" />
+      </e>
+      <e p="Data" t="Include">
+        <e p="ApplicationDbContext.cs" t="Include" />
+        <e p="ApplicationDbInitializer.cs" t="Include" />
+        <e p="Migrations" t="Include">
+          <e p="00000000000000_CreateIdentitySchema.cs" t="Include" />
+          <e p="00000000000000_CreateIdentitySchema.Designer.cs" t="Include" />
+          <e p="20191130171329_ApplicationUser.cs" t="Include" />
+          <e p="20191130171329_ApplicationUser.Designer.cs" t="Include" />
+          <e p="20200121221958_initialModel.cs" t="Include" />
+          <e p="20200121221958_initialModel.Designer.cs" t="Include" />
+          <e p="20200122033110_newMig.cs" t="Include" />
+          <e p="20200122033110_newMig.Designer.cs" t="Include" />
+          <e p="20200122051220_removeTestMigration.cs" t="Include" />
+          <e p="20200122051220_removeTestMigration.Designer.cs" t="Include" />
+          <e p="20200122232445_UserStatusMessage.cs" t="Include" />
+          <e p="20200122232445_UserStatusMessage.Designer.cs" t="Include" />
+          <e p="20200124135913_RegistrationsCancel.cs" t="Include" />
+          <e p="20200124135913_RegistrationsCancel.Designer.cs" t="Include" />
+          <e p="20200127045527_AddedGroupNumberToUserDevices.cs" t="Include" />
+          <e p="20200127045527_AddedGroupNumberToUserDevices.Designer.cs" t="Include" />
+          <e p="20200702195859_StudentAgreement.cs" t="Include" />
+          <e p="20200702195859_StudentAgreement.Designer.cs" t="Include" />
+          <e p="20200730211103_TeacherComment.cs" t="Include" />
+          <e p="20200730211103_TeacherComment.Designer.cs" t="Include" />
+          <e p="20200818221119_InitiatedOrders.cs" t="Include" />
+          <e p="20200818221119_InitiatedOrders.Designer.cs" t="Include" />
+          <e p="20201021225130_EmailNotifications.cs" t="Include" />
+          <e p="20201021225130_EmailNotifications.Designer.cs" t="Include" />
+          <e p="20201023191400_InvoiceUpdated.cs" t="Include" />
+          <e p="20201023191400_InvoiceUpdated.Designer.cs" t="Include" />
+          <e p="20201028122439_AddedPhoneCode.cs" t="Include" />
+          <e p="20201028122439_AddedPhoneCode.Designer.cs" t="Include" />
+          <e p="20201106161227_NotificationMethod.cs" t="Include" />
+          <e p="20201106161227_NotificationMethod.Designer.cs" t="Include" />
+          <e p="20201113185807_NotificationsAttepmtsAndType.cs" t="Include" />
+          <e p="20201113185807_NotificationsAttepmtsAndType.Designer.cs" t="Include" />
+          <e p="20201117021615_CourseBackground.cs" t="Include" />
+          <e p="20201117021615_CourseBackground.Designer.cs" t="Include" />
+          <e p="20201125201442_InvoicePhaseSystem.cs" t="Include" />
+          <e p="20201125201442_InvoicePhaseSystem.Designer.cs" t="Include" />
+          <e p="20201214160650_JobApplication.cs" t="Include" />
+          <e p="20201214160650_JobApplication.Designer.cs" t="Include" />
+          <e p="20210114093623_PlusApplication.cs" t="Include" />
+          <e p="20210114093623_PlusApplication.Designer.cs" t="Include" />
+          <e p="20210118211751_StripeInitiatedOrder.cs" t="Include" />
+          <e p="20210118211751_StripeInitiatedOrder.Designer.cs" t="Include" />
+          <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
+        </e>
+      </e>
+      <e p="docker-compose.yml" t="Include" />
+      <e p="Dockerfile" t="Include" />
+      <e p="Matterix.csproj" t="IncludeRecursive" />
+      <e p="Models" t="Include">
+        <e p="Address.cs" t="Include" />
+        <e p="Admin" t="Include">
+          <e p="AdminViewModel.cs" t="Include" />
+          <e p="HangfireAuthorizationFilter.cs" t="Include" />
+        </e>
+        <e p="ApplicationUser.cs" t="Include" />
+        <e p="ContactMessage.cs" t="Include" />
+        <e p="Country.cs" t="Include" />
+        <e p="Course.cs" t="Include" />
+        <e p="CourseFeedback.cs" t="Include" />
+        <e p="CourseInInvoice.cs" t="Include" />
+        <e p="CourseRating.cs" t="Include" />
+        <e p="DiscordLink.cs" t="Include" />
+        <e p="ErrorViewModel.cs" t="Include" />
+        <e p="Homework.cs" t="Include" />
+        <e p="InitiatedOrder.cs" t="Include" />
+        <e p="InvoiceIncrement.cs" t="Include" />
+        <e p="JobApplication.cs" t="Include" />
+        <e p="Lecture.cs" t="Include" />
+        <e p="LectureFile.cs" t="Include" />
+        <e p="LectureVideo.cs" t="Include" />
+        <e p="MatterixFile.cs" t="Include" />
+        <e p="MatterixInvoice.cs" t="Include" />
+        <e p="MatterixPayment.cs" t="Include" />
+        <e p="MatterixPlusApplication.cs" t="Include" />
+        <e p="NoNotification.cs" t="Include" />
+        <e p="Notification.cs" t="Include" />
+        <e p="Objects" t="Include">
+          <e p="CourseObject.cs" t="Include" />
+        </e>
+        <e p="OpenLecture.cs" t="Include" />
+        <e p="PlusApplicationFile.cs" t="Include" />
+        <e p="Registration.cs" t="Include" />
+        <e p="Schedule.cs" t="Include" />
+        <e p="TempInvoice.cs" t="Include" />
+        <e p="TempInvoiceDescription.cs" t="Include" />
+        <e p="UsedPassword.cs" t="Include" />
+        <e p="UserDevice.cs" t="Include" />
+        <e p="ViewModel" t="Include">
+          <e p="BlockedViewModel.cs" t="Include" />
+          <e p="ContactViewModel.cs" t="Include" />
+          <e p="CourseAreaViewModel.cs" t="Include" />
+          <e p="CourseViewModel.cs" t="Include" />
+          <e p="HomeViewModel.cs" t="Include" />
+          <e p="HomeworkViewModel.cs" t="Include" />
+          <e p="InvoiceViewModel.cs" t="Include" />
+          <e p="JobApplicationViewModel.cs" t="Include" />
+          <e p="MatterixPlusViewModel.cs" t="Include" />
+          <e p="MyCoursesViewModel.cs" t="Include" />
+          <e p="PaymentResultViewModel.cs" t="Include" />
+          <e p="PaymentViewModel.cs" t="Include" />
+          <e p="UserProfileViewModel.cs" t="Include" />
+          <e p="VideoViewModel.cs" t="Include" />
+        </e>
+        <e p="Vipps" t="Include">
+          <e p="customerInfo.cs" t="Include" />
+          <e p="merchantInfo.cs" t="Include" />
+          <e p="transaction.cs" t="Include" />
+          <e p="VippsPayment.cs" t="Include" />
+        </e>
+      </e>
+      <e p="my_custom_proxy_settings.conf" t="Include" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="net5.0" t="Include">
+            <e p="Matterix.AssemblyInfo.cs" t="Include" />
+            <e p="Matterix.RazorAssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="launchSettings.json" t="Include" />
+      </e>
+      <e p="README.md" t="Include" />
+      <e p="ScaffoldingReadme.txt" t="Include" />
+      <e p="Services" t="Include">
+        <e p="AccessService.cs" t="Include" />
+        <e p="AdminService.cs" t="Include" />
+        <e p="CourseService.cs" t="Include" />
+        <e p="EmailService.cs" t="Include" />
+        <e p="EnumList.cs" t="Include" />
+        <e p="FilesService.cs" t="Include" />
+        <e p="Format.cs" t="Include" />
+        <e p="InformationService.cs" t="Include" />
+        <e p="LectureService.cs" t="Include" />
+        <e p="NotificationsService.cs" t="Include" />
+        <e p="PaymentService.cs" t="Include" />
+        <e p="PdfService.cs" t="Include" />
+        <e p="SmsService.cs" t="Include" />
+        <e p="StaticInformation.cs" t="Include" />
+        <e p="StaticInstructionVideos.cs" t="Include" />
+      </e>
+      <e p="Startup.cs" t="Include" />
+      <e p="testdocker-compose.yml" t="Include" />
+      <e p="Views" t="Include">
+        <e p="_ViewImports.cshtml" t="Include" />
+        <e p="_ViewStart.cshtml" t="Include" />
+        <e p="Admin" t="Include">
+          <e p="Accounting.cshtml" t="Include" />
+          <e p="ActivitiesOverview.cshtml" t="Include" />
+          <e p="AddLinks.cshtml" t="Include" />
+          <e p="ContactSection.cshtml" t="Include" />
+          <e p="CoursesOverView.cshtml" t="Include" />
+          <e p="EditStudent.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="InvoicesOverview.cshtml" t="Include" />
+          <e p="Messages.cshtml" t="Include" />
+          <e p="OneCourseOverView.cshtml" t="Include" />
+          <e p="Payments.cshtml" t="Include" />
+          <e p="PlusApplications.cshtml" t="Include" />
+          <e p="Registration.cshtml" t="Include" />
+          <e p="SharedAccount.cshtml" t="Include" />
+          <e p="UserPage.cshtml" t="Include" />
+          <e p="UserPageSections" t="Include">
+            <e p="Activities.cshtml" t="Include" />
+            <e p="Feedback.cshtml" t="Include" />
+            <e p="Increments.cshtml" t="Include" />
+            <e p="Invoices.cshtml" t="Include" />
+            <e p="OpenLectures.cshtml" t="Include" />
+            <e p="Passwords.cshtml" t="Include" />
+            <e p="Payments.cshtml" t="Include" />
+            <e p="Ratings.cshtml" t="Include" />
+            <e p="Registrations.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Course" t="Include">
+          <e p="CourseArea.cshtml" t="Include" />
+          <e p="CoursePartial" t="Include">
+            <e p="_CourseBox.cshtml" t="Include" />
+            <e p="_CourseDiv.cshtml" t="Include" />
+            <e p="_CourseDivInfo.cshtml" t="Include" />
+            <e p="_CourseInformation.cshtml" t="Include" />
+            <e p="_CoursePerson.cshtml" t="Include" />
+            <e p="_Feedback.cshtml" t="Include" />
+            <e p="_LectureFile.cshtml" t="Include" />
+            <e p="_LectureFileEdit.cshtml" t="Include" />
+            <e p="_LectureVideo.cshtml" t="Include" />
+            <e p="_LectureVideoAdd.cshtml" t="Include" />
+            <e p="_RegistrationInfo.cshtml" t="Include" />
+          </e>
+          <e p="Create.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="Search.cshtml" t="Include" />
+          <e p="Sections" t="Include">
+            <e p="CourseClassSection.cshtml" t="Include" />
+            <e p="CourseDeliverySection.cshtml" t="Include" />
+            <e p="CourseDiscordSection.cshtml" t="Include" />
+            <e p="CourseFilesSection.cshtml" t="Include" />
+            <e p="CourseHomeworkSection.cshtml" t="Include" />
+            <e p="CourseInformation.cshtml" t="Include" />
+            <e p="CoursePeopleSection.cshtml" t="Include" />
+            <e p="CourseQuestionsSection.cshtml" t="Include" />
+            <e p="CourseRatingSection.cshtml" t="Include" />
+            <e p="CourseVideosSection.cshtml" t="Include" />
+            <e p="LecturesSection.cshtml" t="Include" />
+            <e p="NoAccessLectureSection.cshtml" t="Include" />
+            <e p="NoAccessSection.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Home" t="Include">
+          <e p="AboutUs.cshtml" t="Include" />
+          <e p="Blocked.cshtml" t="Include" />
+          <e p="ContactMessages.cshtml" t="Include" />
+          <e p="ContactUs.cshtml" t="Include" />
+          <e p="HomePartial" t="Include">
+            <e p="_IconsOnMainPage.cshtml" t="Include" />
+            <e p="_LoginHome.cshtml" t="Include" />
+            <e p="_NonLoginHome.cshtml" t="Include" />
+            <e p="_SearchCourse.cshtml" t="Include" />
+            <e p="_SideShortVideos.cshtml" t="Include" />
+            <e p="_SideSocialMedia.cshtml" t="Include" />
+            <e p="_SideTodoEvents.cshtml" t="Include" />
+            <e p="_SideTools.cshtml" t="Include" />
+            <e p="_SideUpcomingHomework.cshtml" t="Include" />
+            <e p="_SideUpcomingInvoices.cshtml" t="Include" />
+            <e p="_SideUpcomingLectures.cshtml" t="Include" />
+          </e>
+          <e p="Index.cshtml" t="Include" />
+          <e p="JobApplication.cshtml" t="Include" />
+          <e p="Privacy.cshtml" t="Include" />
+          <e p="Schedule.cshtml" t="Include" />
+          <e p="Test.cshtml" t="Include" />
+          <e p="UserProfile.cshtml" t="Include" />
+        </e>
+        <e p="Instructions" t="Include">
+          <e p="CourseChatHelp.cshtml" t="Include" />
+          <e p="HowToStart.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="LiveCourses.cshtml" t="Include" />
+          <e p="ShortVideos.cshtml" t="Include" />
+          <e p="StudentAgreement.cshtml" t="Include" />
+        </e>
+        <e p="Invoice" t="Include">
+          <e p="History.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="InvoicePartial" t="Include">
+            <e p="_InvoiceInHistory.cshtml" t="Include" />
+          </e>
+          <e p="Receipt.cshtml" t="Include" />
+        </e>
+        <e p="MatterixPlus" t="Include">
+          <e p="Application.cshtml" t="Include" />
+          <e p="Applications.cshtml" t="Include" />
+          <e p="ChooseCourses.cshtml" t="Include" />
+          <e p="Find.cshtml" t="Include" />
+          <e p="Identity.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="PlusPartial" t="Include">
+            <e p="_CourseBox.cshtml" t="Include" />
+            <e p="_CourseInformation.cshtml" t="Include" />
+            <e p="_SearchCourses.cshtml" t="Include" />
+            <e p="Test.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Payment" t="Include">
+          <e p="Index.cshtml" t="Include" />
+          <e p="PaymentPartial" t="Include">
+            <e p="_Header.cshtml" t="Include" />
+          </e>
+          <e p="PaymentResult.cshtml" t="Include" />
+          <e p="PaymentSection" t="Include">
+            <e p="FreeRegistration.cshtml" t="Include" />
+            <e p="PaymentInfo.cshtml" t="Include" />
+            <e p="PayWithStripe.cshtml" t="Include" />
+            <e p="PersonalInfo.cshtml" t="Include" />
+            <e p="ProductInfo.cshtml" t="Include" />
+            <e p="Terms.cshtml" t="Include" />
+            <e p="WhoPays.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Payment111" t="Include">
+          <e p="Index.cshtml" t="Include" />
+          <e p="PaymentPartial" t="Include">
+            <e p="_Header.cshtml" t="Include" />
+            <e p="_InvoicePaymentInfo.cshtml" t="Include" />
+            <e p="_RegistrationPaymentInfo.cshtml" t="Include" />
+          </e>
+          <e p="PaymentResult" t="Include">
+            <e p="PaymentError.cshtml" t="Include" />
+            <e p="PaymentFailed.cshtml" t="Include" />
+            <e p="PaymentSuccess.cshtml" t="Include" />
+          </e>
+          <e p="PaymentResult.cshtml" t="Include" />
+          <e p="PaymentSection" t="Include">
+            <e p="FreeRegistration.cshtml" t="Include" />
+            <e p="PaymentInfo.cshtml" t="Include" />
+            <e p="PayWithStripe.cshtml" t="Include" />
+            <e p="PersonalInfo.cshtml" t="Include" />
+            <e p="ProductInfo.cshtml" t="Include" />
+            <e p="Terms.cshtml" t="Include" />
+            <e p="WhoPays.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Shared" t="Include">
+          <e p="_CookieConsentPartial.cshtml" t="Include" />
+          <e p="_Layout.cshtml" t="Include" />
+          <e p="_LoginPartial.cshtml" t="Include" />
+          <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+          <e p="Error.cshtml" t="Include" />
+          <e p="PartialViews" t="Include">
+            <e p="_AverageRatingStars.cshtml" t="Include" />
+            <e p="_Flags.cshtml" t="Include" />
+            <e p="_Footer.cshtml" t="Include" />
+            <e p="_InformationModal.cshtml" t="Include" />
+            <e p="_InformationModals" t="Include">
+              <e p="_InvoiceInformation.cshtml" t="Include" />
+            </e>
+            <e p="_InstructionVideoModal.cshtml" t="Include" />
+            <e p="_LanguageModal.cshtml" t="Include" />
+            <e p="_RatingStars.cshtml" t="Include" />
+            <e p="_SharedModal.cshtml" t="Include" />
+            <e p="_SideNav.cshtml" t="Include" />
+            <e p="_StarsRow.cshtml" t="Include" />
+            <e p="_WaitModal.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="Verification" t="Include">
+          <e p="CheckCode.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+        </e>
+      </e>
+      <e p="wwwroot" t="Include">
+        <e p="css" t="Include">
+          <e p="AboutUs.css" t="Include" />
+          <e p="Admin.css" t="Include" />
+          <e p="CourseArea" t="Include">
+            <e p="CourseRating.css" t="Include" />
+            <e p="Homework.css" t="Include" />
+            <e p="LecturesList.css" t="Include" />
+            <e p="MainCourseZone.css" t="Include" />
+            <e p="SearchCourse.css" t="Include" />
+            <e p="Videos.css" t="Include" />
+          </e>
+          <e p="defaultStyle.css" t="Include" />
+          <e p="global.css" t="Include" />
+          <e p="Home" t="Include">
+            <e p="CourseBox.css" t="Include" />
+            <e p="Index.css" t="Include" />
+            <e p="Invoice.css" t="Include" />
+            <e p="SlideShow.css" t="Include" />
+          </e>
+          <e p="Identity" t="Include">
+            <e p="IdentityArea.css" t="Include" />
+            <e p="Register.css" t="Include" />
+          </e>
+          <e p="instructions.css" t="Include" />
+          <e p="Invoice.css" t="Include" />
+          <e p="MatterixPlus" t="Include">
+            <e p="Apply.css" t="Include" />
+          </e>
+          <e p="Payment" t="Include">
+            <e p="Index.css" t="Include" />
+          </e>
+          <e p="Privacy.css" t="Include" />
+          <e p="site.css" t="Include" />
+          <e p="Stripe.css" t="Include" />
+          <e p="Test.css" t="Include" />
+          <e p="UserProfileIndex.css" t="Include" />
+        </e>
+        <e p="favicon.ico" t="Include" />
+        <e p="Files" t="Include">
+          <e p="CourseBackgrounds" t="Include" />
+          <e p="CourseFiles" t="Include" />
+          <e p="CoursePictures" t="Include" />
+          <e p="HomeworksDelivery" t="Include" />
+          <e p="JobApplicationCvs" t="Include" />
+          <e p="PlusApplications" t="Include" />
+          <e p="ProfilePictures" t="Include" />
+        </e>
+        <e p="Images" t="Include">
+          <e p="123.png" t="Include" />
+          <e p="betalmedvipps.png" t="Include" />
+          <e p="CardIcon.png" t="Include" />
+          <e p="Contact" t="Include">
+            <e p="ContactEmailIcon.png" t="Include" />
+            <e p="ContactFacebookIcon.png" t="Include" />
+            <e p="ContactGroupIcon.png" t="Include" />
+            <e p="ContactPhoneIcon.png" t="Include" />
+          </e>
+          <e p="Covers" t="Include">
+            <e p="ContactUs.jpg" t="Include" />
+            <e p="CourseRegister.jpg" t="Include" />
+            <e p="Invoice.jpg" t="Include" />
+            <e p="JobApplication.jpg" t="Include" />
+            <e p="login.jpg" t="Include" />
+            <e p="PasswordReset.jpg" t="Include" />
+            <e p="Register.jpg" t="Include" />
+            <e p="StudentIdentity.jpg" t="Include" />
+          </e>
+          <e p="DefaultImages" t="Include">
+            <e p="DefaultCourse.png" t="Include" />
+            <e p="DefaultCourseBackground.jpg" t="Include" />
+            <e p="DefaultMan.jpg" t="Include" />
+            <e p="DefaultWoman.jpg" t="Include" />
+          </e>
+          <e p="done.png" t="Include" />
+          <e p="FacebookShare.png" t="Include" />
+          <e p="failure.png" t="Include" />
+          <e p="flag-ar.png" t="Include" />
+          <e p="flag-en.png" t="Include" />
+          <e p="flag-nob.png" t="Include" />
+          <e p="Flags" t="Include">
+            <e p="$Syria_Old.png" t="Include" />
+            <e p="AC.png" t="Include" />
+            <e p="AD.png" t="Include" />
+            <e p="AE.png" t="Include" />
+            <e p="AF.png" t="Include" />
+            <e p="AG.png" t="Include" />
+            <e p="AI.png" t="Include" />
+            <e p="AL.png" t="Include" />
+            <e p="AM.png" t="Include" />
+            <e p="AO.png" t="Include" />
+            <e p="AQ.png" t="Include" />
+            <e p="AR.png" t="Include" />
+            <e p="AT.png" t="Include" />
+            <e p="AU.png" t="Include" />
+            <e p="AW.png" t="Include" />
+            <e p="AX.png" t="Include" />
+            <e p="AZ.png" t="Include" />
+            <e p="BA.png" t="Include" />
+            <e p="BB.png" t="Include" />
+            <e p="BD.png" t="Include" />
+            <e p="BE.png" t="Include" />
+            <e p="BF.png" t="Include" />
+            <e p="BG.png" t="Include" />
+            <e p="BH.png" t="Include" />
+            <e p="BI.png" t="Include" />
+            <e p="BJ.png" t="Include" />
+            <e p="BL.png" t="Include" />
+            <e p="BM.png" t="Include" />
+            <e p="BN.png" t="Include" />
+            <e p="BO.png" t="Include" />
+            <e p="BR.png" t="Include" />
+            <e p="BS.png" t="Include" />
+            <e p="BT.png" t="Include" />
+            <e p="BW.png" t="Include" />
+            <e p="BY.png" t="Include" />
+            <e p="BZ.png" t="Include" />
+            <e p="CA.png" t="Include" />
+            <e p="CC.png" t="Include" />
+            <e p="CD.png" t="Include" />
+            <e p="CF.png" t="Include" />
+            <e p="CG.png" t="Include" />
+            <e p="CH.png" t="Include" />
+            <e p="CI.png" t="Include" />
+            <e p="CK.png" t="Include" />
+            <e p="CL.png" t="Include" />
+            <e p="CM.png" t="Include" />
+            <e p="CN.png" t="Include" />
+            <e p="CO.png" t="Include" />
+            <e p="CR.png" t="Include" />
+            <e p="CU.png" t="Include" />
+            <e p="CV.png" t="Include" />
+            <e p="CX.png" t="Include" />
+            <e p="CY.png" t="Include" />
+            <e p="CZ.png" t="Include" />
+            <e p="DE.png" t="Include" />
+            <e p="DJ.png" t="Include" />
+            <e p="DK.png" t="Include" />
+            <e p="DM.png" t="Include" />
+            <e p="DO.png" t="Include" />
+            <e p="DZ.png" t="Include" />
+            <e p="EC.png" t="Include" />
+            <e p="EE.png" t="Include" />
+            <e p="EG.png" t="Include" />
+            <e p="ER.png" t="Include" />
+            <e p="ES.png" t="Include" />
+            <e p="ET.png" t="Include" />
+            <e p="FI.png" t="Include" />
+            <e p="FJ.png" t="Include" />
+            <e p="FK.png" t="Include" />
+            <e p="FM.png" t="Include" />
+            <e p="FO.png" t="Include" />
+            <e p="FR.png" t="Include" />
+            <e p="GA.png" t="Include" />
+            <e p="GB.png" t="Include" />
+            <e p="GD.png" t="Include" />
+            <e p="GE.png" t="Include" />
+            <e p="GF.png" t="Include" />
+            <e p="GG.png" t="Include" />
+            <e p="GH.png" t="Include" />
+            <e p="GI.png" t="Include" />
+            <e p="GL.png" t="Include" />
+            <e p="GM.png" t="Include" />
+            <e p="GN.png" t="Include" />
+            <e p="GP.png" t="Include" />
+            <e p="GQ.png" t="Include" />
+            <e p="GR.png" t="Include" />
+            <e p="GS.png" t="Include" />
+            <e p="GT.png" t="Include" />
+            <e p="GU.png" t="Include" />
+            <e p="GW.png" t="Include" />
+            <e p="GY.png" t="Include" />
+            <e p="HK.png" t="Include" />
+            <e p="HN.png" t="Include" />
+            <e p="HR.png" t="Include" />
+            <e p="HT.png" t="Include" />
+            <e p="HU.png" t="Include" />
+            <e p="ID.png" t="Include" />
+            <e p="IE.png" t="Include" />
+            <e p="IL.png" t="Include" />
+            <e p="IM.png" t="Include" />
+            <e p="IN.png" t="Include" />
+            <e p="IO.png" t="Include" />
+            <e p="IQ.png" t="Include" />
+            <e p="IR.png" t="Include" />
+            <e p="IS.png" t="Include" />
+            <e p="IT.png" t="Include" />
+            <e p="JE.png" t="Include" />
+            <e p="JM.png" t="Include" />
+            <e p="JO.png" t="Include" />
+            <e p="JP.png" t="Include" />
+            <e p="KE.png" t="Include" />
+            <e p="KG.png" t="Include" />
+            <e p="KH.png" t="Include" />
+            <e p="KI.png" t="Include" />
+            <e p="KM.png" t="Include" />
+            <e p="KN.png" t="Include" />
+            <e p="KP.png" t="Include" />
+            <e p="KR.png" t="Include" />
+            <e p="KW.png" t="Include" />
+            <e p="KY.png" t="Include" />
+            <e p="KZ.png" t="Include" />
+            <e p="LA.png" t="Include" />
+            <e p="LB.png" t="Include" />
+            <e p="LC.png" t="Include" />
+            <e p="LI.png" t="Include" />
+            <e p="LK.png" t="Include" />
+            <e p="LR.png" t="Include" />
+            <e p="LS.png" t="Include" />
+            <e p="LT.png" t="Include" />
+            <e p="LU.png" t="Include" />
+            <e p="LV.png" t="Include" />
+            <e p="LY.png" t="Include" />
+            <e p="MA.png" t="Include" />
+            <e p="MC.png" t="Include" />
+            <e p="MD.png" t="Include" />
+            <e p="ME.png" t="Include" />
+            <e p="MF.png" t="Include" />
+            <e p="MG.png" t="Include" />
+            <e p="MH.png" t="Include" />
+            <e p="MK.png" t="Include" />
+            <e p="ML.png" t="Include" />
+            <e p="MM.png" t="Include" />
+            <e p="MN.png" t="Include" />
+            <e p="MO.png" t="Include" />
+            <e p="MP.png" t="Include" />
+            <e p="MQ.png" t="Include" />
+            <e p="MR.png" t="Include" />
+            <e p="MS.png" t="Include" />
+            <e p="MT.png" t="Include" />
+            <e p="MU.png" t="Include" />
+            <e p="MV.png" t="Include" />
+            <e p="MW.png" t="Include" />
+            <e p="MX.png" t="Include" />
+            <e p="MY.png" t="Include" />
+            <e p="MZ.png" t="Include" />
+            <e p="NA.png" t="Include" />
+            <e p="NC.png" t="Include" />
+            <e p="NE.png" t="Include" />
+            <e p="NF.png" t="Include" />
+            <e p="NG.png" t="Include" />
+            <e p="NI.png" t="Include" />
+            <e p="NL.png" t="Include" />
+            <e p="NO.png" t="Include" />
+            <e p="NP.png" t="Include" />
+            <e p="NR.png" t="Include" />
+            <e p="NU.png" t="Include" />
+            <e p="NZ.png" t="Include" />
+            <e p="OM.png" t="Include" />
+            <e p="PA.png" t="Include" />
+            <e p="PE.png" t="Include" />
+            <e p="PF.png" t="Include" />
+            <e p="PG.png" t="Include" />
+            <e p="PH.png" t="Include" />
+            <e p="PK.png" t="Include" />
+            <e p="PL.png" t="Include" />
+            <e p="PM.png" t="Include" />
+            <e p="PN.png" t="Include" />
+            <e p="PR.png" t="Include" />
+            <e p="PS.png" t="Include" />
+            <e p="PT.png" t="Include" />
+            <e p="PW.png" t="Include" />
+            <e p="PY.png" t="Include" />
+            <e p="QA.png" t="Include" />
+            <e p="RE.png" t="Include" />
+            <e p="RO.png" t="Include" />
+            <e p="RS.png" t="Include" />
+            <e p="RU.png" t="Include" />
+            <e p="RW.png" t="Include" />
+            <e p="SA.png" t="Include" />
+            <e p="SB.png" t="Include" />
+            <e p="SC.png" t="Include" />
+            <e p="SD.png" t="Include" />
+            <e p="SE.png" t="Include" />
+            <e p="SG.png" t="Include" />
+            <e p="SH.png" t="Include" />
+            <e p="SI.png" t="Include" />
+            <e p="SJ.png" t="Include" />
+            <e p="SK.png" t="Include" />
+            <e p="SL.png" t="Include" />
+            <e p="SM.png" t="Include" />
+            <e p="SN.png" t="Include" />
+            <e p="SO.png" t="Include" />
+            <e p="SR.png" t="Include" />
+            <e p="SS.png" t="Include" />
+            <e p="ST.png" t="Include" />
+            <e p="SV.png" t="Include" />
+            <e p="SX.png" t="Include" />
+            <e p="SY.png" t="Include" />
+            <e p="TC.png" t="Include" />
+            <e p="TD.png" t="Include" />
+            <e p="TG.png" t="Include" />
+            <e p="TH.png" t="Include" />
+            <e p="TJ.png" t="Include" />
+            <e p="TK.png" t="Include" />
+            <e p="TL.png" t="Include" />
+            <e p="TM.png" t="Include" />
+            <e p="TN.png" t="Include" />
+            <e p="TO.png" t="Include" />
+            <e p="TR.png" t="Include" />
+            <e p="TT.png" t="Include" />
+            <e p="TV.png" t="Include" />
+            <e p="TZ.png" t="Include" />
+            <e p="UA.png" t="Include" />
+            <e p="UG.png" t="Include" />
+            <e p="US.png" t="Include" />
+            <e p="UY.png" t="Include" />
+            <e p="UZ.png" t="Include" />
+            <e p="VA.png" t="Include" />
+            <e p="VC.png" t="Include" />
+            <e p="VE.png" t="Include" />
+            <e p="VG.png" t="Include" />
+            <e p="VI.png" t="Include" />
+            <e p="VN.png" t="Include" />
+            <e p="VU.png" t="Include" />
+            <e p="WF.png" t="Include" />
+            <e p="WS.png" t="Include" />
+            <e p="XK.png" t="Include" />
+            <e p="YE.png" t="Include" />
+            <e p="ZA.png" t="Include" />
+            <e p="ZM.png" t="Include" />
+            <e p="ZW.png" t="Include" />
+          </e>
+          <e p="HomeIcons" t="Include">
+            <e p="book.png" t="Include" />
+            <e p="chat.png" t="Include" />
+            <e p="check.png" t="Include" />
+            <e p="clock.png" t="Include" />
+            <e p="full.png" t="Include" />
+            <e p="graduate.png" t="Include" />
+            <e p="increase.png" t="Include" />
+            <e p="internet.png" t="Include" />
+            <e p="lightbulb.png" t="Include" />
+            <e p="microphone.png" t="Include" />
+            <e p="question.png" t="Include" />
+            <e p="record.png" t="Include" />
+            <e p="rocket.png" t="Include" />
+            <e p="teacher.png" t="Include" />
+            <e p="video.png" t="Include" />
+            <e p="wink.png" t="Include" />
+          </e>
+          <e p="Instructions" t="Include">
+            <e p="AcceptZoom.png" t="Include" />
+            <e p="CallViaDeviceAudio.png" t="Include" />
+            <e p="ChangeName.png" t="Include" />
+            <e p="ControlPanel.png" t="Include" />
+            <e p="DiscordIcon.png" t="Include" />
+            <e p="DiscordView.png" t="Include" />
+            <e p="DownloadZoom.png" t="Include" />
+            <e p="EnterScreenName.png" t="Include" />
+            <e p="InstallZoom.png" t="Include" />
+            <e p="LectureRoomMuted.png" t="Include" />
+            <e p="LectureRoomNotMuted.png" t="Include" />
+            <e p="LectureRoomOpen.png" t="Include" />
+            <e p="OpenZoomMeeting.png" t="Include" />
+            <e p="ScreenNameMobile.png" t="Include" />
+            <e p="VoiceOption1.png" t="Include" />
+            <e p="VoiceOption2.png" t="Include" />
+            <e p="ZoomFinish.png" t="Include" />
+            <e p="ZoomIcon.png" t="Include" />
+            <e p="ZoomMobileMuted.png" t="Include" />
+            <e p="ZoomMobileNotMuted.png" t="Include" />
+          </e>
+          <e p="LogoHomePage.png" t="Include" />
+          <e p="LogoPlus.png" t="Include" />
+          <e p="MatterixLogoSmall.png" t="Include" />
+          <e p="menuIcon.png" t="Include" />
+          <e p="Schedule.png" t="Include" />
+          <e p="Spinner.svg" t="Include" />
+          <e p="stripe.jpg" t="Include" />
+          <e p="Stripe1.png" t="Include" />
+          <e p="StripeButton.png" t="Include" />
+          <e p="Test" t="Include" />
+          <e p="VippsIcon.png" t="Include" />
+          <e p="Visa_master.png" t="Include" />
+          <e p="whiteMenuIcon.png" t="Include" />
+        </e>
+        <e p="js" t="Include">
+          <e p="Admin" t="Include">
+            <e p="AdminMain.js" t="Include" />
+            <e p="AdminSendGroup.js" t="Include" />
+            <e p="InvoicesOverview.js" t="Include" />
+            <e p="PlusApplications.js" t="Include" />
+            <e p="UserPage.js" t="Include" />
+          </e>
+          <e p="ClockScript.js" t="Include" />
+          <e p="ColoringDevices.js" t="Include" />
+          <e p="Countries" t="Include">
+            <e p="CountriesList.json" t="Include" />
+          </e>
+          <e p="CourseArea" t="Include">
+            <e p="CourseMain.js" t="Include" />
+            <e p="EmailSender.js" t="Include" />
+            <e p="Test.js" t="Include" />
+            <e p="VideosHandler.js" t="Include" />
+          </e>
+          <e p="FacebookTrackEvents.js" t="Include" />
+          <e p="GlobalShared.js" t="Include" />
+          <e p="Home" t="Include">
+            <e p="ContactUs.js" t="Include" />
+            <e p="CourseSearch.js" t="Include" />
+            <e p="Index.js" t="Include" />
+            <e p="InformationModal.js" t="Include" />
+            <e p="JobApplication.js" t="Include" />
+            <e p="SideTask.js" t="Include" />
+            <e p="SlideShow.js" t="Include" />
+          </e>
+          <e p="IdentityArea" t="Include">
+            <e p="ChangePassword.js" t="Include" />
+            <e p="EditProfile.js" t="Include" />
+            <e p="Login.js" t="Include" />
+            <e p="PrivacyAndNotifications.js" t="Include" />
+            <e p="Register.js" t="Include" />
+            <e p="ResetPassword.js" t="Include" />
+            <e p="UploadPicture.js" t="Include" />
+          </e>
+          <e p="InstructionVideoModal.js" t="Include" />
+          <e p="Language" t="Include">
+            <e p="ar.json" t="Include" />
+            <e p="en.json" t="Include" />
+            <e p="Language.js" t="Include" />
+            <e p="no.json" t="Include" />
+          </e>
+          <e p="MatterixPlus" t="Include">
+            <e p="Application.js" t="Include" />
+            <e p="ChooseCourses.js" t="Include" />
+            <e p="Identity.js" t="Include" />
+          </e>
+          <e p="Payment" t="Include">
+            <e p="Index.js" t="Include" />
+            <e p="PaymentMainOld.js" t="Include" />
+            <e p="PayPal.js" t="Include" />
+            <e p="Stripe.js" t="Include" />
+            <e p="StripeOldCharge.js" t="Include" />
+            <e p="Vipps.js" t="Include" />
+          </e>
+          <e p="Privacy.js" t="Include" />
+          <e p="RatingShared.js" t="Include" />
+          <e p="Search.js" t="Include" />
+          <e p="site.js" t="Include" />
+          <e p="Test.js" t="Include" />
+          <e p="UserDeviceInfo.js" t="Include" />
+          <e p="Validation.js" t="Include" />
+        </e>
+        <e p="lib" t="Include">
+          <e p="bootstrap" t="Include">
+            <e p="dist" t="Include">
+              <e p="css" t="Include">
+                <e p="bootstrap-grid.css" t="Include" />
+                <e p="bootstrap-grid.css.map" t="Include" />
+                <e p="bootstrap-grid.min.css" t="Include" />
+                <e p="bootstrap-grid.min.css.map" t="Include" />
+                <e p="bootstrap-reboot.css" t="Include" />
+                <e p="bootstrap-reboot.css.map" t="Include" />
+                <e p="bootstrap-reboot.min.css" t="Include" />
+                <e p="bootstrap-reboot.min.css.map" t="Include" />
+                <e p="bootstrap.css" t="Include" />
+                <e p="bootstrap.css.map" t="Include" />
+                <e p="bootstrap.min.css" t="Include" />
+                <e p="bootstrap.min.css.map" t="Include" />
+              </e>
+              <e p="js" t="Include">
+                <e p="bootstrap.bundle.js" t="Include" />
+                <e p="bootstrap.bundle.js.map" t="Include" />
+                <e p="bootstrap.bundle.min.js" t="Include" />
+                <e p="bootstrap.bundle.min.js.map" t="Include" />
+                <e p="bootstrap.js" t="Include" />
+                <e p="bootstrap.js.map" t="Include" />
+                <e p="bootstrap.min.js" t="Include" />
+                <e p="bootstrap.min.js.map" t="Include" />
+              </e>
+            </e>
+            <e p="LICENSE" t="Include" />
+          </e>
+          <e p="jquery" t="Include">
+            <e p="dist" t="Include">
+              <e p="jquery.js" t="Include" />
+              <e p="jquery.min.js" t="Include" />
+              <e p="jquery.min.map" t="Include" />
+            </e>
+            <e p="LICENSE.txt" t="Include" />
+          </e>
+          <e p="jquery-validation" t="Include">
+            <e p="dist" t="Include">
+              <e p="additional-methods.js" t="Include" />
+              <e p="additional-methods.min.js" t="Include" />
+              <e p="jquery.validate.js" t="Include" />
+              <e p="jquery.validate.min.js" t="Include" />
+            </e>
+            <e p="LICENSE.md" t="Include" />
+          </e>
+          <e p="jquery-validation-unobtrusive" t="Include">
+            <e p="jquery.validate.unobtrusive.js" t="Include" />
+            <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+            <e p="LICENSE.txt" t="Include" />
+          </e>
+        </e>
+        <e p="SystemFiles" t="Include">
+          <e p="Agreement-Arabic-V1.pdf" t="Include" />
+          <e p="Agreement-Norsk-V1.pdf" t="Include" />
+          <e p="DataProtection" t="Include">
+            <e p="key-4707560b-6523-45d7-a318-b0739a247395.xml" t="Include" />
+            <e p="key-e25fa825-b2ef-4756-bc1b-c3bbbd956e94.xml" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+  </component>
+</project>

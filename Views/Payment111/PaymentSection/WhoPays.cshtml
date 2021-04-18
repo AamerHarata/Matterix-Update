@@ -1,0 +1,30 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+
+<div class="text-center display-4 title-1-5">{{$t('message.whoCoverCosts')}}</div>
+<br/>
+<div class="row">
+    <div class="col-sm-3"></div>
+    
+    <div class="col-sm-6">
+        <table class="table table-active text-center direction w-100 m-auto" style="background-color: whitesmoke">
+
+            <tr><td><a class="m-button m-button-primary payment-next-section" current-section="who-pays" next-section="terms">{{$t('message.iCoverCosts')}}</a></td></tr>
+            <tr><td><a asp-controller="MatterixPlus" asp-action="Index" class="m-button m-button-primary">{{$t('message.organizationCoversForMe')}}</a></td></tr>
+            
+            @* <tr><td><a asp-controller="MatterixPlus" asp-action="Index">سأقوم بتغطية النفقات بنفسي</a></td><td><a asp-controller="MatterixPlus" asp-action="Index">سيتم تغطية النفقات بواسطة مؤسسة خاصة أو حكومية مثل NAV, Intro أو منظمات مشابهة</a></td></tr> *@
+            
+            
+            
+            @* <tr><td><button class="btn btn-success payment-next-section" current-section="who-pays" next-section="terms">{{$t('message.next')}}</button></td></tr> *@
+            
+            
+        </table>
+    </div>
+            
+    <div class="col-sm-3"></div>
+</div>
+
+        
+        
+        

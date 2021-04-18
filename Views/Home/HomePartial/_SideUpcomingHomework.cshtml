@@ -1,0 +1,22 @@
+@model IEnumerable<LectureFile>
+@using Matterix.Services
+
+<div class="collapse task-box" id="upcoming-homework-task-box">
+    <hr class="mt-0"/>
+    @if (!Model.Any())
+    {
+        <div class="text-center direction mt-3 mb-3 text-secondary">{{$t('message.noUnDeliveredHomework')}}</div>
+    }
+    else
+    {
+        foreach (var homework in Model)
+        {
+            var homeworkName = homework.Name.Split(".")[0];
+            <div class="card task-card direction" style="padding: 0.4rem 0.7rem; border: 0" type="button" onclick="window.open('@Url.Content(homework.Path)#homework', '_blank')">
+                <div class="text-left" style="font-weight: 600">@homework.Lecture.Course.Subject</div>
+                <div style="overflow-x: hidden; text-wrap: none;" class="text-left matterix-color">@homeworkName</div>
+                <span class="text-right small" style="color: gray">{{$t('message.deadline')}} @Format.DateFormat(homework.DeadLine)</span>
+            </div>
+        }
+    }
+</div>

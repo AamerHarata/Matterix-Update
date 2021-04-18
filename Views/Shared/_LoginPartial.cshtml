@@ -1,0 +1,39 @@
+@using Matterix.Services
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject InformationService Information
+
+@{
+    var user = UserManager.GetUserAsync(User).Result;
+}
+
+<ul class="navbar-nav direction">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="open-profile" data-toggle="tooltip" data-placement="bottom" v-bind:title="$t('message.profile')">
+        <a asp-action="UserProfile" asp-controller="Home" asp-route-username="@user.ProfileUserName"><img src="@Url.Content(Information.ProfilePicture(user))" height="45rem" width="45rem" style="border-radius: 50%; object-fit: cover"/></a>
+        
+    </li>
+    
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" v-bind:title="$t('message.settings')">
+        <a  class="nav-link text-dark direction" asp-area="Identity" asp-page="/Account/Manage/Index" >{{$tc('message.greet', '@Information.FullName(user)!')}}</a>
+    </li>
+    <li class="nav-item logout pointer">
+        <a class="nav-link text-dark">{{$t('message.logout')}}</a>
+    </li>
+    
+    <form hidden="hidden" id="logout-form" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button id="main-logout"  type="submit" class="nav-link btn btn-link text-dark" style="font-size: 0.8rem">{{$t('message.logout')}}</button>
+    </form>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">{{$t('message.signUp')}}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">{{$t('message.login')}}</a>
+    </li>
+}
+</ul>

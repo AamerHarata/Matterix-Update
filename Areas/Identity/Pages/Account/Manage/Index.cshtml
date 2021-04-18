@@ -1,0 +1,205 @@
+﻿@page "{handler?}"
+@using Matterix.Services
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<form id="profile-form" method="post">
+<div class="row un-select">
+    <div class="col-md-4">
+        <div class="Matterix-color text-center display-4 title-2-0">{{$t('message.personalInfo')}}</div>
+        <hr class="Matterix-background"/>
+        
+        <div class="form-group">
+            <div class="group-inputs">
+                <label asp-for="Input.FirstName">{{$t('message.firstName')}}</label>
+                <input readonly data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')" asp-for="Input.FirstName" class="form-control" />
+            </div>
+            
+            <div class="group-inputs">
+                <label asp-for="Input.LastName">{{$t('message.lastName')}}</label>
+                <input readonly data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')" asp-for="Input.LastName" class="form-control"/>
+            </div>
+            
+            <span class="text-danger">@ViewData["uniqueName"]</span>
+                
+        </div>
+        
+        
+        <div class="form-group">
+            <label asp-for="Input.UserName">{{$t('message.userName')}}</label><span style="margin: 0 1rem; text-align: left; direction: ltr" class=" small text-secondary">@StaticInformation.Website/User/<span id="username-template">@Model.Input.UserName</span></span>
+            <input asp-for="Input.UserName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Email">{{$t('message.email')}}</label>
+            @if (Model.IsEmailConfirmed)
+            {
+                <div class="input-group">
+                    <input readonly data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')" asp-for="Input.Email" placeholder="example@example.com" class="form-control" />
+                    <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                </div>
+            }
+            else
+            {
+                <button style="display: inline; font-size: 0.7rem;"id="email-verification-btn" type="button" class="btn btn-link">{{$t('message.sendVerificationEmail')}}</button>
+                <button style="display: none; "id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">{{$t('message.sendVerificationEmail')}}</button>
+                <input asp-for="Input.Email" placeholder="example@example.com" class="form-control" />
+            }
+            @* <span asp-validation-for="Input.Email" class="text-danger"></span> *@
+            <span class="text-danger">@ViewData["uniqueEmail"]</span>
+        </div>
+        <div class="form-group">
+            
+            
+            @if (Model.IsPhoneConfirmed)
+            {
+                <label asp-for="Input.PhoneNumber">{{$t('message.phoneNumber')}}</label>
+                
+                <div class="d-flex justify-content-between" dir="ltr" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                    @* <input style="width: 35%" placeholder="+47" class="form-control"/> *@
+                    <input readonly asp-for="Input.PhoneCode" style="width: 20%; line-height: 50px" class="form-control align-self-center" />
+                    <input readonly style="width: 78%"  asp-for="Input.PhoneNumber" class="form-control align-self-center"/>
+                </div>
+                
+            }
+            else
+            {
+                <label asp-for="Input.PhoneNumber">{{$t('message.phoneNumber')}}</label>
+                <a asp-controller="Verification" asp-action="Index"><button style="display: inline; font-size: 0.7rem;"id="email-verification-btn" type="button" class="btn btn-link">{{$t('message.phoneVerification')}}</button></a>
+                <div class="d-flex justify-content-between" dir="ltr">
+                    @* <input style="width: 35%" placeholder="+47" class="form-control"/> *@
+                    <select asp-for="Input.PhoneCode" style="width: 45%; line-height: 50px" class="form-control align-self-center" asp-items="ViewBag.countries"></select>
+                    <input style="width: 53%" asp-for="Input.PhoneNumber" placeholder="44455566" class="form-control align-self-center"/>
+                </div>
+                <span class="text-danger validation-line phone-validation"></span>   
+                
+@*                 <input asp-for="Input.PhoneNumber"  placeholder="44455566" class="form-control" /> *@
+            }
+            @* <input asp-for="Input.PhoneNumber" class="form-control" /> *@
+            @* <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span> *@
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.LoginUserName">{{$t('message.loginUsername')}}</label>
+            <input disabled asp-for="Input.LoginUserName" class="form-control" />
+        </div>
+            
+        
+    </div>
+    <div class="col-md-1"></div>
+    
+    
+    @* Right Side *@
+    
+    <div class="col-md-4">
+        <div class="Matterix-color text-center display-4 title-2-0">{{$t('message.otherInfo')}}</div>
+        <hr class="Matterix-background" />
+        
+        
+        <div class="form-group">
+            
+            
+                @if (string.IsNullOrEmpty(Model.Input.MiddleName))
+                {
+                    <div class="group-inputs">
+                        <label asp-for="Input.MiddleName">{{$t('message.middleName')}}</label>
+                        <input asp-for="Input.MiddleName" v-bind:placeholder="$t('message.optional')" class="form-control"/>
+                    </div>
+                    
+                    
+                }
+                else
+                {
+                    <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                        <label asp-for="Input.MiddleName">{{$t('message.middleName')}}</label>
+                        <input readonly asp-for="Input.MiddleName"  class="form-control"/>
+                    </div>
+                }
+
+            
+            <div class="group-inputs">
+                <label asp-for="Input.Gender">{{$t('message.gender')}}</label>
+                @{
+                    IList<SelectListItem> genderList = Enum.GetValues(typeof(EnumList.Gender)).Cast<EnumList.Gender>().Select(x => new SelectListItem {Text = Format.Translate(x.ToString()).ToString(), Value = ((int) x).ToString()}).ToList();
+                    var genderListData = new SelectList(genderList, "Value", "Text");
+
+                }
+                <span>@Html.DropDownListFor(x => x.Input.Gender, genderListData, new {@class = "form-control"})</span>
+            </div>
+
+            @* <span asp-validation-for="Input.MiddleName" class="text-danger validation-line"></span> *@
+            @* <span asp-validation-for="Input.Gender" class="text-danger validation-line"></span> *@
+        </div>
+        
+        <div class="form-group">
+            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                <label asp-for="Input.BirthDate">{{$t('message.birthDate')}}</label>
+                <input readonly asp-for="Input.BirthDate" class="form-control" />
+            </div>
+            <div class="group-inputs">
+                <label asp-for="Input.Language">{{$t('message.theLanguage')}}</label>
+                
+                @{
+                    IList<SelectListItem> languageList = Enum.GetValues(typeof(EnumList.Language)).Cast<EnumList.Language>().Select(x => new SelectListItem {Text = Format.Translate(x.ToString()).ToString(), Value = ((int) x).ToString()}).ToList();
+                    var languageListData = new SelectList(languageList, "Value", "Text");
+
+                }
+                    
+                <span>@Html.DropDownListFor(x => x.Input.Language, languageListData,  new {@class = "form-control"})</span>
+            </div>
+            @* <span asp-validation-for="Input.BirthDate" class="text-danger validation-line"></span> *@
+            @* <span asp-validation-for="Input.Language" class="text-danger validation-line"></span> *@
+        </div>
+        
+        <div class="form-group" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+            <label asp-for="Input.Address">{{$t('message.address')}}</label>
+            <input readonly asp-for="Input.Address" class="form-control" v-bind:placeholder="$t('message.addressExample')"/>
+            @* <span asp-validation-for="Input.Address" class="text-danger validation-line"></span> *@
+        </div>
+        
+        
+        <div class="form-group">
+            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                <label asp-for="Input.ZipCode">{{$t('message.zipCode')}}</label>
+                <input readonly type="number" asp-for="Input.ZipCode" placeholder="0000" class="form-control zipCode" />
+            
+            </div>
+            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                <label asp-for="Input.City">{{$t('message.city')}}</label>
+                <input readonly asp-for="Input.City" class="form-control" />
+            </div>
+            
+            @* <span asp-validation-for="Input.ZipCode" style="display: block" class="text-danger validation-line"></span> *@
+            @* <span asp-validation-for="Input.City" class="text-danger validation-line"></span> *@
+        </div>
+        
+        
+        <button id="update-profile-button" type="button" class="btn btn-primary">{{$t('message.saveAll')}}</button><span id="fields-changed" style="display: none"class="small text-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$t('message.fieldsInGreenChanged')}}&nbsp;<i id="reset-profile" style="cursor: pointer"class="fa fa-close matterix-color" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.resetAll')"></i></span>
+        
+    </div>
+    <div class="col-md-3">
+        <br/><br/>
+        @* <div asp-validation-summary="All" class="text-danger"></div> *@
+        <div id="empty-field-validation" class="text-danger"></div>
+        <div id="name-char-validation" class="text-danger"></div>
+        <div id="email-validation" class="text-danger"></div>
+        <div id="username-validation" class="text-danger"></div>
+        <div id="zipcode-validation" class="text-danger"></div>
+        <div class="text-danger phone-validation"></div>
+        <div class="text-danger">@Html.ValidationMessage("nameTaken")</div>
+        <div class="text-danger">@Html.ValidationMessage("usernameTaken")</div>
+        <div class="text-danger">@Html.ValidationMessage("emailTaken")</div>
+        
+    </div>
+    
+</div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/IdentityArea/EditProfile.js" asp-append-version="true"></script>
+    <script src="~/js/Validation.js" asp-append-version="true"></script> 
+}

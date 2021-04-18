@@ -1,0 +1,159 @@
+
+
+
+
+.btn-primary {
+    color: #fff;
+    /*background-color: #007bff;*/
+    /*border-color: #007bff;*/
+    background-color: #4e54a4;
+    border-color: #4e54a4;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #494992;
+    border-color: #4e54a4;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(60, 60, 121, 0.61);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #4e54a4;
+    border-color: #494992;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #4e54a4;
+    border-color: #454587;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(69, 69, 135, 0.5);
+}
+
+
+.accept-policy:active{
+    border: none;
+    outline: none;
+}
+
+
+/*** Custom Buttons ***/
+
+/* General customization for m-btn*/
+.m-btn{
+    border: 1px solid transparent;
+    user-select: none;
+    outline: none;
+    font-family: Helvetica,serif;
+    font-weight: 300;
+    border-radius: 0.1rem;
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    font-size: 0.8rem;
+    transition: background-color 0.5s ease-out;
+}
+
+.m-btn:focus{
+    outline: none;
+}
+
+.m-btn:hover:enabled{
+    transition: background-color 0.3s ease-in;
+}
+
+.m-btn:disabled{
+    opacity: 0.8 !important;
+    cursor: not-allowed !important;
+}
+
+.m-btn:active{
+    transition: background-color 0.05s ease-in;
+    color: var(--Matterix);
+    background-color : #ebebeb !important;
+}
+
+/* Primary */
+
+.m-btn-primary{
+    background-color: var(--Matterix);
+    color: white;
+    
+    
+}
+
+.m-btn-primary:hover:enabled{
+    border: 1px solid var(--Matterix);
+    color: var(--Matterix);
+    background-color : white;
+
+}
+
+
+
+/* Secondary */
+
+.m-btn-secondary{
+    background-color:var(--secondary);
+    color: white;
+
+
+}
+
+.m-btn-secondary:hover:enabled{
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    background-color : white;
+
+}
+
+
+
+/* Success */
+
+.m-btn-success{
+    background-color:seagreen;
+    color: white;
+
+
+}
+
+.m-btn-success:hover:enabled{
+    border: 1px solid seagreen;
+    color: seagreen;
+    background-color : white;
+
+}
+
+
+/* Success */
+
+.m-btn-danger{
+    background-color: indianred;
+    color: white;
+
+
+}
+
+.m-btn-danger:hover:enabled{
+    border: 1px solid indianred;
+    color: indianred;
+    background-color : white;
+}
+
+
+
+
+
+
+
+.m-btn-small{
+    font-size: 0.6rem !important; 
+}

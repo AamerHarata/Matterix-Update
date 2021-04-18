@@ -1,0 +1,6 @@
+@model string
+<div class="un-select text-center direction font-cairo" style="font-size: 0.8rem;">
+    <div>{{$t('message.youHaveToEnrollCourse')}}</div>
+    <div><a class="matterix-link" asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@Model" target="_blank">{{$t('message.enrollNow')}}</a></div>
+</div>
+

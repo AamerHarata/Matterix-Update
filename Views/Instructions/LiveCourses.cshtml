@@ -1,0 +1,845 @@
+@using Matterix.Services
+@model IEnumerable<Course>
+@inject InformationService Info
+
+@{
+    ViewBag.Title = "Live Course Help";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/instructions.css"/>
+
+<div class="text-center direction un-select">
+    <div class="title-2-5 matterix-color display-4">{{$t('message.instructionsAndHelp')}}</div>
+    <br/>
+    <div style="font-size: 4rem;"><img style=" margin-bottom: 1rem;" width="90" src="~/Images/HomeIcons/teacher.png"/></div>
+    <div class="title-1-5 display-4">{{$t('message.accessToLiveLecture')}}</div>
+    <hr class="w-75 matterix-background"/>
+</div>
+
+
+
+<div class="text-center direction un-select">
+    
+    <table id="fast-links" class="text-center w-100">
+        <tr>
+            <td class="w-mw-33 display-4 title-1-0 matterix-color" colspan="3"><div><strong>{{$t('message.fastHelpLinks')}}</strong></div></td>
+        </tr>
+
+        <tr>
+            <td class="w-mw-33"><a href="#join-from-computer">{{$t('message.joinFromComputer')}}</a></td>
+            <td class="w-mw-33"><a href="#join-from-mobile">{{$t('message.joinFromMobile')}}</a></td>
+            <td class="w-mw-33"><a href="#roles-inside-lecture">{{$t('message.rolesInsideLectures')}}</a></td>
+        </tr>
+        <tr>
+            <td class="w-mw-33"><a href="#one-click-to-join">{{$t('message.oneClickJoin')}}</a></td>
+            <td class="w-mw-33"><a href="#screen-name">{{$t('message.screenNameObligatory')}}</a></td>
+            <td class="w-mw-33"><a href="#join-audio-computer">{{$t('message.clickJoinAudioObligatory')}}</a></td>
+        </tr>
+        <tr>
+            <td class="w-mw-33"><a href="#no-sound">{{$t('message.iDontHereVoice')}}</a></td>
+            <td class="w-mw-33"><a href="#how-to-ask">{{$t('message.howToAskByVoiceOrChat')}}</a></td>
+            <td class="w-mw-33"><a href="#control-panel">{{$t('message.controlPanelInsideLecture')}}</a></td>
+        </tr>
+        <tr>
+            <td class="w-mw-33" colspan="3"><a href="#privacy-inside-lecture">{{$t('message.myPrivacyInsideRoomClass')}}</a></td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+
+
+
+
+@if (ViewBag.LiveCourseAccess)
+{
+    
+
+@* Join from computer *@
+
+
+<div class="text-justify direction un-select" id="join-from-computer">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.joinFromComputer')}}</strong></p>
+    <p>{{$t('message.youCanFirstClickDirectly')}} </p>
+    <p>{{$t('message.anywayThisStepOnce')}}</p>
+    <p>{{$t('message.firstThreeSteps')}}</p>
+    <ol>
+        <li>
+            <strong>
+                <p>{{$t('message.firstDownloadTheProgram')}}</p></strong>
+        </li>
+    </ol>
+    <ul>
+        <li>
+            <p>{{$t('message.downloadForWindows')}} <a href="http://zoom.us/client/latest/ZoomInstaller.exe">{{$t('message.fromHere')}}</a></p></li>
+        <li>
+            <p>{{$t('message.downloadForMac')}} <a href="http://zoom.us/client/latest/zoomusInstaller.pkg">{{$t('message.fromHere')}}</a></p></li>
+        <li>
+            <p>{{$t('message.downloadForLinux')}} <a href="http://zoom.us/download?os=linux">64</a>&nbsp;|&nbsp;<a href="http://zoom.us/download?os=linux">32</a> bit</p></li>
+    </ul>
+    <p>{{$t('message.whenYouClickFirstDownload')}}</p>
+    <div class="text-center">
+        <img class="big-inst-image" src="~/Images/Instructions/DownloadZoom.png"/>
+    </div>
+
+
+
+    <ol start="2">
+        <li>
+            <p>{{$t('message.installTheProgram')}}</p>
+        </li>
+    </ol>
+    <ul>
+        <li>
+            <p>{{$t('message.byClickingItByTheRed')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.orClickRun')}}</p>
+        </li>
+    </ul>
+
+    <p>{{$t('message.theProcessWillBeDoneAs')}}</p>
+
+    <div class="text-center">
+        <img class="md-inst-image" src="~/Images/Instructions/InstallZoom.png"/>
+    </div>
+
+
+
+
+    <ol start="3">
+        <li>
+            <p>{{$t('message.theProcessIsDone')}}</p>
+        </li>
+    </ol>
+
+
+    <ul>
+        <li>
+            <p>{{$t('message.theProgramWillBeOpened')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.youDoTheSameProcessFromAllComputer')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.youDontNeedToSignin')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.nowCloseTheProgram')}}</p>
+        </li>
+    </ul>
+
+    <div class="text-center">
+        <img class="sm-inst-image" src="~/Images/Instructions/ZoomFinish.png"/>
+        <div class="text-danger">{{$t('message.closeWindowWhenOpen')}}</div>
+    </div>
+
+
+
+
+    <ol id="one-click-to-join" start="4">
+        <li>
+            <p>{{$t('message.joiningALecture')}}</p>
+        </li>
+    </ol>
+
+    <p>{{$t('message.thisStepWillBeDoneEachLecture')}}</p>
+    <ul>
+
+        <li>
+            <p>{{$t('message.goToYouCoursePage')}} <a target="_blank" asp-controller="Course" asp-action="Index">{{$t('message.myCourses')}}</a></p>
+        </li>
+        <li>
+            <p>{{$t('message.enterTheDesiredCourse')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.clickOnClassRoom')}}</p>
+        </li>
+        @if(Model.Any()){
+            <li>
+                <p><strong style="color:red" >{{$t('message.orTryJoinFromHere')}}: </strong>@foreach(var course in Model){<span>&nbsp; <a target="_blank" href="@course.ClassUrl">{{$t('message.goToClassOf')}} @course.Subject &nbsp;</a></span>}</p>
+            </li>
+            
+        }
+    </ul>
+
+    <p>{{$t('message.aPageLikeThisWillOpen')}}</p>
+
+    <div class="text-center">
+        <img class="big-inst-image" src="~/Images/Instructions/OpenZoomMeeting.png"/>
+    </div>
+
+    <ul>
+        <li>
+            <p>{{$t('message.clickTheButtonByRed')}}</p>
+        </li>
+    </ul>
+    
+    
+    
+    <ul>
+        
+        <li>
+            <p>{{$t('message.ifYouBeenAskedScreenName')}}</p>
+        </li>
+    </ul>
+    <div class="text-center">
+        <img class="md-inst-image" src="~/Images/Instructions/EnterScreenName.png"/>
+    </div>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.ifYouNotPleaseSeeHow')}} <a href="#screen-name">{{$t('message.here')}}</a></p>
+        </li>
+        
+    </ul>
+    <p>{{$t('message.yourScreenNameIs')}} <span class="red-inst font-weight-bold">&nbsp;@Info.ScreenName(User)&nbsp;</span> - <a href="#screen-name">{{$t('message.screenNameObligatory')}}</a></p>
+    <br/>
+    <br/>
+    
+    
+    
+    
+    
+    <p>{{$t('message.theRoomClassWillOpenAs')}}</p>
+    <div class="text-center">
+        <img class="big-inst-image" src="~/Images/Instructions/LectureRoomOpen.png"/>
+    </div>
+    <br/>
+
+    
+    
+    <ol id="join-audio-computer" start="5">
+        <li>
+            <p>{{$t('message.youAreNowInsideTheRoomClass')}}</p>
+        </li>
+    </ol>
+
+
+    <ul>
+        <li>
+            <p>{{$t('message.inPictureUpClickJoin')}}</p>
+        </li>
+
+        <li>
+            <p>{{$t('message.youCanCheckTheBox')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.ifThisBoxDidNotAppear')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.onceYouAreDoneTheOptionNr3')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.pleaseDoubleCheckThatYourMicrophoneAndCamera')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.ifTheMicrophoneNotMuted')}}</p>
+        </li>
+
+    </ul>
+
+    <div class="text-center">
+        <img class="md-inst-image" src="~/Images/Instructions/LectureRoomMuted.png"/>
+        &nbsp;&nbsp;&nbsp;
+        <img class="md-inst-image" src="~/Images/Instructions/LectureRoomNotMuted.png"/>
+    </div>
+
+    <p>{{$t('message.whenTheTeacherEnter')}}</p>
+    <p>{{$t('message.controlToolsDownThere')}} <a href="#control-panel">{{$t('message.controlPanelInsideLecture')}}</a></p>
+
+</div>
+
+
+
+@* Join from mobile *@
+
+<div class="text-justify direction un-select" id="join-from-mobile">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.joinFromMobile')}}</strong></p>
+    
+    <p>{{$t('message.youCanFirstClickDirectly')}} </p>
+    <p>{{$t('message.anywayThisStepOnce')}}</p>
+    <p>{{$t('message.firstThreeSteps')}}</p>
+    
+    <ol>
+        <li>
+            <strong>
+                <p>{{$t('message.firstInstallApplication')}}</p></strong>
+        </li>
+    </ol>
+    <ul>
+        <li>
+            <p>{{$t('message.installForAndroid')}} <a href="http://zoom.us/client/latest/zoom.apk">{{$t('message.fromHere')}}</a> {{$t('message.fromHere')}} </p></li>
+        <li>
+            <p>{{$t('message.iosDevices')}} <a href="https://itunes.apple.com/us/app/id546505307">{{$t('message.fromHere')}}</a> {{$t('message.fromHere')}} </p></li>
+                    
+        <li>
+            <p>{{$t('message.orFromAppleStoreGoogle')}}</p>
+        </li>
+        
+    </ul>
+    
+    <div class="text-center">
+        <img class="exsm-inst-image" src="~/Images/Instructions/ZoomIcon.png"/>
+    </div>
+    
+    
+    
+    <ol start="2">
+        <li>
+            <p>{{$t('message.theProcessIsDone')}}</p>
+        </li>
+    </ol>
+    
+    <ul>
+        <li>
+            <p style="color: red">{{$t('message.youDontNeedToSignin')}} </p>
+        </li>
+        <li>
+            <p>{{$t('message.thisProcessShouldBeDoneOnce')}} </p>
+        </li>
+        
+        
+    </ul>
+    
+    <br/>
+    <br/>
+    
+    
+    
+    <ol start="3">
+        <li>
+            <p>{{$t('message.joiningALecture')}}</p>
+        </li>
+    </ol>
+
+    <p>{{$t('message.thisStepWillBeDoneEachLecture')}}</p>
+    <ul>
+
+        <li>
+            <p>{{$t('message.goToYouCoursePage')}} <a target="_blank" asp-controller="Course" asp-action="Index">{{$t('message.myCourses')}}</a></p>
+        </li>
+        <li>
+            <p>{{$t('message.enterTheDesiredCourse')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.clickOnClassRoom')}}</p>
+        </li>
+        
+        @if(Model.Any()){
+            <li>
+                <p><strong style="color:red" >{{$t('message.orTryJoinFromHere')}}: </strong>@foreach(var course in Model){<span>&nbsp; <a target="_blank" href="@course.ClassUrl">{{$t('message.goToClassOf')}} @course.Subject &nbsp;</a></span>}</p>
+            </li>
+            
+        }
+        
+    </ul>
+
+    <p>{{$t('message.theApplicationWillBeRun')}}</p>
+    <p>{{$t('message.aPageLikeThisWillOpen')}}</p>
+
+    <div class="text-center">
+        <img class="sm-inst-image" src="~/Images/Instructions/ScreenNameMobile.png"/>
+        &nbsp;&nbsp;
+        <img class="sm-inst-image" src="~/Images/Instructions/AcceptZoom.png"/>
+    </div>
+    
+    <ul>
+
+        <li>
+            <p>{{$t('message.byTheFirstPictureYourName')}} </p>
+        </li>
+        <li>
+            <p>{{$t('message.enterTheDesiredCourse')}}</p>
+        </li>
+    </ul>
+    <p>{{$t('message.yourScreenNameIs')}} <span class="red-inst font-weight-bold">&nbsp;@Info.ScreenName(User)&nbsp;</span> - <a href="#screen-name">{{$t('message.screenNameObligatory')}}</a></p>
+    <ul>
+        <li>
+            <p>{{$t('message.byTheSecondPictureClickAccept')}}</p>
+        </li>
+    </ul>
+    <br/>
+    <br/>
+    
+    
+    
+    
+    
+    <ol id="join-audio-mobile" start="5">
+        <li>
+            <p>{{$t('message.youAreNowInsideTheRoomClass')}}</p>
+        </li>
+    </ol>
+
+
+    <ul>
+        <li>
+            <p>{{$t('message.inPictureDownClickJoin')}}</p>
+        </li>
+        
+    </ul>
+    
+    <div class="text-center">
+        <img class="sm-inst-image" src="~/Images/Instructions/CallViaDeviceAudio.png"/>
+    </div>
+    
+    <ul>
+       
+        <li>
+            <p>{{$t('message.onceYouAreDoneTheOptionGreen')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.pleaseDoubleCheckThatYourMicrophoneAndCamera')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.ifTheMicrophoneNotMuted')}}</p>
+        </li>
+
+    </ul>
+
+    <div class="text-center">
+        <img class="sm-inst-image" src="~/Images/Instructions/ZoomMobileMuted.png"/>
+        &nbsp;&nbsp;&nbsp;
+        <img class="sm-inst-image" src="~/Images/Instructions/ZoomMobileNotMuted.png"/>
+    </div>
+
+    <p>{{$t('message.whenTheTeacherEnterMobile')}}</p>
+    <p>{{$t('message.movingRightAndLeftCanHide')}}</p>
+    <p>{{$t('message.controlToolsDownThere')}} <a href="#control-panel">{{$t('message.controlPanelInsideLecture')}}</a></p>
+    
+      
+</div>
+    
+    
+    
+@* Roles inside lecture *@
+    
+
+<div class="text-justify direction un-select" id="roles-inside-lecture">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.rolesInsideLectures')}}</strong></p>
+    
+    <p>{{$t('message.breakingThoseRoles')}} </p>
+    
+    
+    <ol class="no-strong">
+        <li>
+            <p>{{$t('message.itIsNotAllowedToShareYourAccess')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.enteringWithoutScreenName')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.doNotEmbarrassTheTeacher')}}</p>
+        </li>
+
+        
+        <li>
+            <p>{{$t('message.keepYourQuestionsWithin')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.doNotInterruptTheTeacher')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.raiseYourHandToAsk')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.doNotKeepYourHand')}}</p>
+        </li>
+        
+        
+        <li>
+            <p>{{$t('message.doNotForgetYourMic')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.neverOpenTheCamera')}} <a href="#privacy-inside-lecture">{{$t('message.myPrivacyInsideRoomClass')}}</a></p>
+        </li>
+        
+        
+        
+        
+        
+        <li>
+            <p>{{$t('message.doNotEmbarrassRoommates')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.privateChatIsPossible')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.itIsNotAllowedToCommunication')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.technicalProblemsCanHappened')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.pleaseFeelFreeAnyKindOfQuestion')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.teachersCanDoMistakes')}}</p>
+        </li>
+        
+        
+    </ol>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+@* Privacy inside lecture *@
+    
+
+<div class="text-justify direction un-select" id="privacy-inside-lecture">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.myPrivacyInsideRoomClass')}}</strong></p>
+    
+    <p>{{$t('message.yourPrivacyIsOurPriority')}} </p>
+    
+    
+    <ol class="no-strong">
+        <li>
+            <p>{{$t('message.ifYouDontWantToEnterScreen')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.youCanChooseBetweenAsking')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.voicesCannotBeRemoved')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.inCaseCameraWasOpen')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.privateChatIsSecret')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.teachersNotAllowed')}}</p>
+        </li>
+        
+        <li>
+            <p>{{$t('message.yourConnectionViaOur')}}</p>
+        </li>
+        
+       
+        
+        
+    </ol>
+</div>
+
+
+
+
+
+@* Control Panel *@
+
+<div class="text-justify direction un-select" id="control-panel">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.controlPanelInsideLecture')}}</strong></p>
+    
+    <p>{{$t('message.controlPanelIsLikeThat')}} </p>
+    <p>{{$t('message.itCouldBeHidden')}} </p>
+    
+    
+    <ol>
+        <li>
+            <p>{{$t('message.fromComputer')}}</p>
+        </li>
+    </ol>
+    
+    <div class="text-center">
+        <img class="big-inst-image" src="~/Images/Instructions/ControlPanel.png"/>
+    </div>
+    
+    
+    
+    <ol class="no-strong">
+        <li>
+            <p>{{$t('message.controlOption1')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.controlOption2')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.controlOption3')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.controlOption4')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.controlOption5')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.controlOption6')}}</p>
+        </li>
+    </ol>
+    <p>{{$t('message.yellowOption')}}</p>
+    
+    
+    <ol start="2">
+        <li>
+            <p>{{$t('message.fromMobile')}}</p>
+        </li>
+    </ol>
+    <p>{{$t('message.fromMobileIsSame')}}</p>
+    
+    
+</div>
+    
+
+
+
+
+@* I cannot hear teacher's voice *@
+
+<div class="text-justify direction un-select" id="no-sound">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.iDontHereVoice')}}</strong></p>
+    
+    
+    <ol>
+        <li>
+            <p>{{$t('message.didYouClickedJoinAudio')}}</p>
+        </li>
+    </ol>
+    <ul>
+        <li>
+            <p>{{$t('message.ifNotSeHere')}} <a href="#join-audio-computer">{{$t('message.fromComputer')}}</a> | <a href="#join-audio-mobile">{{$t('message.fromMobile')}}</a></p>
+        </li>
+    </ul>
+    
+    <ol start="2">
+        <li>
+            <p>{{$t('message.didYouCheckYourDeviceAudioSettings')}}</p>
+        </li>
+    </ol>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.deviceCouldBeMuted')}} </p>
+        </li>
+    </ul>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.areYouAbleToHereOtherSounds')}} </p>
+        </li>
+    </ul>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.plugInAndOut')}} </p>
+        </li>
+    </ul>
+    
+    <ol start="3">
+        <li>
+            <p>{{$t('message.zoomAudioSettings')}}</p>
+        </li>
+    </ol>
+    
+        
+    <div class="text-center">
+        <img class="md-inst-image" src="~/Images/Instructions/VoiceOption1.png"/>
+        &nbsp;&nbsp;
+        <img class="md-inst-image" src="~/Images/Instructions/VoiceOption2.png"/>
+    </div>
+    
+    
+    
+    
+    
+    <ul>
+        <li>
+            <p>{{$t('message.voiceOption1')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.voiceOption2')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.voiceOption3')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.voiceOption4')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.voiceOptionGreen')}}</p>
+        </li>
+
+    </ul>
+    
+    
+   
+    <ol start="4">
+        <li>
+            <p>{{$t('message.solutionsNotWorked')}}</p>
+        </li>
+    </ol>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.ifOnlyYouCannotHere')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.ifAllCannotHere')}} <a asp-controller="Home" asp-action="ContactUs">{{$t('message.contactUs')}}</a></p>
+        </li>
+ 
+
+    </ul>
+    
+    
+    
+    
+</div>
+    
+    
+    
+    
+    
+    
+
+
+<div class="text-justify direction un-select" id="screen-name">
+    <hr/>
+    <br/>
+    <p class="matterix-color sec-title"><strong>{{$t('message.screenNameObligatory')}}</strong></p>
+    
+    
+    <p>{{$t('message.yourScreenNameIs')}} <span class="red-inst font-weight-bold">&nbsp;@Info.ScreenName(User)&nbsp;</span></p>
+    
+    <ul>
+        <li>
+            <p>{{$t('message.asMentionedBeforeScreenName')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.enteringWithoutScreenName')}}</p>
+        </li>
+        <li>
+            <p>{{$t('message.ifYouDontWantToEnterScreen')}}</p>
+
+        </li>
+    </ul>
+    
+    
+    <strong>
+        <p>{{$t('message.youAlreadyInWithWrongScreen')}}</p>
+    </strong>
+    
+    <p>{{$t('message.youCanChangeItByFollowing')}}</p>
+    
+    <div class="text-center">
+        <img class="big-inst-image" src="~/Images/Instructions/ChangeName.png"/>
+    </div>
+    
+    
+    
+    
+    
+</div>
+    
+    
+    
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+else
+{
+@* No Access Here *@
+
+    if (ViewBag.Logged)
+    {
+        <div class="text-center un-select">
+            <br/>
+            <br/>
+            <div class="text-danger">{{$t('message.noLiveCoursesToGetHelp')}}</div>
+            <br/>
+            <a asp-controller="Course" asp-action="Search"><div class="small">{{$t('message.searchCourse')}}</div></a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center un-select">
+            <br/>
+            <br/>
+            <div class="text-danger">{{$t('message.youHaveToLogIn')}}</div>
+            <br/>
+            <a asp-area="Identity" asp-page="/Account/Login"><div class="small">{{$t('message.login')}}</div></a>
+        </div>
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script src="https://kit.fontawesome.com/331f4f953b.js" crossorigin="anonymous"></script>
+    
+    
+  
+    
+}
+

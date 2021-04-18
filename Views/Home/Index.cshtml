@@ -1,0 +1,73 @@
+﻿@using Matterix.Services
+@model Matterix.Models.ViewModel.HomeViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="css/Home/Index.css" asp-append-version="true"/>
+<link rel="stylesheet" href="css/Home/CourseBox.css" asp-append-version="true"/>
+<link rel="stylesheet" href="css/Home/SlideShow.css" asp-append-version="true"/>
+
+@if (User.Identity.IsAuthenticated)
+{
+    
+    <div class="un-select"><partial name="HomePartial/_LoginHome" model="@Model"/></div>
+}
+else
+{
+    <div class="un-select"><partial name="HomePartial/_NonLoginHome" model="@Model"/></div>
+}
+
+
+
+@section Scripts
+{
+    <script src="~/js/Home/Index.js" asp-append-version="true"></script>
+    <script src="~/js/Home/CourseSearch.js" asp-append-version="true"></script>
+    <script src="~/js/Home/InformationModal.js" asp-append-version="true"></script>
+    <script src="~/js/Home/SideTask.js" asp-append-version="true"></script>
+    <script src="~/js/Home/SlideShow.js" asp-append-version="true"></script>
+    <script src="~/js/InstructionVideoModal.js" asp-append-version="true"></script>
+
+<script>
+    $(document).ready(function() {
+        //Revoke notifications from home index (Runs only if authenticated)
+        RevokeNotifications("Email");
+//        RevokeNotifications("Sms");
+        
+        //Facebook chat or share i'm not sure ToDo :: Determine which one is it
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    })
+</script>
+
+}
+
+@section MetaTags
+{
+    @{
+        var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/FacebookShare.png")}?v=2";
+    }
+    
+    
+    <meta property="og:url"    content="@StaticInformation.FullWebsite"/>
+    <meta property="og:type"    content="website"/>
+    
+    <meta property="og:image" content="@imageUrl"/>
+    <meta property="og:image:url"    content="@imageUrl"/>
+    <meta property="og:image:secure_url"    content="@imageUrl" />
+    <meta property="og:image:type"    content="image/png" />
+    <meta property="og:image:width"    content="800" />
+    <meta property="og:image:height"    content="800" />
+    <meta property="fb:app_id"    content="3431737436868705" />
+    
+    
+    
+    
+    <meta property="og:title"    content="Norske Fag på Arabisk - Matterix" />
+    <meta property="og:description"    content="المدرسة العربية الأولى في النرويج لتعليم المناهج النرويجية باللغة العربية" />
+}

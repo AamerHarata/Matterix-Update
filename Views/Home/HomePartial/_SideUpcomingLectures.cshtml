@@ -1,0 +1,59 @@
+@using Matterix.Services
+@model IEnumerable<Lecture>
+
+
+
+<div class="text-0-6 collapse task-box" id="upcoming-lectures-task-box">
+    <hr class="mt-0"/>
+    @if (!Model.Any())
+    {
+        <div class="text-center direction mt-3 mb-3 text-secondary">{{$t('message.noComingUpLecture')}}</div>
+    }
+    else
+    {
+        var gotHelp = false;
+        foreach (var lecture in Model)
+        {
+            var date = $"{Format.Translate(lecture.Date.DayOfWeek.ToString())} {Format.DateFormat(lecture.Date)}";
+            if (lecture.Date == Format.NorwayDateNow())
+            {
+                date = "{{$t('message.today')}}";
+            }
+            else if (lecture.Date == Format.NorwayDateNow().AddDays(1))
+            {
+                date = "{{$t('message.tomorrow')}}";
+            }
+
+            var liveNow = Format.NorwayDateNow() == lecture.Date.Date && Format.NorwayTimeNow() >= lecture.From.Subtract(new TimeSpan(0, 30, 0))
+                          && Format.NorwayTimeNow() < lecture.To;
+            var diff = lecture.From.Subtract(Format.NorwayTimeNow()).TotalMilliseconds;
+
+            <div class="card task-card join-lecture-btn" type="button" isLive="@liveNow.ToString()" courseTitle="@lecture.Course.Subject" classUrl="@lecture.Course.ClassUrl">
+                @if (liveNow)
+                {
+                    <div class="direction font-cairo" style="color: red"><i class="fa fa-dot-circle-o"></i><span>&nbsp;&nbsp;{{$t('message.liveNow')}}&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="start-within" diff="@diff"></span></div>
+                }
+                <div class="text-left" style="font-weight: 600">@lecture.Course.Subject</div>
+                <div class="direction">{{$t('message.lectureNumber')}}: @if(lecture.Title == "intro"){<span>0</span>}else{@lecture.Number}</div>
+                @if (!string.IsNullOrEmpty(lecture.Title))
+                {
+                    <div class="direction">{{$t('message.lectureSubject')}}: @if(lecture.Title == "intro"){<span>{{$t('message.intro')}}</span>}else{<span>@lecture.Title</span>}</div>
+                }
+                <div class="direction" style="color: gray">@date&nbsp;&nbsp;|&nbsp;&nbsp;@Format.TimeFormat(lecture.From)</div>
+                @if (liveNow)
+                {
+                    <div class="text-center text-secondary font-cairo" style="margin: 0.2rem 0; color: red">{{$t('message.clickHereToJoin')}}</div>
+
+                }
+            </div>
+            if (liveNow && !gotHelp)
+            {
+                <div class="mb-2 matterix-link open-instruction-modal" device="Computer" target="@StaticInstructionVideos.JoinLectureComputer">{{$t('message.hereYouLearnHowToAccessLive')}}</div>
+                gotHelp = true;
+
+            }
+
+        }
+
+    }
+</div>

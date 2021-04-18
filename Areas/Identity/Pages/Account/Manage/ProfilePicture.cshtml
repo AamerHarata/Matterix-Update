@@ -1,0 +1,50 @@
+@page "{handler?}"
+@model ProfilePictureModel
+@inject UserManager<ApplicationUser> UserManager
+@using Matterix.Services
+@inject InformationService Info
+
+@{
+    ViewData["Title"] = "Profile Picture";
+    ViewData["ActivePage"] = ManageNavPages.ProfilePicture;
+}
+@{
+    var picturePath = Info.ProfilePicture(User);
+    }
+
+<div class="row un-select">
+    <div class="col-md-4">
+        <div class="display-4 title-2-0">{{$t('message.profilePicture')}}</div>
+        <hr/>
+        <form method="post" enctype="multipart/form-data" >
+            <input hidden="hidden" class="btn btn-dark" id="file-input" type="file" name="PictureFile"/>
+            <button class="btn btn-secondary" id="choose-picture-btn" type="button">{{$t('message.chooseFile')}}</button>
+            
+            <button disabled="disabled" class="btn btn-light" id="upload-picture-btn" type="submit">{{$t('message.upload')}}</button>
+        </form>
+        <br/>
+        <span id="file-name"></span>
+        <span class="text-danger">@Html.ValidationMessage("picError")</span>
+        <hr/>
+        
+        @if(!picturePath.Contains("DefaultMan") && !picturePath.Contains("DefaultWoman")){
+             <form asp-page-handler="delete">
+                <button type="submit" id="delete-picture-btn" class="btn btn-danger">{{$t('message.delete')}}</button>
+            </form>
+        }
+        
+    </div>
+    
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <img src="@Url.Content(Info.ProfilePicture(User))" height="450" width="450" style="object-fit: cover;"/>
+    </div>
+        
+        
+</div>
+
+
+@section Scripts {
+    <script src="~/js/IdentityArea/UploadPicture.js"></script>
+    
+}

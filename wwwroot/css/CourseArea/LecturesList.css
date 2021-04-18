@@ -1,0 +1,230 @@
+.lecture-head{
+    width: 100%;
+    background-color: whitesmoke;
+    /*border-radius: 5px;*/
+    border-radius: 6px 6px 6px 6px;
+    padding: 1rem;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    cursor: pointer;
+    /*font-family: monospace;*/
+    font-size: 0.7rem;
+    transition: 0.5s background-color;
+}
+
+.lecture-head:hover, .active-head{
+    background-color: rgba(128, 128, 128, 0.70);
+    color: white;
+}
+
+.lecture-title:after{
+    content: '\002B';
+    float: right;
+}
+
+.active-title:after{
+    content: '\2212';
+}
+
+.active-head{
+    border-radius: 6px 6px 0 0;
+    font-size: 0.9rem;
+}
+
+
+.lecture-body{
+    width: 100%;
+    margin: 0 auto 0.5rem auto;
+    background-color: #e1e1e1;
+    border-radius: 0 0 6px 6px;
+    overflow:hidden;
+    max-height: 0;
+    transition: max-height 0.7s ease-out;
+}
+
+.lecture-text, .lecture-text:focus{
+    width: 100%;
+    resize: none;
+    outline: none;
+    height: 15rem;
+    overflow-y: auto;
+    font-size: 0.8rem;
+}
+
+.lecture-text::placeholder {
+    color: #6c757d;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.6rem;
+}
+
+
+.lecture-section-title{
+    font-family: 'Cairo', sans-serif;
+    margin-bottom: 0.3rem;
+}
+
+
+@media (max-width: 1199px) {
+    .lecture-text, .lecture-text:focus{
+        width: 100%;
+        resize: none;
+        outline: none;
+        height: 5rem;
+        /*max-height: 15rem;*/
+        overflow-y: auto;
+    }
+}
+
+.lecture-files {
+    width: 100%;
+    /*height: 15rem;*/
+    
+}
+
+@media (max-width: 1199px) {
+
+    
+    /*This is the container of the container*/
+    .lecture-files {
+        width: 100%;
+        min-height: 1%;
+        height: 2%;
+        max-height: 25%;
+        margin-bottom: 1rem;
+
+    }
+
+
+    .files-container, .videos-container{
+        /*border: 1px solid gray;*/
+        /*border-radius: 0.1rem;*/
+        padding: 0.1rem;
+        margin-bottom: 0.5rem;
+        overflow-y: auto;
+        /*background-color: whitesmoke;*/
+        width: 100%;
+        min-height: 1%;
+        height: 0;
+        max-height:80%;
+    }
+
+
+    .file-delete-btn, .file-get-btn, .file-homework-btn {
+        /*font-size: 1rem;*/
+        /*padding-left: 0;*/
+        /*padding-right: 0;*/
+        /*width: 37px !important;*/
+        /*height: 37px !important;*/
+    }
+    
+    
+}
+
+
+.success-edit{
+    border-radius: 6px 6px 6px 6px;
+    background-color: white;
+    font-family: monospace;
+    display: none;
+    padding: 0.1rem;
+    
+    
+}
+
+/*** Slider Style ***/
+.custom-control-input:checked~.custom-control-label::before{
+    background-color: var(--Matterix);
+    border-color: var(--Matterix);
+}
+
+.lecture-free:checked~.custom-control-label::before{
+    background-color: green;
+    border-color: green;
+}
+
+/*** End of Slider Style ***/
+
+.files-container, .videos-container{
+    /*border: 1px solid gray;*/
+    /*border-radius: 0.1rem;*/
+    padding: 0.1rem;
+    margin-bottom: 0.5rem;
+    overflow-y: auto;
+    /*background-color: whitesmoke;*/
+    width: 100%;
+    /*height: 15rem;*/
+    min-height: 10rem;
+    max-height:15rem;
+}
+
+
+.file-div{
+    margin-bottom: 0.1rem;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.file-btn{
+    background-color: white;
+    color: black;
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.7rem;
+}
+
+.file-delete-btn, .file-get-btn, .file-homework-btn, .homework-icon {
+    font-size: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+}
+
+.file-delete-btn:hover, .file-get-btn:hover, .file-homework-btn:hover {
+
+    background-color: whitesmoke !important;
+}
+
+
+
+/*** Video Style ***/
+
+.video-name, .video-path{
+    width: 35%;
+    margin-right: 0.1rem;
+    margin-bottom: 0.1rem;
+    display: inline;
+}
+.video-remove{
+    display:inline;
+    margin-bottom: 0.1rem;
+    cursor: pointer;
+}
+.video-remove:active{
+    box-shadow: lightgray 1px 0 3px 1px;
+}
+
+.video-btn {
+    width: 80%;
+    display: flex;
+    /*align-items: center;*/
+    margin-bottom: 0.1rem;
+}
+
+
+.add-video-inputs{
+    margin: 1rem;
+}
+
+.new-video-btn{
+    margin: 2rem;
+}
+.open-lecture{
+    background-color: rgba(18, 160, 20, 0.08);
+    color: black;
+}

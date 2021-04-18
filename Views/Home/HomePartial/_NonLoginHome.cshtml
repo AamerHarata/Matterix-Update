@@ -1,0 +1,112 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.HomeViewModel
+@* <div> *@
+@*     <img id="home-logo"src="~/Images/LogoHomePage.png"> *@
+@* </div> *@
+@* <div class="text-center un-select"> *@
+@*     <p class="display-4 title-1-0">(~ @StaticInformation.SecondName ~)</p> *@
+@* </div> *@
+@* *@
+@* <div class="text-center un-select"> *@
+@*     <h6 class="display-4 title-1-5">{{$t('message.firstNorSchool')}}</h6> *@
+@* </div> *@
+@* <hr/> *@
+
+
+<partial name="HomePartial/_IconsOnMainPage"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="text-center direction">
+    
+    @* Search Area *@
+    <partial name="HomePartial/_SearchCourse"/>
+    @* End of Search Area *@
+    
+    
+    @* Live Courses *@
+    <div class="course-type-bar title-2-0">{{$t('message.thisSemestersCourses')}}</div>
+    @{
+        var liveCount = Model.AllCourses.Count(x => !x.Ended);
+        var i = 1;}
+    @foreach (var course in Model.AllCourses)
+    {
+        if (!course.Ended)
+        {
+            //                ToDo :: Remove those for partial viewing courses
+@*                 <div style="display: none" class="live-course" id="non-log-live-course-@i"> *@
+@*                 <div class="live-course"> *@
+            <partial name="../Course/CoursePartial/_CourseBox" model="@course"/>
+//                </div>
+            i++;
+        }
+
+    }
+</div>
+@* <div class="part-update-contain" id="none-log-live-course-show"> *@
+@* <div class="d-inline part-update-btn text-danger" id="none-log-live-course-show-more-btn">{{$t('message.showMore')}}</div>&nbsp;&nbsp;&nbsp; *@
+@* <div class="d-inline part-update-btn text-danger" id="none-log-live-course-show-all-btn">{{$t('message.showAll')}}</div> *@
+@* </div> *@
+@if (liveCount == 0)
+{
+     <div class="small text-center direction" style="color: gray">{{$t('message.theNewSemestersCoursesStart')}}</div>
+@*         <p class="small direction text-center" style="color: gray">{{$t('message.noLiveCourses')}}</p> *@
+}
+
+@* <div class="small text-center direction" style="color: gray">{{$t('message.theNewSemestersCoursesStart')}}</div> *@
+
+
+
+
+
+@* Recorded Courses *@
+@* <div class="course-type-bar text-center"> *@
+@*     <p class="course-type-text">{{$t('message.completedCourse')}}</p> *@
+@* </div> *@
+
+<div class="text-center direction">
+    <div class="course-type-bar title-2-0">{{$t('message.previousCourses')}}</div>
+    @{var count = Model.AllCourses.Count(x => x.Ended);
+        var j = 1;}
+    @foreach (var course in Model.AllCourses)
+    {
+        if (course.Ended)
+        {
+//                ToDo :: Remove those for partial viewing courses
+@*                 <div style="display: none" class="recorded-course" id="non-log-recorded-course-@i"> *@
+@*                 <div class="recorded-course"> *@
+            <partial name="../Course/CoursePartial/_CourseBox" model="@course"/>
+//                </div>
+            j++;
+        }
+    }
+    @* <div class="part-update-contain" id="none-log-recorded-course-show"> *@
+    @*     <div class="d-inline part-update-btn" id="none-log-recorded-course-show-more-btn">{{$t('message.showMore')}}</div>&nbsp;&nbsp;&nbsp; *@
+    @*     <div class="d-inline part-update-btn" id="none-log-recorded-course-show-all-btn">{{$t('message.showAll')}}</div> *@
+    @* </div> *@
+
+
+    @if (count == 0)
+    {
+        <p class="small direction text-center" style="color: gray">{{$t('message.noCompletedCourses')}}</p>
+    }
+    <hr/>
+
+
+
+    @* <div class="text-center text-danger"> *@
+    @*     <span>{{$t('message.didntFindCourses')}} <a asp-controller="Course" asp-action="Search">{{$t('message.searchCourse')}}</a></span> *@
+    @* </div> *@
+
+</div>
+

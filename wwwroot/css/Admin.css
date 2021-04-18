@@ -1,0 +1,104 @@
+.full-user-div {
+    width: 90%;
+    margin: 0.5rem auto;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+
+}
+
+.full-user-pic {
+    display: block;
+    width: 8%;
+    background-color: gray;
+    padding: 0.3rem;
+    float: left;
+}
+
+.full-user-body {
+    margin-left: 1rem;
+    width: 92%;
+}
+
+.full-user-body-table{
+    border-collapse: collapse;
+    border: none;
+}
+
+
+#admin-nav-tab{
+    width: 100%;
+    background-color: #4e54a4;
+    background-color: rgba(78, 84, 164, 0.85);
+    margin-top:0;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    margin-bottom: 0.5rem;
+    z-index: 1;
+
+}
+
+#admin-nav-tab ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#admin-nav-tab li{
+    float: left;
+
+}
+
+#admin-nav-tab li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+#admin-nav-tab li a:hover, #admin-nav-tab li a.active-tab {
+    background-color: rgba(36, 36, 36, 0.55);
+}
+
+.tab-div{
+    display: none;
+}
+
+
+
+/*Feed Back */
+.feedback-div {
+    width: 90%;
+    margin: 0.5rem auto;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+
+}
+
+/*ToDo :: This may not used, remove, check and*/
+.feedback-pic {
+    display: block;
+    width: 8%;
+    background-color: gray;
+    padding: 0.3rem;
+    float: left;
+}
+
+.feedback-body {
+    margin-left: 1rem;
+    width: 92%;
+}
+
+.feedback-delete, .feedback-date {
+    float: right;
+}
+
+/*End of Feed Back */

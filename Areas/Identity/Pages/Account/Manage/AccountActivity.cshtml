@@ -1,0 +1,126 @@
+@page
+@model AccountActivity
+@using Matterix.Services
+@inject AdminService Admin
+
+@{
+    ViewData["Title"] = "Login Activity";
+    ViewData["ActivePage"] = ManageNavPages.AccountActivity;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="Matterix-color display-4 title-2-0">{{$t('message.activities')}}</div>
+        <hr class="Matterix-background"/>
+        
+        <table class="direction text-center un-select table table-success" style="background-color: ">
+            <tr>
+                <td colspan="4">{{$t('message.AAp1')}} <a href="@Url.Action("Privacy", "Home")" target="_blank">{{$t('message.termsConditions')}}</a> {{$t('message.AAp2')}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">{{$t('message.AAp3')}}</td>
+            </tr>
+            <tr >
+                
+                
+                <td style="width: 30%"></td>
+                @{ var differentDevices = Admin.DifferentDevices(Model.Input.userId);}
+                @if (differentDevices >=2)
+                {
+                    <td style="width: 20%; background-color: tomato">{{$t('message.differentDevices')}}</td>
+                    <td style="width: 20%; background-color: tomato">@differentDevices</td>
+                }
+                else
+                {
+                    <td style="width: 20%;">{{$t('message.differentDevices')}}</td>
+                    <td style="width: 20%;">@differentDevices</td>
+                }
+                <td style="width: 30%"></td>
+                
+                
+                
+            </tr>
+        </table>
+        
+        
+        <table class="direction text-center un-select table table-striped direction" style="width: 100%;">
+            <thead>
+            <tr>
+                <th style="width: 2rem">#</th>
+                <th>{{$t('message.activity')}}</th>
+                <th>{{$t('message.dateAndTime')}}</th>
+                <th style="width: 7rem">{{$t('message.device')}}</th>
+                <th>{{$t('message.operatingSystem')}}</th>
+                <th>{{$t('message.ipNumber')}}</th>
+                <th>{{$t('message.deviceId')}}</th>
+                <th>{{$t('message.status')}}</th>
+                @* <th>{{$t('message.description')}}</th> *@
+            </tr>
+            </thead>
+            @{ var i = 1;}
+            @foreach (var activity in Model.Input.Devices)
+            {
+                <tr>
+                    <td class="activity-number">@i</td>
+                    <td>@Format.Translate(activity.Activity.ToString())</td>
+                    <td>@Format.DateFormat(activity.DateTime) - @Format.DateFormat(activity.DateTime)</td>
+                    <td>@Format.Translate(activity.DeviceType.ToString())</td>
+                    <td>@Format.Translate(activity.OperatingSystem.ToString())</td>
+                    @if (string.IsNullOrEmpty(activity.Ip))
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@activity.Ip</td>
+                    }
+                    <td group-number="@activity.GroupNumber" class="activity-device" style="background-color: ">@if(!string.IsNullOrEmpty(activity.AuthCookies)&& activity.AuthCookies.Length>23){@activity.AuthCookies.Substring(6, 16)}else{<span>-</span>}</td>
+                    @if (activity.New)
+                    {
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourDevice')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.newDevice')}}: @activity.GroupNumber</td>
+                        }
+                    }
+                    else
+                    {
+                        
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourIdAuth')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.registeredInNumber')}}: @activity.GroupNumber</td>
+                        }
+                        
+@*                         <td class="text-success">{{$t('message.yourIdAuth')}}</td> *@
+                    }
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                </tr>
+                i++;
+            }
+        </table>
+        
+        
+        
+    </div>
+    
+    <div class="col-md-1"></div>
+    
+        
+        
+</div>
+
+@section Scripts
+{
+    <script src="~/js/ColoringDevices.js"></script>
+}

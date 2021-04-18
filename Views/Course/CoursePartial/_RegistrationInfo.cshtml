@@ -1,0 +1,113 @@
+@using Matterix.Services
+@using Microsoft.AspNetCore.Identity
+@model Course
+@inject InformationService Info
+@inject CourseService CourseService
+@inject AccessService Access
+@inject PaymentService Payment
+
+
+@{
+    var course = Model;
+    var courseId = Model.Id;
+    
+    var registration = Access.GetStudentActiveRegistration(User, courseId);
+//    if (registration == null)
+//    {
+//        throw new NullReferenceException();
+//    }
+    
+    var edit = Access.CourseEditAccess(User, courseId);
+    var view = Access.CourseViewAccess(User, courseId);
+    var paidInvoices = Payment.GetCoursePaidInvoices(User, courseId);
+    var paidOriginalAmount = (int) paidInvoices.Sum(x => x.Amount);
+    var paidIncrements = (int) paidInvoices.Sum(x => x.CurrentAmount) - paidOriginalAmount;
+    var remainingInvoices = Payment.GetCourseRemainingInvoices(User, courseId);
+    var remainingOriginalAmount = (int) remainingInvoices.Sum(x => x.Amount);
+    var remainingIncrements = (int) remainingInvoices.Sum(x => x.CurrentAmount) - remainingOriginalAmount;
+    var paymentsCollapseRow = paidInvoices.Any() ? $"payments-collapse-{courseId}" : "";
+    var invoicesCollapseRow = remainingInvoices.Any() ? $"invoices-collapse-{courseId}" : "";
+    var paymentsPointer = paidInvoices.Any() ? "pointer" : "";
+    var invoicesPointer = remainingInvoices.Any() ? "pointer" : "";
+}
+
+<div class="direction text-0-7">
+    
+    <table class="table table-hover table-secondary mb-0" style="border-radius: 0.1rem;">
+        <tr>
+            <th style="border-top: none">{{$t('message.registerDate')}}</th><td style="border-top: none">@Format.DateFormat(registration.RegisterDate)</td>
+            <th style="border-top: none">{{$t('message.registrationExpireDate')}}</th><td style="border-top: none">@Format.DateFormat(registration.ExpireDate)</td>
+        </tr>
+        <tr>
+            <th>{{$t('message.price')}}</th><td colspan="3">@if(string.IsNullOrEmpty(registration.ApplicationId)){<span>{{$tc('message.currency','@Format.NumberFormat(registration.Price)')}}</span>}else{<span>0</span>}</td>
+        </tr>
+        
+        <tr class="@paymentsPointer" data-toggle="collapse" href="#payments-collapse-@courseId">
+            <th>{{$t('message.payments')}}@if(paidInvoices.Any()){<span>&nbsp;&nbsp;<i class="fa fa-chevron-down"></i></span>}</th><td colspan="3">@if(paidOriginalAmount !=0){<span>{{$tc('message.currency', '@paidOriginalAmount')}}</span>}else{<span>0</span>}@if(paidIncrements > 0){<span class="small"> + @paidIncrements {{$t('message.latencyFees')}}</span>}</td>
+        </tr>
+        
+        <tr class="collapse" id="@paymentsCollapseRow">
+            <td colspan="4">
+                @{var i = 1;}
+                @foreach (var invoice in paidInvoices)
+                {
+                    var payment = Payment.GetActivePayment(invoice.Number);
+                    <div class="card card-body mb-1" style="border: none">
+                        <div>@i- {{$t('message.paymentOf')}} {{$tc('message.currency', '@Format.NumberFormat(payment.Amount)')}} {{$t('message.inDate')}} @Format.DateFormat(payment.DateTime) {{$t('message.via')}} @Format.Translate(payment.Method.ToString()) <a class="card-link matterix-color float-direction-reserve" target="_blank" asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@invoice.Number">&nbsp;&nbsp;{{$t('message.receipt')}}</a></div>
+                    </div>
+                    i++;
+                }
+            </td>
+        </tr>
+        
+        <tr class="@invoicesPointer" data-toggle="collapse" href="#invoices-collapse-@courseId" role="button">
+            <th>{{$t('message.remainingAmount')}}@if(remainingInvoices.Any()){<span>&nbsp;&nbsp;<i class="fa fa-chevron-down"></i></span>}</th><td colspan="3">@if(remainingOriginalAmount == 0){<span>0</span>}else{<span>{{$tc('message.currency', '@Format.NumberFormat(remainingOriginalAmount)')}}</span>}@if(remainingIncrements > 0){<span class="small"> + @remainingIncrements {{$t('message.latencyFees')}}</span>}</td>
+        </tr>
+        
+        <tr class="collapse" id="@invoicesCollapseRow">
+            <td colspan="4">
+                @{ var j = 1;}
+                @foreach (var invoice in remainingInvoices)
+                {
+                    <div class="card card-body mb-1" style="border: none">
+                        <div>@j- {{$t('message.invoiceOf')}} {{$tc('message.currency', '@Format.NumberFormat(invoice.CurrentAmount)')}} - {{$t('message.dueDate')}}: @Format.DateFormat(invoice.CurrentDueDate)<br/><span style="text-indent: 25px">{{$t('message.cidToBeAttached')}}: <span class="force-select">@invoice.CIDNumber</span></span><div class="matterix-color float-direction-reserve"><span class="pointer matterix-color invoice-btn" invoiceNumber="@invoice.Number" >{{$t('message.invoiceInfo')}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="card-link matterix-color" asp-controller="Payment" asp-action="Index" asp-route-reason="Invoice" asp-route-invoiceNumber="@invoice.Number">{{$t('message.pay')}}</a></div></div>
+                    </div>
+                    j++;
+                }
+                <div class="text-center font-cairo title-1-0 m-2 mt-4">{{$t('message.invoicesCanBePaidToAccount')}}: <span class="force-select">@StaticInformation.AccountNumber</span></div>
+            </td>
+        </tr>
+        
+        
+        
+    </table>
+    @* <div style="background-color: #d6d8db; padding: 0.5rem; border-right: 1px gray solid"> *@
+    @*     sdf *@
+    @* </div> *@
+    <div class="text-center buttons-in-modal-container set-my-direction mt-2">
+        <a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId"><span>{{$t('message.coursePage')}}</span></a>&nbsp;
+        
+        @if (edit)
+        {
+            <a asp-controller="Course" asp-action="Edit" asp-route-courseId="@courseId" ><span>{{$tc('message.editCourse', '')}}</span></a>
+        }else if (view)
+        {
+            <a courseId="@courseId" class="course-info-btn" ><span>{{$t('message.courseInfo')}}</span></a>
+        }
+        else
+        {
+            if (course.Available)
+            {
+                <a asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@courseId" ><span>{{$tc('message.registerInCourse')}}</span></a>
+            }
+            else
+            {
+                <a data-toggle="tooltip" dataplacement="auto" v-bind:title="$t('message.thisSectionIsUnderDeveloping')" class="registration-info-btn" ><span>{{$tc('message.similarCourses')}}</span></a>
+            }
+        }
+        
+    </div>
+    
+    
+</div>
+

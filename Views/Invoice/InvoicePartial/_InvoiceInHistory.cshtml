@@ -1,0 +1,153 @@
+@using Matterix.Services
+@model MatterixInvoice
+@inject PaymentService Payment
+
+
+@{
+    var increments = Payment.GetIncrementsList(Model.Number);
+    var nextNotification = Model.NextNotification.Date == DateTime.MaxValue.Date ? "{{$t('message.over')}}" : Format.DateFormat(Model.NextNotification);
+}
+            
+            <div class="card invoice-body direction">
+                <table class="table w-100">
+                    <tr>
+                        <th style="border-top: 0!important">{{$t('message.courseName')}}:</th><td style="border-top: 0!important"><a class="card-link matterix-color" target="_blank" asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@Model.CourseId">@Model.Course.Subject</a></td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.invoiceNumber')}}:</th><td class="force-select">@Model.Number</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.cidNumber')}}:</th><td class="force-select">@Model.CIDNumber</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.accountNumber')}}:</th><td class="force-select">@StaticInformation.AccountNumber</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.dueDate')}}:</th><td>@Format.DateFormat(Model.CurrentDueDate)</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.payDeadline')}}:</th><td>@Format.DateFormat(Model.CurrentDeadline)</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>{{$t('message.nextNotification')}}:</th><td>@nextNotification</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t('message.amount')}}:</th><td>{{$tc('message.currency0','@Format.NumberFormat(Model.CurrentAmount)')}}</td>
+                    </tr>
+                    
+                    @if (increments.Any())
+                    {
+                        <tr class="pointer" data-toggle="collapse" href="#increments-collapse-@Model.Number">
+                            <th colspan="2">{{$t('message.additions')}}&nbsp;&nbsp;<i class="fa fa-chevron-down"></i></th>
+                        </tr>
+                    
+                        <tr class="collapse" id="increments-collapse-@Model.Number">
+                            <td colspan="2">
+                                @{
+                                    var i = 1;
+                                    
+                                }
+                                
+                                @foreach (var increment in increments)
+                                {
+                                    
+                                    var reason = "";
+                        var explination = "";
+                        var dueDateString = "{{$t('message.newDueDate')}}: "+@Format.DateFormat(increment.NewDueDate);
+
+                        switch (increment.Reason)
+                        {
+                            case EnumList.IncrementReason.Latency:
+
+
+                                switch (increment.InvoicePhase)
+                                {
+                                    case EnumList.InvoiceType.Other:
+                                        break;
+                                    case EnumList.InvoiceType.Invoice:
+                                        break;
+                                    case EnumList.InvoiceType.Purring:
+                                        reason = "{{$t('message.purring')}}";
+                                        explination = "{{$t('message.latencyFeesAdded')}} {{$tc('message.currency0', '"+Format.NumberFormat(increment.Amount)+"')}} + {{$tc('message.newDays10More', '"+increment.Delay+"')}}";
+                                        break;
+                                    case EnumList.InvoiceType.Inkassovarsel:
+                                        if (increment.Amount > 0)
+                                        {
+                                            reason = "{{$t('message.inkassovarselArNo')}}";
+                                            explination = "{{$t('message.InterestAdded')}} {{$tc('message.currency0', '"+Format.NumberFormat(increment.Amount)+"')}} + {{$tc('message.newDays10More', '"+increment.Delay+"')}}";
+                                        }
+                                        else
+                                        {
+                                            reason = "{{$t('message.inkassovarselArNo')}}";
+                                            explination = "{{$tc('message.addedNewDaysBeforeInkasso', '"+increment.Delay+"')}}";
+                                            dueDateString = "{{$t('message.payDeadline')}}: "+@Format.DateFormat(increment.NewDeadline);
+                                        }
+                                        break;
+                                    case EnumList.InvoiceType.Inkasso:
+                                        reason = "{{$t('message.inkasso')}}";
+                                        explination = "{{$t('message.invoiceRedirectedInkasso')}}";
+                                        dueDateString = "";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                break;
+                            case EnumList.IncrementReason.Delay:
+                                reason = "{{$t('message.delayInvoice')}}";
+                                explination = "{{$t('message.delay')}}: {{$tc('message.newDays10More', '" + increment.Delay + "')}}";
+                                break;
+                            case EnumList.IncrementReason.PaperInvoice:
+                                reason = "{{$t('message.paperInvoiceSending')}}";
+                                explination = "{{$t('message.paperInvoiceSending')}} {{$tc('message.currency', '"+Format.NumberFormat(increment.Amount)+"')}}";
+                                break;
+                             
+                            case EnumList.IncrementReason.Discount:
+                            default:
+                             
+                                break;
+                        }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <div class="card invoice-increment-card">
+                                        <div class="font-cairo font-weight-bold mb-1">@i- @reason</div>
+                                        <div class="mb-1">@explination</div>
+                                        <div>@dueDateString</div>
+                                        <div class="direction-reserve text-secondary small">{{$t('message.addedIn')}}: @Format.DateFormat(increment.Date)</div>
+                                    </div>
+
+                                    i++;
+                                }
+                                
+                                
+                                
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>{{$t('message.additions')}}: <td>{{$t('message.none')}}</td></th>
+                        </tr>
+                    
+                        <tr class="collapse" id="increments-collapse-@Model.Number">
+                            <td colspan="2">
+                                
+                            </td>
+                        </tr>
+                    }
+                    
+                </table>
+                
+
+                <div class="text-center buttons-in-modal-container set-my-direction mt-2">
+                    <a target="_blank" asp-controller="Invoice" asp-action="Index" asp-route-invoiceNumber="@Model.Number"><span>{{$t('message.view')}}</span></a>&nbsp;
+                    <a asp-controller="Invoice" asp-action="DownloadInvoice" asp-route-invoiceNumber="@Model.Number"><span>{{$t('message.download')}}</span></a>&nbsp;
+                    <a asp-controller="Payment" asp-action="Index" asp-route-reason="Invoice" asp-route-invoiceNumber="@Model.Number"><span>{{$t('message.pay')}}</span></a>
+                </div>
+
+            </div>

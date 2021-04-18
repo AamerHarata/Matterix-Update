@@ -1,0 +1,32 @@
+.full-user-div {
+    width: 90%;
+    margin: 0.5rem auto;
+    background-color: whitesmoke;
+    padding: 1rem;
+    display: flex;
+    border-radius: 0.3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    /*-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)*/
+}
+
+table tr td{
+    border: none !important;
+}
+
+#status-message {
+    /*position: absolute;*/
+    /*width: 60%;*/
+    margin: 2rem 0 0 2rem;
+    
+    /*min-width: 30% !important;*/
+    
+}
+
+ul li a{
+    color: var(--secondary)
+}
+
+ul li a:hover{
+    color: var(--Matterix)
+}

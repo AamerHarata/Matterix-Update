@@ -1,0 +1,250 @@
+@using Matterix.Services
+@model Course
+@inject InformationService Information
+@inject CourseService CourseService
+@inject InformationService Info
+@inject AccessService Access
+<link rel="stylesheet" href="~/css/Test.css" asp-append-version="true"/>
+@{
+    var courseId = Model.Id;
+    var edit = Access.CourseEditAccess(User, courseId);
+    var view = Access.CourseViewAccess(User, courseId);
+    var noAccess = !edit && !view;
+    var teacherName = @Information.FullName(@Model.Teacher);
+    var courseNameTokens = Model.Subject.Split(" "); 
+    var isLong = courseNameTokens.Length > 2 && !courseNameTokens.Contains("-");
+    var schedules = CourseService.GetCourseSchedule(courseId);
+    var installment = Model.InstallmentAvailable ? "$t('message.includingStudentDiscount')+'<br/>'+$t('message.installmentAvailable')" : "$t('message.includingStudentDiscount')+'<br/>'+$t('message.installmentNotAvailable')";
+    installment = Model.Price == 0 ? "$t('message.free')" : installment;
+    var differentSchedule = false;
+    if (schedules.Count > 1){
+        for (var i = 0; i < schedules.Count-1; i++)
+        {
+            for (var j = i; j < schedules.Count; j++)
+            {
+                if (schedules[i].From != schedules[j].From && schedules[i].To != schedules[j].To)
+                {
+                    differentSchedule = true;
+                }
+            }
+        }
+    }
+
+    var days = (int) Math.Round(Model.StartDate.Subtract(DateTime.Now).TotalDays + 0.4);
+    var startedAt = days > 0 ? "{{$t('message.startsWithin')}}" : "{{$t('message.startedFor')}}";
+    var ago = days > 0 ? "" : "{{$t('message.ago')}}";
+    days = Math.Abs(days);
+    var months = 0;
+    while (days > 30)
+    {
+        months++;
+        days -= 30;
+    }
+
+    var daysString = days == 2 ? "{{$t('message.twoDays')}}" : days > 2 && days <= 10? "{{$tc('message.totalDays10Less', '"+days+"')}}" : "{{$tc('message.totalDays10More', "+days+")}}";
+    var monthsString = months == 2 ? "{{$t('message.twoMonths')}}" : months > 2 && months <=10 ? "{{$tc('message.totalMonths10Less', '"+months+"')}}" : "{{$tc('message.totalMonths10More', '"+months+"')}}";
+
+    var and = "{{$t('message.and')}}";
+    
+    if (days + months == 0)
+    {
+        startedAt = "{{$t('message.startsToday')}}";
+        daysString = and = monthsString = "";
+        
+    }else if (days * months == 0)
+    {
+        and = "";
+    }
+
+    var codeChar = Model.StartDate.Month >= 5 && Model.StartDate.Month <= 12 ? "H" : "V";
+    var semester = codeChar == "V" ? "vår" : "høst";
+
+    
+
+    
+}
+
+<div class="course-container">
+    <div hidden="hidden" class="hidden-course-info" courseTitle = "@Model.Subject" teacher="@teacherName" courseCode = "@Model.Code" semester="@semester"></div>
+    <div>
+        <img class="course-image" src="@Url.Content(Information.CourseBackground(courseId))" width="100%" height="300px"/>
+    </div>
+    <div class="mask"></div>
+    <div class="small float-direction course-language" style="font-weight: 300"><span>@Format.Translate(Model.Language.ToString())</span>
+        @if (Model.Ended)
+        {<span> | @codeChar-@Model.EndDate.Year</span>}
+        else
+        {<span> | {{$t('message.live')}}</span>}
+        @if (Model.Price <= 0)
+        {<span> | {{$tc('message.currency', '0')}}</span>}
+    </div>
+    <div class="course-body text-center">
+        @if (!isLong)
+        {
+            <div class="course-title">@Model.Subject</div>
+        }
+        else
+        {
+            <div class="course-long-title-main">@courseNameTokens[0] @courseNameTokens[1]</div>
+            <div class="course-long-title-sub">
+                @for (var i = 2; i < courseNameTokens.Length; i++)
+                {<span>@courseNameTokens[i] </span>}
+            </div>
+        }
+        <div class="mb-2">@teacherName</div>
+
+        <div class="schedule text-0-9 mt-3" style="padding: 4px; font-weight: 100">
+
+            @if (Model.Available)
+            {
+
+                if (!Model.Ended)
+                {
+                    if (differentSchedule)
+                    {
+                        <div>
+                            @foreach (var schedule in schedules)
+                            {
+                                <div>@Format.Translate(schedule.Day.ToString()): @Format.TimeFormat(schedule.From) - @Format.TimeFormat(schedule.To)</div>}
+                        </div>
+                    }
+                    else
+                    {
+                        if (schedules.Count > 0)
+                        {
+                            <div>
+                                @for (var i = 0; i < schedules.Count; i++)
+                                {
+                                    <span>@Format.Translate(schedules[i].Day.ToString())
+                                        @if (i != schedules.Count - 1)
+                                        {<span> - </span>}
+                                    </span>}
+                            </div>
+                            <div>
+                                @Format.TimeFormat(schedules[0].From) - @Format.TimeFormat(schedules[0].To)
+                            </div>
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (view || edit)
+                    {
+                        <div class="w-75" style="margin: 1rem auto">{{$t('message.courseIsEnded')}}</div>
+                    }
+                    else
+                    {
+                        <div class="w-75" style="margin: 1rem auto">{{$t('message.courseEndedYouCan')}}</div>
+                    }
+                }
+
+
+            }
+            else
+            {
+
+                if (!Model.Ended)
+                {
+                    if (edit || view)
+                    {
+                        if (differentSchedule)
+                        {
+                            <div>
+                                @foreach (var schedule in schedules)
+                                {
+                                    <div>@Format.Translate(schedule.Day.ToString()): @Format.TimeFormat(schedule.From) - @Format.TimeFormat(schedule.To)</div>}
+                            </div>
+                        }
+                        else
+                        {
+                            if (schedules.Count > 0)
+                            {
+                                <div>
+                                    @for (var i = 0; i < schedules.Count; i++)
+                                    {
+                                        <span>@Format.Translate(schedules[i].Day.ToString())
+                                            @if (i != schedules.Count - 1)
+                                            {<span> - </span>}
+                                        </span>}
+                                </div>
+                                <div>
+                                    @Format.TimeFormat(schedules[0].From) - @Format.TimeFormat(schedules[0].To)
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <div class="w-75" style="margin: 1rem auto">{{$t('message.courseIsNotAvailable')}}</div>
+                    }
+                }
+                else
+                {
+                    if (edit || view)
+                    {
+                        <div class="w-75" style="margin: 1rem auto">{{$t('message.courseIsEnded')}}</div>
+                    }
+                    else
+                    {
+                        <div class="w-75" style="margin: 1rem auto">{{$t('message.courseIsNotAvailable')}}</div>
+                    }
+                }
+
+
+
+            }
+
+
+
+        </div>
+        @if (!Model.Ended && Model.Available)
+        {
+            <div class="mt-2 pointer" style="margin: auto; padding: 4px; font-size: 0.8rem;"data-toggle="tooltip" data-html="true" data-placement="bottom" v-bind:title="$t('message.start')+': @Format.DateFormat(Model.StartDate)<br/>'+$t('message.end')+': @Format.DateFormat(Model.EndDate)'">
+                @startedAt @monthsString @and@daysString @ago
+            </div>
+        }
+        @if (noAccess && Model.Available)
+        {
+            <div data-toggle="tooltip" data-html="true" data-placement="bottom" v-bind:title="@installment" class="pointer text-0-9 mt-2" style="width: max-content; margin: auto; padding: 4px; font-size: 0.7rem; font-weight: 300">{{$t('message.discountedPriceStudent')}}: {{$tc('message.currency','@Format.NumberFormat(Model.Price)')}}</div>
+        }
+
+    </div>
+
+    <div class="course-footer text-center w-100">
+        <div class="text-center course-buttons-container">
+            <a asp-controller="Course" asp-action="CourseArea" asp-route-courseId="@courseId"><span>{{$t('message.coursePage')}}</span></a>
+            <a courseId="@Model.Id" class="course-info-btn"><span>{{$t('message.courseInfo')}}</span></a>
+            @if (edit)
+            {
+                <a asp-controller="Course" asp-action="Edit" asp-route-courseId="@courseId"><span>{{$tc('message.editCourse', "")}}</span></a>
+            }
+            else if (view)
+            {
+@*                 <a courseId="@Model.Id" class="registration-info-btn"><span>{{$t('message.enrollmentInfo')}}</span></a> *@
+                <a courseId="@courseId" class="registration-info-btn"><span>{{$t('message.enrollmentInfo')}}</span></a>
+            }
+            else
+            {
+                if (Model.Available)
+                {
+                    <a asp-controller="Payment" asp-action="Index" asp-route-reason="Register" asp-route-courseId="@courseId"><span>{{$t('message.registerInCourse')}}</span></a>
+                }
+                else
+                {
+                    <a data-toggle="tooltip" dataplacement="auto" v-bind:title="$t('message.thisSectionIsUnderDeveloping')"><span>{{$t('message.similarCourses')}}</span></a>
+                }
+            }
+        </div>
+    </div>
+
+    <div hidden="hidden" id="course-information-@Model.Id" courseTitle="@Model.Subject">
+        <partial name="../Course/CoursePartial/_CourseInformation" model="@Model"/>
+    </div>
+    @if(view && !edit){
+        <div hidden="hidden" id="registration-information-@Model.Id" courseTitle="@Model.Subject">
+            <partial name="../Course/CoursePartial/_RegistrationInfo" model="@Model"/>
+        </div>
+        
+    }
+</div>

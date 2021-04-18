@@ -1,0 +1,261 @@
+@using Matterix.Models.ViewModel
+@using Matterix.Services
+@model CourseAreaViewModel 
+@inject AccessService Access
+@inject InformationService Info
+@inject CourseService CourseService
+@{
+    ViewBag.Title = @Model.Course.Subject;
+    Layout = "_Layout";
+
+    var view = Access.CourseViewAccess(User, Model.Course.Id);
+    var edit = Access.CourseEditAccess(User, Model.Course.Id);
+    var noAccess = !view && !edit;
+}
+<link rel="stylesheet" href="~/css/CourseArea/MainCourseZone.css" asp-append-version="true"/>
+<div>
+    <partial name="CoursePartial/_CourseDivInfo" model="@Model.Course"/>
+</div>
+
+<input hidden id="facebook-track" no-access="@noAccess.ToString()" course-name="@Model.Course.Subject" course-code="@Model.Course.Code"/>
+
+<nav id="course-nav-tab" class="un-select navbar-expand-xl navbar-toggleable-xl direction">
+    <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse-course" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        @* <span style="color: white; background-color: white" class="navbar-toggler-icon"></span> *@
+        <span class="navbar-toggler-icon w-100 text-light small font-cairo"><img src="~/Images/whiteMenuIcon.png" width="25"/>&nbsp;{{$t('message.courseContents')}}</span>
+    </button>
+    <div class="navbar-collapse-course collapse d-xl-inline-flex">
+        <ul class="navbar-nav">
+            <ul class="direction navbar-nav w-100">
+                <li class="nav-item"><a href="#lectures" class="tab-link">{{$t('message.lectures')}}</a></li>
+                <li class="nav-item"><a href="#files" class="tab-link">{{$t('message.files')}}</a></li>
+                <li class="nav-item"><a href="#homework" class="tab-link">{{$t('message.homework')}}</a></li>
+                @if (edit)
+                {
+                    <li class="nav-item"><a href="#delivery" class="tab-link">{{$t('message.delivery')}}</a></li>
+                }
+                <li class="nav-item"><a href="#videos" class="tab-link">{{$t('message.videos')}}</a></li>
+                <li class="nav-item"><a href="#info" class="tab-link">{{$t('message.courseInfo')}}</a></li>
+                <li class="nav-item"><a href="#rating" class="tab-link">{{$t('message.rating')}}</a></li>
+                <li class="nav-item"><a href="#questions" class="tab-link">{{$t('message.questions')}}</a></li>
+                <li class="nav-item"><a href="#people" class="tab-link">{{$t('message.people')}}</a></li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                @if (!Model.Course.Ended)
+                {
+                    <li id="nav-class-btn" class="float-direction-reserve nav-item"><a href="#class" class="tab-link">{{$t('message.courseClass')}}</a></li>
+                }
+                <li id="nav-discord-btn" class="float-direction-reserve nav-item"><a href="#discord" class="tab-link">{{$t('message.courseChat')}}</a></li>
+
+            </ul>
+        </ul>
+    </div>
+</nav>
+
+<div id="body-container">
+     <div id="lectures" class="tab-div">
+         @if (view)
+         {
+             <partial name="Sections/LecturesSection" model="@Model"/>
+         }
+         else
+         {
+             <partial name="Sections/NoAccessLectureSection" model="@Model"/>
+         }
+     </div>
+
+     <div id="files" class="tab-div" style="display: none">
+         @if (view)
+         {
+             <partial name="Sections/CourseFilesSection" model="@Model.Files"/>
+         }
+         else
+         {
+             <partial name="Sections/NoAccessSection" , model="@Model.Course.Id"/>
+         }
+     </div>
+    <div id="homework" class="tab-div" style="display: none">
+        @if (view)
+        {
+            <partial name="Sections/CourseHomeworkSection" model="@Model.HomeworkVm"/>
+        }
+        else
+        {
+            <partial name="Sections/NoAccessSection" , model="@Model.Course.Id"/>
+        }
+    </div>
+
+    @if (edit)
+    {
+        <div id="delivery" class="tab-div" style="display: none">
+            <partial name="Sections/CourseDeliverySection" model="@Model.HomeworkVmForTeacher"/>
+        </div>
+    }
+    <div id="rating" class="tab-div" style="display: none">
+        <partial name="Sections/CourseRatingSection" model="@Model"/>
+    </div>
+    
+    <div id="videos" class="tab-div" style="display: none">
+        <partial name="Sections/CourseVideosSection" model="@Model.Videos"/>
+    </div>
+    
+    <div id="info" class="tab-div" style="display: none">
+        <partial name="Sections/CourseInformation" model="@Model.Course"/>
+    </div>
+    
+    <div id="questions" class="tab-div" style="display: none">
+        <partial name="Sections/CourseQuestionsSection" model="@Model"/>
+    </div>
+    
+    <div id="people" class="tab-div" style="display: none">
+        <partial name="Sections/CoursePeopleSection" model="@Model"/>
+    </div>
+
+    <div id="class" class="tab-div" style="display: none">
+        <partial name="Sections/CourseClassSection" model="@Model.Course"/>
+    </div>
+
+<div id="discord" class="tab-div" style="display: none">
+    <partial name="Sections/CourseDiscordSection" model="@Model.Course"/>
+</div>
+
+@*     <div id="class" class="tab-div" style="display: none"> *@
+@*         <partial name="Sections/CourseQuestionsSection" model="@Model"/> *@
+@*     </div> *@
+@*      *@
+@*      *@
+</div>
+
+<input type="hidden" id="current-rating" value="@CourseService.GetCourseRating(Model.Course.Id)[1]"/>
+<input type="hidden" id="current-votes" value="@CourseService.GetCourseRating(Model.Course.Id)[0]"/>
+<input type="hidden" id="user-current-rating" value="@CourseService.GetUserCourseRating(Model.Course.Id, Access.GetUserId(User))"/>
+
+
+<partial name="PartialViews/_SharedModal"/>
+
+@section Scripts
+{
+    <script src="~/js/CourseArea/CourseMain.js" asp-append-version="true"></script>
+    <script src="~/js/CourseArea/VideosHandler.js" asp-append-version="true"></script>
+    <script src="~/js/RatingShared.js" asp-append-version="true"></script>
+    <script src="~/js/ClockScript.js" asp-append-version="true"></script>
+    <script src="~/js/CourseArea/EmailSender.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" asp-append-version="true"></script>
+    <script src="~/js/InstructionVideoModal.js" asp-append-version="true"></script>
+    
+    
+    
+    <script>
+    $(document).ready(function() {
+        //Facebook Share button
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        //End of Facebook Share button
+        
+        
+        //Facebook view content TRACK
+
+        const facebookElm = $("#facebook-track");
+        
+        if (facebookElm.attr('no-access') === 'True') {
+            //If the user is not already registered in the course or teacher
+
+            FacebookTrack().ViewContent('Course',
+                facebookElm.attr('course-name') + ' / ' + facebookElm.attr('course-code'));
+
+
+        }
+        
+        //End of Facebook view content TRACK
+        
+        
+        })
+    </script>
+    
+    
+    
+    
+}
+
+@section MetaTags
+{
+     @{
+         var langName = "العربية";
+         
+         switch (@Model.Course.Language)
+         {
+             case EnumList.Language.Norwegian:
+                 langName = "النرويجية";
+                 break;
+             case EnumList.Language.English:
+                 langName = "الإنجليزية";
+                 break;
+             case EnumList.Language.Arabic:
+                 langName = "العربية";
+                 break;
+             default:
+                 throw new ArgumentOutOfRangeException();
+         }
+
+
+         var url = $"{StaticInformation.FullWebsite}/Course/Area/{Model.Course.Id}";
+         
+         var imageUrl = $"{StaticInformation.FullWebsite}{Url.Content("~/Images/FacebookShare.png")}";
+         
+         var imageType = "image/png";
+
+         if (!string.IsNullOrEmpty(Model.Course.Background))
+         {
+             imageUrl = $"{StaticInformation.FullWebsite}{Url.Content(Info.CoursePicture(Model.Course.Id))}";
+
+             imageType = Model.Course.Background.ToUpper().Contains("PNG") ? "image/png" : "image/jpeg";
+         }
+         
+         
+         
+         
+         
+         
+         
+         
+         
+     }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+
+     <meta property="og:url"    content="@url"/>
+     
+     
+     
+     <meta property="og:image" content="@imageUrl" />
+     <meta property="og:image:url"    content="@imageUrl" />
+     <meta property="og:image:secure_url"    content="@imageUrl" />
+     <meta property="og:image:type"    content="@imageType" />
+     <meta property="og:image:width"    content="4000" />
+     <meta property="og:image:height"    content="4000" />
+     <meta property="fb:app_id"    content="3431737436868705" />
+     
+
+
+     <meta property="og:type"    content="website"/>
+     <meta property="og:title"    content="@Model.Course.Subject - Matterix" />
+
+     
+     <meta property="og:description"    content="دورة @Model.Course.Subject متاحة للتسجيل الآن، باللغة @langName للطلاب العرب في النرويج، قم بالضغط على الرابط لمعرفة المزيد" />
+}

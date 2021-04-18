@@ -1,0 +1,68 @@
+@model Matterix.Models.ViewModel.CourseAreaViewModel
+@using Matterix.Services
+@inject InformationService Info
+@inject AccessService Access
+
+@{ var view = Access.CourseViewAccess(User, Model.Course.Id);}
+
+
+<link rel="stylesheet" href="~/css/CourseArea/CourseRating.css"/>
+
+<div class="text-center un-select">
+    <div class="title-2-0 matterix-color font-cairo" style="width: 100%; margin: 1.5rem 0;">
+        <div style="margin: 0.5rem 0">@Model.Course.Subject</div> <div class="text-0-9 text-dark">@Model.Course.Code</div>
+    </div>
+    @* <hr style="width: 70%; box-shadow: 1px 0 1px 0px gray"/> *@
+    <partial name="PartialViews/_AverageRatingStars"/>
+    <div id="rating-value">{{$t('message.totalAverageRating')}} <span class="average-value">-</span> - {{$t('message.numberOfVotes')}} <span class="votes-count"></span></div>
+</div>
+<hr style="width: 50%"/>
+
+<div>
+    
+    <div class="text-center un-select">
+        @if (view)
+        {
+            <div class="font-cairo">{{$t('message.yourRating')}}</div>
+            <br/>
+            <partial name="PartialViews/_RatingStars"/>
+            <div id="rating-response"></div>
+        }
+        else
+        {
+            <div class="font-cairo">{{$t('message.YouHaveToBeStudentForRating')}}</div>
+        }
+    </div>
+    
+    
+</div>
+
+
+
+
+@if (view)
+{
+    <div class="text-center direction" style="width: 100%; margin: 2rem auto;">
+        <input autocomplete="off" class="form-control direction" id="feedback-input" v-bind:placeholder="$t('message.writeYourThoughts')"/>
+        <button class="m-button m-button-primary" id="send-feedback">{{$t('message.send')}}</button>
+    </div>
+}
+
+
+
+<div id="feedback-container" class="un-select">
+    @if (Model.Feedback.Any())
+    {
+        foreach (var feedBack in Model.Feedback)
+        {
+            <partial name="CoursePartial/_FeedBack" model="feedBack"/>
+        }
+    }else
+    {
+        if (view)
+         {
+             <div class="text-center direction font-cairo" id="no-comment-yet"style="margin: 1rem;">{{$t('message.noCommentsYet')}}</div>  
+         } 
+    }
+</div>
+

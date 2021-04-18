@@ -1,0 +1,16 @@
+@model int
+
+<div class="d-inline-block" style="white-space: nowrap!important">
+    @for (var i = 0; i < Model; i++)
+    {
+        <span class="d-inline"><i class="fa fa-star fa-fw" style="color: #FF912C;"></i></span>
+                            
+    }
+</div>
+                        
+<div class="d-inline-block" style="white-space: nowrap !important">
+    @for (var i = 0; i < 5 - Model; i++)
+    {
+        <span><i class="fa fa-star fa-fw" style="color: #ccc;"></i></span>
+    }
+</div>

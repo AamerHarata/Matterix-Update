@@ -1,0 +1,225 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.BlockedViewModel
+@inject PaymentService Payment
+@{
+    ViewBag.Title = "Blocked";
+    Layout = "_Layout";
+}
+
+<div class="text-center un-select">
+    <div class="display-4 title-2-0 direction text-center">{{$t('message.thisAccountHasBeenBlocked')}}</div>
+    <hr class="matterix-background"/>
+    
+    <table class="direction table table-success text-center" style="width: 60%; margin: auto; font-size: 0.9rem">
+        <tr>
+            <th>{{$t('message.blockDate')}}</th>
+            <th>{{$t('message.blockReason')}}</th>
+            <th>{{$t('message.blockDescription')}}</th>
+        </tr>
+        <tr>
+            <td dir="ltr">@Format.DateFormat(Model.User.BlockDate) - @Format.TimeFormat(Model.User.BlockDate)</td>
+            <td>@Format.Translate(Model.User.BlockType.ToString())</td>
+            <td>@Model.User.BlockDescription</td>
+        </tr>
+        <tr>
+            <th colspan="3" style="background-color: whitesmoke">{{$t('message.youCanSolveThisContact')}}!</th>
+        </tr>
+    </table>
+    <table class="direction text-center table table-success" style="width: 40%; margin: auto">
+        <tr style="background-color: whitesmoke">
+            <th>{{$t('message.email')}}</th>
+            <th>{{$t('message.phoneNumber')}}</th>
+        </tr>
+        <tr style="background-color: whitesmoke">
+            <td>@Model.ContactEmail</td>
+            <td dir="ltr">@Model.ContactPhone</td>
+        </tr>
+    </table>
+    <br/>
+    
+    
+    @* SHARED ACCOUNT BLOCK *@
+    @if (Model.User.BlockType == EnumList.Block.SharedAccount)
+    {
+                <table class="direction text-center un-select table table-striped direction" style="width: 100%;">
+            <thead>
+            <tr>
+                <th style="width: 2rem">#</th>
+                <th>{{$t('message.activity')}}</th>
+                <th>{{$t('message.dateAndTime')}}</th>
+                <th style="width: 7rem">{{$t('message.device')}}</th>
+                <th>{{$t('message.operatingSystem')}}</th>
+                <th>{{$t('message.ipNumber')}}</th>
+                <th>{{$t('message.deviceId')}}</th>
+                <th>{{$t('message.status')}}</th>
+                @* <th>{{$t('message.description')}}</th> *@
+            </tr>
+            </thead>
+            @{ var i = 1;}
+            @foreach (var activity in Model.Devices)
+            {
+                <tr>
+                    <td class="activity-number">@i</td>
+                    <td>@Format.Translate(activity.Activity.ToString())</td>
+                    <td>@Format.DateFormat(activity.DateTime) - @Format.TimeFormat(activity.DateTime)</td>
+                    <td>@Format.Translate(activity.DeviceType.ToString())</td>
+                    <td>@Format.Translate(activity.OperatingSystem.ToString())</td>
+                    @if (string.IsNullOrEmpty(activity.Ip))
+                    {
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>@activity.Ip</td>
+                    }
+                    <td group-number="@activity.GroupNumber" class="activity-device" style="background-color: ">@if(!string.IsNullOrEmpty(activity.AuthCookies)){@activity.AuthCookies.Substring(6, 16)}else{<span>-</span>}</td>
+                    @if (activity.New)
+                    {
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourDevice')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.newDevice')}}: @activity.GroupNumber</td>
+                        }
+                    }
+                    else
+                    {
+                        
+                        if (activity.GroupNumber == 1)
+                        {
+                            <td class="text-success">{{$t('message.yourIdAuth')}}</td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">{{$t('message.registeredInNumber')}}: @activity.GroupNumber</td>
+                        }
+                        
+                    }
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                </tr>
+                i++;
+            }
+        </table>
+    }
+    
+    
+    
+    
+    
+    @* FAKE ACCOUNT BLOCK *@
+    else if (Model.User.BlockType == EnumList.Block.FakeAccount || Model.User.BlockType == EnumList.Block.WrongInfo)
+    {
+        <table class="direction text-center un-select table table-striped" style="width: 100%;">
+            <thead>
+            <tr>
+                <td colspan="7">{{$t('message.accordingToBlockReasonInformation')}}</td>
+            </tr>
+            <tr><td colspan="7">{{$t('message.noteNoBodyCanAccess')}}</td></tr>
+            </thead>
+            
+            <thead>
+            <tr>
+                <th>{{$t('message.firstName')}}</th>
+                <th>{{$t('message.lastName')}}</th>
+                <th>{{$t('message.email')}}</th>
+                <th>{{$t('message.phoneNumber')}}</th>
+                <th colspan="2">{{$t('message.address')}}</th>
+                <th>{{$t('message.registerDate')}}</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>@Model.User.FirstName</td>
+                <td>@Model.User.LastName</td>
+                <td>@Model.User.Email</td>
+                <td>@Model.User.PhoneNumber</td>
+                <td colspan="2">@Model.Address.Street, @Model.Address.ZipCode @Model.Address.City</td>
+                <td dir="ltr">@Format.DateFormat(Model.User.SignUpDate) - @Format.TimeFormat(Model.User.SignUpDate)</td>
+                
+            </tr>
+        </table>
+    }
+    
+    //INVOICE BLOCK
+    else if(Model.User.BlockType == EnumList.Block.UnPaid)
+    {
+        <table class="direction text-center un-select table table-striped" style="width: 100%;">
+            <thead>
+            <tr>
+                <td colspan="7">{{$t('message.accordingToBlockReasonInvoice')}}!</td>
+            </tr>
+            <tr><td colspan="7">{{$t('message.noteNoBodyCanAccess')}}</td></tr>
+            
+            
+            </thead>
+            
+            <thead>
+            <tr>
+                <th style="width: 2rem">#</th>
+                <th>{{$t('message.invoiceNumber')}}</th>
+                <th>{{$t('message.cidNumber')}}</th>
+                <th>{{$t('message.dueDate')}}</th>
+                <th>{{$t('message.payDeadline')}}</th>
+                <th>{{$t('message.courseName')}}</th>
+                <th>{{$t('message.description')}}</th>
+                <th>{{$t('message.amount')}}</th>
+            </tr>
+            </thead>
+            @{ var i = 1;}
+            @foreach (var invoice in Model.Invoices)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td><a target="_blank">@invoice.Number</a></td> @*ToDo :: Make this link go to invoice display *@
+                    <td><a target="_blank">@invoice.CIDNumber</a></td> @*ToDo :: Make this link go to invoice display *@
+                    <td dir="ltr">@Format.DateFormat(invoice.CurrentDueDate)</td>
+                    <td>@Format.DateFormat(invoice.CurrentDeadline)</td>
+                    <td>@if(invoice.Course.Subject!=null){<span>@invoice.Course.Subject</span>}else{<span>-</span>}</td>
+                    <td>@invoice.ExtraDescription</td>
+                    <td>{{$tc('message.currency', '@Format.NumberFormat(invoice.CurrentAmount)')}}</td>
+                </tr>
+                i++;
+            }
+            
+            <tfoot>
+            <tr>
+                <th>{{$t('message.total')}}</th>
+                <td colspan="6"></td>
+                <th>{{$tc('message.currency', '@Format.NumberFormat(@Model.TotalInvoices)')}}</th>
+            </tr>
+            <tr>
+                <td colspan="8"></td>
+            </tr>
+            </tfoot>
+            
+        </table>
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+@section Scripts
+{
+    <script src="~/js/ColoringDevices.js" asp-append-version="true"></script>
+}
+
+@* <h1>The reason: Your account has been opened from many devices, if you think it's a wrong please contact us</h1> *@

@@ -1,0 +1,17 @@
+@model LectureFile
+
+<div id="edit-file-modal-title" class="title-1-5"></div>
+<div class="text-0-8">@Model.Name</div>
+<hr/>
+<label id="is-homework"></label>
+<input class="is-homework" value="true" checked="@Model.IsHomeWork" type="checkbox"/>
+
+
+<div class="form-group group-inputs is-homework-container text-0-8">
+    <div>
+        <label id="notification"></label>
+        <input class="notification" value="true" checked="@false" type="checkbox"/>
+    </div>
+    <label asp-for="DeadLine" id="deadline"></label>
+    <input style="width: 80%; margin: auto" asp-for="DeadLine" class="homework-deadline form-control direction text-center"/>
+</div>

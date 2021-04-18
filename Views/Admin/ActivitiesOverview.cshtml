@@ -1,0 +1,78 @@
+@using Matterix.Data
+@using Matterix.Services
+@using Microsoft.EntityFrameworkCore
+@model IEnumerable<UserDevice>
+@inject InformationService Info
+@inject ApplicationDbContext Con
+@inject PaymentService Payment
+@inject AdminService Admin
+
+@{
+    ViewBag.Title = "Activites";
+    Layout = "_Layout";
+}
+
+@{
+    var activities = Model.ToList();
+}
+
+@if (!activities.Any())
+{
+    <hr/>
+    <div class="text-center">Ops! No Activities</div>
+    
+}
+else
+{
+    <table class="direction text-center table table-striped" style="width: 100%;">
+            
+            <thead>
+            <tr>
+                <th style="width: 2rem">#</th>
+                <th>User</th>
+                <th>Activity</th>
+                <th style="width: 7rem">Device</th>
+                <th>Operating System</th>
+                <th>IP Number</th>
+                <th>Date and Time</th>
+                <th>Device Id</th>
+
+            </tr>
+            </thead>
+            @{ var i = @activities.Count;}
+            @foreach (var activity in activities)
+            {
+                <tr>
+                    <td class="activity-number">@i</td>
+                    <td><a target="_blank" asp-controller="Admin" asp-action="UserPage" asp-route-userId="@activity.UserId">@activity.User.FirstName @activity.User.LastName</a></td>
+                    <td>@activity.Activity</td>
+                    <td>@activity.DeviceType</td>
+                    <td>@activity.OperatingSystem</td>
+                    @if (!string.IsNullOrEmpty(activity.Ip))
+                    {
+                        <td>@activity.Ip</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    <td dir="ltr">@Format.DateFormat(activity.DateTime) - @Format.TimeFormat(activity.DateTime)</td>
+                    
+                    @if (!string.IsNullOrEmpty(activity.AuthCookies))
+                    {
+                        <td group-number="@activity.GroupNumber" full-auth="@activity.AuthCookies" class="activity-device auth-cookies">@activity.AuthCookies</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    
+                    
+                    
+
+                </tr>
+                i--;
+            }
+        </table>
+}
+

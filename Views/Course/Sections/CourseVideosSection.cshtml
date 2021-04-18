@@ -1,0 +1,115 @@
+@model IEnumerable<Matterix.Models.LectureVideo>
+@using Matterix.Services
+@inject AccessService Access
+
+
+@{
+    var anyVideo = Model.Take(1).SingleOrDefault();
+
+
+    var courseId = "";
+
+    if (anyVideo != null)
+    {
+        
+        courseId = anyVideo.Lecture.CourseId;
+    }
+}
+
+<link rel="stylesheet" href="~/css/CourseArea/Videos.css"/>
+
+@if (!Model.Any() || string.IsNullOrEmpty(courseId))
+{
+    <div class="text-center direction un-select font-cairo">{{$t('message.noVideoInCourse')}}</div>
+}
+else
+{
+    
+    <div class="row" id="course-videos-container">
+        <div class="col-2 text-center un-select" id="playlist-container">
+            
+            @if (Access.CourseViewAccess(User, courseId))
+            {
+                foreach (var video in Model)
+                {
+                    <div class="video-in-list" id="@video.UniqueCode">
+                        @if (video.Lecture.Introduction && video.Lecture.Title != "intro")
+                        {
+                            <div class="">{{$t('message.exampleOfCourse')}}</div>
+                        }
+                        else if(video.Lecture.Introduction && video.Lecture.Title == "intro")
+                        {
+                            <div class="">{{$tc('message.intro')}}</div>
+                        }
+                        else
+                        {
+                            <div class="">{{$tc('message.lecture', '@video.Lecture.Number')}}</div>
+                        }
+                        <i class="fa fa-play-circle" style="font-size: 2.5rem;"></i>
+                        <div>@video.Name</div>
+                        <input type="hidden" value="300"/>
+                        <hr/>
+                        <div class="small">@Format.DateFormat(video.Lecture.Date)</div>
+                    </div>
+                }
+                
+            }
+            else
+            {
+                foreach (var video in Model)
+                {
+                    var isVideoOpen = Access.IsLectureOpen(video.LectureId, User) || video.Lecture.Introduction || video.Lecture.Free;
+                    if (isVideoOpen)
+                    {
+                        <div class="video-in-list" id="@video.UniqueCode">
+                            @if (video.Lecture.Introduction && video.Lecture.Title != "intro")
+                            {
+                                <div>{{$t('message.exampleOfCourse')}}</div>
+                            }
+                            else if(video.Lecture.Introduction && video.Lecture.Title == "intro")
+                            {
+                                <div>{{$tc('message.intro')}}</div>
+                            }
+                            else
+                            {
+                                <div>{{$tc('message.lecture', '@video.Lecture.Number')}}</div>
+                            }
+                            <div><i class="fa fa-play-circle" style="font-size: 2.5rem;"></i></div>
+                            <div>@video.Name</div>
+                            <input type="hidden" value="300"/>
+                            <hr/>
+                            <div class="small">@Format.DateFormat(video.Lecture.Date)</div>
+                            @if (video.Lecture.Number > 0)
+                            {
+                                <div class="small"><span class="small">{{$t('message.thisVideoIsOpenedAs')}}</span></div>
+                            }
+                        </div>
+                    }
+                }
+                
+            }
+        </div>
+        <button id="close-video-list" class="btn btn-danger open-close-video-list title-1-5 "><i class="fa fa-close"></i></button>
+        <button id="open-video-list" class="btn btn-success open-close-video-list title-1-5"><i class="fa fa-play-circle"></i></button>
+    
+        <div class="col-10" id="main-video-container">
+            <div class="text-center direction" id="video-mask"></div>
+            <iframe width="100%" height="90%" id="main-video-frame"
+                    src=""
+                    frameborder="0"
+                    allowfullscreen allow-same-origin>
+            </iframe>
+            
+        </div>
+        
+        
+    </div>
+    
+}
+
+
+
+
+
+
+

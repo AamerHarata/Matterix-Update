@@ -1,0 +1,45 @@
+@model Course
+@using Matterix.Services
+@inject AccessService Access
+@inject InformationService Info
+@inject CourseService CourseService
+@{
+    
+    var view = Access.CourseViewAccess(User, Model.Id);
+    var edit = Access.CourseEditAccess(User, Model.Id);
+}
+
+
+
+<div class="text-center un-select">
+    <br/>
+
+    @if (view || edit)
+    {
+        
+        <div class="display-4 title-1-0 text-danger direction text-center">{{$t('message.ifYouHaveNotBeenToCourseChat')}} <a target="_blank" asp-controller="Instructions" asp-action="CourseChatHelp">{{$t('message.instructionsAndHelp')}}</a></div>
+        <br/>
+        <div class="text-0-9 matterix-color smoke-background card task-card task-card-clickable direction open-instruction-modal m-auto" device ="Computer" topic="instructionJoinCourseChat" target="@StaticInstructionVideos.JoinCourseChat"  style="padding: 0.4rem 0.7rem; border: 0; width: max-content" type="button">
+            
+            <div class="d-flex"><i class="fa fa-play-circle ml-2 mr-2 icon-direction-reserve set-my-direction" style="font-size: 2rem;"></i><div class="align-self-center">{{$t('message.instructionJoinCourseChat')}}</div></div>
+
+        </div>
+        <br/>
+        if (!string.IsNullOrEmpty(Info.GetDiscordLink()))
+        {
+            <div class="display-4 title-1-5"><a class="matterix-color" href="@Info.GetDiscordLink()"><strong>{{$t('message.clickHereToJoinChat')}}</strong></a></div>
+        }
+        else
+        {
+            <div class="display-4 title-1-5 matterix-color">{{$t('message.linkNotWorkContactNow')}}</div>
+        }
+            
+    }
+    else
+    {
+        <div class="display-4 title-1-5 direction text-center">{{$t('message.youHaveToEnrollCourse')}}</div>
+    }
+
+    
+    
+</div>

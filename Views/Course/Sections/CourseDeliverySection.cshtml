@@ -1,0 +1,87 @@
+@model Matterix.Models.ViewModel.HomeworkViewModel
+@using Matterix.Services
+@inject InformationService Info
+@inject CourseService CourseService
+@inject AccessService Access
+
+@{
+//    var userId = "";
+//    if (User.Identity.IsAuthenticated)
+//    {
+//        userId = Access.GetUserId(User);
+//    }
+}
+
+<link rel="stylesheet" href="~/css/CourseArea/Homework.css"/>
+
+
+@if (!Model.StudentsDeliveredHomework.Any())
+{
+    <div class="text-center direction font-cairo">{{$t('message.noDeliveryYet')}}</div>
+}
+else
+{
+    
+    
+    //Here is the Teacher View
+@*     <table style="width: 100%; margin: auto" id="homework-table" class="table table-hover direction un-select"> *@
+@*         <thead> *@
+@*         <tr class="text-center"> *@
+@*             <th>{{$t('message.lectureNumber')}}</th> *@
+@*             <th>{{$t('message.homeworkFile')}}</th> *@
+@*             <th>{{$t('message.deadline')}}</th> *@
+@*             <th>{{$t('message.studentName')}}</th> *@
+@*             <th>{{$t('message.deliveryFile')}}</th> *@
+@*             <th>{{$t('message.notes')}}</th> *@
+@*             <th>{{$t('message.mark')}}</th> *@
+@*          *@
+@*         </tr> *@
+@*         </thead> *@
+@*         @foreach (var delivery in Model.StudentsDeliveredHomework) *@
+@*         { *@
+@*              *@
+@*             <tr class="text-center" lecture-id="@delivery.LectureFile.LectureId" student-id="@delivery.StudentId" related-homework-name="@delivery.LectureFileName"> *@
+@*                 <td>@delivery.LectureFile.Lecture.Number</td> *@
+@*                 <td><button class="btn btn-light" onclick="window.open('@Url.Content(@delivery.LectureFile.Path)', '_blank')">@delivery.LectureFileName</button></td> *@
+@*                 <td>@Format.DateFormat(@delivery.LectureFile.DeadLine)</td> *@
+@*                 <td></td> *@
+@*                 $1$ <td><button class="btn btn-info" onclick="window.open('@Url.Content(@delivery.Path)', '_blank')">@delivery.Name</button></td> #1# *@
+@*                 <td><a asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@delivery.RootPath" asp-route-name="@delivery.Name"><button class="btn btn-info">@delivery.Name</button></a></td> *@
+@*                 <td style="cursor: pointer" class="homework-add-comment">&#128172;<textarea hidden class="homework-comment-text">@delivery.TeacherComment</textarea></td> *@
+@*                 <td>@Html.DropDownList("Mark", Enumerable.Range(0,7).Select(x=> new SelectListItem {Text = x.ToString(), Selected = x.ToString() == delivery.Mark.ToString()}), new{@class="form-control text-center homework-mark", @style="max-width: max-content; margin: auto;"})</td> *@
+@*             </tr> *@
+@* *@
+@*         } *@
+@*          *@
+@*          *@
+@*     </table> *@
+@*      *@
+    
+    <div class="direction un-select">
+        @foreach (var delivery in Model.StudentsDeliveredHomework)
+        {
+            
+            <div class="card file-card" lecture-id="@delivery.LectureFile.LectureId" student-id="@delivery.StudentId" related-homework-name="@delivery.LectureFileName">
+                <div class="text-center matterix-color font-cairo">{{$tc('message.lecture', '@delivery.LectureFile.Lecture.Number')}} - @delivery.LectureFile.Lecture.Title</div>
+                <div class="text-muted text-0-6 text-center">{{$t('message.deadline')}}: @Format.DateFormat(delivery.LectureFile.DeadLine)</div>
+                <div class="">{{$t('message.studentName')}}: @Info.FullName(delivery.StudentId)</div>
+                <div class="">{{$t('message.homeworkFile')}}: <a class="matterix-link" href="@Url.Content(delivery.LectureFile.Path)" target="_blank">@delivery.LectureFile.Name</a></div>
+                <div class="">{{$t('message.deliveryFile')}}: <a class="matterix-link" href="@Url.Content(delivery.Path)" target="_blank">@delivery.Name</a>&nbsp;&nbsp;<a class="matterix-link" asp-controller="Lecture" asp-action="DownloadFile" asp-route-path="@delivery.RootPath" asp-route-name="@delivery.Name">({{$t('message.download')}})</a></div>
+                <div class="">{{$t('message.deliveryDate')}}: {{$t('message.underDevelopment')}}</div>
+                <div class="pointer homework-add-comment">{{$t('message.notes')}}: &#128172;<textarea hidden class="homework-comment-text">@delivery.TeacherComment</textarea></div>
+                <div>@Html.DropDownList("Mark", Enumerable.Range(0,7).Select(x=> new SelectListItem {Text = x.ToString(), Selected = x.ToString() == delivery.Mark.ToString()}), new{@class="form-control text-center homework-mark", @style="max-width: max-content; margin: auto;"})</div>
+            </div>
+            
+            
+            
+        }
+        
+        
+    </div>
+    
+    
+    
+    
+    
+}
+@* <script src="~/js/CourseArea/HomeworkDelivery.js"></script> *@

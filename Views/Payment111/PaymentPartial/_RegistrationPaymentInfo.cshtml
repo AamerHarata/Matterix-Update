@@ -1,0 +1,106 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.PaymentViewModel
+@inject PaymentService Payment
+<div class="text-center display-4" style="font-size: 1.5rem">{{$t('message.paymentMethod')}}</div>
+<br/>
+@{
+    var instalmentAvailable = Model.Course.InstallmentAvailable;
+}
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <table class="table table-hover text-left direction m-auto w-100" >
+            @if (instalmentAvailable)
+            {
+                <tr id="pay-month-row">
+                    <th style="width: 80%">{{$t('message.monthly')}} <span class="small">{{$t('message.noExtraFees')}}</span></th>
+                    <td><input type="radio" id="choose-month"/>&nbsp;<span id="month-amount">{{$tc('message.currency', '@Format.NumberFormat(Model.InvoiceToPay.Amount)')}}</span></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="2">
+                        <div><strong>{{$t('message.installmentNotAvailable')}}</strong></div>
+                        <div>{{$t('message.ifYouHaveToEnrollNowAndPayLater')}}</div>
+                        
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    
+    <div class="col-sm-3"></div>
+
+</div>
+
+
+
+@if (instalmentAvailable)
+{
+    <table class="table table-success text-center direction" style="width: 35%; margin: auto; display: none" id="additional-invoices">
+        <thead>
+        <tr style="background-color: whitesmoke">
+            <td colspan="4"><div class="display-4" style="font-size: 1rem">{{$t('message.inCaseMonthlyPayment')}}</div></td>
+        </tr>
+        </thead>
+        <tr style="background-color: white">
+            <th>#</th>
+            <th>{{$t('message.description')}}</th>
+            <th>{{$t('message.dueDate')}}</th>
+            <th>{{$t('message.amount')}}</th>
+        </tr>
+        @{ var i = 1;}
+        @if (Model.Invoices.Count > 1)
+        {
+            foreach(var invoice in Model.Invoices)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@invoice.ExtraDescription</td>
+                    <td>@Format.DateFormat(invoice.OriginalDueDate)</td>
+                    <td>{{$tc('message.currency', '@invoice.Amount')}}</td>
+                </tr>
+                i++;
+                 
+            }
+            <tr style="background-color: white"><td colspan="4">&nbsp;</td></tr>
+        
+        }
+        else
+        {
+            <td colspan="4"><div class="display-4" style="font-size: 1rem">{{$t('message.errorStopContact')}}</div></td>
+        }
+    </table>
+}
+
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <table class="table table-hover text-left w-100 m-auto direction">
+    
+            <tr id="pay-all-row">
+                <th style="width: 80%">{{$t('message.payAllNow')}}</th>
+                <td><input type="radio" id="choose-all"/>&nbsp;<span id="all-amount">{{$tc('message.currency', '@Format.NumberFormat(Model.Course.Price)')}}</span></td>
+            </tr>
+            <tr>
+                <th style="width: 80%">{{$t('message.toPayNow')}}</th>
+                <td style="color: seagreen; font-size: 1.2rem"><strong><span id="total-to-pay">0</span></strong></td>
+            </tr>
+
+            <tfoot>
+
+            <tr class="text-center">
+                <th colspan="2">
+                    <img class="payment-next-section" current-section="payment-info" next-section="pay-with-stripe" src="~/Images/Visa_master.png" width="200rem" style="height: auto; margin: 0 2rem; cursor: pointer"/>
+                    <img id="pay-with-vipps-btn" class="payment-next-section" current-section="payment-info" next-section="pay-with-vipps" src="~/Images/betalmedvipps.png" width="200rem" style="height: auto; margin: 0 2rem; cursor: pointer"/>
+                </th>
+            </tr>
+
+            </tfoot>
+
+        </table>
+    </div>
+    <div class="col-sm-3"></div>
+</div>

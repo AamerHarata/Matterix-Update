@@ -1,0 +1,160 @@
+@using Matterix.Services
+@model Matterix.Models.ViewModel.CourseAreaViewModel
+@inject AccessService Access
+@inject CourseService CourseService
+@inject LectureService LectureService
+
+
+<link rel="stylesheet" href="~/css/CourseArea/LecturesList.css" asp-append-version="true"/>
+<input id="courseId" type="hidden" value="@Model.Course.Id"/>
+<div id="whole-lectures-section">
+    
+
+    @foreach (var lec in Model.Lectures)
+    {
+        var openLecture = lec.Free || lec.Introduction || Access.IsLectureOpen(lec.Id, User);
+        
+        
+        <div class="direction lecture-container" lecture-number="@lec.Number" id="@lec.Id">
+            <div class="lecture-head direction text-center un-select">
+                @if (openLecture)
+                {
+                <span class="open-lecture"></span>
+                }
+                <div class="float-direction" style="float: left; display: inline">
+                    @if (lec.Introduction)
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        @lec.Number
+                        if (openLecture)
+                        {
+                            <span> - ({{$t('message.lectureIsOpen')}})</span>
+                        }
+                    }
+
+                </div>
+                <div>
+                    @if (!lec.Introduction)
+                    {<span>{{$tc('message.lecture', '@lec.Number')}} - </span>}
+                    @if (string.IsNullOrEmpty(lec.Title))
+                    {
+                        <span>@Model.Course.Subject</span>
+                    }
+                    else if (lec.IsIntro())
+                    {
+                        <span>@Format.Translate("intro")</span>
+                    }else if (lec.IsSample())
+                    {
+                        <span>@Format.Translate("sample")</span>
+                    }
+                    else
+                    {
+                        <span>@lec.Title.Trim()</span>
+                    }
+                    @if (!lec.Completed)
+                    {
+                        <span>- {{$t('message.startsOnDay')}}: </span>
+                        <span>@Format.Translate(lec.Day.ToString()) @Format.DateFormat(lec.Date) - {{$t('message.atClock')}}: @Format.TimeFormat(lec.From)</span>
+                    }
+                    else
+                    {
+                        <span>&nbsp;<i class="fas fa-check-circle small text-success"></i>&nbsp;&nbsp;{{$t('message.completedIn')}}: @Format.DateFormat(lec.Date)</span>
+                    }
+                </div>
+
+            </div>
+            <span class="h-line" style="display: none"><hr style="padding: 0; margin: 0; height: 1px; "/></span>
+            <div class="lecture-body un-select" id="body:@lec.Number">
+                <div style="padding: 1rem" class="row">
+                    <div class="col-xl-3">
+                        <div class="lecture-section-title">{{$t('message.description')}}:</div>
+                        <textarea class="lecture-text lecture-description direction" v-bind:placeholder="$t('message.noDescriptionYet')" readonly>@lec.Description</textarea>
+                    </div>
+        
+                    <div class="col-xl-3">
+                        <div class="lecture-section-title">{{$t('message.preparations')}}:</div>
+                        <textarea class="lecture-text lecture-preparation" v-bind:placeholder="$t('message.noPreparationsYet')" readonly>@lec.Preparation</textarea>
+                    </div>
+        
+                    <div class="col-xl-3 lecture-files">
+                        <div class="lecture-section-title">{{$t('message.files')}}:</div>
+                        <div class="files-container">
+                            @{
+                                var files = LectureService.GetLectureFiles(lec.Id);
+                            }
+
+                            @if (files.Count == 0)
+                            {
+                                <div class="text-0-6 font-cairo text-center text-muted no-files">{{$t('message.lectureNoFiles')}}!</div>
+                            }
+                            else
+                            {
+                                if (openLecture)
+                                {
+                                    foreach (var file in files)
+                                    {
+                                        <partial name="CoursePartial/_LectureFile" model="@file"/>
+                                    }
+                                }
+                                else
+                                {
+                                    <partial name="Sections/NoAccessSection", model="@Model.Course.Id"/>
+                                }
+                            }
+
+                        </div>
+                    
+
+                    </div>
+        
+                    <div class="col-xl-3 lecture-files">
+                        <div class="lecture-section-title">{{$t('message.videos')}}:</div>
+                        @if (!LectureService.GetLectureVideos(lec.Id).Any())
+                        {
+                            <p class="text-0-6 font-cairo text-center text-muted">{{$t('message.lectureNoVideos')}}!</p>
+                        }
+                        else
+                        {
+                            if (openLecture)
+                            {
+                                <div class="videos-container">
+
+                                    <partial name="CoursePartial/_LectureVideo", model="@LectureService.GetLectureVideos(lec.Id)"/>
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="small"><partial name="Sections/NoAccessSection", model="@Model.Course.Id"/></div>
+                            }
+                            
+                        }
+
+                    </div>
+                    
+                    
+                    @if (lec.Introduction && lec.Free) //@* ToDo :: Remove this after intro lecture *@
+                    {
+                        <div class="edit-lecture-btns" style="padding-left: 1%; padding-right: 1%;">
+                            <a target="_blank" href="@lec.Course.ClassUrl"><button class="btn btn-danger">الذهاب للمحاضرة التعريفية</button></a>
+                        </div>
+                    }
+                    
+                    
+                </div>
+        
+                
+        
+
+            </div>
+        </div>
+
+    }
+    
+</div>
+
+
+
