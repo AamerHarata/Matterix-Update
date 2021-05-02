@@ -129,6 +129,10 @@ namespace Matterix.Data
                 .HasKey(s => new {s.LectureId, s.StudentId});
             builder.Entity<NoNotification>()
                 .HasKey(s => new {s.UserId, s.NotificationType, s.Method});
+            
+            //Other primary keys than Id
+            builder.Entity<MatterixInvoice>()
+                .HasKey(x => x.Number);
         }
     }
     

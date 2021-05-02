@@ -6,7 +6,6 @@ namespace Matterix.Models
 {
     public class MatterixInvoice
     {
-        [Key]
         public int Number { get; set; } = new Random().Next(10000000, 99999999);
         
         [DataType(DataType.Date)]

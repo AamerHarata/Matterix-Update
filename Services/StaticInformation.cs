@@ -29,11 +29,11 @@ namespace Matterix.Services
         public static bool NorwaySummerTime { get; } = DateTime.Now.Date <= new DateTime(DateTime.Now.Year, 10, 25)
             && DateTime.Now.Date > new DateTime(DateTime.Now.Year, 3, 21);
 
-        public static bool AdvancedDevelopment { get; } = false;
+        public static bool AdvancedDevelopment { get; } = true;
 
         public static bool DeveloperTiming { get; } = false; //ToDo :: WHENEVER push to server this should be FALSE
         
         //This value used when you want edit the server main database from the localhost. MAKE IT FALSE BEFORE YOU DO ANYTHING
-        public static bool AdvancedLive { get; } = false; //ToDo :: THIS SHOULD ALWAYS BE FALSE SPECIALLY ON DEVELOPMENT
+        public static bool AdvancedLive { get; } = true; //ToDo :: THIS SHOULD ALWAYS BE FALSE SPECIALLY ON DEVELOPMENT
     }
 }
