@@ -39,7 +39,8 @@ namespace Matterix.Data
         public DbSet<MatterixFile> MatterixFiles { get; set; }
         
         public DbSet<PlusApplicationFile> PlusApplicationFiles { get; set; }
-        
+
+        public DbSet<Country> Country { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -60,7 +61,11 @@ namespace Matterix.Data
             builder.Entity<Course>()
                 .Property(x => x.Id)
                 .ValueGeneratedOnAdd();
-            
+
+            builder.Entity<Country>()
+                .Property(x => x.IsoCode)
+                .ValueGeneratedOnAdd();
+
             builder.Entity<CourseFeedback>()
                 .Property(x => x.Id)
                 .ValueGeneratedOnAdd();

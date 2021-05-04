@@ -124,8 +124,9 @@ namespace Matterix.Areas.Identity.Pages.Account.Manage
             
             [Display(Name = "Login Username")]
             public string LoginUserName { get; set; }
-            
-            
+            [Required(ErrorMessage = "The Country is required")]
+            public string Country { get; set; }
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -188,6 +189,7 @@ namespace Matterix.Areas.Identity.Pages.Account.Manage
                 MiddleName = user.MiddleName,
                 LoginUserName = user.UserName,
                 PhoneCode = user.PhoneCode,
+                Country=address.Country
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);

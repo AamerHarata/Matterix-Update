@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Matterix-16D404BC-61D2-4946-9FB1-7705A4609105")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Matterix")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e23474f3-4390-47ad-b2a9-7b05d09116eb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.vs/Matterix/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Matterix/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Address.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Course.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Course.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/EnumList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/EnumList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/StaticInformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/StaticInformation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/PartialViews/_Flags.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/PartialViews/_Flags.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/PartialViews/_LanguageModal.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/PartialViews/_LanguageModal.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Matterix.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/Matterix.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorAssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorTargetAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorTargetAssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Areas/Identity/Pages/Account/Register.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Areas/Identity/Pages/Account/Register.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/PartialViews/_Flags.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/PartialViews/_Flags.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/PartialViews/_LanguageModal.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/PartialViews/_LanguageModal.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Matterix.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/Matterix.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/js/GlobalShared.js" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/GlobalShared.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/Language.js" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/Language.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/ar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/no.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/no.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1rS7XEXlVcujA60ySUUMPcruCVH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.OpenDatabaseViewOnStart" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="database.data.extractors.current.export.id" value="Comma-separated (CSV)_id" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="RunManager" selected="tSQLt Test.Unnamed">
+    <configuration name="Unnamed" type="DatabaseScript" nameIsGenerated="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="TSqltConfigurationType" factoryName="tSQLt" nameIsGenerated="true">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Database Script.Unnamed" />
+      <item itemvalue="tSQLt Test.Unnamed" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>

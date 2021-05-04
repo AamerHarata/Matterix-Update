@@ -1314,13 +1314,10 @@ D:\GitFolders\Programming\C#\Update\Matterix\obj\Debug\net5.0\Matterix.dll
 D:\GitFolders\Programming\C#\Update\Matterix\obj\Debug\net5.0\ref\Matterix.dll
 D:\GitFolders\Programming\C#\Update\Matterix\obj\Debug\net5.0\Matterix.pdb
 D:\GitFolders\Programming\C#\Update\Matterix\obj\Debug\net5.0\Matterix.genruntimeconfig.cache
-C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.dll
-C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\ref\Matterix.dll
-C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.pdb
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\appsettings.json
-C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\app.db
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\Matterix.StaticWebAssets.xml
+C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\app.db
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\Matterix.exe
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\Matterix.deps.json
 C:\Users\ARAGON\Desktop\Matterix-Update\bin\Debug\net5.0\Matterix.runtimeconfig.json
@@ -1971,4 +1968,7 @@ C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.RazorTargetAss
 C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.RazorTargetAssemblyInfo.cs
 C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.Views.pdb
 C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.csproj.CopyComplete
+C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.dll
+C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\ref\Matterix.dll
+C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.pdb
 C:\Users\ARAGON\Desktop\Matterix-Update\obj\Debug\net5.0\Matterix.genruntimeconfig.cache

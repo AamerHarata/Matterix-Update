@@ -15,22 +15,45 @@ namespace Matterix.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("CountryCourse", b =>
+                {
+                    b.Property<string>("CountriesIsoCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CoursesId")
+                        .HasColumnType("text");
+
+                    b.HasKey("CountriesIsoCode", "CoursesId");
+
+                    b.HasIndex("CoursesId");
+
+                    b.ToTable("CountryCourse");
+                });
 
             modelBuilder.Entity("Matterix.Models.Address", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Street");
+                    b.Property<string>("Country")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("Street")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ZipCode");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -42,93 +65,130 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("BirthDate");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("BlockDate");
+                    b.Property<DateTime>("BlockDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("BlockDescription");
+                    b.Property<string>("BlockDescription")
+                        .HasColumnType("text");
 
-                    b.Property<int>("BlockType");
+                    b.Property<int>("BlockType")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("Blocked");
+                    b.Property<bool>("Blocked")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
 
-                    b.Property<string>("CurrentPassword");
+                    b.Property<string>("CurrentPassword")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Discountable");
+                    b.Property<bool>("Discountable")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Gender");
+                    b.Property<int>("Gender")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Language");
+                    b.Property<int>("Language")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("MiddleName");
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
 
-                    b.Property<string>("PersonalNumber");
+                    b.Property<string>("PersonalNumber")
+                        .HasColumnType("text");
 
-                    b.Property<string>("PhoneCode");
+                    b.Property<string>("PhoneCode")
+                        .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("ProfilePicture");
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ProfileUserName");
+                    b.Property<string>("ProfileUserName")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Role");
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("ShowFullName");
+                    b.Property<bool>("ShowFullName")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("SignUpDate");
+                    b.Property<DateTime>("SignUpDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("SignedStudentAgreement");
+                    b.Property<bool>("SignedStudentAgreement")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("SignedStudentAgreementAt");
+                    b.Property<DateTime>("SignedStudentAgreementAt")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("StatusMessage");
+                    b.Property<string>("StatusMessage")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -136,35 +196,50 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.ContactMessage", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("AuthCookies");
+                    b.Property<string>("AuthCookies")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
 
-                    b.Property<string>("FileGetPath");
+                    b.Property<string>("FileGetPath")
+                        .HasColumnType("text");
 
-                    b.Property<string>("FileName");
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
 
-                    b.Property<string>("FileRootPath");
+                    b.Property<string>("FileRootPath")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Ip");
+                    b.Property<string>("Ip")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Message");
+                    b.Property<string>("Message")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Processed");
+                    b.Property<bool>("Processed")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("Reason");
+                    b.Property<int>("Reason")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("ReplayMessage");
+                    b.Property<string>("ReplayMessage")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -173,53 +248,91 @@ namespace Matterix.Data.Migrations
                     b.ToTable("ContactMessages");
                 });
 
+            modelBuilder.Entity("Matterix.Models.Country", b =>
+                {
+                    b.Property<string>("IsoCode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DialCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("IsoCode");
+
+                    b.ToTable("Country");
+                });
+
             modelBuilder.Entity("Matterix.Models.Course", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Available");
+                    b.Property<bool>("Available")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Background");
+                    b.Property<string>("Background")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Book");
+                    b.Property<string>("Book")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ClassUrl");
+                    b.Property<string>("ClassUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Code")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("Ended");
+                    b.Property<bool>("Ended")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("ExtraDescription");
+                    b.Property<string>("ExtraDescription")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Goal");
+                    b.Property<string>("Goal")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Hidden");
+                    b.Property<bool>("Hidden")
+                        .HasColumnType("boolean");
 
-                    b.Property<bool>("InstallmentAvailable");
+                    b.Property<bool>("InstallmentAvailable")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("Language");
+                    b.Property<int>("Language")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("MaxStudents");
+                    b.Property<int>("MaxStudents")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("MeetingId");
+                    b.Property<string>("MeetingId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("MeetingPass");
+                    b.Property<string>("MeetingPass")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Picture");
+                    b.Property<string>("Picture")
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Subject")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("TeacherId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -231,15 +344,20 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.CourseFeedback", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Text");
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -252,11 +370,14 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.CourseRating", b =>
                 {
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Rating");
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
 
                     b.HasKey("CourseId", "UserId");
 
@@ -268,9 +389,11 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.DiscordLink", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -279,21 +402,29 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.Homework", b =>
                 {
-                    b.Property<string>("LectureFileName");
+                    b.Property<string>("LectureFileName")
+                        .HasColumnType("text");
 
-                    b.Property<string>("LectureFileLectureId");
+                    b.Property<string>("LectureFileLectureId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("StudentId");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Mark");
+                    b.Property<int>("Mark")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
 
-                    b.Property<string>("RootPath");
+                    b.Property<string>("RootPath")
+                        .HasColumnType("text");
 
-                    b.Property<string>("TeacherComment");
+                    b.Property<string>("TeacherComment")
+                        .HasColumnType("text");
 
                     b.HasKey("LectureFileName", "LectureFileLectureId", "StudentId");
 
@@ -305,31 +436,43 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.InitiatedOrder", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("AuthCookies");
+                    b.Property<string>("AuthCookies")
+                        .HasColumnType("text");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("InvoiceNumber");
+                    b.Property<int>("InvoiceNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Ip");
+                    b.Property<string>("Ip")
+                        .HasColumnType("text");
 
-                    b.Property<int>("OperatingSystem");
+                    b.Property<int>("OperatingSystem")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("PayAllNow");
+                    b.Property<bool>("PayAllNow")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("PaymentMethod");
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Reason");
+                    b.Property<int>("Reason")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -341,25 +484,35 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.InvoiceIncrement", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Delay");
+                    b.Property<int>("Delay")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("InvoiceNumber");
+                    b.Property<int>("InvoiceNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("InvoicePhase");
+                    b.Property<int>("InvoicePhase")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("NewDeadline");
+                    b.Property<DateTime>("NewDeadline")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("NewDueDate");
+                    b.Property<DateTime>("NewDueDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Reason");
+                    b.Property<int>("Reason")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Type");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -371,27 +524,38 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.JobApplication", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("ApplyDate");
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("CourseName");
+                    b.Property<string>("CourseName")
+                        .HasColumnType("text");
 
-                    b.Property<string>("CvRootPath");
+                    b.Property<string>("CvRootPath")
+                        .HasColumnType("text");
 
-                    b.Property<string>("CvWebPath");
+                    b.Property<string>("CvWebPath")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ExtraMessage");
+                    b.Property<string>("ExtraMessage")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("InterviewDate");
+                    b.Property<DateTime>("InterviewDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("Processed");
+                    b.Property<bool>("Processed")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Replay");
+                    b.Property<string>("Replay")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("VideoLink");
+                    b.Property<string>("VideoLink")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -403,31 +567,44 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.Lecture", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Completed");
+                    b.Property<bool>("Completed")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Day");
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Free");
+                    b.Property<bool>("Free")
+                        .HasColumnType("boolean");
 
-                    b.Property<TimeSpan>("From");
+                    b.Property<TimeSpan>("From")
+                        .HasColumnType("interval");
 
-                    b.Property<bool>("Introduction");
+                    b.Property<bool>("Introduction")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("Number");
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Preparation");
+                    b.Property<string>("Preparation")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
 
-                    b.Property<TimeSpan>("To");
+                    b.Property<TimeSpan>("To")
+                        .HasColumnType("interval");
 
                     b.HasKey("Id");
 
@@ -438,19 +615,26 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.LectureFile", b =>
                 {
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
-                    b.Property<string>("LectureId");
+                    b.Property<string>("LectureId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DeadLine");
+                    b.Property<DateTime>("DeadLine")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("IsHomeWork");
+                    b.Property<bool>("IsHomeWork")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
 
-                    b.Property<string>("RootPath");
+                    b.Property<string>("RootPath")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("UploadDate");
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Name", "LectureId");
 
@@ -461,15 +645,20 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.LectureVideo", b =>
                 {
-                    b.Property<int>("VideoNumber");
+                    b.Property<int>("VideoNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("LectureId");
+                    b.Property<string>("LectureId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UniqueCode");
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
 
                     b.HasKey("VideoNumber", "LectureId");
 
@@ -481,21 +670,29 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.MatterixFile", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("ContentType");
+                    b.Property<string>("ContentType")
+                        .HasColumnType("text");
 
-                    b.Property<string>("DisplayName");
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("text");
 
-                    b.Property<string>("FileName");
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("MbSize");
+                    b.Property<decimal>("MbSize")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("RootPath");
+                    b.Property<string>("RootPath")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("UploadDate");
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("WebPath");
+                    b.Property<string>("WebPath")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -505,49 +702,72 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.MatterixInvoice", b =>
                 {
                     b.Property<int>("Number")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("ApplicationId");
+                    b.Property<string>("ApplicationId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("CIDNumber");
+                    b.Property<int>("CIDNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("Canceled");
+                    b.Property<bool>("Canceled")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("CreateDate");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<decimal>("CurrentAmount");
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("numeric");
 
-                    b.Property<DateTime>("CurrentDeadline");
+                    b.Property<DateTime>("CurrentDeadline")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("CurrentDueDate");
+                    b.Property<DateTime>("CurrentDueDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("ExtraDescription");
+                    b.Property<string>("ExtraDescription")
+                        .HasColumnType("text");
 
-                    b.Property<int>("InvoiceType");
+                    b.Property<int>("InvoiceType")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("LastNotification");
+                    b.Property<DateTime>("LastNotification")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("Moved");
+                    b.Property<bool>("Moved")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("MovedTo");
+                    b.Property<string>("MovedTo")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("NextNotification");
+                    b.Property<DateTime>("NextNotification")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("OriginalDeadline");
+                    b.Property<DateTime>("OriginalDeadline")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("OriginalDueDate");
+                    b.Property<DateTime>("OriginalDueDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("Paid");
+                    b.Property<bool>("Paid")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("PaymentId");
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Reason");
+                    b.Property<int>("Reason")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Number");
 
@@ -563,29 +783,41 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.MatterixPayment", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("ExtraDescription");
+                    b.Property<string>("ExtraDescription")
+                        .HasColumnType("text");
 
-                    b.Property<int>("InvoiceNumber");
+                    b.Property<int>("InvoiceNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Method");
+                    b.Property<int>("Method")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("PaymentServiceRef");
+                    b.Property<string>("PaymentServiceRef")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Reason");
+                    b.Property<int>("Reason")
+                        .HasColumnType("integer");
 
-                    b.Property<bool>("Refunded");
+                    b.Property<bool>("Refunded")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("RefundedAt");
+                    b.Property<DateTime>("RefundedAt")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -601,37 +833,53 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.MatterixPlusApplication", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("Applier");
+                    b.Property<string>("Applier")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("ApplyDate");
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ContactPersonEmail");
+                    b.Property<string>("ContactPersonEmail")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ContactPersonName");
+                    b.Property<string>("ContactPersonName")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ContactPersonPhone");
+                    b.Property<string>("ContactPersonPhone")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ContactPersonPhoneCode");
+                    b.Property<string>("ContactPersonPhoneCode")
+                        .HasColumnType("text");
 
-                    b.Property<string>("CoursesIds");
+                    b.Property<string>("CoursesIds")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Organization");
+                    b.Property<string>("Organization")
+                        .HasColumnType("text");
 
-                    b.Property<int>("PassCode");
+                    b.Property<int>("PassCode")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Program");
+                    b.Property<string>("Program")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Reference");
+                    b.Property<int>("Reference")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Replay");
+                    b.Property<string>("Replay")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("StudentId");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -642,11 +890,14 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.NoNotification", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("NotificationType");
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Method");
+                    b.Property<int>("Method")
+                        .HasColumnType("integer");
 
                     b.HasKey("UserId", "NotificationType", "Method");
 
@@ -656,31 +907,44 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.Notification", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<int>("Attempts");
+                    b.Property<int>("Attempts")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Body")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Completed");
+                    b.Property<bool>("Completed")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Method");
+                    b.Property<int>("Method")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Reference");
+                    b.Property<string>("Reference")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Subject");
+                    b.Property<string>("Subject")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("TimeSent");
+                    b.Property<DateTime>("TimeSent")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("TimeToSend");
+                    b.Property<DateTime>("TimeToSend")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Type");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -691,11 +955,14 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.OpenLecture", b =>
                 {
-                    b.Property<string>("LectureId");
+                    b.Property<string>("LectureId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("StudentId");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("ExpireDate");
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("LectureId", "StudentId");
 
@@ -707,11 +974,14 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.PlusApplicationFile", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<string>("ApplicationId");
+                    b.Property<string>("ApplicationId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("FileId");
+                    b.Property<string>("FileId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -724,33 +994,47 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.Registration", b =>
                 {
-                    b.Property<string>("StudentId");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("AdminComment");
+                    b.Property<string>("AdminComment")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ApplicationId");
+                    b.Property<string>("ApplicationId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("AuthCookies");
+                    b.Property<string>("AuthCookies")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Canceled");
+                    b.Property<bool>("Canceled")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("Count");
+                    b.Property<int>("Count")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("DiscountCard");
+                    b.Property<string>("DiscountCard")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Expire");
+                    b.Property<bool>("Expire")
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ExpireDate");
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("IpAddress");
+                    b.Property<string>("IpAddress")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("Live");
+                    b.Property<bool>("Live")
+                        .HasColumnType("boolean");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
-                    b.Property<DateTime>("RegisterDate");
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("StudentId", "CourseId");
 
@@ -763,15 +1047,20 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Matterix.Models.Schedule", b =>
                 {
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("text");
 
-                    b.Property<int>("Number");
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("Day");
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
 
-                    b.Property<TimeSpan>("From");
+                    b.Property<TimeSpan>("From")
+                        .HasColumnType("interval");
 
-                    b.Property<TimeSpan>("To");
+                    b.Property<TimeSpan>("To")
+                        .HasColumnType("interval");
 
                     b.HasKey("CourseId", "Number");
 
@@ -781,15 +1070,20 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.UsedPassword", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
 
-                    b.Property<string>("PlaceCreated");
+                    b.Property<string>("PlaceCreated")
+                        .HasColumnType("text");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -801,31 +1095,44 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Matterix.Models.UserDevice", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
 
-                    b.Property<int>("Activity");
+                    b.Property<int>("Activity")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("AuthCookies");
+                    b.Property<string>("AuthCookies")
+                        .HasColumnType("text");
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Connection");
+                    b.Property<string>("Connection")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("DeviceType");
+                    b.Property<int>("DeviceType")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("GroupNumber");
+                    b.Property<int>("GroupNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Ip");
+                    b.Property<string>("Ip")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("New");
+                    b.Property<bool>("New")
+                        .HasColumnType("boolean");
 
-                    b.Property<int>("OperatingSystem");
+                    b.Property<int>("OperatingSystem")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ZipCode");
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -837,22 +1144,25 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -860,14 +1170,19 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -879,14 +1194,19 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("ClaimType");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ClaimValue");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -898,15 +1218,19 @@ namespace Matterix.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
-                    b.Property<string>("ProviderDisplayName");
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -917,9 +1241,11 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
-                    b.Property<string>("RoleId");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -930,19 +1256,38 @@ namespace Matterix.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
-                    b.Property<string>("Value");
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CountryCourse", b =>
+                {
+                    b.HasOne("Matterix.Models.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountriesIsoCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Matterix.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Matterix.Models.Address", b =>
@@ -950,6 +1295,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.ContactMessage", b =>
@@ -957,6 +1304,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.Course", b =>
@@ -964,7 +1313,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Matterix.Models.CourseFeedback", b =>
@@ -976,6 +1328,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.CourseRating", b =>
@@ -983,12 +1339,18 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.Homework", b =>
@@ -996,12 +1358,18 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Matterix.Models.LectureFile", "LectureFile")
                         .WithMany()
                         .HasForeignKey("LectureFileName", "LectureFileLectureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LectureFile");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Matterix.Models.InitiatedOrder", b =>
@@ -1009,6 +1377,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.InvoiceIncrement", b =>
@@ -1016,7 +1386,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.MatterixInvoice", "Invoice")
                         .WithMany()
                         .HasForeignKey("InvoiceNumber")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("Matterix.Models.JobApplication", b =>
@@ -1024,6 +1397,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.Lecture", b =>
@@ -1031,6 +1406,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Matterix.Models.LectureFile", b =>
@@ -1038,7 +1415,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Lecture", "Lecture")
                         .WithMany()
                         .HasForeignKey("LectureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lecture");
                 });
 
             modelBuilder.Entity("Matterix.Models.LectureVideo", b =>
@@ -1046,7 +1426,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Lecture", "Lecture")
                         .WithMany()
                         .HasForeignKey("LectureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lecture");
                 });
 
             modelBuilder.Entity("Matterix.Models.MatterixInvoice", b =>
@@ -1062,6 +1445,12 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.MatterixPayment", b =>
@@ -1073,11 +1462,18 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.MatterixInvoice", "Invoice")
                         .WithMany()
                         .HasForeignKey("InvoiceNumber")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.MatterixPlusApplication", b =>
@@ -1085,6 +1481,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Matterix.Models.NoNotification", b =>
@@ -1092,7 +1490,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.Notification", b =>
@@ -1100,6 +1501,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.OpenLecture", b =>
@@ -1107,12 +1510,18 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Lecture", "Lecture")
                         .WithMany()
                         .HasForeignKey("LectureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Matterix.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lecture");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Matterix.Models.PlusApplicationFile", b =>
@@ -1124,6 +1533,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.MatterixFile", "File")
                         .WithMany()
                         .HasForeignKey("FileId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("Matterix.Models.Registration", b =>
@@ -1135,12 +1548,20 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Matterix.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Matterix.Models.Schedule", b =>
@@ -1148,7 +1569,10 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Matterix.Models.UsedPassword", b =>
@@ -1156,6 +1580,8 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Matterix.Models.UserDevice", b =>
@@ -1163,51 +1589,59 @@ namespace Matterix.Data.Migrations
                     b.HasOne("Matterix.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Matterix.Models.ApplicationUser")
+                    b.HasOne("Matterix.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Matterix.Models.ApplicationUser")
+                    b.HasOne("Matterix.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Matterix.Models.ApplicationUser")
+                    b.HasOne("Matterix.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Matterix.Models.ApplicationUser")
+                    b.HasOne("Matterix.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

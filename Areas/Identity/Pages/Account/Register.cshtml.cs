@@ -132,7 +132,11 @@ namespace Matterix.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "The City is required")]
             [Display(Name = "City")]
             public string City { get; set; }
-            
+
+            [Required(ErrorMessage = "The Country is required")]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
             public string Ip { get; set; }
             public EnumList.DeviceType DeviceType { get; set; }
             public EnumList.OperatingSystem OperatingSystem { get; set; }
@@ -197,7 +201,8 @@ namespace Matterix.Areas.Identity.Pages.Account
                 var middleName = UpperFirstChar(Input.MiddleName);
                 var street = UpperFirstChar(Input.Address);
                 var city = UpperFirstChar(Input.City);
-                
+                var country = UpperFirstChar(Input.Country);
+
                 var profileUserName = $"{firstName}.{lastName}{Input.Year}";
                 profileUserName = profileUserName.Replace(" ", "");
                 var user = new ApplicationUser { 
@@ -217,6 +222,7 @@ namespace Matterix.Areas.Identity.Pages.Account
                     var address = new Address()
                     {
                         Street = street, ZipCode = Input.ZipCode, City = city, User = user, UserId = user.Id
+                        ,Country=Input.Country
                     };
                     _context.Add(address);
                     await _context.SaveChangesAsync();

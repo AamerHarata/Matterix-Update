@@ -6,7 +6,13 @@ const messages = {
         message:{}
     },
     ar: {
-        message:{}
+        message: {}
+    },
+    sw: {
+            message: {}
+    },
+    ge: {
+        message: {}
     }
 };
 
@@ -50,15 +56,30 @@ $.ajax({
     }
 });
 
+//Parse German File
+$.ajax({
+    type: "GET",
+    url: "/js/Language/ge.json?nocache" + (new Date()).getTime(),
+    async: false,
+    datatype: "json",
+    success: function (json) {
+        messages.ge.message = json;
+    }
+});
+
+//Parse Swidesh File
+$.ajax({
+    type: "GET",
+    url: "/js/Language/sw.json?nocache" + (new Date()).getTime(),
+    async: false,
+    datatype: "json",
+    success: function (json) {
+        messages.sw.message = json;
+    }
+});
+
 
 $(document).ready(function(){
-    
-    
-    
-    
-    
-
-
 
 // Create VueI18n instance with options
     const i18n = new VueI18n({
