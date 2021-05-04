@@ -20,3 +20,17 @@ footer{
     opacity: 0.6;
     pointer-events: none;
 }
+
+#pay-with-ideal-container:hover {
+    filter: brightness(70%);
+}
+
+#pay-with-ideal-container:active {
+    filter: brightness(90%);
+    transform: scale(0.95);
+}
+
+#pay-with-ideal-container[disabled=disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+}

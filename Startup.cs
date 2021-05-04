@@ -155,14 +155,16 @@ namespace Matterix
             services.AddTransient<NotificationsService>();
             services.AddTransient<SmsService>();
             services.AddTransient<PdfService>();
-            
-            
-            
-            
-            
-            
-            
-            
+            services.AddTransient<CurrencyService>();
+            services.AddTransient<UserService>();
+
+
+
+
+
+
+
+
             // Special authorization for pages only admins can access // ToDo :: Check those policies first, then implement them inside all controllers like that [Authorize(Policy = "EditCourse")]
             services.AddAuthorization(options =>
             {

@@ -29,7 +29,7 @@ namespace Matterix.Services
         public static bool NorwaySummerTime { get; } = DateTime.Now.Date <= new DateTime(DateTime.Now.Year, 10, 25)
             && DateTime.Now.Date > new DateTime(DateTime.Now.Year, 3, 21);
 
-        public static bool AdvancedDevelopment { get; } = false;
+        public static bool AdvancedDevelopment { get; } = true;
 
         public static bool DeveloperTiming { get; } = false; //ToDo :: WHENEVER push to server this should be FALSE
         

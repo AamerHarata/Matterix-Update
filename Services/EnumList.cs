@@ -34,7 +34,7 @@ namespace Matterix.Services
 
         public enum PaymentMethod
         {
-            Other, Vipps, Stripe, Admin, BankCID
+            Other, Vipps, Stripe, Admin, BankCID,IDeal
         }
         
         public enum PaymentResult
