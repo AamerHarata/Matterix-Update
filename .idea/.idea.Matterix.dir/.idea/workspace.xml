@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48469888-865a-484b-a36e-32983fae6b09" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/.idea/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Matterix.dir/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/HomePartial/_IconsOnMainPage.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/HomePartial/_IconsOnMainPage.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +28,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml" />
       <option value="$PROJECT_DIR$/Views/Home/AboutUs.cshtml" />
       <option value="$PROJECT_DIR$/Views/Course/Sections/LecturesSection.cshtml" />
       <option value="$PROJECT_DIR$/Views/Course/Sections/NoAccessLectureSection.cshtml" />
@@ -37,7 +41,6 @@
       <option value="$PROJECT_DIR$/Services/AdminService.cs" />
       <option value="$PROJECT_DIR$/Services/AccessService.cs" />
       <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
-      <option value="$PROJECT_DIR$/docker-compose.yml" />
       <option value="$PROJECT_DIR$/Data/Migrations/ApplicationDbContextModelSnapshot.cs" />
       <option value="$PROJECT_DIR$/Models/Country.cs" />
       <option value="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
@@ -65,13 +68,17 @@
       <option value="$PROJECT_DIR$/Data/ApplicationDbInitializer.cs" />
       <option value="$PROJECT_DIR$/Controllers/AdminController.cs" />
       <option value="$PROJECT_DIR$/Models/Vipps/merchantInfo.cs" />
-      <option value="$PROJECT_DIR$/appsettings.Development.json" />
       <option value="$PROJECT_DIR$/Controllers/Payment111Controller.cs" />
       <option value="$PROJECT_DIR$/Controllers/PaymentController.cs" />
-      <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/Models/MatterixInvoice.cs" />
       <option value="$PROJECT_DIR$/Data/ApplicationDbContext.cs" />
       <option value="$PROJECT_DIR$/Services/StaticInformation.cs" />
+      <option value="$PROJECT_DIR$/appsettings.Development.json" />
+      <option value="$PROJECT_DIR$/appsettings.json" />
+      <option value="$PROJECT_DIR$/docker-compose.yml" />
+      <option value="$PROJECT_DIR$/Models/Course.cs" />
+      <option value="$PROJECT_DIR$/Views/Home/HomePartial/_LoginHome.cshtml" />
+      <option value="$PROJECT_DIR$/Views/Home/HomePartial/_IconsOnMainPage.cshtml" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1j5vmEOQQVN8szBjqs3KRbDLDuC" />
@@ -173,6 +180,8 @@
       <workItem from="1618777636081" duration="279000" />
       <workItem from="1618777944290" duration="2218000" />
       <workItem from="1618780222350" duration="1397000" />
+      <workItem from="1620034858081" duration="3054000" />
+      <workItem from="1620204737790" duration="4024000" />
     </task>
     <servers />
   </component>
