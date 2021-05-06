@@ -5,73 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48469888-865a-484b-a36e-32983fae6b09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Matterix-Update.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/46dd0f05-fb80-4cd2-8df8-2b81222ffb7d/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9dc6e516-f22b-4806-99b0-74540ba11419.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9dc6e516-f22b-4806-99b0-74540ba11419/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9dc6e516-f22b-4806-99b0-74540ba11419/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9dc6e516-f22b-4806-99b0-74540ba11419/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9dc6e516-f22b-4806-99b0-74540ba11419/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c44456e5-32ec-4434-b40c-2fac83a364fa.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c44456e5-32ec-4434-b40c-2fac83a364fa/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c44456e5-32ec-4434-b40c-2fac83a364fa/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c44456e5-32ec-4434-b40c-2fac83a364fa/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/c44456e5-32ec-4434-b40c-2fac83a364fa/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/cdec5d1e-7144-4a0b-ae25-1fa56182a0a3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/fe18e5fb-6af5-41c3-9599-07fbe2a8b538.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/fe18e5fb-6af5-41c3-9599-07fbe2a8b538/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/fe18e5fb-6af5-41c3-9599-07fbe2a8b538/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/fe18e5fb-6af5-41c3-9599-07fbe2a8b538/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/fe18e5fb-6af5-41c3-9599-07fbe2a8b538/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Migrations/20210504160732_AddNewLanguages.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Migrations/20210504160732_AddNewLanguages.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/ViewModel/CountryViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Release/net5.0/Matterix.csprojAssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wwwroot/js/Language/ge.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wwwroot/js/Language/sw.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/CourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CourseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Address.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Country.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Country.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Course.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Course.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/ViewModel/CourseViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ViewModel/CourseViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/CourseService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/CourseService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/EnumList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/EnumList.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/StaticInformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/StaticInformation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Course/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Course/Create.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Course/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Course/Edit.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Home/Blocked.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Blocked.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Shared/PartialViews/_Flags.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/PartialViews/_Flags.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Shared/PartialViews/_LanguageModal.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/PartialViews/_LanguageModal.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.StaticWebAssets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.StaticWebAssets.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/Matterix.deps.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.MvcApplicationPartsAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.MvcApplicationPartsAssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorTargetAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.RazorTargetAssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Matterix.genruntimeconfig.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/staticwebassets/Matterix.StaticWebAssets.Manifest.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/staticwebassets/Matterix.StaticWebAssets.Manifest.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/staticwebassets/Matterix.StaticWebAssets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/staticwebassets/Matterix.StaticWebAssets.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwwroot/js/GlobalShared.js" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/GlobalShared.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/Language.js" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/Language.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/ar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwwroot/js/Language/no.json" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/js/Language/no.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,13 +90,13 @@
       <option value="$PROJECT_DIR$/Controllers/PaymentController.cs" />
       <option value="$PROJECT_DIR$/Models/MatterixInvoice.cs" />
       <option value="$PROJECT_DIR$/Data/ApplicationDbContext.cs" />
-      <option value="$PROJECT_DIR$/Services/StaticInformation.cs" />
       <option value="$PROJECT_DIR$/appsettings.Development.json" />
       <option value="$PROJECT_DIR$/appsettings.json" />
       <option value="$PROJECT_DIR$/docker-compose.yml" />
       <option value="$PROJECT_DIR$/Models/Course.cs" />
       <option value="$PROJECT_DIR$/Views/Home/HomePartial/_LoginHome.cshtml" />
       <option value="$PROJECT_DIR$/Views/Home/HomePartial/_IconsOnMainPage.cshtml" />
+      <option value="$PROJECT_DIR$/Services/StaticInformation.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1j5vmEOQQVN8szBjqs3KRbDLDuC" />
