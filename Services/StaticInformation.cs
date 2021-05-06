@@ -34,6 +34,6 @@ namespace Matterix.Services
         public static bool DeveloperTiming { get; } = false; //ToDo :: WHENEVER push to server this should be FALSE
         
         //This value used when you want edit the server main database from the localhost. MAKE IT FALSE BEFORE YOU DO ANYTHING
-        public static bool AdvancedLive { get; } = false; //ToDo :: THIS SHOULD ALWAYS BE FALSE SPECIALLY ON DEVELOPMENT
+        public static bool AdvancedLive { get; } = true; //ToDo :: THIS SHOULD ALWAYS BE FALSE SPECIALLY ON DEVELOPMENT
     }
 }

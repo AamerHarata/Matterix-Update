@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Matterix.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210504160732_AddNewLanguages")]
+    [Migration("20210506114433_AddNewLanguages")]
     partial class AddNewLanguages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
