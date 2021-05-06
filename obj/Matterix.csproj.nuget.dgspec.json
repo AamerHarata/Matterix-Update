@@ -1,27 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj": {}
+    "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj": {
+    "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj",
+        "projectUniqueName": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj",
         "projectName": "Matterix",
-        "projectPath": "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj",
-        "packagesPath": "C:\\Users\\Joudy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Joudy\\Matterix-Update\\obj\\",
+        "projectPath": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj",
+        "packagesPath": "C:\\Users\\Aamer\\.nuget\\packages\\",
+        "outputPath": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\Aamer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\Joudy\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> origin/Myada_First
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -178,11 +174,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
->>>>>>> origin/Myada_First
         }
       }
     }

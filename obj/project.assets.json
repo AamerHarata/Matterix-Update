@@ -6065,7 +6065,6 @@
       "path": "netstandard.library/1.6.1",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "netstandard.library.1.6.1.nupkg.sha512",
@@ -6881,7 +6880,6 @@
       "path": "system.componentmodel/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7030,7 +7028,6 @@
       "path": "system.componentmodel.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7069,7 +7066,6 @@
       "path": "system.componentmodel.typeconverter/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7983,7 +7979,6 @@
       "path": "system.io.compression.zipfile/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8382,7 +8377,6 @@
       "path": "system.net.nameresolution/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8585,7 +8579,6 @@
       "path": "system.net.sockets/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -9730,7 +9723,6 @@
       "path": "system.runtime.serialization.json/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -10979,7 +10971,6 @@
       "path": "system.threading.timer/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -11351,31 +11342,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\Aamer\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
-=======
-    "C:\\Users\\Joudy\\.nuget\\packages\\": {}
->>>>>>> origin/Myada_First
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj",
+      "projectUniqueName": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj",
       "projectName": "Matterix",
-      "projectPath": "C:\\Users\\Joudy\\Matterix-Update\\Matterix.csproj",
-      "packagesPath": "C:\\Users\\Joudy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Joudy\\Matterix-Update\\obj\\",
+      "projectPath": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\Matterix.csproj",
+      "packagesPath": "C:\\Users\\Aamer\\.nuget\\packages\\",
+      "outputPath": "D:\\GitFolders\\Programming\\C#\\Update\\Matterix\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\Aamer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\Joudy\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> origin/Myada_First
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11532,11 +11515,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
->>>>>>> origin/Myada_First
       }
     }
   },
