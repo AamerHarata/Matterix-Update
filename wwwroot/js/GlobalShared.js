@@ -5,6 +5,10 @@ const getBrowserLanguage = function(){
         return 'ar';
     else if(lang.includes('en'))
         return 'en';
+    else if (lang.includes('sw'))
+        return 'sw';
+    else if (lang.includes('de'))
+        return 'ge';
     else
         return 'no';
     

@@ -163,16 +163,21 @@
         
         
         <div class="form-group">
-            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
-                <label asp-for="Input.ZipCode">{{$t('message.zipCode')}}</label>
-                <input readonly type="number" asp-for="Input.ZipCode" placeholder="0000" class="form-control zipCode" />
-            
-            </div>
+
             <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
                 <label asp-for="Input.City">{{$t('message.city')}}</label>
                 <input readonly asp-for="Input.City" class="form-control" />
             </div>
-            
+            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                <label asp-for="Input.Country">{{$t('message.country')}}</label>
+                <input readonly asp-for="Input.Country" class="form-control" />
+            </div>
+            <div class="group-inputs" data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.contactAdminToEditThisField')">
+                <label asp-for="Input.ZipCode">{{$t('message.zipCode')}}</label>
+                <input readonly type="number" asp-for="Input.ZipCode" placeholder="0000" class="form-control zipCode" />
+
+            </div>
+
             @* <span asp-validation-for="Input.ZipCode" style="display: block" class="text-danger validation-line"></span> *@
             @* <span asp-validation-for="Input.City" class="text-danger validation-line"></span> *@
         </div>

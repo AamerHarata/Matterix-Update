@@ -5,382 +5,409 @@
 
 @{
     ViewData["Title"] = "Register";
-    
-    
-    IList<SelectListItem> genderList = Enum.GetValues(typeof(EnumList.Gender)).Cast<EnumList.Gender>().Select(x => new SelectListItem {Text = Format.Translate(x.ToString()).ToString(), Value = ((int) x).ToString()}).ToList();
+
+
+    IList<SelectListItem> genderList = Enum.GetValues(typeof(EnumList.Gender)).Cast<EnumList.Gender>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
     var genderListData = new SelectList(genderList, "Value", "Text");
-    
-    IList<SelectListItem> languageList = Enum.GetValues(typeof(EnumList.Language)).Cast<EnumList.Language>().Select(x => new SelectListItem {Text = Format.Translate(x.ToString()).ToString(), Value = ((int) x).ToString()}).ToList();
+
+    IList<SelectListItem> languageList = Enum.GetValues(typeof(EnumList.Language)).Cast<EnumList.Language>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
     var languageListData = new SelectList(languageList, "Value", "Text");
-    
+
+    IList<SelectListItem> countryList = Enum.GetValues(typeof(EnumList.Country)).Cast<EnumList.Country>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = x.ToString() }).ToList();
+    var countryListData = new SelectList(countryList, "Value", "Text");
+
     var startYear = 1940;
     var endYear = DateTime.Now.Year - 8;
 }
-<link rel="stylesheet" href="~/css/Identity/Register.css" asp-append-version="true"/>
+<link rel="stylesheet" href="~/css/Identity/Register.css" asp-append-version="true" />
 
 
 <div class="text-center direction un-select col-lg-8 p-0" style="border: 0.01rem solid dimgray; border-radius: 0.1rem; background-color: white; margin: auto auto 5rem auto;">
-    
-    
-    
+
+
+
     <div class="row">
-        
+
         <div class="col-sm-7 p-5">
-    
+
 
             <div class=" direction text-center">
 
                 <div class="display-4 title-1-5 matterix-color font-cairo mt-4 ">{{$t('message.createNewAccount')}}</div>
-        
+
             </div>
-            <br/>
+            <br />
 
             <div class="text-muted m-auto font-cairo row">
 
 
                 <span class="col-1"></span><span class="col-2 step" phase="intro">&#9312;</span><span class="col-2 step" phase="personal-info">&#9313;</span><span class="col-2 step" phase="contact-info">&#9314;</span><span class="col-2 step" phase="password">&#9315;</span><span class="col-2 step" phase="address">&#9316;</span><span class="col-1"></span>
 
-                </div>
-            <hr/>
+            </div>
+            <hr />
 
 
 
 
             @* MAIN REGISTER FORM *@
-        
+
             <form id="register-form" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        
+
                 @* USER DEVICE SECTION :: TODO:: To be changed later and set as global maybe *@
-        
-                <input asp-for="Input.Ip" hidden="hidden" id="ip"/>
-                <input asp-for="Input.DeviceType" hidden="hidden" id="deviceType"/>
-                <input asp-for="Input.OperatingSystem" hidden="hidden" id="operatingSystem"/>
-                <input asp-for="Input.AuthCookies" hidden="hidden" id="authCookies"/>
+
+                <input asp-for="Input.Ip" hidden="hidden" id="ip" />
+                <input asp-for="Input.DeviceType" hidden="hidden" id="deviceType" />
+                <input asp-for="Input.OperatingSystem" hidden="hidden" id="operatingSystem" />
+                <input asp-for="Input.AuthCookies" hidden="hidden" id="authCookies" />
 
 
-            @* Intro *@
-            
-        <div id="intro" class="section">
-            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="fas fa-heartbeat"></i>&nbsp;&nbsp;{{$t('message.weWillHelpYouCreateAccount')}}</div>
+                @* Intro *@
 
-            <div class="row direction text-0-8 text-muted">
-                <div class="col-md-1"></div>
-                <div class="col-md-11">
-                    <p>{{$t('message.ifAlreadyHasAccountMust')}} <a asp-area="Identity" asp-page="/Account/Login" class="card-link matterix-color font-cairo">{{$t('message.login')}}</a></p>
-                    <p>{{$t('message.allInformationInProcessCorrect')}}</p>
-                    <p>{{$t('message.thisAccountCannotBeUsedByOthers')}}</p>
-                    <p>{{$t('message.doNotShutUpOrRefresh')}}</p>
+                <div id="intro" class="section">
+                    <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="fas fa-heartbeat"></i>&nbsp;&nbsp;{{$t('message.weWillHelpYouCreateAccount')}}</div>
+
+                    <div class="row direction text-0-8 text-muted">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <p>{{$t('message.ifAlreadyHasAccountMust')}} <a asp-area="Identity" asp-page="/Account/Login" class="card-link matterix-color font-cairo">{{$t('message.login')}}</a></p>
+                            <p>{{$t('message.allInformationInProcessCorrect')}}</p>
+                            <p>{{$t('message.thisAccountCannotBeUsedByOthers')}}</p>
+                            <p>{{$t('message.doNotShutUpOrRefresh')}}</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+
+                        <a class="m-button m-button-primary text-center m-auto change-section" target="personal-info">{{$t('message.continue')}}</a>
+                    </div>
+
                 </div>
 
+
+                @*PERSONAL INFO *@
+
+                <div id="personal-info" class="section" style="display: none">
+                    <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="fas fa-user-graduate"></i>&nbsp;&nbsp;{{$t('message.personalInfo')}}</div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.FirstName" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.firstName')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.MiddleName" required title="" v-bind:placeholder="$t('message.optional')" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="far fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.middleName')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.LastName" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.lastName')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+
+                                @Html.DropDownListFor(x => x.Input.Gender, genderListData, Format.Translate("selectGender").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-venus-mars"></i>&nbsp;&nbsp;{{$t('message.gender')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+
+                    <div class="row">
+
+
+
+
+
+
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                @Html.DropDownListFor(m => m.Input.Year, Enumerable.Range(0, (endYear - startYear - 1)).Select(i => new SelectListItem { Text = (endYear - i).ToString(), Value = (endYear - i).ToString() }), Format.Translate("aYear").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;{{$t('message.birthDate')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="matterix-input-container set-my-direction">
+                                @Html.DropDownListFor(m => m.Input.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), Format.Translate("aMonth").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content">{{$t('message.aMonth')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="matterix-input-container set-my-direction">
+                                @Html.DropDownListFor(m => m.Input.Day, Enumerable.Range(1, 30).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), Format.Translate("aDay").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content">{{$t('message.aDay')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    @*VALIDATION AREA*@
+                    <div id="personal-info-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
+
+
+
+                    <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                        <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right float-left text-secondary icon-direction set-my-direction pointer change-section" target="intro"></i>
+                        <a class="m-button m-button-primary text-center m-auto change-section" target="contact-info">{{$t('message.next')}}</a>
+                    </div>
+                </div>
+
+                @* CONTACT INFO *@
+                <div id="contact-info" class="section" style="display: none">
+                    <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="far fa-id-card"></i>&nbsp;&nbsp;{{$t('message.contactInfo')}}</div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="matterix-input-container set-my-direction">
+                                @Html.DropDownListFor(x => x.Input.Language, languageListData, Format.Translate("selectYourLanguage").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-globe"></i>&nbsp;&nbsp;{{$t('message.theLanguage')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" type="text" asp-for="Input.Email" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$t('message.email')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    <div class="row text-left not-direction" style="text-align: left !important; direction: rtl !important">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4 text-left">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" placeholder="44455566" autocomplete="off" asp-for="Input.PhoneNumber" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;{{$t('message.phoneNumber')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <select asp-for="Input.PhoneCode" class="matterix-select align-self-center" required title="" asp-items="ViewBag.countries"></select>
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-plus text-0-6"></i>&nbsp;&nbsp;{{$t('message.code')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+
+                    @*VALIDATION AREA*@
+                    <div id="contact-info-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
+
+
+
+                    <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                        <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right float-left text-secondary icon-direction set-my-direction pointer change-section" target="personal-info"></i>
+                        <a class="m-button m-button-primary text-center m-auto change-section" target="password">{{$t('message.next')}}</a>
+                    </div>
+                </div>
+
+
+
+                @* PASSWORD *@
+                <div id="password" class="section" style="display: none">
+
+                    <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-lock"></i>&nbsp;&nbsp;{{$t('message.choosePasswordForAccount')}}</div>
+                    <div class="ml-5 mr-5 mb-3 mt-2 direction text-0-7 text-muted">{{$t('message.passwordMustConsist')}}</div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.Password" required />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-key set-my-direction icon-direction"></i>&nbsp;&nbsp;{{$t('message.password')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.ConfirmPassword" required />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-redo-alt set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.confirmPassword')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+
+
+
+
+                    @*VALIDATION AREA*@
+                    <div id="password-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
+
+
+
+                    <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                        <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right icon-direction float-left text-secondary set-my-direction pointer change-section" target="contact-info"></i>
+                        <a class="m-button m-button-primary text-center m-auto change-section" target="address">{{$t('message.next')}}</a>
+                    </div>
+                </div>
+
+
+
+
+
+                @* Address *@
+                <div id="address" class="section" style="display: none">
+
+                    <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="far fa-address-card set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.address')}}</div>
+                    @* <div class="ml-5 mr-5 mb-3 mt-2 direction text-0-7 text-muted">يجب أن تكون كلمة السر مكونة من 6 محارف على الأقل، تحوي أحرف انكليزية كبيرة وصغيرة، ويمكن استعمال الأرقام</div> *@
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" asp-for="Input.Address" v-bind:placeholder="$t('message.example')+': '+'Skippergata 40 a'" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-street-view"></i>&nbsp;&nbsp;{{$t('message.street')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+
+                        @*<div class="col-md-4">
+            <div class="matterix-input-container set-my-direction">
+                <input class="matterix-input" v-bind:placeholder="$t('message.example')+': '+'Norway'" asp-for="Input.Country" required title="" />
+                <label class="matterix-input-label">
+                    @Html.DropDownListFor(x => x.Input.Country, countryListData, Format.Translate("selectGender").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+                    <span class="matterix-input-content"><i class="fas fa-street-view set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.country')}}</span>
+                </label>
             </div>
+        </div>*@
+
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+
+                                @Html.DropDownListFor(x => x.Input.Country, countryListData, Format.Translate("selectCountry").ToString(), new { @class = "matterix-select", @required = "required", @title = "" })
+
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-city"></i>&nbsp;&nbsp;{{$t('message.country')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <input class="matterix-input" v-bind:placeholder="$t('message.example')+': '+'Kristiansand'" asp-for="Input.City" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-city set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.city')}}</span>
+                                </label>
+                            </div>
+                        </div>
 
 
-            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
 
-                <a class="m-button m-button-primary text-center m-auto change-section" target="personal-info">{{$t('message.continue')}}</a>
-            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div class="matterix-input-container set-my-direction">
+                                <input type="number" v-bind:placeholder="$t('message.example')+': '+'4640'" class="matterix-input zipCode" asp-for="Input.ZipCode" required title="" />
+                                <label class="matterix-input-label">
+                                    <span class="matterix-input-content"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$t('message.zipCode')}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    @*VALIDATION AREA*@
+                    <div id="address-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
+
+
+
+                    <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
+                        <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right icon-direction float-left text-secondary set-my-direction pointer change-section" target="password"></i>
+                        <a class="m-button m-button-primary text-center m-auto change-section" target="complete">{{$t('message.confirmProcess')}}</a>
+                    </div>
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
 
-        @*PERSONAL INFO *@
 
-        <div id="personal-info" class="section" style="display: none">
-            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="fas fa-user-graduate"></i>&nbsp;&nbsp;{{$t('message.personalInfo')}}</div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.FirstName" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.firstName')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.MiddleName" required title="" v-bind:placeholder="$t('message.optional')"/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="far fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.middleName')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
 
-            </div>
 
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.LastName" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-id-badge"></i>&nbsp;&nbsp;{{$t('message.lastName')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-
-                        @Html.DropDownListFor(x => x.Input.Gender, genderListData, Format.Translate("selectGender").ToString(), new {@class = "matterix-select", @required = "required", @title = ""})
-
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-venus-mars"></i>&nbsp;&nbsp;{{$t('message.gender')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-
-            <div class="row">
-
-
-
-
-
-
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        @Html.DropDownListFor(m => m.Input.Year, Enumerable.Range(0, (endYear - startYear - 1)).Select(i => new SelectListItem {Text = (endYear - i).ToString(), Value = (endYear - i).ToString()}), Format.Translate("aYear").ToString(), new {@class = "matterix-select", @required = "required", @title = ""})
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;{{$t('message.birthDate')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="matterix-input-container set-my-direction">
-                        @Html.DropDownListFor(m => m.Input.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem {Text = i.ToString(), Value = i.ToString()}), Format.Translate("aMonth").ToString(), new {@class = "matterix-select", @required = "required", @title = ""})
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content">{{$t('message.aMonth')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="matterix-input-container set-my-direction">
-                        @Html.DropDownListFor(m => m.Input.Day, Enumerable.Range(1, 30).Select(i => new SelectListItem {Text = i.ToString(), Value = i.ToString()}), Format.Translate("aDay").ToString(), new {@class = "matterix-select", @required = "required", @title = ""})
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content">{{$t('message.aDay')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-            @*VALIDATION AREA*@
-            <div id="personal-info-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
-
-
-
-            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
-                <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right float-left text-secondary icon-direction set-my-direction pointer change-section" target="intro"></i>
-                <a class="m-button m-button-primary text-center m-auto change-section" target="contact-info">{{$t('message.next')}}</a>
-            </div>
-        </div>
-
-        @* CONTACT INFO *@
-        <div id="contact-info" class="section" style="display: none">
-            <div class="mt-4 mb-4 font-cairo matterix-color mr-4 direction text-0-9"><i class="far fa-id-card"></i>&nbsp;&nbsp;{{$t('message.contactInfo')}}</div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="matterix-input-container set-my-direction">
-                        @Html.DropDownListFor(x => x.Input.Language, languageListData, Format.Translate("selectYourLanguage").ToString(), new {@class = "matterix-select", @required = "required", @title = ""})
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-globe"></i>&nbsp;&nbsp;{{$t('message.theLanguage')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" type="text" asp-for="Input.Email" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$t('message.email')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row text-left not-direction" style="text-align: left !important; direction: rtl !important">
-                <div class="col-md-2"></div>
-                <div class="col-md-4 text-left">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" placeholder="44455566" autocomplete="off" asp-for="Input.PhoneNumber" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;{{$t('message.phoneNumber')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <select asp-for="Input.PhoneCode" class="matterix-select align-self-center" required title="" asp-items="ViewBag.countries"></select>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-plus text-0-6"></i>&nbsp;&nbsp;{{$t('message.code')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            @*VALIDATION AREA*@
-            <div id="contact-info-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
-
-
-
-            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
-                <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right float-left text-secondary icon-direction set-my-direction pointer change-section" target="personal-info"></i>
-                <a class="m-button m-button-primary text-center m-auto change-section" target="password">{{$t('message.next')}}</a>
-            </div>
-        </div>
-
-
-
-        @* PASSWORD *@
-        <div id="password" class="section" style="display: none">
-
-            <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="fas fa-lock"></i>&nbsp;&nbsp;{{$t('message.choosePasswordForAccount')}}</div>
-            <div class="ml-5 mr-5 mb-3 mt-2 direction text-0-7 text-muted">{{$t('message.passwordMustConsist')}}</div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.Password" required/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-key set-my-direction icon-direction"></i>&nbsp;&nbsp;{{$t('message.password')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.ConfirmPassword" required/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-redo-alt set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.confirmPassword')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-
-
-
-
-            @*VALIDATION AREA*@
-            <div id="password-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
-
-
-
-            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
-                <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right icon-direction float-left text-secondary set-my-direction pointer change-section" target="contact-info"></i>
-                <a class="m-button m-button-primary text-center m-auto change-section" target="address">{{$t('message.next')}}</a>
-            </div>
-        </div>
-
-
-
-
-
-        @* Address *@
-        <div id="address" class="section" style="display: none">
-
-            <div class="mt-4 ml-4 mr-4 mb-2 font-cairo matterix-color direction text-0-9"><i class="far fa-address-card set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.address')}}</div>
-            @* <div class="ml-5 mr-5 mb-3 mt-2 direction text-0-7 text-muted">يجب أن تكون كلمة السر مكونة من 6 محارف على الأقل، تحوي أحرف انكليزية كبيرة وصغيرة، ويمكن استعمال الأرقام</div> *@
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" asp-for="Input.Address" v-bind:placeholder="$t('message.example')+': '+'Skippergata 40 a'" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-street-view"></i>&nbsp;&nbsp;{{$t('message.street')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <input class="matterix-input" v-bind:placeholder="$t('message.example')+': '+'Kristiansand'" asp-for="Input.City" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-city set-my-direction icon-direction-reserve"></i>&nbsp;&nbsp;{{$t('message.city')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="matterix-input-container set-my-direction">
-                        <input type="number" v-bind:placeholder="$t('message.example')+': '+'4640'" class="matterix-input zipCode" asp-for="Input.ZipCode" required title=""/>
-                        <label class="matterix-input-label">
-                            <span class="matterix-input-content"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$t('message.zipCode')}}</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-
-            </div>
-
-
-
-
-
-            @*VALIDATION AREA*@
-            <div id="address-validation" style="color: red" class="text-center text-0-7 font-cairo mt-4"></div>
-
-
-
-            <div class="mt-5 mb-4 d-flex align-items-center" style="position: relative; bottom: 0">
-                <i data-toggle="tooltip" data-placement="auto" v-bind:title="$t('message.back')" class="fas fa-arrow-circle-right icon-direction float-left text-secondary set-my-direction pointer change-section" target="password"></i>
-                <a class="m-button m-button-primary text-center m-auto change-section" target="complete">{{$t('message.confirmProcess')}}</a>
-            </div>
-        </div>
-        </form>
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-        
-        
-        
-        
-        
         <div class="col-sm-5">
-            <img src="~/Images/Covers/Register.jpg" width="100%" height="100%" style="object-fit: cover; min-height: 580px;"/>
+            <img src="~/Images/Covers/Register.jpg" width="100%" height="100%" style="object-fit: cover; min-height: 580px;" />
         </div>
-        
-        
-        
+
+
+
 
     </div>
-    
-    
+
+
 </div>
 
 @section Scripts {

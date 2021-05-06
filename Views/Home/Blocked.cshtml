@@ -138,7 +138,7 @@
                 <td>@Model.User.LastName</td>
                 <td>@Model.User.Email</td>
                 <td>@Model.User.PhoneNumber</td>
-                <td colspan="2">@Model.Address.Street, @Model.Address.ZipCode @Model.Address.City</td>
+                <td colspan="2">@Model.Address.Street, @Model.Address.ZipCode @Model.Address.City @Model.Address.Country</td>
                 <td dir="ltr">@Format.DateFormat(Model.User.SignUpDate) - @Format.TimeFormat(Model.User.SignUpDate)</td>
                 
             </tr>

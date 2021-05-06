@@ -3,6 +3,7 @@
 @using Matterix.Models.ViewModel
 @model CourseViewModel
 
+
 @{
     ViewData["Title"] = "Create Course";
 }
@@ -10,131 +11,160 @@
 <h1 class="display-4 title-2-5 direction">{{$t('message.createNewCourse')}}</h1>
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
-<div class="row direction">
-    
-    <div class="col-4 direction">
-        
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Course.Subject" class="control-label">{{$t('message.courseSubject')}}</label>
-            <input asp-for="Course.Subject" class="form-control" />
-            <span asp-validation-for="Course.Subject" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.Code" class="control-label">{{$t('message.courseCode')}}</label>
-            <input asp-for="Course.Code" class="form-control" />
-            <span asp-validation-for="Course.Code" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.Language" class="control-label">{{$t('message.courseLanguage')}}</label>
-            <span>
-                @{
-                    IList<SelectListItem> languageList= Enum.GetValues(typeof(EnumList.Language)).Cast<EnumList.Language>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
-                    var languageListData = new SelectList(languageList,"Value","Text");
+    <div class="row direction">
 
-                }
-@*                 <span> @Html.DropDownListFor(x=>x.Course.Language,  *@
-@*                            new SelectList(Enum.GetValues(typeof(EnumList.Language))),  *@
-                @*                            new { @class = "form-control"})</span> *@
-                
-                @Html.DropDownListFor(x=>x.Course.Language, languageListData, new{@class = "form-control"})
-            </span>
-            <span asp-validation-for="Course.Language" class="text-danger"></span>
-        </div>
-            
-        <div class="form-group">
-            <label asp-for="Course.StartDate" class="control-label">{{$t('message.start')}}</label>
-            <input asp-for="Course.StartDate" class="form-control" />
-            <span asp-validation-for="Course.StartDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.EndDate" class="control-label">{{$t('message.end')}}</label>
-            <input asp-for="Course.EndDate" class="form-control" />
-            <span asp-validation-for="Course.EndDate" class="text-danger"></span>
-        </div>
-        
-        @{
-            IList<SelectListItem> daysList= Enum.GetValues(typeof(EnumList.Days)).Cast<EnumList.Days>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
+        <div class="col-4 direction">
 
-            SelectList daysListData = new SelectList(daysList,"Value","Text");
-        }
-            
-        <div class="form-group" id="schedules-container">
-            <div id="schedule-0">
-                <div class="control-label" >{{$t('message.day')}} 1</div>
-                <div style="display: flex" class="align-middle">
-                    <span>
-@*                          @Html.DropDownListFor(x => x.Schedules[0].Day, *@
-@*                                   new SelectList(Enum.GetValues(typeof(EnumList.Days))), "Select Day", *@
-@*                                   new {@class = "form-control days", @style = "width: 8rem; display: inline-block"}) *@
-                        @Html.DropDownListFor(x=>x.Schedules[0].Day, daysListData, Format.Translate("selectDay").ToString(), new {@class="form-control days", @style = "width: 8rem; display: inline-block"})
-                    </span>
-                    <span style="display: inline-block" class="clockpicker2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Course.Subject" class="control-label">{{$t('message.courseSubject')}}</label>
+                <input asp-for="Course.Subject" class="form-control" />
+                <span asp-validation-for="Course.Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Code" class="control-label">{{$t('message.courseCode')}}</label>
+                <input asp-for="Course.Code" class="form-control" />
+                <span asp-validation-for="Course.Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Language" class="control-label">{{$t('message.courseLanguage')}}</label>
+                <span>
+                    @{
+                        IList<SelectListItem> languageList = Enum.GetValues(typeof(EnumList.Language)).Cast<EnumList.Language>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
+                        var languageListData = new SelectList(languageList, "Value", "Text");
+
+                    }
+                    @*                 <span> @Html.DropDownListFor(x=>x.Course.Language,  *@
+                    @*                            new SelectList(Enum.GetValues(typeof(EnumList.Language))),  *@
+                    @*                            new { @class = "form-control"})</span> *@
+
+                    @Html.DropDownListFor(x => x.Course.Language, languageListData, new { @class = "form-control" })
+                </span>
+                <span asp-validation-for="Course.Language" class="text-danger"></span>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label asp-for="Course.StartDate" class="control-label">{{$t('message.start')}}</label>
+                <input asp-for="Course.StartDate" class="form-control" />
+                <span asp-validation-for="Course.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.EndDate" class="control-label">{{$t('message.end')}}</label>
+                <input asp-for="Course.EndDate" class="form-control" />
+                <span asp-validation-for="Course.EndDate" class="text-danger"></span>
+            </div>
+
+
+
+            @{
+                IList<SelectListItem> daysList = Enum.GetValues(typeof(EnumList.Days)).Cast<EnumList.Days>().Select(x => new SelectListItem { Text = Format.Translate(x.ToString()).ToString(), Value = ((int)x).ToString() }).ToList();
+
+                SelectList daysListData = new SelectList(daysList, "Value", "Text");
+            }
+
+            <div class="form-group" id="schedules-container">
+                <div id="schedule-0">
+                    <div class="control-label">{{$t('message.day')}} 1</div>
+                    <div style="display: flex" class="align-middle">
+                        <span>
+                            @*                          @Html.DropDownListFor(x => x.Schedules[0].Day, *@
+                            @*                                   new SelectList(Enum.GetValues(typeof(EnumList.Days))), "Select Day", *@
+                            @*                                   new {@class = "form-control days", @style = "width: 8rem; display: inline-block"}) *@
+                            @Html.DropDownListFor(x => x.Schedules[0].Day, daysListData, Format.Translate("selectDay").ToString(), new { @class = "form-control days", @style = "width: 8rem; display: inline-block" })
+                        </span>
+                        <span style="display: inline-block" class="clockpicker2">
+                            &nbsp;
+                            {{$t('message.from')}}
+                            <input style="width: 7.5rem; display: inline-block" class="form-control clock" asp-for="Schedules[0].From" type="text" readonly placeholder="Enter Time">
+                        </span>
+                        <span style="display: inline-block" class="clockpicker2">
+                            &nbsp;
+                            {{$t('message.to')}}
+                            <input style="width: 7.5rem; display: inline-block" class="form-control clock" asp-for="Schedules[0].To" type="text" readonly placeholder="Enter Time">
+                        </span>
                         &nbsp;
-                        {{$t('message.from')}}
-                        <input style="width: 7.5rem; display: inline-block" class="form-control clock" asp-for="Schedules[0].From" type="text" readonly placeholder="Enter Time">
-                    </span>
-                    <span style="display: inline-block" class="clockpicker2">
-                        &nbsp;
-                        {{$t('message.to')}}
-                        <input style="width: 7.5rem; display: inline-block" class="form-control clock" asp-for="Schedules[0].To" type="text" readonly placeholder="Enter Time">
-                    </span>
-                    &nbsp;
-                    <button type="button" class="btn btn-danger delete-schedule">{{$t('message.delete')}}</button>
+                        <button type="button" class="btn btn-danger delete-schedule">{{$t('message.delete')}}</button>
+                    </div>
+                    <span asp-validation-for="Schedules[0]" class="text-danger"></span> @*ToDo :: Check validation via Jquery *@
                 </div>
-                <span asp-validation-for="Schedules[0]" class="text-danger"></span> @*ToDo :: Check validation via Jquery *@
+            </div>
+            <button type="button" class="btn btn-light" id="more-schedule">{{$t('message.more')}}</button>
+
+        </div>
+
+        <div class="col-1"></div>
+        <div class="col-3 direction">
+            <div class="form-group">
+                <label asp-for="Course.Price" class="control-label">{{$t('message.fullPrice')}}</label>
+                <input asp-for="Course.Price" class="form-control" />
+                <span asp-validation-for="Course.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Teacher" class="control-label">{{$t('message.theTeacher')}}</label>
+                <select asp-for="Course.TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Course.ClassUrl" class="control-label">{{$t('message.meetingUrl')}}</label>
+                <input asp-for="Course.ClassUrl" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.MeetingId" class="control-label">{{$t('message.meetingId')}}</label>
+                <input asp-for="Course.MeetingId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.MeetingPass" class="control-label">{{$t('message.meetingPass')}}</label>
+                <input asp-for="Course.MeetingPass" class="form-control" />
+                <span asp-validation-for="Course.MeetingPass" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" method="post" asp-action="Create">
+                <button type="button" id="submit-course" class="btn btn-primary">{{$t('message.create')}}</button>
+            </div>
+            <div>
+                <a asp-action="Index">{{$t('message.cancel')}}</a>
             </div>
         </div>
-        <button type="button" class="btn btn-light" id="more-schedule">{{$t('message.more')}}</button>
-                
+        <div class="col-md-3 direction">
+            <label asp-for="Course.Picture" class="control-label">{{$t('message.picture')}}</label>
+            <input asp-for="Picture" hidden class="btn btn-light btn-block" />
+            <button id="add-picture" type="button" class="btn btn-light btn-block">{{$t('message.addPicture')}}</button>
+            <p id="picture-file-name"></p>
+            <br />
+            <p class="text-danger" id="validation"></p>
+            <p class="text-danger" id="time-validation"></p>
+            <p class="text-danger" id="date-validation"></p>
+            <p class="text-danger" id="days-validation"></p>
+
+            @*Add Countries CheckBoxList*@
+
+            <label asp-for="Course.Countries" class="control-label">{{$t('message.countries')}}</label>
+            <br />
+            <div class="form-check">
+                @using (Html.BeginForm("Edit", "Course"))
+                {
+                    for (var c = 0; c < Model.CountriesViewModel.Count; c++)
+                    {
+                        @Html.HiddenFor(m => Model.CountriesViewModel[c].Country.IsoCode)
+                        @Html.HiddenFor(m => Model.CountriesViewModel[c].Country.Name)
+                        @Html.CheckBoxFor(m => Model.CountriesViewModel[c].isAvailable)
+                        @Html.DisplayFor(m => Model.CountriesViewModel[c].Country.Name)
+                        <br />
+                    }
+                }
+            </div>
+            </div>
+            @*End Of Add Countries List*@
+
+        </div>
+
+
     </div>
-    
-    <div class="col-1"></div>
-    <div class="col-3 direction">
-        <div class="form-group">
-            <label asp-for="Course.Price"class="control-label">{{$t('message.fullPrice')}}</label>
-            <input asp-for="Course.Price" class="form-control" />
-            <span asp-validation-for="Course.Price" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.Teacher" class="control-label">{{$t('message.theTeacher')}}</label>
-            <select asp-for="Course.TeacherId" class ="form-control" asp-items="ViewBag.TeacherId"></select>
-        </div>
-            
-        <div class="form-group">
-            <label asp-for="Course.ClassUrl" class="control-label">{{$t('message.meetingUrl')}}</label>
-            <input asp-for="Course.ClassUrl" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.MeetingId" class="control-label">{{$t('message.meetingId')}}</label>
-            <input asp-for="Course.MeetingId" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Course.MeetingPass" class="control-label">{{$t('message.meetingPass')}}</label>
-            <input asp-for="Course.MeetingPass" class="form-control" />
-            <span asp-validation-for="Course.MeetingPass" class="text-danger"></span>
-        </div>
-            
-        <div class="form-group">
-            <button type="button" id="submit-course" class="btn btn-primary">{{$t('message.create')}}</button>
-        </div>
-        <div>
-            <a asp-action="Index">{{$t('message.cancel')}}</a>
-        </div>
-    </div>
-    <div class="col-md-3 direction">
-        <label asp-for="Course.Picture" class="control-label">{{$t('message.picture')}}</label>
-        <input asp-for="Picture" hidden class="btn btn-light btn-block"/>
-        <button id="add-picture" type="button" class="btn btn-light btn-block">{{$t('message.addPicture')}}</button>
-        <p id="picture-file-name"></p>
-        <br/>
-        <p class="text-danger" id="validation"></p>
-        <p class="text-danger" id="time-validation"></p>
-        <p class="text-danger" id="date-validation"></p>
-        <p class="text-danger" id="days-validation"></p>
-    </div>
-    
-</div>
+
+
 </form>
 
 
@@ -142,25 +172,26 @@
 
 @section Scripts
 {
+
     <script src="~/js/ClockScript.js"></script>
     <script src="~/js/Validation.js" asp-append-version="true"></script>
-    
+
     @* <script>console.log(messages.en["message"]["home"]);</script> *@
-    
+
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             //*** ADD PICTURE ***//
 
-            $("#add-picture").click(function() {
+            $("#add-picture").click(function () {
                 $("#Picture").trigger("click").on("change",
-                    function(response) {
+                    function (response) {
                         $("#picture-file-name").text(response.target.files[0].name);
                     });
             });
 
             //*** END OF ADD PICTURE ***//
-            
-            
+
+
             let scheduleList = $(".clock");
             let daysList = $(".days");
 
@@ -169,21 +200,21 @@
             const moreSchedule = $("#more-schedule");
             const schedulesContainer = $("#schedules-container");
             let index = 0;
-            
+
             //Get the target data
             const htmlData = $("#schedule-0");
-            
+
             //Event listener on click
-            $(moreSchedule).click(function() {
+            $(moreSchedule).click(function () {
                 //Increase the index of the schedule
                 index++;
                 appendSchedule(index);
             });
-            
+
             function appendSchedule(i) {
-                const temp = htmlData.html().toString().replace(new RegExp('0', 'g'), index).replace("Day 1", `Day ${index+1}`);
+                const temp = htmlData.html().toString().replace(new RegExp('0', 'g'), index).replace("Day 1", `Day ${index + 1}`);
                 $(schedulesContainer).append($(temp));
-                
+
                 //Must be here that the clock picker works
                 $('.clockpicker2').clockpicker({
                     'default': 'now',
@@ -193,29 +224,30 @@
                     autoclose: true,
                     twelvehour: false
                 });
-                
+
                 scheduleList = $(".clock");
                 daysList = $(".days");
 
             }
             //*** END OF ADD SCHEDULES ***//
-            
-            
+
+
             //*** VALIDATION AND SUBMIT FORM ***//
             const submitBtn = $("#submit-course");
             const elementList = [$("#Course_Subject"), $("#Course_Code"), $("#Course_StartDate"), $("#Course_EndDate"), $("#Course_Price")];
 
-            $(submitBtn).click(function() {
-                const continueSubmit = { yes: true
-            };
-                $(elementList).each(function(index, element) {
+            $(submitBtn).click(function () {
+                const continueSubmit = {
+                    yes: true
+                };
+                $(elementList).each(function (index, element) {
                     if ($(element).val() === "")
                         validation($(element), $("#validation"), "fieldsInRedNotEmpty", continueSubmit);
                 });
 
-                $(scheduleList).each(function(index, element) {
+                $(scheduleList).each(function (index, element) {
                     if ($(this).attr("id").toString().includes("From")) {
-                        const nextElement = $(scheduleList[index+1]);
+                        const nextElement = $(scheduleList[index + 1]);
                         if (nextElement.val() === "" || $(this).val() === "")
                             validation($(this).add(nextElement), $("#time-validation"), "timeNotEmpty", continueSubmit);
                         if ((nextElement.val() < $(this).val()))
@@ -223,26 +255,26 @@
                     }
                 });
 
-                $(daysList).each(function(index, element) {
+                $(daysList).each(function (index, element) {
                     if ($(element).val() === "")
                         validation($(this), $("#days-validation"), "daysNotEmpty", continueSubmit);
-                    $(daysList).each(function(i, e) {
+                    $(daysList).each(function (i, e) {
                         if (index !== i && $(element).val() === $(e).val() && $(e).val() !== "")
                             validation($(element).add($(e)), $("#days-validation"), "twoDaysNotSimilar", continueSubmit);
                     });
                 });
-                
+
                 if ($("#Course_EndDate").val() < $("#Course_StartDate").val())
                     validation($("#Course_EndDate, #Course_StartDate"), $("#date-validation"), "endDateHigher", continueSubmit);
-                
-                
-                
+
+
+
                 if (continueSubmit.yes)
                     $("form").submit();
 
             });
-            
-            
+
+
         })
     </script>
 

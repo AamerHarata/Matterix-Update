@@ -2,9 +2,10 @@ namespace Matterix.Services
 {
     public class EnumList
     {
+        //Add New Countries
         public enum Language
         {
-            Norwegian, English, Arabic
+            Norwegian, English, Arabic,Swedish,German
         }
 
         public enum Days
@@ -125,5 +126,12 @@ namespace Matterix.Services
         {
             Initiated, Completed, Failed, Canceled, ActionRequired
         }
+
+        //Add New Countries
+        public enum Country
+        {
+            Norway,Sweden, Germany
+        }
+
     }
 }
